@@ -2,7 +2,6 @@ import pytest
 
 from autoplanner import AutoPlanner
 
-import pickle
 import os
 
 here = os.path.abspath(os.path.dirname(__file__))
