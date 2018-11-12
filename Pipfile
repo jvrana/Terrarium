@@ -7,6 +7,7 @@ name = "pypi"
 pydent = {path = "./../trident"}
 mysession = {path = "./../mysession"}
 dill = "*"
+pandas = "*"
 
 [dev-packages]
 pytest = "*"

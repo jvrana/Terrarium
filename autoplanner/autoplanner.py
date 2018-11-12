@@ -8,8 +8,9 @@ from pydent.browser import Browser
 from pydent.utils import filter_list
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
-from collections import Counter
+from autoplanner.utils import HashCounter
 
+import pandas as pd
 
 class EdgeWeightContainer(Loggable):
     DEFAULT_DEPTH = 100
@@ -24,7 +25,7 @@ class EdgeWeightContainer(Loggable):
         :type browser: Browser
         :param edge_hash: The edge hashing function. Should take exactly 2 arguments.
         :type edge_hash: function
-        :param node_hash: The node hashing function. Should take exectly 1 argument.
+        :param node_hash: The node hashing function. Should take exactly 1 argument.
         :type node_hash: function
         :param plans: optional list of plans
         :type plans: list
@@ -53,8 +54,13 @@ class EdgeWeightContainer(Loggable):
 
         self._edge_hash = edge_hash
         self._node_hash = node_hash
-        self._edge_counter = Counter()
-        self._node_counter = Counter()
+
+        def new_edge_hash(pair):
+            h = edge_hash(pair)
+            return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
+
+        self._edge_counter = HashCounter(func=new_edge_hash)
+        self._node_counter = HashCounter(func=node_hash)
         self._weights = {}
         self.is_cached = False
 
@@ -79,13 +85,13 @@ class EdgeWeightContainer(Loggable):
 
     def reset(self):
         self.is_cached = False
-        self._edge_counter = Counter()
-        self._node_counter = Counter()
+        self._edge_counter.clear()
+        self._node_counter.clear()
 
     def recompute(self):
         """Reset the counters and recompute weights"""
-        self._edge_counter = Counter()
-        self._node_counter = Counter()
+        self._edge_counter.clear()
+        self._node_counter.clear()
         return self.compute()
 
     def compute(self):
@@ -146,22 +152,35 @@ class EdgeWeightContainer(Loggable):
                     edges.append((i.allowable_field_type, o.allowable_field_type))
         return edges
 
+    def calculate_weights(self, edges):
+        edge_counter = HashCounter(function=self._edge_hash)
+        node_counter = HashCounter(function=self._node_hash)
+
+        rows = []
+        for n1, n2 in edges:
+            if n1 and n2:
+                rows.append({
+                    "source": n1.id,
+                    "destination": n2.id,
+                    "count": edge_counter[(n1, n2)],
+                    "total": node_counter[n1],
+                })
+        df = pd.DataFrame(rows)
+        df.drop_duplicates(inplace=True)
+        df['weight'] = df['count'] / df['total']
+        df.sort_values(by=['weight'], inplace=True, ascending=True)
+        return df
+
     def update_tally(self, edges):
         for n1, n2 in tqdm(edges, desc="counting edges"):
             if n1 and n2:
-                self._edge_counter[self._edge_hash(n1, n2)] += 1
-                self._node_counter[self._node_hash(n1)] += 1
-
-    def get_edge_count(self, n1, n2):
-        return self._edge_counter[self._edge_hash(n1, n2)]
-
-    def get_node_count(self, n):
-        return self._node_counter[self._node_hash(n)]
+                self._edge_counter[(n1, n2)] += 1
+                self._node_counter[n1] += 1
 
     def save_weights(self, edges):
         for n1, n2 in edges:
             if n1 and n2:
-                self._weights[self._edge_hash(n1, n2)] = self.cost(n1, n2)
+                self._weights[self._edge_hash((n1, n2))] = self.cost(n1, n2)
 
     def cost(self, n1, n2):
         return self._cost_function(n1, n2)
@@ -169,9 +188,8 @@ class EdgeWeightContainer(Loggable):
     def default_cost_function(self, n1, n2):
         p = 1e-4
 
-        n = self.get_edge_count(n1, n2) * 1.0
-        t = self.get_node_count(n1) * 1.0
-
+        n = self._edge_counter[(n1, n2)] * 1.0
+        t = self._node_counter[n1] * 1.0
         if t > 0:
             p = n / t
         w = (1 - p) / (1 + p)
@@ -180,15 +198,15 @@ class EdgeWeightContainer(Loggable):
     def get_weight(self, n1, n2):
         if not self.is_cached:
             raise Exception("The tally and weights have not been computed")
-        ehash = self._edge_hash(n1, n2)
+        ehash = self._edge_hash((n1, n2))
         return self._weights.get(ehash, self.cost(n1, n2))
 
 
 class AutoPlanner(Loggable):
 
-    def __init__(self, session):
+    def __init__(self, session, depth=100):
         self.browser = Browser(session)
-        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash)
+        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, depth)
         self.template_graph = None
         self.init_logger("AutoPlanner@{url}".format(url=session.url))
 
@@ -222,10 +240,10 @@ class AutoPlanner(Loggable):
         )
 
     @classmethod
-    def hash_afts(cls, aft1, aft2):
+    def hash_afts(cls, pair):
         """Make a unique hash for a :class:`pydent.models.AllowableFieldType` pair"""
-        source_hash = cls.external_aft_hash(aft1)
-        dest_hash = cls.external_aft_hash(aft2)
+        source_hash = cls.external_aft_hash(pair[0])
+        dest_hash = cls.external_aft_hash(pair[1])
         return "{}->{}".format(source_hash, dest_hash)
 
     def cache_afts(self):
