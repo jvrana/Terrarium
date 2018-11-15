@@ -1,16 +1,19 @@
-from copy import deepcopy
 from functools import reduce
 from uuid import uuid4
 
 import dill
 import networkx as nx
+import pandas as pd
 from pydent.browser import Browser
 from pydent.utils import filter_list
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
+
 from autoplanner.utils import HashCounter
 
-import pandas as pd
+import seaborn as sns
+import pylab as plt
+
 
 class EdgeWeightContainer(Loggable):
     DEFAULT_DEPTH = 100
@@ -58,19 +61,21 @@ class EdgeWeightContainer(Loggable):
         def new_edge_hash(pair):
             h = edge_hash(pair)
             return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
-
-        self._edge_counter = HashCounter(func=new_edge_hash)
-        self._node_counter = HashCounter(func=node_hash)
+        self._edge_hash = new_edge_hash
+        self._node_hash = node_hash
+        self._edge_counter = HashCounter(func=self._edge_hash)
+        self._node_counter = HashCounter(func=self._node_hash)
         self._weights = {}
         self.is_cached = False
 
     @property
     def plans(self):
+        """Returns list of plans to compute (limited to depth)"""
         return list(self._plans)[-self.depth:]
 
     @plans.setter
     def plans(self, plans):
-        """Sets the plans. Automatically """
+        """Sets the plans. """
         self._plans = plans
         self.is_cached = False
 
@@ -80,6 +85,7 @@ class EdgeWeightContainer(Loggable):
 
     @depth.setter
     def depth(self, val):
+        """Sets the depth"""
         self._depth = val
         self.is_cached = False
 
@@ -104,9 +110,20 @@ class EdgeWeightContainer(Loggable):
             self.cache_wires(wires)
         self.is_cached = True
 
-        edges = self.to_edges(wires, operations)
-        self.update_tally(edges)
-        self.save_weights(edges)
+        self.edges = self.to_edges(wires, operations)
+        self.update_tally(self.edges)
+        self.save_weights(self.edges)
+
+    def make_weight_df(self, edges):
+        """
+        Makes a dataframe of weights
+
+        :param edges:
+        :type edges:
+        :return:
+        :rtype:
+        """
+        edge_counter = HashCounter(func)
 
     @staticmethod
     def collect_wires(plans):
@@ -200,6 +217,35 @@ class EdgeWeightContainer(Loggable):
             raise Exception("The tally and weights have not been computed")
         ehash = self._edge_hash((n1, n2))
         return self._weights.get(ehash, self.cost(n1, n2))
+
+    def make_df(self):
+        edges = self.edges
+        counter = HashCounter(hash_function=self._edge_hash)
+        node_counter = HashCounter(hash_function=self._node_hash)
+        for n1, n2 in edges:
+            counter[(n1, n2)] += 1
+            node_counter[n1] += 1
+
+        rows = []
+        for n1, n2 in edges:
+            if n1 and n2:
+                rows.append({
+                    "source": "{}_{}".format(n1.id, n1.field_type.operation_type.name),
+                    "destination": "{}_{}".format(n2.id, n2.field_type.operation_type.name),
+                    "count": counter[(n1, n2)],
+                    "total": node_counter[n1],
+                })
+        df = pd.DataFrame(rows)
+        df.drop_duplicates(inplace=True)
+        df['probability'] = df['count'] / df['total']
+        df.sort_values(by=['probability'], inplace=True, ascending=True)
+        return df
+
+    def heatmap(self):
+        df = self.make_df()
+        sns.set()
+        f, ax = plt.subplots(figsize=(12,9))
+        sns.heatmap(df, annot=False, ax=ax, cmap="YlGnBu")
 
 
 class AutoPlanner(Loggable):

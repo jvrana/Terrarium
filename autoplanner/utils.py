@@ -3,7 +3,9 @@ import functools
 
 
 class HashCounter(Counter):
-
+    """
+    HashCounter counts objects according to a custom hashing function.
+    """
     def __init__(self, data=(), func=None):
         self.hash_function = func
         super().__init__()
@@ -26,7 +28,9 @@ class HashCounter(Counter):
 
 
 class HashView(object):
-
+    """
+    HashView maintains a named dictionary of HashCounters
+    """
     def __init__(self, data):
         self.data = data
         self.counters = {}
