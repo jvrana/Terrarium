@@ -102,14 +102,18 @@ class EdgeWeightContainer(Loggable):
 
     def compute(self):
         """Compute the weights. If previously computed, this function will avoid re-caching plans and wires."""
+        self._info("Computing weights for {} plans".format(len(self.plans)))
         if not self.is_cached:
             self.cache_plans(self.plans)
+        else:
+            self._info("   Plans already cached. Skipping...")
         wires = self.collect_wires(self.plans)
         operations = self.collect_operations(self.plans)
         if not self.is_cached:
             self.cache_wires(wires)
+        else:
+            self._info("   Wires already cached. Skipping...")
         self.is_cached = True
-
         self.edges = self.to_edges(wires, operations)
         self.update_tally(self.edges)
         self.save_weights(self.edges)
@@ -138,23 +142,38 @@ class EdgeWeightContainer(Loggable):
         return all_operations
 
     def cache_wires(self, wires):
+        self._info("   Caching {} wires...".format(len(wires)))
         self.browser.recursive_retrieve(wires[:], {
             "source": {
                 "field_type": [],
                 "operation": "operation_type",
-                "allowable_field_type": []
+                "allowable_field_type": {
+                    "field_type"
+                }
             },
             "destination": {
                 "field_type": [],
                 "operation": "operation_type",
-                "allowable_field_type": []
+                "allowable_field_type": {
+                    "field_type"
+                }
             }
         }, strict=False)
 
     def cache_plans(self, plans):
+        self._info("   Caching plans...")
         self.browser.recursive_retrieve(plans, {
-            "operations": {"field_values": ["allowable_field_type", "wires_as_source", "wires_as_dest"]}},
-                                        strict=False)
+            "operations": {
+                "field_values": {
+                    "allowable_field_type": {
+                        "field_type"
+                    },
+                    "field_type": [],
+                    "wires_as_source": [],
+                    "wires_as_dest": []
+                }
+            }
+        }, strict=False)
 
     @staticmethod
     def to_edges(wires, operations):
@@ -189,6 +208,7 @@ class EdgeWeightContainer(Loggable):
         return df
 
     def update_tally(self, edges):
+        self._info("Hashing and counting edges...")
         for n1, n2 in tqdm(edges, desc="counting edges"):
             if n1 and n2:
                 self._edge_counter[(n1, n2)] += 1
@@ -369,6 +389,7 @@ class AutoPlanner(Loggable):
         # computer weights
         self.weight_container.compute()
 
+        self._info("Building Graph:")
         G = nx.DiGraph()
         edges = self.construct_graph_edges()
         for n1, n2 in edges:
@@ -376,8 +397,6 @@ class AutoPlanner(Loggable):
             G.add_node(n2.id, model_class=n2.__class__.__name__, model=n2)
             if n1 and n2:
                 G.add_edge(n1.id, n2.id, weight=self.weight_container.get_weight(n1, n2))
-
-        self._info("Building Graph:")
         self._info("  {} edges".format(len(list(G.edges))))
         self._info("  {} nodes".format(len(G)))
 
