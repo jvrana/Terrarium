@@ -10,7 +10,7 @@ path = os.path.join(here, "autoplanner.pkl")
 
 @pytest.fixture(scope="module")
 def autoplanner(session):
-    ap = AutoPlanner(session, depth=100)
+    ap = AutoPlanner(session, depth=300)
     ap.construct_template_graph()
     return ap
 

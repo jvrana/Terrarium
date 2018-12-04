@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from autoplanner.utils import HashCounter
 
-import seaborn as sns
+# import seaborn as sns
 import pylab as plt
 
 
@@ -210,7 +210,7 @@ class EdgeWeightContainer(Loggable):
         if t > 0:
             p = n / t
         w = (1 - p) / (1 + p)
-        return 10 / (1.0001 - w)
+        return 10 / (1.00001 - w)
 
     def get_weight(self, n1, n2):
         if not self.is_cached:
@@ -241,11 +241,11 @@ class EdgeWeightContainer(Loggable):
         df.sort_values(by=['probability'], inplace=True, ascending=True)
         return df
 
-    def heatmap(self):
-        df = self.make_df()
-        sns.set()
-        f, ax = plt.subplots(figsize=(12,9))
-        sns.heatmap(df, annot=False, ax=ax, cmap="YlGnBu")
+    # def heatmap(self):
+    #     df = self.make_df()
+    #     sns.set()
+    #     f, ax = plt.subplots(figsize=(12,9))
+    #     sns.heatmap(df, annot=False, ax=ax, cmap="YlGnBu")
 
 
 class AutoPlanner(Loggable):
@@ -326,15 +326,7 @@ class AutoPlanner(Loggable):
 
         return input_afts, output_afts
 
-    def construct_graph_edges(self):
-        """
-        Construct edges from all deployed allowable_field_types
-
-        :return: list of tuples representing connections between AllowableFieldType
-        :rtype: list
-        """
-        input_afts, output_afts = self.cache_afts()
-
+    def make_graph_edges(self, input_afts, output_afts):
         external_groups = {}
         for aft in input_afts:
             external_groups.setdefault(self.external_aft_hash(aft), []).append(aft)
@@ -356,6 +348,16 @@ class AutoPlanner(Loggable):
             for aft in internals:
                 edges.append((iaft, aft))
         return edges
+
+    def construct_graph_edges(self):
+        """
+        Construct edges from all deployed allowable_field_types
+
+        :return: list of tuples representing connections between AllowableFieldType
+        :rtype: list
+        """
+        input_afts, output_afts = self.cache_afts()
+        return self.make_graph_edges(input_afts, output_afts)
 
     def construct_template_graph(self, ignore=()):
         """

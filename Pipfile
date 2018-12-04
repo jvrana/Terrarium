@@ -8,7 +8,6 @@ pydent = {path = "./../trident"}
 mysession = {path = "./../mysession"}
 dill = "*"
 pandas = "*"
-seaborn = "*"
 
 [dev-packages]
 pytest = "*"
