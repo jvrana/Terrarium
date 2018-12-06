@@ -5,14 +5,12 @@ import dill
 import networkx as nx
 import pandas as pd
 from pydent.browser import Browser
-from pydent.utils import filter_list
+from pydent.base import ModelBase as TridentBase
 from pydent.utils.logger import Loggable
+from os import stat
 from tqdm import tqdm
 
 from autoplanner.utils import HashCounter
-
-# import seaborn as sns
-import pylab as plt
 
 
 class EdgeWeightContainer(Loggable):
@@ -100,6 +98,32 @@ class EdgeWeightContainer(Loggable):
         self._node_counter.clear()
         return self.compute()
 
+    def update(self, plans, only_unique=False):
+        if only_unique:
+            existing_plan_ids = [p.id for p in self.plans]
+            plan_ids = [p.id for p in plans]
+            unique_plans = set(plan_ids).difference(existing_plan_ids)
+            num_ignored = len(plans) - len(unique_plans)
+            plans = list(unique_plans)
+            self._info("Ignoring {} existing plans".format(num_ignored))
+        self._info("Updating edge counter with {} new plans".format(len(plans)))
+
+        self.cache_plans(plans)
+
+        wires = self.collect_wires(plans)
+        self._info("  {} wires loaded".format(len(wires)))
+
+        operations = self.collect_operations(plans)
+        self._info("  {} operations loaded".format(len(operations)))
+
+        self.cache_wires(wires)
+        edges = self.to_edges(wires, operations)
+        self.update_tally(edges)
+
+        self.plans += plans
+        self.edges += edges
+        self.save_weights(self.edges)
+
     def compute(self):
         """Compute the weights. If previously computed, this function will avoid re-caching plans and wires."""
         self._info("Computing weights for {} plans".format(len(self.plans)))
@@ -108,7 +132,9 @@ class EdgeWeightContainer(Loggable):
         else:
             self._info("   Plans already cached. Skipping...")
         wires = self.collect_wires(self.plans)
+        self._info("  {} wires loaded".format(len(wires)))
         operations = self.collect_operations(self.plans)
+        self._info("  {} operations loaded".format(len(operations)))
         if not self.is_cached:
             self.cache_wires(wires)
         else:
@@ -117,17 +143,6 @@ class EdgeWeightContainer(Loggable):
         self.edges = self.to_edges(wires, operations)
         self.update_tally(self.edges)
         self.save_weights(self.edges)
-
-    def make_weight_df(self, edges):
-        """
-        Makes a dataframe of weights
-
-        :param edges:
-        :type edges:
-        :return:
-        :rtype:
-        """
-        edge_counter = HashCounter(func)
 
     @staticmethod
     def collect_wires(plans):
@@ -186,11 +201,14 @@ class EdgeWeightContainer(Loggable):
             for i in op.inputs:
                 for o in op.outputs:
                     edges.append((i.allowable_field_type, o.allowable_field_type))
+
+        # due to DB inconsitencies, some wires and operations have not AFTS
+        edges = [(n1, n2) for n1, n2 in edges if n1 is not None and n2 is not None]
         return edges
 
     def calculate_weights(self, edges):
-        edge_counter = HashCounter(function=self._edge_hash)
-        node_counter = HashCounter(function=self._node_hash)
+        edge_counter = HashCounter(func=self._edge_hash)
+        node_counter = HashCounter(func=self._node_hash)
 
         rows = []
         for n1, n2 in edges:
@@ -220,17 +238,16 @@ class EdgeWeightContainer(Loggable):
                 self._weights[self._edge_hash((n1, n2))] = self.cost(n1, n2)
 
     def cost(self, n1, n2):
-        return self._cost_function(n1, n2)
-
-    def default_cost_function(self, n1, n2):
-        p = 1e-4
-
         n = self._edge_counter[(n1, n2)] * 1.0
         t = self._node_counter[n1] * 1.0
+        return self._cost_function(n, t)
+
+    def default_cost_function(self, n, t):
+        p = 10e-6
         if t > 0:
             p = n / t
         w = (1 - p) / (1 + p)
-        return 10 / (1.00001 - w)
+        return 10 / (1.000001 - w)
 
     def get_weight(self, n1, n2):
         if not self.is_cached:
@@ -240,8 +257,8 @@ class EdgeWeightContainer(Loggable):
 
     def make_df(self):
         edges = self.edges
-        counter = HashCounter(hash_function=self._edge_hash)
-        node_counter = HashCounter(hash_function=self._node_hash)
+        counter = HashCounter(func=self._edge_hash)
+        node_counter = HashCounter(func=self._node_hash)
         for n1, n2 in edges:
             counter[(n1, n2)] += 1
             node_counter[n1] += 1
@@ -268,13 +285,244 @@ class EdgeWeightContainer(Loggable):
     #     sns.heatmap(df, annot=False, ax=ax, cmap="YlGnBu")
 
 
+class BrowserGraph(object):
+
+    class DEFAULTS:
+
+        MODEL_TYPE = "model"
+        NODE_TYPE = "node"
+
+    """Class for handling generic trident model-to-model relationships"""
+    def __init__(self, browser):
+        self.browser = browser
+        self.graph = nx.DiGraph()
+        self.model_hashes = {}
+
+    def node_id(self, model):
+        """
+        Convert a pydent model into a unique graph id
+
+        :param model: Trident model
+        :type model: ModelBase
+        :return: unique graph id for model
+        :rtype: basestring
+        """
+        model_class = model.__class__.__name__
+        model_hash = self.model_hashes.get(
+            model_class,
+            lambda model: "{cls}_{mid}".format(cls=model.__class__.__name__, mid=model.id)
+        )
+        return model_hash(model)
+
+    # def add_special_node(self, node_id, node_class):
+    #     self.graph.add_node(node_id, node_class=node_class, model_id=None)
+    #
+    # def get_special_node(self, node_id):
+    #     return self.graph.node(node_id)
+
+    def add_special_node(self, node_id, node_class):
+        return self.graph.add_node(node_id, node_class=node_class, node_type=self.DEFAULTS.NODE_TYPE)
+
+    def add_node(self, model, node_id=None):
+        """
+        Add a model node to the graph with optional node_id
+
+        :param model: Trident model
+        :type model: ModelBase
+        :param node_id: optional node_id to use
+        :type node_id: basestring
+        :return: None
+        :rtype: None
+        """
+        model_class = model.__class__.__name__
+        if not issubclass(type(model), TridentBase):
+            raise TypeError("Add node expects a Trident model, not a {}".format(type(model)))
+        if node_id is None:
+            node_id = self.node_id(model)
+        return self.graph.add_node(node_id, node_class=model_class, model_id=model.id, node_type=self.DEFAULTS.MODEL_TYPE)
+
+    def add_edge_from_models(self, m1, m2, **kwargs):
+        """
+        Adds an edge from two models.
+
+        :param m1:
+        :type m1:
+        :param m2:
+        :type m2:
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
+        self.add_edge(self.node_id(m1), self.node_id(m2), model1=m1, model2=m2, **kwargs)
+
+    def add_edge(self, n1, n2, model1=None, model2=None, **kwargs):
+        """
+        Adds edge between two nodes given the node ids. Raises error if node does not exist
+        and models are not provided. If node_id does not exist and model is provided, a new
+        node is added.
+
+        :param n1: first node id
+        :type n1: int
+        :param n2: second node id
+        :type n2: int
+        :param model1: first model (optional)
+        :type model1: ModelBase
+        :param model2: second model (optional)
+        :type model2: ModelBase
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
+        if n1 not in self.graph:
+            if model1 is not None:
+                self.add_node(model1, n1)
+            else:
+                raise Exception("Model1 must be provided")
+
+        if n2 not in self.graph:
+            if model1 is not None:
+                self.add_node(model2, n2)
+            else:
+                raise Exception("Model2 must be provided")
+
+        self.graph.add_edge(n1, n2, **kwargs)
+
+    @classmethod
+    def _convert_id(cls, n):
+        if isinstance(n, int) or isinstance(n, str):
+            return n
+        elif issubclass(type(n), TridentBase):
+            return cls.node_id(n)
+        else:
+            raise TypeError("Type '{}' {} not recognized as a node".format(type(n), n))
+
+    def get_node(self, node_id):
+        """
+        Get a node from a node_id. If provided with Trident model, model is converted into
+        a node_id.
+        :param node_id:
+        :type node_id:
+        :return:
+        :rtype:
+        """
+        node = self.graph.node[node_id]
+        if 'model_id' in node:
+            model = self.browser.find(node['model_id'], model_class=node['node_class'])
+            node['model'] = model
+        return node
+
+    def get_edge(self, n1, n2):
+        return self.graph.edges[n1, n2]
+
+    def models(self, model_class=None):
+        return list(self.iter_models(model_class))
+
+    @property
+    def nodes(self):
+        return self.graph.nodes
+
+    @property
+    def edges(self):
+        return self.graph.edges
+
+    def iter_node_data(self, node_type=None, nbunch=None):
+        if nbunch is None:
+            nbunch = self
+        for n in nbunch:
+            node = self.get_node(n)
+            if node_type is None or node['node_type'] == node_type:
+                yield (n, node)
+
+    def iter_edge_data(self, ebunch=None):
+        if ebunch is None:
+            ebunch = self
+        for e in ebunch:
+            yield (e, self.get_edge(*e))
+
+    def iter_model_data(self, model_class=None, nbunch=None, **attrs):
+        for n, ndata in self.iter_node_data(node_type=self.DEFAULTS.MODEL_TYPE, nbunch=nbunch):
+            if model_class is None or ndata['node_class'] == model_class:
+                model = ndata['model']
+                passes = True
+                for attr, val in attrs.items():
+                    if not hasattr(model, attr) or getattr(model, attr) != val:
+                        passes = False
+                        break
+                if passes:
+                    yield (n, ndata)
+
+    def iter_models(self, model_class=None, nbunch=None, **attrs):
+        for n, ndata in self.iter_model_data(model_class, nbunch=nbunch, **attrs):
+            yield ndata['model']
+
+    @staticmethod
+    def copy_graph(graph):
+        graph_copy = nx.DiGraph()
+        graph_copy.add_nodes_from(graph.nodes(data=True))
+        graph_copy.add_edges_from(graph.edges(data=True))
+        return graph_copy
+
+    @classmethod
+    def _array_to_identifiers(cls, nodes):
+        formatted_nodes = []
+        for n in nodes:
+            if isinstance(n, int) or isinstance(n, str):
+                formatted_nodes.append(n)
+            elif issubclass(type(n), TridentBase):
+                formatted_nodes.append(cls.node_id(n))
+            else:
+                raise TypeError("Type '{}' {} not recognized as a node".format(type(n), n))
+        return formatted_nodes
+
+    def subgraph(self, nodes):
+        nodes = self._array_to_identifiers(nodes)
+        copied = self.copy()
+        copied.graph = copied.graph.subgraph(nodes)
+        return copied
+
+    def filter_out_models(self, model_class=None, key=None):
+        node_set = set(self.nodes)
+        if key:
+            for_removal = set()
+            for n, ndata in self.iter_model_data(model_class=model_class):
+                if key(ndata['model']):
+                    for_removal.add(n)
+        return self.subgraph(node_set.difference(for_removal))
+
+    def copy(self):
+        return self.__copy__()
+
+    def __len__(self):
+        return len(self.graph)
+
+    def __iter__(self):
+        return self.graph.__iter__()
+
+    def __copy__(self):
+        copied = self.__class__(self.browser)
+        copied.graph = self.copy_graph(self.graph)
+        copied.model_hashes = self.model_hashes
+        return copied
+
+
 class AutoPlanner(Loggable):
 
     def __init__(self, session, depth=100):
         self.browser = Browser(session)
         self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, depth)
-        self.template_graph = None
+        self._template_graph = None
+        self.model_filters = []
         self.init_logger("AutoPlanner@{url}".format(url=session.url))
+
+    def set_plans(self, plans):
+        self.weight_container.plans = plans
+        self._template_graph = None
+
+    def set_depth(self, depth):
+        self.weight_container.depth = depth
+        self._template_graph = None
 
     def set_verbose(self, verbose):
         if self.weight_container:
@@ -283,7 +531,8 @@ class AutoPlanner(Loggable):
 
     @staticmethod
     def external_aft_hash(aft):
-        """A has function representing two 'extenal' :class:`pydent.models.AllowableFieldType` models (i.e. a wire)"""
+        """A has function representing two 'external' :class:`pydent.models.AllowableFieldType`
+        models (i.e. a wire)"""
         if not aft.field_type:
             return str(uuid4())
         if aft.field_type.part:
@@ -298,7 +547,9 @@ class AutoPlanner(Loggable):
 
     @staticmethod
     def internal_aft_hash(aft):
-        """A has function representing two 'internal' :class:`pydent.models.AllowableFieldType` models (i.e. an operation)"""
+        """A has function representing two 'internal' :class:`pydent.models.AllowableFieldType`
+        models (i.e. an operation)"""
+
         return "{operation_type}".format(
             operation_type=aft.field_type.parent_id,
             routing=aft.field_type.routing,
@@ -346,7 +597,7 @@ class AutoPlanner(Loggable):
 
         return input_afts, output_afts
 
-    def make_graph_edges(self, input_afts, output_afts):
+    def match_afts(self, input_afts, output_afts):
         external_groups = {}
         for aft in input_afts:
             external_groups.setdefault(self.external_aft_hash(aft), []).append(aft)
@@ -369,7 +620,7 @@ class AutoPlanner(Loggable):
                 edges.append((iaft, aft))
         return edges
 
-    def construct_graph_edges(self):
+    def get_aft_pairs(self):
         """
         Construct edges from all deployed allowable_field_types
 
@@ -377,121 +628,104 @@ class AutoPlanner(Loggable):
         :rtype: list
         """
         input_afts, output_afts = self.cache_afts()
-        return self.make_graph_edges(input_afts, output_afts)
+        return self.match_afts(input_afts, output_afts)
 
-    def construct_template_graph(self, ignore=()):
+    @property
+    def template_graph(self):
+        if self._template_graph is None:
+            self.construct_template_graph()
+        graph = self._template_graph
+        for model_class, filter_func in self.model_filters:
+            graph = graph.filter_out_models(model_class=model_class, key=filter_func)
+        return graph
+
+    def add_model_filter(self, model_class, func):
+        self.model_filters.append((model_class, func))
+
+    def reset_model_filters(self):
+        self.model_filter = []
+
+    def add_weighted_edges(self, graph, weight_container):
+        for aft1, aft2 in self.get_aft_pairs():
+            graph.add_edge_from_models(
+                aft1,
+                aft2,
+                weight=weight_container.get_weight(aft1, aft2)
+            )
+
+    def construct_template_graph(self):
         """
         Construct a graph of all possible Operation connections.
-
-        :param depth:
-        :type depth:
-        :return:
-        :rtype:
         """
         # computer weights
         self.weight_container.compute()
 
         self._info("Building Graph:")
-        G = nx.DiGraph()
-        edges = self.construct_graph_edges()
-        for n1, n2 in edges:
-            G.add_node(n1.id, model_class=n1.__class__.__name__, model=n1)
-            G.add_node(n2.id, model_class=n2.__class__.__name__, model=n2)
-            if n1 and n2:
-                G.add_edge(n1.id, n2.id, weight=self.weight_container.get_weight(n1, n2))
-        self._info("  {} edges".format(len(list(G.edges))))
+        G = BrowserGraph(self.browser)
+        G.model_hashes = {
+            "AllowableFieldType": lambda m: "{}_{}_{}_{}".format(m.__class__.__name__, m.object_type_id, m.sample_type_id, m.field_type_id)
+        }
+        self.add_weighted_edges(G, self.weight_container)
+        self._info("  {} edges".format(len(list(G.edges()))))
         self._info("  {} nodes".format(len(G)))
 
-        all_afts = [self.browser.find(n, "AllowableFieldType") for n in G.nodes()]
-
-        # filter by operation type category
-        ignore_ots = self.browser.where({"category": "Control Blocks"}, "OperationType")
-        nodes = [aft.id for aft in all_afts if
-                 aft.field_type.parent_id and aft.field_type.parent_id not in [ot.id for ot in ignore_ots]]
-        template_graph = G.subgraph(nodes)
-        self._info("Graph size reduced from {} to {} nodes".format(len(G), len(template_graph)))
-
-        print("Example edges")
-        for e in list(template_graph.edges)[:3]:
-            n1 = self.browser.find(e[0], "AllowableFieldType")
-            n2 = self.browser.find(e[1], "AllowableFieldType")
-            print()
-            print("{} {}".format(n1.field_type.role, n1))
-            print("{} {}".format(n2.field_type.role, n2))
-
-        print("Example edges")
-        for edge in list(template_graph.edges)[:5]:
-            print(template_graph[edge[0]][edge[1]])
-        self.template_graph = template_graph
-        return template_graph
-
-    def copy_graph(self):
-        """Returns a copy of the template graph, along with its data."""
-        graph = nx.DiGraph()
-        graph.add_nodes_from(self.template_graph.nodes(data=True))
-        graph.add_edges_from(self.template_graph.edges(data=True))
-        return graph
+        self._template_graph = G
+        return G
 
     def collect_afts(self, graph):
         """
         Collect :class:`pydent.models.AllowableFieldType` models from graph
 
-        :param graph:
-        :type graph:
-        :return:
-        :rtype:
+        :param graph: a browser graph
+        :type graph: BrowserGraph
+        :return: list of tuples of input vs output allowable field types in the graph
+        :rtype: list
         """
-        input_afts = []
-        output_afts = []
+        afts = graph.models("AllowableFieldType")
 
-        for n in graph.nodes:
-            node = graph.node[n]
-            if node['model_class'] == "AllowableFieldType":
-                if node['model'].field_type.role == "input":
-                    input_afts.append(node['model'])
-                elif node['model'].field_type.role == 'output':
-                    output_afts.append(node['model'])
+        input_afts = [aft for aft in afts if aft.field_type.role == 'input']
+        output_afts = [aft for aft in afts if aft.field_type.role == 'output']
         return input_afts, output_afts
 
     def print_path(self, path, graph):
         ots = []
-        for aftid in path:
-            aft = self.browser.find(aftid, 'AllowableFieldType')
-            if aft:
-                ot = self.browser.find(aft.field_type.parent_id, 'OperationType')
-                ots.append("{ot}".format(role=aft.field_type.role, name=aft.field_type.name, ot=ot.name))
+        for n, ndata in graph.iter_model_data("AllowableFieldType", nbunch=path):
+            aft = ndata['model']
+            ot = self.browser.find(aft.field_type.parent_id, 'OperationType')
+            ots.append("{ot} in '{category}'".format(category=ot.category, ot=ot.name))
 
-        edge_weights = [graph[x][y]['weight'] for x, y in zip(path[:-1], path[1:])]
+        edge_weights = [graph.get_edge(x, y)['weight'] for x, y in zip(path[:-1], path[1:])]
         print("PATH: {}".format(path))
         print('WEIGHTS: {}'.format(edge_weights))
         print("NUM NODES: {}".format(len(path)))
         print("OP TYPES:\n{}".format(ots))
 
     def search_graph(self, goal_sample, goal_object_type, start_object_type):
-        graph = self.copy_graph()
+        graph = self.template_graph.copy()
 
         # filter afts
-        input_afts, output_afts = self.collect_afts(graph)
         obj1 = start_object_type
         obj2 = goal_object_type
-        afts1 = filter_list(input_afts, object_type_id=obj1.id, sample_type_id=obj1.sample_type_id)
-        afts2 = filter_list(output_afts, object_type_id=obj2.id, sample_type_id=obj2.sample_type_id)
 
         # Add terminal nodes
-        graph.add_node("START")
-        graph.add_node("END")
-        for aft in afts1:
-            graph.add_edge("START", aft.id, weight=0)
-        for aft in afts2:
-            graph.add_edge(aft.id, "END", weight=0)
+        graph.add_special_node("START", "START")
+        graph.add_special_node("END", "END")
+        for n, ndata in graph.iter_model_data("AllowableFieldType",
+                                              object_type_id=obj1.id,
+                                              sample_type_id=obj1.sample_type_id):
+            graph.add_edge("START", n, weight=0)
+        for n, ndata in graph.iter_model_data("AllowableFieldType",
+                                              object_type_id=obj2.id,
+                                              sample_type_id=obj2.sample_type_id):
+            graph.add_edge(n, "END", weight=0)
 
         # find and sort shortest paths
         shortest_paths = []
-        for n1 in graph.successors("START"):
+        for n1 in graph.graph.successors("START"):
             n2 = "END"
             try:
-                path = nx.dijkstra_path(graph, n1, n2, weight='weight')
-                path_length = nx.dijkstra_path_length(graph, n1, n2, weight='weight')
+                path = nx.dijkstra_path(graph.graph, n1, n2, weight='weight')
+                path_length = nx.dijkstra_path_length(graph.graph, n1, n2, weight='weight')
                 shortest_paths.append((path, path_length))
             except nx.exception.NetworkXNoPath:
                 pass
@@ -509,8 +743,24 @@ class AutoPlanner(Loggable):
 
     def dump(self, path):
         with open(path, 'wb') as f:
-            dill.dump(self, f)
+            dill.dump({
+                'browser': self.browser,
+                'template_graph': self.template_graph
+            }, f)
+        statinfo = stat(path)
+        self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
 
-    def load(self, path):
+    @classmethod
+    def load(cls, path):
         with open(path, 'rb') as f:
-            dill.load(f)
+            data = dill.load(f)
+            browser = data['browser']
+            ap = cls(browser.session)
+
+            statinfo = stat(path)
+            ap._info("{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
+                statinfo.st_size, path, id(ap)))
+
+            ap.browser = browser
+            ap._template_graph = data['template_graph']
+            return ap

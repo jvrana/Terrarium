@@ -4,14 +4,14 @@ import pytest
 import vcr
 
 from pydent import AqSession
-
+from autoplanner import AutoPlanner
 
 ###########
 # VCR setup
 ###########
 
 # RECORD_MODE = "new_episodes"
-RECORD_MODE = "once"
+RECORD_MODE = "all"
 
 # TODO: tests: completly deterministic tests
 # TODO: tests: parameter or config file for recording mode
@@ -79,3 +79,41 @@ def session(config):
     Returns a live aquarium connection.
     """
     return AqSession(**config)
+
+
+@pytest.fixture(scope='session')
+def datadir():
+    here = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(here, 'fixtures', 'data')
+
+
+@pytest.fixture(scope="module")
+def new_autoplanner(session):
+    ap = AutoPlanner(session, depth=1)
+    ap.set_verbose(True)
+    ap.construct_template_graph()
+    return ap
+
+# new_autoplanner.dump(os.path.join(datadir, 'autoplanner.pkl'))
+
+
+@pytest.fixture(scope='function')
+def autoplanner(session, datadir):
+    """The default autoplanner object used in tests. Preferrably loads a pickled
+    object. If the pickled object does not exist, a new autoplanner object is created
+    and pickled. This object is then unpickled and used."""
+
+    filepath = os.path.join(datadir, 'autoplanner.pkl')
+
+    if not os.path.isfile(filepath):
+        print("TESTS: No file found with path '{}'".format(filepath))
+        print("TESTS: Creating new pickled autoplanner...")
+        ap = new_autoplanner(session)
+        ap.set_verbose(True)
+        ap.construct_template_graph()
+        ap.dump(filepath)
+
+    print("TESTS: Loading '{}'".format(filepath))
+    ap = AutoPlanner.load(filepath)
+    ap.set_verbose(False)
+    return ap
