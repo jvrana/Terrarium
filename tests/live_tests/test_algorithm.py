@@ -1,6 +1,7 @@
-from autoplanner.algorithm import Algorithm
-from pydent.browser import Browser
 import networkx as nx
+from pydent.browser import Browser
+
+from autoplanner.algorithm import Algorithm
 
 
 def test_algorithm(autoplanner, session):
@@ -9,11 +10,11 @@ def test_algorithm(autoplanner, session):
     sample_composition = nx.DiGraph()
 
     edges = [
-            ('DTBA_backboneA_splitAMP', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('T1MC_NatMX-Cassette_MCT2 (JV)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('MCDT_URA3.A.1_homology2_DTBA', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1')
+        ('DTBA_backboneA_splitAMP', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+        ('T1MC_NatMX-Cassette_MCT2 (JV)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+        ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+        ('MCDT_URA3.A.1_homology2_DTBA', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+        ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1')
     ]
 
     for n1, n2 in edges:
@@ -27,5 +28,3 @@ def test_algorithm(autoplanner, session):
     algorithm.print_sample_composition()
 
     algorithm.run(session.ObjectType.find_by_name('Plasmid Stock'))
-
-    algorithm.run()
