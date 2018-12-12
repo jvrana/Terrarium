@@ -8,6 +8,8 @@ pydent = {editable = true, path = "./../trident"}
 mysession = {path = "./../mysession"}
 dill = "*"
 pandas = "*"
+webcolors = "*"
+colorama = "*"
 
 [dev-packages]
 pytest = "*"

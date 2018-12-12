@@ -8,9 +8,8 @@ from pydent.browser import Browser
 from pydent.base import ModelBase as TridentBase
 from pydent.utils.logger import Loggable
 from os import stat
-from tqdm import tqdm
 
-from autoplanner.utils import HashCounter
+from autoplanner.utils.hash_utils import HashCounter
 
 
 class EdgeWeightContainer(Loggable):
@@ -297,6 +296,8 @@ class BrowserGraph(object):
         self.browser = browser
         self.graph = nx.DiGraph()
         self.model_hashes = {}
+        self.prefix = ''
+        self.suffix = ''
 
     def node_id(self, model):
         """
@@ -312,7 +313,17 @@ class BrowserGraph(object):
             model_class,
             lambda model: "{cls}_{mid}".format(cls=model.__class__.__name__, mid=model.id)
         )
-        return model_hash(model)
+        return self.prefix + model_hash(model) + self.suffix
+
+    def set_prefix(self, prefix):
+        mapping = {n: prefix + n for n in self.nodes}
+        self.graph = nx.relabel_nodes(self.graph, mapping)
+        self.prefix = prefix
+
+    def set_suffix(self, suffix):
+        mapping = {n: n + suffix for n in self.nodes}
+        self.graph = nx.relabel_nodes(self.graph, mapping)
+        self.suffix = suffix
 
     # def add_special_node(self, node_id, node_class):
     #     self.graph.add_node(node_id, node_class=node_class, model_id=None)
@@ -341,7 +352,7 @@ class BrowserGraph(object):
             node_id = self.node_id(model)
         return self.graph.add_node(node_id, node_class=model_class, model_id=model.id, node_type=self.DEFAULTS.MODEL_TYPE)
 
-    def add_edge_from_models(self, m1, m2, **kwargs):
+    def add_edge_from_models(self, m1, m2, edge_type=None, **kwargs):
         """
         Adds an edge from two models.
 
@@ -354,9 +365,9 @@ class BrowserGraph(object):
         :return:
         :rtype:
         """
-        self.add_edge(self.node_id(m1), self.node_id(m2), model1=m1, model2=m2, **kwargs)
+        self.add_edge(self.node_id(m1), self.node_id(m2), model1=m1, model2=m2, edge_type=edge_type, **kwargs)
 
-    def add_edge(self, n1, n2, model1=None, model2=None, **kwargs):
+    def add_edge(self, n1, n2, model1=None, model2=None, edge_type=None, **kwargs):
         """
         Adds edge between two nodes given the node ids. Raises error if node does not exist
         and models are not provided. If node_id does not exist and model is provided, a new
@@ -387,7 +398,18 @@ class BrowserGraph(object):
             else:
                 raise Exception("Model2 must be provided")
 
-        self.graph.add_edge(n1, n2, **kwargs)
+        return self.graph.add_edge(n1, n2, edge_type=edge_type, **kwargs)
+
+    def update_node(self, node_id, data):
+        node = self.get_node(node_id)
+        node.update(data)
+        return node
+
+    def predecessors(self, node_id):
+        return self.graph.predecessors(node_id)
+
+    def successors(self, node_id):
+        return self.graph.successors(node_id)
 
     @classmethod
     def _convert_id(cls, n):
@@ -408,10 +430,14 @@ class BrowserGraph(object):
         :rtype:
         """
         node = self.graph.node[node_id]
-        if 'model_id' in node:
+        if 'model_id' in node and 'model' not in node:
             model = self.browser.find(node['model_id'], model_class=node['node_class'])
             node['model'] = model
         return node
+
+    def get_model(self, node_id):
+        node = self.get_node(node_id)
+        return node.get('model', None)
 
     def get_edge(self, n1, n2):
         return self.graph.edges[n1, n2]
@@ -478,9 +504,35 @@ class BrowserGraph(object):
 
     def subgraph(self, nodes):
         nodes = self._array_to_identifiers(nodes)
-        copied = self.copy()
-        copied.graph = copied.graph.subgraph(nodes)
-        return copied
+
+        graph_copy = nx.DiGraph()
+        graph_copy.add_nodes_from((n, self.nodes[n]) for n in nodes)
+
+        edges = []
+        for n1, n2 in self.edges:
+            if n1 in nodes and n2 in nodes:
+                edges.append((n1, n2, self.edges[n1, n2]))
+
+        graph_copy.add_edges_from(edges)
+
+        browser_graph_copy = self.copy()
+        browser_graph_copy.graph = graph_copy
+        return browser_graph_copy
+
+    def filter(self, key=None):
+        if key is None:
+            key = lambda x: True
+        nodes = [n for n in self.nodes if key(n)]
+        return self.subgraph(nodes)
+
+    def remove(self, key=None):
+        if key is None:
+            key = lambda x: False
+        nodes = [n for n in self.nodes if key(n)]
+        return self.subgraph(set(self.graph.nodes).difference(set(nodes)))
+
+    def only_models(self, model_class=None, **attrs):
+        return self.subgraph([n for n, _ in self.iter_model_data(model_class=model_class, **attrs)])
 
     def filter_out_models(self, model_class=None, key=None):
         node_set = set(self.nodes)
@@ -491,8 +543,38 @@ class BrowserGraph(object):
                     for_removal.add(n)
         return self.subgraph(node_set.difference(for_removal))
 
+    def cache_models(self):
+        models = {}
+        for n in self:
+            ndata = self.graph.node[n]
+            if 'model_id' in ndata:
+                models.setdefault(ndata['node_class'], []).append(ndata['model_id'])
+
+        models_by_id = {}
+        for model_class, model_ids in models.items():
+            found_models = self.browser.find(model_ids, model_class=model_class)
+            models_by_id.update({m.id: m for m in found_models})
+        for n in self:
+            ndata = self.graph.node[n]
+            if 'model_id' in ndata:
+                ndata['model'] = models_by_id[ndata['model_id']]
+
     def copy(self):
         return self.__copy__()
+
+    def roots(self):
+        roots = []
+        for n in self.graph:
+            if not len(list(self.graph.predecessors(n))):
+                roots.append(n)
+        return roots
+
+    def leaves(self):
+        leaves = []
+        for n in self.graph:
+            if not len(list(self.graph.successors(n))):
+                leaves.append(n)
+        return leaves
 
     def __len__(self):
         return len(self.graph)
@@ -597,28 +679,39 @@ class AutoPlanner(Loggable):
 
         return input_afts, output_afts
 
-    def match_afts(self, input_afts, output_afts):
-        external_groups = {}
-        for aft in input_afts:
-            external_groups.setdefault(self.external_aft_hash(aft), []).append(aft)
-
+    @classmethod
+    def match_internal_afts(cls, input_afts, output_afts):
         internal_groups = {}
         for aft in output_afts:
-            internal_groups.setdefault(self.internal_aft_hash(aft), []).append(aft)
+            internal_groups.setdefault(cls.internal_aft_hash(aft), []).append(aft)
 
         edges = []
-        for oaft in tqdm(output_afts, desc="hashing output AllowableFieldTypes"):
-            hsh = self.external_aft_hash(oaft)
-            externals = external_groups.get(hsh, [])
-            for aft in externals:
-                edges.append((oaft, aft))
 
-        for iaft in tqdm(input_afts, desc="hashing input AllowableFieldTypes"):
-            hsh = self.internal_aft_hash(iaft)
+        for iaft in input_afts:
+            hsh = cls.internal_aft_hash(iaft)
             internals = internal_groups.get(hsh, [])
             for aft in internals:
                 edges.append((iaft, aft))
         return edges
+
+    @classmethod
+    def match_external_afts(cls, input_afts, output_afts):
+        external_groups = {}
+        for aft in input_afts:
+            external_groups.setdefault(cls.external_aft_hash(aft), []).append(aft)
+
+        edges = []
+        for oaft in output_afts:
+            hsh = cls.external_aft_hash(oaft)
+            externals = external_groups.get(hsh, [])
+            for aft in externals:
+                edges.append((oaft, aft))
+        return edges
+
+    @classmethod
+    def match_afts(cls, input_afts, output_afts):
+        return cls.match_internal_afts(input_afts, output_afts) + \
+               cls.match_external_afts(input_afts, output_afts)
 
     def get_aft_pairs(self):
         """
@@ -647,9 +740,18 @@ class AutoPlanner(Loggable):
 
     def add_weighted_edges(self, graph, weight_container):
         for aft1, aft2 in self.get_aft_pairs():
+
+            edge_type = None
+            roles = [aft.field_type.role for aft in [aft1, aft2]]
+            if roles == ('input', 'output'):
+                edge_type = 'internal'
+            elif roles == ('output', 'input'):
+                edge_type = 'external'
+
             graph.add_edge_from_models(
                 aft1,
                 aft2,
+                edge_type=edge_type,
                 weight=weight_container.get_weight(aft1, aft2)
             )
 
@@ -662,9 +764,9 @@ class AutoPlanner(Loggable):
 
         self._info("Building Graph:")
         G = BrowserGraph(self.browser)
-        G.model_hashes = {
-            "AllowableFieldType": lambda m: "{}_{}_{}_{}".format(m.__class__.__name__, m.object_type_id, m.sample_type_id, m.field_type_id)
-        }
+        # G.model_hashes = {
+        #     "AllowableFieldType": lambda m: "{}_{}_{}_{}".format(m.__class__.__name__, m.object_type_id, m.sample_type_id, m.field_type_id)
+        # }
         self.add_weighted_edges(G, self.weight_container)
         self._info("  {} edges".format(len(list(G.edges()))))
         self._info("  {} nodes".format(len(G)))

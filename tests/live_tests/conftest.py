@@ -89,7 +89,7 @@ def datadir():
 
 @pytest.fixture(scope="module")
 def new_autoplanner(session):
-    ap = AutoPlanner(session, depth=1)
+    ap = AutoPlanner(session, depth=300)
     ap.set_verbose(True)
     ap.construct_template_graph()
     return ap

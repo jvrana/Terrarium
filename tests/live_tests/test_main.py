@@ -1,13 +1,6 @@
 import networkx as nx
 import os
 
-def cost_function(n, t):
-    p = 10e-6
-    if t > 0:
-        p = n / t
-    w = (1 - p) / (1 + p)
-    return 10 / (1.000000001 - w)
-
 
 def test_basic_search(autoplanner, session):
     autoplanner.set_verbose(True)
@@ -43,17 +36,10 @@ def test_successor(autoplanner, session):
         print(e)
         print()
 
-def test_search_new(new_autoplanner, session):
-    autoplanner = new_autoplanner
-    autoplanner.set_verbose(True)
-    autoplanner.search_graph(session.Sample.one(),
-                                 session.ObjectType.find_by_name("Yeast Glycerol Stock"),
-                                 session.ObjectType.find_by_name("Fragment Stock")
-                             )
-
-def test_subgraph(autoplanner, session):
-
-    ot_ids = session.OperationType.find_by_name("Control Blocks")
-
-    for n, ndata in autoplanner.template_graph.iter_model_data("AllowableFieldType"):
-        print(ndata['model'].field_type.parent_id)
+# def test_search_new(new_autoplanner, session):
+#     autoplanner = new_autoplanner
+#     autoplanner.set_verbose(True)
+#     autoplanner.search_graph(session.Sample.one(),
+#                                  session.ObjectType.find_by_name("Yeast Glycerol Stock"),
+#                                  session.ObjectType.find_by_name("Fragment Stock")
+#                              )
