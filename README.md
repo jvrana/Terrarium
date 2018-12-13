@@ -107,7 +107,7 @@ to build an optimal experiment.
 * estimate convidence for certain inventory items or operations based on
 past success rate
 * better api for
-    ** using 'ghost' plans to build model
-    ** emulating specific users / user groups
+* using 'ghost' plans to build model
+* emulating specific users / user groups
 ** faster execution (currently ~45-60 seconds)
 
