@@ -4,7 +4,19 @@ This piece of automatically plans scientific experiments in Aquarium using histo
 planning data and current laboratory inventory. Data can be pulled from specific researchers
 to emulate how that particular researcher would plan experiments.
 
+## Requirements
+
+* development version of **trident (v0.1.0)**
+* Python >= 3.6
+* Aquarium login credentials
+
 ## Usage
+
+Installation:
+
+```python
+pip install -U .
+```
 
 New models can be built as in the following:
 
