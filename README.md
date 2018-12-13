@@ -89,3 +89,13 @@ to build an optimal experiment.
 **Top 50 Connections**
 
 ![top_50_connections](assets/images/top_50_optypes.png)
+
+## Future Version
+
+* estimate convidence for certain inventory items or operations based on
+past success rate
+* better api for
+    ** using 'ghost' plans to build model
+    ** emulating specific users / user groups
+** faster execution (currently ~45-60 seconds)
+
