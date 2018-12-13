@@ -687,6 +687,7 @@ class Algorithm(Loggable):
         # 2. find overall shortest path(s)
         ############################################
         NUM_PATHS = 3
+        THRESHOLD = 10**8
 
         if not seed_paths:
             if verbose:
@@ -695,7 +696,7 @@ class Algorithm(Loggable):
         seed_paths = sorted(seed_paths, key=lambda x: x[0])
         cost, path = seed_paths[0]
         final_paths = [path]
-        if cost > 100000:
+        if cost > THRESHOLD:
             cprint("Path beyond threshold, returning early", 'red')
             print(graph_utils.get_path_length(bgraph, path))
             return cost, final_paths, visited_samples

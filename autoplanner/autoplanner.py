@@ -10,7 +10,7 @@ from pydent.utils.logger import Loggable
 from os import stat
 
 from autoplanner.utils.hash_utils import HashCounter
-
+from tqdm import tqdm
 
 class EdgeWeightContainer(Loggable):
     DEFAULT_DEPTH = 100
@@ -58,6 +58,10 @@ class EdgeWeightContainer(Loggable):
         def new_edge_hash(pair):
             h = edge_hash(pair)
             return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
+
+        def new_node_hash(n):
+            return '{}_{}'.format(node_hash(n), n.field_type.parent_id)
+
         self._edge_hash = new_edge_hash
         self._node_hash = node_hash
         self._edge_counter = HashCounter(func=self._edge_hash)
