@@ -1,18 +1,19 @@
-import networkx as nx
+import math
+from collections import OrderedDict
 from collections import defaultdict
+from functools import reduce
+from itertools import count as counter
+from itertools import product
+
+import networkx as nx
+from pydent.utils.logger import Loggable
+from tqdm import tqdm
+
 from autoplanner import AutoPlanner
 from autoplanner.autoplanner import BrowserGraph
-from functools import reduce
-import math
-from autoplanner.utils.color_utils import cprint, cstring
 from autoplanner.utils import graph_utils
-from itertools import product
-from collections import OrderedDict
-
-from tqdm import tqdm
-from itertools import count as counter
-
-from pydent.utils.logger import Loggable
+from autoplanner.utils.color_utils import cprint, cstring
+from pydent.models import Sample
 
 
 class AlgorithmFactory(object):
@@ -63,8 +64,13 @@ class AlgorithmFactory(object):
         return scgraph
 
 
-class Algorithm(Loggable):
+none_sample = Sample()
+none_sample.sample_type_id = None
+none_sample.id = None
+none_sample.name = None
 
+
+class Algorithm(Loggable):
     counter = counter()
 
     def __init__(self, browser, sample_composition_graph, template_graph):
@@ -77,26 +83,31 @@ class Algorithm(Loggable):
     def _cinfo(self, msg, foreground='white', background='black'):
         self._info(cstring(msg, foreground, background))
 
-    def stage0(self):
+    ############################
+    # RUN
+    ############################
+
+    def run_stage0(self):
         self._cinfo("STAGE 0: Sample Composition")
         self.update_sample_composition()
         graph = self.create_sample_composition_graphs(self.template_graph, self.browser, self.sample_composition)
         return graph
 
-    def stage1(self, graph):
+    def run_stage1(self, graph):
         self._cinfo("STAGE 1 Cleaning Graph")
         self.clean_graph(graph)
 
-    def stage2(self, graph, goal_sample, goal_object_type, ignore):
+    def run_stage2(self, graph, goal_sample, goal_object_type, ignore):
         if ignore is None:
             ignore = []
         self._cinfo("STAGE 2: Terminal Nodes")
         start_nodes = self.extract_items(graph)
+        start_nodes += self.extract_leaf_operations(graph)
         start_nodes = [n for n in start_nodes if n not in ignore]
         end_nodes = self.extract_end_nodes(graph, goal_sample, goal_object_type)
         return start_nodes, end_nodes
 
-    def stage3(self, graph, start_nodes, end_nodes):
+    def run_stage3(self, graph, start_nodes, end_nodes):
         self._cinfo("STAGE 3: Optimizing")
         return self.optimize_steiner_tree(start_nodes, end_nodes, graph, [])
 
@@ -108,92 +119,103 @@ class Algorithm(Loggable):
         ############################
         # Stage 0
         ############################
-        graph = self.stage0()
+        graph = self.run_stage0()
 
         ############################
         # Stage 1
         ############################
-        self.stage1(graph)
+        self.run_stage1(graph)
 
         ############################
         # Stage 2
         ############################
-        start_nodes, end_nodes = self.stage2(graph, goal_sample, goal_object_type, ignore)
+        start_nodes, end_nodes = self.run_stage2(graph, goal_sample, goal_object_type, ignore)
 
         ############################
         # Stage 3
         ############################
-        cost, paths = self.stage3(graph, start_nodes, end_nodes)
+        cost, paths, visited_samples = self.run_stage3(graph, start_nodes, end_nodes)
 
-        return cost, paths
+        return cost, paths, graph
 
-    @classmethod
-    def plan(cls, paths, graph, canvas):
+    ############################
+    # PLAN
+    ############################
+
+    def plan(self, paths, graph, canvas):
+        graph = graph.copy()
         for path_num, path in enumerate(paths):
             print("Path: {}".format(path_num))
-            cls.path_to_operation_chain(path, graph, canvas)
+            self.assign_field_values(path, graph, canvas)
+            self.assign_items(path, graph, canvas)
             print()
         return canvas
 
-    @classmethod
-    def path_to_operation_chain(cls, path, graph, canvas):
-        nodes = [(n, graph.get_node(n)) for n in path]
-        print("Path:")
-        for p in path:
-            print(p)
-        print("Creating Operations")
-        prev_node = None
-        for n, ndata in nodes:
-            if ndata['node_class'] == 'AllowableFieldType':
-                aft = ndata['model']
-                if aft.field_type.role == 'output':
-                    # create and set output operation and output field_value
-                    if 'operation' not in ndata:
-                        op = canvas.create_operation_by_id(aft.field_type.parent_id)
-                        fv = canvas.set_field_value(op.output(aft.field_type.name), sample=ndata['sample'])
-                        print("Creating output operation for '{}'".format(n))
-                        ndata['field_value'] = fv
-                        ndata['operation'] = op
-                    else:
-                        op = ndata['operation']
-                        fv = ndata['field_value']
+    # def set_helper(self, canvas, op, fvname, sample):
 
-                    # set input
+    @classmethod
+    def assign_field_values(cls, path, graph, canvas):
+        prev_node = None
+
+        for n, ndata in graph.iter_model_data(model_class="AllowableFieldType", nbunch=path):
+            aft = ndata['model']
+            sample = ndata['sample']
+            if aft.field_type.role == 'output':
+                # create and set output operation
+                if 'operation' not in ndata:
+                    print("Creating field value")
+                    op = canvas.create_operation_by_id(aft.field_type.parent_id)
+                    fv = op.output(aft.field_type.name)
+                    canvas.set_field_value(fv, sample=sample)
+                    ndata['field_value'] = fv
+                    ndata['operation'] = op
+                else:
+                    op = ndata['operation']
+
+                if prev_node:
                     input_aft = prev_node[1]['model']
                     input_sample = prev_node[1]['sample']
                     input_name = input_aft.field_type.name
+
                     if input_aft.field_type.array:
-                        print("Adding to array")
                         input_fv = canvas.set_input_field_value_array(op, input_name, sample=input_sample)
                     else:
                         input_fv = canvas.set_field_value(op.input(input_name), sample=input_sample)
-                    if prev_node:
-                        print("Setting input field_value for '{}'".format(prev_node[0]))
-                        prev_node[1]['field_value'] = input_fv
-                        prev_node[1]['operation'] = op
+                    print("Setting input field_value for '{}'".format(prev_node[0]))
+                    prev_node[1]['field_value'] = input_fv
+                    prev_node[1]['operation'] = op
             prev_node = (n, ndata)
 
+    @classmethod
+    def assign_items(cls, path, graph, canvas):
+
         prev_node = None
-        for n, ndata in nodes:
+
+        for n, ndata in graph.iter_model_data(model_class="AllowableFieldType", nbunch=path):
             if ndata['node_class'] == 'AllowableFieldType' and ndata['model'].field_type.role == 'input':
-                aft = ndata['model']
                 if 'operation' not in ndata:
                     cls.print_aft(graph, n)
                     raise Exception("Key 'operation' not found in node data '{}'".format(n))
-                input_op = ndata['operation']
                 input_fv = ndata['field_value']
                 input_sample = ndata['sample']
-                node_class = prev_node[1]['node_class']
-                if node_class == 'AllowableFieldType':
-                    output_fv = prev_node[1]['field_value']
-                    canvas.add_wire(output_fv, input_fv)
-                elif node_class == 'Item':
-                    item = prev_node[1]['model']
-                    canvas.set_field_value(input_fv, sample=input_sample, item=item)
-                else:
-                    raise Exception("Node class '{}' not recognized".format(node_class))
+                if prev_node:
+                    node_class = prev_node[1]['node_class']
+                    if node_class == 'AllowableFieldType':
+                        output_fv = prev_node[1]['field_value']
+                        canvas.add_wire(output_fv, input_fv)
+                    elif node_class == 'Item':
+                        item = prev_node[1]['model']
+                        if input_fv.field_type.part:
+                            canvas.set_part(input_fv, item)
+                        else:
+                            canvas.set_field_value(input_fv, sample=input_sample, item=item)
+                    else:
+                        raise Exception("Node class '{}' not recognized".format(node_class))
             prev_node = (n, ndata)
 
+    ############################
+    # UTILS
+    ############################
 
     def clean_graph(self, graph):
         """
@@ -229,7 +251,7 @@ class Algorithm(Loggable):
         return graph
 
     def update_sample_composition(self):
-        updated_sample_composition = self.build_sample_graph(graph=self.sample_composition)
+        updated_sample_composition = self._update_sample_composition(graph=self.sample_composition)
         self.sample_composition = updated_sample_composition
 
     def print_sample_composition(self):
@@ -242,7 +264,7 @@ class Algorithm(Loggable):
         nodes = graph_utils.find_leaves(self.sample_composition)
         return [self.sample_composition.node[n]['sample'] for n in nodes]
 
-    def build_sample_graph(self, samples=None, graph=None):
+    def _update_sample_composition(self, samples=None, graph=None):
         if graph is None:
             graph = nx.DiGraph()
         if samples is None:
@@ -256,20 +278,35 @@ class Algorithm(Loggable):
         self.browser.recursive_retrieve(samples, {'field_values': 'sample'})
         new_samples = []
         for s1 in samples:
-            if True: #s1.id not in graph:
-                for fv in s1.field_values:
-                    if fv.sample:
-                        s2 = fv.sample
-                        new_samples.append(s2)
-                        graph.add_node(s1.id, sample=s1)
-                        graph.add_node(s2.id, sample=s2)
-                        graph.add_edge(s2.id, s1.id)
-        return self.build_sample_graph(new_samples, graph)
+            for fv in s1.field_values:
+                if fv.sample:
+                    s2 = fv.sample
+                    new_samples.append(s2)
+                    graph.add_node(s1.id, sample=s1)
+                    graph.add_node(s2.id, sample=s2)
+                    graph.add_edge(s2.id, s1.id)
+        return self._update_sample_composition(new_samples, graph)
 
     @staticmethod
-    def decompose_template_graph_into_samples(template_graph, samples):
+    def decompose_template_graph_into_samples(template_graph, samples, include_none=True):
+        """
+        From a template graph and list of samples, extract sample specific
+        nodes from the template graph (using sample type id)
+        :param template_graph:
+        :type template_graph:
+        :param samples:
+        :type samples:
+        :return:
+        :rtype:
+        """
         sample_type_ids = set(s.sample_type_id for s in samples)
         sample_type_graphs = defaultdict(list)
+
+        if include_none:
+            sample_type_ids.add(None)
+            samples.append(none_sample)
+
+        samples = list(set(samples))
 
         for n, ndata in template_graph.iter_model_data():
             if ndata['node_class'] == 'AllowableFieldType':
@@ -286,6 +323,26 @@ class Algorithm(Loggable):
                 ndata['sample'] = sample
             sample_graphs[sample.id] = sample_graph
         return sample_graphs
+
+    @staticmethod
+    def _find_parts_for_samples(browser, sample_ids, lim=50):
+        all_parts = []
+        part_type = browser.find_by_name("__Part", model_class='ObjectType')
+        for sample_id in sample_ids:
+            sample_parts = browser.last(lim, model_class='Item', object_type_id=part_type.id, sample_id=sample_id)
+            all_parts += sample_parts
+        browser.retrieve(all_parts, 'collections')
+
+        # filter out parts that do not exist
+        all_parts = [part for part in all_parts if part.collections and part.collections[0].location != 'deleted']
+
+
+        # create a Part-by-Sample-by-ObjectType dictionary
+        data = {}
+        for part in all_parts:
+            if part.collections:
+                data.setdefault(part.collections[0].object_type_id, {}).setdefault(part.sample_id, []).append(part)
+        return data
 
     def create_sample_composition_graphs(self, template_graph, browser, sample_composition):
         sample_edges = []
@@ -316,6 +373,11 @@ class Algorithm(Loggable):
             ]
             sample_edges += pairs
 
+        # include the afts from operations that have no sample_type_id (e.g. Order Primer)
+        if None in sample_graph_dict:
+            graphs.append(sample_graph_dict[None].graph)
+            # TODO: add None edges for internal graphs...
+
         graph = BrowserGraph(browser)
         graph.graph = nx.compose_all(graphs)
 
@@ -337,10 +399,18 @@ class Algorithm(Loggable):
             graph.add_edge(n1, n2, edge_type="sample_to_sample", weight=edge['weight'])
 
         afts = list(graph.iter_models(model_class="AllowableFieldType"))
-        object_type_ids = list(set([aft.object_type_id for aft in afts]))
-        sample_ids = list(set(ndata['sample'].id for _, ndata in graph.iter_model_data()))
+        browser.retrieve(afts, 'field_type')
+        sample_ids = list(set(ndata['sample'].id for _, ndata in graph.iter_model_data() if
+                              ndata['sample'] is not None))
 
-        self._info("finding items...")
+        ##############################
+        # Get items
+        ##############################
+
+        non_part_afts = [aft for aft in afts if not aft.field_type.part]
+        object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
+
+        self._cinfo("finding all relevant items")
         items = browser.where(model_class="Item", query={'sample_id': sample_ids, 'object_type_id': object_type_ids})
         items = [item for item in items if item.location != 'deleted']
         self._info("{} total items found".format(len(items)))
@@ -348,17 +418,43 @@ class Algorithm(Loggable):
         for item in items:
             items_by_object_type_id[item.object_type_id].append(item)
 
+        ##############################
+        # Get parts
+        ##############################
+
+        self._cinfo("finding relevant parts/collections")
+        part_by_sample_by_type = self._find_parts_for_samples(browser, sample_ids, lim=50)
+        self._cinfo("found {} collection types".format(len(part_by_sample_by_type)))
+
+
+        ##############################
+        # Assign Items/Parts/Collections
+        ##############################
+
         new_nodes = []
         new_edges = []
         for node, ndata in graph.iter_model_data(model_class='AllowableFieldType'):
             aft = ndata['model']
             sample = ndata['sample']
-            if True:  # aft.field_type.role == 'input':
-                items = items_by_object_type_id[aft.object_type_id]
-                for item in items:
-                    if item.sample_id == sample.id and sample.sample_type_id == aft.sample_type_id:
-                        new_nodes.append(item)
-                        new_edges.append((item, sample, node))
+            if sample:
+                sample_id = sample.id
+                sample_type_id = sample.sample_type_id
+            else:
+                sample_id = None
+                sample_type_id = None
+            if aft.sample_type_id == sample_type_id:
+                if aft.field_type.part:
+                    parts = part_by_sample_by_type.get(aft.object_type_id, {}).get(sample_id, [])
+                    for part in parts[-1:]:
+                        if part.sample_id == sample_id:
+                            new_nodes.append(part)
+                            new_edges.append((part, sample, node))
+                else:
+                    items = items_by_object_type_id[aft.object_type_id]
+                    for item in items:
+                        if item.sample_id == sample_id:
+                            new_nodes.append(item)
+                            new_edges.append((item, sample, node))
 
         for n in new_nodes:
             graph.add_node(n)
@@ -391,8 +487,29 @@ class Algorithm(Loggable):
                     item.sample.name,
                     item.object_type.name,
                 ))
-        except:
+        except Exception as e:
+            print(node_id)
+            print(e)
             pass
+
+    def extract_leaf_operations(self, graph):
+        """
+        Extracts operations that have no inputs (such as "Order Primer")
+        :param graph:
+        :type graph:
+        :return:
+        :rtype:
+        """
+
+        leaf_afts = []
+        for n, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
+            aft = ndata['model']
+            if aft.field_type.role == 'output':
+                node_id = self.template_graph.node_id(aft)
+                preds = self.template_graph.predecessors(node_id)
+                if not list(preds):
+                    leaf_afts.append(n)
+        return leaf_afts
 
     def extract_items(self, graph):
         item_groups = []
@@ -407,13 +524,15 @@ class Algorithm(Loggable):
                         grouped.append(n2)
                 item_groups.append(tuple(grouped))
         items = list(set(reduce(lambda x, y: list(x) + list(y), item_groups)))
+
         return items
 
     def extract_end_nodes(self, graph, goal_sample, goal_object_type):
         end_nodes = []
         for n, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
             aft = ndata['model']
-            if ndata['sample'].id == goal_sample.id and aft.object_type_id == goal_object_type.id and aft.field_type.role == 'output':
+            if ndata[
+                'sample'].id == goal_sample.id and aft.object_type_id == goal_object_type.id and aft.field_type.role == 'output':
                 end_nodes.append(n)
         return end_nodes
 
@@ -425,12 +544,13 @@ class Algorithm(Loggable):
             aft = node_data['model']
             successor = output_node
             predecessors = list(graph.predecessors(successor))
+            print(len(predecessors))
             for p in predecessors:
                 if p == node or (ignore and p in ignore):
                     continue
                 pnode = graph.get_node(p)
                 if pnode['node_class'] == 'AllowableFieldType':
-                    is_array = pnode['model'].field_type.array == True
+                    is_array = pnode['model'].field_type.array is True
                     if not is_array and pnode['model'].field_type_id == aft.field_type_id:
                         #                     print("is not array and field_type_id same")
                         continue
@@ -444,27 +564,35 @@ class Algorithm(Loggable):
                     sister_inputs[key].append((p, pnode))
         return sister_inputs
 
-    @classmethod
-    def optimize_steiner_tree(cls, start_nodes, end_nodes, bgraph, visited_end_nodes, visited_samples=None, output_node=None,
-                              progress_bar=False, verbose=False, depth=0):
+    def _print_nodes(self, node_ids, graph):
+        print(node_ids)
+        items = list(graph.iter_models(nbunch=node_ids, model_class='Item'))
+        self.browser.retrieve(items, 'sample')
+        self.browser.retrieve(items, 'object_type')
 
-        # TODO: Add output item to end nodes
+        grouped_by_object_type = {}
+        for item in items:
+            grouped_by_object_type.setdefault(item.object_type.name, []).append(item)
 
-        if visited_samples is None:
-            visited_samples = set()
+        for otname, items in grouped_by_object_type.items():
+            cprint(otname, 'white', 'black')
+            for item in items:
+                print("    <Item id={} {} {}".format(item.id, item.object_type.name, item.sample.name))
 
-        ############################################
-        # 1. find all shortest paths
-        ############################################
+        for n, ndata in graph.iter_model_data(model_class='AllowableFieldType', nbunch=node_ids):
+            self.print_aft(graph, n)
 
-
-
+    def _optimize_get_seed_paths(self, start_nodes, end_nodes, bgraph, visited_end_nodes, output_node=None, verbose=False):
         paths = []
         end_nodes = [e for e in end_nodes if e not in visited_end_nodes]
         if verbose:
-            print(depth)
-            print("START: {}".format(start_nodes))
-            print("END: {}".format(end_nodes))
+            print("START")
+            self._print_nodes(start_nodes, bgraph)
+
+            print("END")
+            print(end_nodes)
+            self._print_nodes(end_nodes, bgraph)
+
             print("VISITED: {}".format(visited_end_nodes))
 
         for start in start_nodes:
@@ -478,20 +606,99 @@ class Algorithm(Loggable):
                     #                 print("ERROR: No path from {} to {}".format(start, end))
                     continue
                 paths.append((cost, path))
+        return paths
 
-        # do not visit end nodes again
+    def _gather_assignments(self, path, bgraph, visited_end_nodes, visited_samples, depth):
+
+        input_to_output = OrderedDict()
+        for n1, n2 in zip(path[:-1], path[1:]):
+            node2 = bgraph.get_node(n2)
+            node1 = bgraph.get_node(n1)
+            if 'sample' in node1:
+                visited_samples.add(node1['sample'].id)
+            if 'sample' in node2:
+                visited_samples.add(node2['sample'].id)
+            if node2['node_class'] == 'AllowableFieldType':
+                aft2 = node2['model']
+                if aft2.field_type.role == 'output':
+                    input_to_output[n1] = n2
+
+        print("PATH:")
+        for p in path:
+            print(p)
+            self.print_aft(bgraph, p)
+
+        # iterate through each input to find unfullfilled inputs
+        inputs = list(input_to_output.keys())[:]
+        print(input_to_output.keys())
+        if depth > 0:
+            inputs = inputs[:-1]
+        #     print()
+        #     print("INPUTS: {}".format(inputs))
+
+        #     all_sister
+        empty_assignments = defaultdict(list)
+
+        for i, n in enumerate(inputs):
+            print()
+            print("Finding sisters for:")
+            self.print_aft(bgraph, n)
+            output_n = input_to_output[n]
+            ndata = bgraph.get_node(n)
+            sisters = self.get_sister_inputs(n, ndata, output_n, bgraph, ignore=visited_end_nodes)
+            if not sisters:
+                print("no sisters found")
+            for ftid, nodes in sisters.items():
+                print("**Sister FieldType {}**".format(ftid))
+                for s, values in nodes:
+                    self.print_aft(bgraph, s)
+                    empty_assignments['{}_{}'.format(output_n, ftid)].append((s, output_n, values))
+                print()
+
+        ############################################
+        # 4.3 recursively find cost & shortest paths
+        #     for unassigned inputs for every possible
+        #     assignment
+        ############################################
+        all_assignments = list(product(*empty_assignments.values()))
+        print(all_assignments)
+        for k, v in empty_assignments.items():
+            print(k)
+            print(v)
+
+        return all_assignments
+
+    def optimize_steiner_tree(self, start_nodes, end_nodes, bgraph, visited_end_nodes,
+                              visited_samples=None, output_node=None, verbose=True, depth=0):
+
+        # TODO: Algorithm gets stuck on shortest top path...
+        # e.g. Yeast Glycerol Stock to Yeast Mating instead of yeast transformation
+
+        if visited_samples is None:
+            visited_samples = set()
+
+        ############################################
+        # 1. find all shortest paths
+        ############################################
+        seed_paths = self._optimize_get_seed_paths(start_nodes, end_nodes, bgraph, visited_end_nodes, output_node, verbose)
         visited_end_nodes += end_nodes
 
         ############################################
-        # 2. find overall shortest path
+        # 2. find overall shortest path(s)
         ############################################
-        if not paths:
+        NUM_PATHS = 3
+
+        if not seed_paths:
             if verbose:
                 print("No paths found")
-            return math.inf, []
-        paths = sorted(paths, key=lambda x: x[0])
-        cost, path = paths[0]
+            return math.inf, [], visited_samples
+        seed_paths = sorted(seed_paths, key=lambda x: x[0])
+        cost, path = seed_paths[0]
         final_paths = [path]
+        if cost > 100000:
+            cprint("Path beyond threshold, returning early", 'red')
+            print(graph_utils.get_path_length(bgraph, path))
+            return cost, final_paths, visited_samples
 
         if verbose:
             cprint("Single path found with cost {}".format(cost), None, 'blue')
@@ -527,12 +734,13 @@ class Algorithm(Loggable):
         print("PATH:")
         for p in path:
             print(p)
-            cls.print_aft(bgraph, p)
+            self.print_aft(bgraph, p)
 
         # iterate through each input to find unfullfilled inputs
         inputs = list(input_to_output.keys())[:]
+        print(input_to_output.keys())
         if depth > 0:
-            inputs = inputs[1:]
+            inputs = inputs[:-1]
         #     print()
         #     print("INPUTS: {}".format(inputs))
 
@@ -540,16 +748,19 @@ class Algorithm(Loggable):
         empty_assignments = defaultdict(list)
 
         for i, n in enumerate(inputs):
+            print()
             print("Finding sisters for:")
-            cls.print_aft(bgraph, n)
+            self.print_aft(bgraph, n)
             output_n = input_to_output[n]
             ndata = bgraph_copy.get_node(n)
-            sisters = cls.get_sister_inputs(n, ndata, output_n, bgraph_copy, ignore=visited_end_nodes)
+            sisters = self.get_sister_inputs(n, ndata, output_n, bgraph_copy, ignore=visited_end_nodes)
+            if not sisters:
+                print("no sisters found")
             for ftid, nodes in sisters.items():
                 print("**Sister FieldType {}**".format(ftid))
                 for s, values in nodes:
-                    cls.print_aft(bgraph, s)
-                    empty_assignments['{}_{}'.format(output_n, s)].append((s, output_n, values))
+                    self.print_aft(bgraph, s)
+                    empty_assignments['{}_{}'.format(output_n, ftid)].append((s, output_n, values))
                 print()
 
         ############################################
@@ -558,35 +769,67 @@ class Algorithm(Loggable):
         #     assignment
         ############################################
         all_assignments = list(product(*empty_assignments.values()))
+        print(all_assignments)
+        for k, v in empty_assignments.items():
+            print(k)
+            print(v)
         if all_assignments[0]:
 
             # TODO: enforce unique sample_ids if in operation_type
             cprint("Found {} assignments".format(len(all_assignments)), None, 'blue')
-
             best_assignment_costs = []
 
             for assign_num, assignment in enumerate(all_assignments):
                 cprint("Evaluating assignment {}/{}".format(assign_num + 1, len(all_assignments)), None, 'red')
                 cprint("Assignment length: {}".format(len(assignment)), None, 'yellow')
 
+
+
                 assignment_cost = 0
                 assignment_paths = []
+                assignment_samples = set(visited_samples)
                 for end_node, output_node, _ in assignment:
-                    _cost, _paths = cls.optimize_steiner_tree(start_nodes, [end_node], bgraph_copy, visited_end_nodes[:],
-                                                          visited_samples, output_node, verbose=True, depth=depth + 1)
+                    _cost, _paths, _visited_samples = self.optimize_steiner_tree(start_nodes, [end_node], bgraph_copy,
+                                                                                 visited_end_nodes[:],
+                                                                                 assignment_samples, output_node,
+                                                                                 verbose=True, depth=depth + 1)
                     assignment_cost += _cost
                     assignment_paths += _paths
+                    assignment_samples = assignment_samples.union(_visited_samples)
+                best_assignment_costs.append((assignment_cost, assignment_paths, assignment_samples))
+            cprint([(len(x[2]), x[0]) for x in best_assignment_costs], 'green')
+            best_assignment_costs = sorted(best_assignment_costs, key=lambda x: (-len(x[2]), x[0]))
 
-                best_assignment_costs.append((assignment_cost, assignment_paths))
-
-            best_assignment_costs = sorted(best_assignment_costs)
+            cprint("Best assignment cost returned: {}".format(best_assignment_costs[0][0]), 'red')
 
             cost += best_assignment_costs[0][0]
             final_paths += best_assignment_costs[0][1]
+            visited_samples = visited_samples.union(best_assignment_costs[0][2])
 
         ############################################
-        # 5 return cost and paths
+        # 5 Make a sample penalty for missing input samples
         ############################################
+
+        output_samples = set()
+        for path in final_paths:
+            for node in path:
+                ndata = bgraph_copy.get_node(node)
+                if 'sample' in ndata:
+                    output_samples.add(ndata['sample'])
+
+        expected_samples = set()
+        for sample in output_samples:
+            for pred in self.sample_composition.predecessors(sample.id):
+                expected_samples.add(pred)
+
+        ############################################
+        # 56return cost and paths
+        ############################################
+
+
+        sample_penalty = (len(expected_samples) - len(visited_samples)) * 10000
+        cprint("SAMPLES {}/{}".format(len(visited_samples), len(expected_samples)))
         cprint("COST AT DEPTH {}: {}".format(depth, cost), None, 'red')
+        cprint("SAMPLE PENALTY: {}")
         cprint("VISITED SAMPLES: {}".format(visited_samples), None, 'red')
-        return cost, final_paths
+        return cost + sample_penalty, final_paths, visited_samples

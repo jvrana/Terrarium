@@ -429,6 +429,7 @@ class BrowserGraph(object):
         :return:
         :rtype:
         """
+
         node = self.graph.node[node_id]
         if 'model_id' in node and 'model' not in node:
             model = self.browser.find(node['model_id'], model_class=node['node_class'])
