@@ -81,6 +81,9 @@ canvas.create()
 
 **Probability Matrix of Connecting Aquarium Protocols**
 
+The autoplanner uses this type of data, in concert with the `sample_composition` network,
+to build an optimal experiment.
+
 ![all_connections](assets/images/all_op_types.png)
 
 **Top 50 Connections**
