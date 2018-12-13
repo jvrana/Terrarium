@@ -9,7 +9,7 @@
 
 
 from autoplanner import AutoPlanner
-from autoplanner.algorithm import Algorithm
+from autoplanner.algorithm import NetworkOptimization
 from pydent.browser import Browser
 from mysession import production
 import networkx as nx
@@ -51,7 +51,7 @@ for n1, n2 in edges:
 # sample_composition.add_node(s.id, sample=s)
 # nx.draw(sample_composition)
 
-alg = Algorithm(browser, sample_composition, ap.template_graph)
+alg = NetworkOptimization(browser, sample_composition, ap.template_graph)
 alg.set_verbose(True)
 # alg.update_sample_composition
 cost, paths, graph = alg.run(production.ObjectType.find_by_name('Plasmid Glycerol Stock'))

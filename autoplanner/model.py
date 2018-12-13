@@ -1,16 +1,17 @@
 from functools import reduce
+from os import stat
 from uuid import uuid4
 
 import dill
 import networkx as nx
 import pandas as pd
-from pydent.browser import Browser
 from pydent.base import ModelBase as TridentBase
+from pydent.browser import Browser
 from pydent.utils.logger import Loggable
-from os import stat
+from tqdm import tqdm
 
 from autoplanner.utils.hash_utils import HashCounter
-from tqdm import tqdm
+
 
 class EdgeWeightContainer(Loggable):
     DEFAULT_DEPTH = 100
@@ -289,13 +290,13 @@ class EdgeWeightContainer(Loggable):
 
 
 class BrowserGraph(object):
+    """Graph class for representing Aquarium model-to-model relationships."""
 
     class DEFAULTS:
 
         MODEL_TYPE = "model"
         NODE_TYPE = "node"
 
-    """Class for handling generic trident model-to-model relationships"""
     def __init__(self, browser):
         self.browser = browser
         self.graph = nx.DiGraph()
@@ -354,7 +355,8 @@ class BrowserGraph(object):
             raise TypeError("Add node expects a Trident model, not a {}".format(type(model)))
         if node_id is None:
             node_id = self.node_id(model)
-        return self.graph.add_node(node_id, node_class=model_class, model_id=model.id, node_type=self.DEFAULTS.MODEL_TYPE)
+        return self.graph.add_node(node_id, node_class=model_class, model_id=model.id,
+                                   node_type=self.DEFAULTS.MODEL_TYPE)
 
     def add_edge_from_models(self, m1, m2, edge_type=None, **kwargs):
         """
@@ -594,7 +596,10 @@ class BrowserGraph(object):
         return copied
 
 
-class AutoPlanner(Loggable):
+class AutoPlannerModel(Loggable):
+    """
+    Builds a model from historical plan data.
+    """
 
     def __init__(self, session, depth=100):
         self.browser = Browser(session)
@@ -760,6 +765,9 @@ class AutoPlanner(Loggable):
                 weight=weight_container.get_weight(aft1, aft2)
             )
 
+    def build(self):
+        return self.construct_template_graph()
+
     def construct_template_graph(self):
         """
         Construct a graph of all possible Operation connections.
@@ -856,6 +864,9 @@ class AutoPlanner(Loggable):
             }, f)
         statinfo = stat(path)
         self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
+
+    def save(self, path):
+        return self.dump(path)
 
     @classmethod
     def load(cls, path):

@@ -9,14 +9,14 @@ import networkx as nx
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
 
-from autoplanner import AutoPlanner
-from autoplanner.autoplanner import BrowserGraph
+from autoplanner import AutoPlannerModel
+from autoplanner.model import BrowserGraph
 from autoplanner.utils import graph_utils
 from autoplanner.utils.color_utils import cprint, cstring
 from pydent.models import Sample
 
 
-class AlgorithmFactory(object):
+class NetworkFactory(object):
 
     def __init__(self, browser, template_graph):
         self.browser = browser
@@ -27,7 +27,7 @@ class AlgorithmFactory(object):
         self.algorithms[algorithm.gid] = algorithm
 
     def new_from_composition(self, sample_composition_graph):
-        algorithm = Algorithm(self.browser, sample_composition_graph, self.template_graph.copy())
+        algorithm = NetworkOptimization(self.browser, sample_composition_graph, self.template_graph.copy())
         self.add(algorithm)
         return algorithm
 
@@ -70,7 +70,11 @@ none_sample.id = None
 none_sample.name = None
 
 
-class Algorithm(Loggable):
+class NetworkOptimizer(Loggable):
+    """
+    Class that finds optimal Steiner Tree (
+    """
+
     counter = counter()
 
     def __init__(self, browser, sample_composition_graph, template_graph):
@@ -143,6 +147,16 @@ class Algorithm(Loggable):
     ############################
 
     def plan(self, paths, graph, canvas):
+        """
+        Converts a path through a :class:`BrowserGraph` into an
+        Aquarium Plan
+
+        :param paths: list of node_ids
+        :param graph: BrowserGraph instance
+        :param canvas: Planner instance
+        :return:
+        """
+
         graph = graph.copy()
         for path_num, path in enumerate(paths):
             print("Path: {}".format(path_num))
@@ -151,10 +165,16 @@ class Algorithm(Loggable):
             print()
         return canvas
 
-    # def set_helper(self, canvas, op, fvname, sample):
-
     @classmethod
     def assign_field_values(cls, path, graph, canvas):
+        """
+        Assign :class:`FieldValue` to a path
+
+        :param path: list of node_ids
+        :param graph: BrowserGraph instance
+        :param canvas: Planner instance
+        :return:
+        """
         prev_node = None
 
         for n, ndata in graph.iter_model_data(model_class="AllowableFieldType", nbunch=path):
@@ -188,7 +208,14 @@ class Algorithm(Loggable):
 
     @classmethod
     def assign_items(cls, path, graph, canvas):
+        """
+        Assign :class:`Item` in a path
 
+        :param path: list of node_ids
+        :param graph: BrowserGraph instance
+        :param canvas: Planner instance
+        :return:
+        """
         prev_node = None
 
         for n, ndata in graph.iter_model_data(model_class="AllowableFieldType", nbunch=path):
@@ -345,6 +372,24 @@ class Algorithm(Loggable):
         return data
 
     def create_sample_composition_graphs(self, template_graph, browser, sample_composition):
+        """
+        Break a template_graph into subgraphs comprising of individual samples obtained
+        from the sample composition graph.
+
+        The `sample_composition` graph is a directed graph that defines how samples may be built
+        from other samples. Meanwhile, the `template_graph` defines all possible connections between
+        :class:`AllowableFieldType` and the associated weights of each edge determined from the
+        :class:`AutoPlannerModel`. Using the `sample_composition` graph, we grab individual subgraphs
+        from the template graph for each node in the sample compositions graph (using SampleType).
+        The edges of the `sample_composition` graph determines which edges of these new subgraphs
+        can be connected to each other, forming the final graph used in the Steiner tree optimization
+        algorithm.
+
+        :param template_graph:
+        :param browser:
+        :param sample_composition:
+        :return:
+        """
         sample_edges = []
         graphs = []
 
@@ -367,7 +412,7 @@ class Algorithm(Loggable):
             output_afts = [aft for aft in sample_graph2.iter_models("AllowableFieldType") if
                            aft.field_type.role == 'output']
 
-            pairs = AutoPlanner.match_internal_afts(input_afts, output_afts)
+            pairs = AutoPlannerModel.match_internal_afts(input_afts, output_afts)
             pairs = [
                 (sample_graph1.node_id(aft1), sample_graph2.node_id(aft2)) for aft1, aft2 in pairs
             ]
@@ -668,6 +713,24 @@ class Algorithm(Loggable):
 
         return all_assignments
 
+    # TODO: fix issue with seed path
+    """
+    TODO: During the seed stage, this algorithm can get 'stuck' in a non-optimal solution,
+    making it difficult to plan 'short' experimental plans. As an example, planning 
+    PCRs can get stuck on 'Anneal Oligos' since this is the shortest seed path. But this
+    results in a sample penalty since the Template from the sample composition is unfullfilled.
+    There is no procedure currently in place to solve this issue.
+    
+    Solution 1: Instead of using the top seed path, evaluate the top 'N' seed paths, picking the best
+    one
+    
+    Solution 2: Evaluate the top 'N' most 'different' seed paths
+    
+    Solution 3: Rank seed paths not only on path length/cost, but also on their visited samples.
+    The most visited samples, the better the path. However, longer paths have more visited samples,
+    hence usually a higher path length/cost. It would be difficult to weight these two
+    aspects of the seed path.
+    """
     def optimize_steiner_tree(self, start_nodes, end_nodes, bgraph, visited_end_nodes,
                               visited_samples=None, output_node=None, verbose=True, depth=0):
 
@@ -824,13 +887,13 @@ class Algorithm(Loggable):
                 expected_samples.add(pred)
 
         ############################################
-        # 56return cost and paths
+        # return cost and paths
         ############################################
 
 
         sample_penalty = (len(expected_samples) - len(visited_samples)) * 10000
         cprint("SAMPLES {}/{}".format(len(visited_samples), len(expected_samples)))
         cprint("COST AT DEPTH {}: {}".format(depth, cost), None, 'red')
-        cprint("SAMPLE PENALTY: {}")
+        cprint("SAMPLE PENALTY: {}".format(sample_penalty))
         cprint("VISITED SAMPLES: {}".format(visited_samples), None, 'red')
         return cost + sample_penalty, final_paths, visited_samples

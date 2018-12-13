@@ -1,7 +1,7 @@
 import networkx as nx
 from pydent.browser import Browser
 
-from autoplanner.algorithm import Algorithm
+from autoplanner.algorithm import NetworkOptimization
 
 
 def test_algorithm(autoplanner, session):
@@ -26,7 +26,7 @@ def test_algorithm(autoplanner, session):
         sample_composition.add_node(s2.id, sample=s2)
         sample_composition.add_edge(s1.id, s2.id)
 
-    algorithm = Algorithm(browser, sample_composition, autoplanner.template_graph)
+    algorithm = NetworkOptimization(browser, sample_composition, autoplanner.template_graph)
     algorithm.print_sample_composition()
 
     algorithm.run(session.ObjectType.find_by_name('Plasmid Stock'))
@@ -59,7 +59,7 @@ def test_get_sisters_for_run_gel(autoplanner, session):
     # sample_composition.add_node(s.id, sample=s)
     # nx.draw(sample_composition)
 
-    alg = Algorithm(browser, sample_composition, autoplanner.template_graph)
+    alg = NetworkOptimization(browser, sample_composition, autoplanner.template_graph)
 
     cost, paths, graph = alg.run(session.ObjectType.find_by_name("Plasmid Glycerol Stock"))
 
