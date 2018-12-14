@@ -20,7 +20,7 @@ def test_graphml(autoplanner, datadir):
     nx.write_graphml(autoplanner.template_graph.graph, os.path.join(datadir, 'autoplanner.graphml'))
 
 
-def test_successor(autoplanner, session):
+def test_successor(autoplanner):
     graph = autoplanner.template_graph
 
     aft = autoplanner.browser.find(273, 'AllowableFieldType')

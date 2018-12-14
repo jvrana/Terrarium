@@ -4,7 +4,13 @@ import pytest
 import vcr
 
 from pydent import AqSession
-from autoplanner import AutoPlanner
+from autoplanner import AutoPlannerModel
+
+###########
+# CONFIG
+###########
+
+DEFAULT_NUM_PLANS = 300
 
 ###########
 # VCR setup
@@ -84,15 +90,18 @@ def session(config):
 @pytest.fixture(scope='session')
 def datadir():
     here = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(here, 'fixtures', 'data')
+    dirpath = os.path.join(here, 'fixtures', 'data')
+    assert os.path.isdir(dirpath), 'Data folder does not exist: {}'.format(dirpath)
+    return dirpath
 
 
 @pytest.fixture(scope="module")
-def new_autoplanner(session):
-    ap = AutoPlanner(session, depth=300)
-    ap.set_verbose(True)
-    ap.construct_template_graph()
-    return ap
+def new_model(session):
+    """Force creation of a new model"""
+    apm = AutoPlannerModel(session, DEFAULT_NUM_PLANS)
+    apm.set_verbose(True)
+    apm.build()
+    return apm
 
 # new_autoplanner.dump(os.path.join(datadir, 'autoplanner.pkl'))
 
@@ -108,12 +117,12 @@ def autoplanner(session, datadir):
     if not os.path.isfile(filepath):
         print("TESTS: No file found with path '{}'".format(filepath))
         print("TESTS: Creating new pickled autoplanner...")
-        ap = new_autoplanner(session)
-        ap.set_verbose(True)
-        ap.construct_template_graph()
-        ap.dump(filepath)
+        model = new_model(session)
+        model.set_verbose(True)
+        model.build()
+        model.dump(filepath)
 
     print("TESTS: Loading '{}'".format(filepath))
-    ap = AutoPlanner.load(filepath)
-    ap.set_verbose(False)
-    return ap
+    model = AutoPlannerModel.load(filepath)
+    model.set_verbose(False)
+    return model

@@ -1,5 +1,5 @@
 import dill
-from autoplanner import AutoPlanner
+from autoplanner import AutoPlannerModel
 from pydent.browser import Browser
 import os
 
@@ -19,5 +19,6 @@ def test_browser_loads(session):
 
     assert len(loaded_browser.model_cache) > 0
 
+
 def test_load(datadir):
-    AutoPlanner.load(os.path.join(datadir, 'autoplanner.pkl'))
+    AutoPlannerModel.load(os.path.join(datadir, 'autoplanner.pkl'))

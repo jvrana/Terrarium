@@ -414,7 +414,7 @@ class NetworkOptimizer(Loggable):
             output_afts = [aft for aft in sample_graph2.iter_models("AllowableFieldType") if
                            aft.field_type.role == 'output']
 
-            pairs = AutoPlannerModel.match_internal_afts(input_afts, output_afts)
+            pairs = AutoPlannerModel._match_internal_afts(input_afts, output_afts)
             pairs = [
                 (sample_graph1.node_id(aft1), sample_graph2.node_id(aft2)) for aft1, aft2 in pairs
             ]

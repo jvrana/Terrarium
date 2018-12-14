@@ -1,17 +1,20 @@
+import json
+import warnings
 from functools import reduce
 from os import stat
 from uuid import uuid4
 
+import arrow
 import dill
 import networkx as nx
+from autoplanner.__version__ import __version__
+from autoplanner.exceptions import AutoPlannerException, AutoPlannerLoadingError
+from autoplanner.utils.hash_utils import HashCounter
 from pydent import AqSession
 from pydent.base import ModelBase as TridentBase
 from pydent.browser import Browser
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
-
-from autoplanner.utils.hash_utils import HashCounter
-from autoplanner.__version__ import __version__
 
 
 class EdgeWeightContainer(Loggable):
@@ -32,6 +35,8 @@ class EdgeWeightContainer(Loggable):
 
         self.init_logger("EdgeCalculator@{}".format(browser.session.url))
         self.browser = browser
+
+        # filter only those plans that have operations
         self.plans = plans
 
         def new_edge_hash(pair):
@@ -41,7 +46,12 @@ class EdgeWeightContainer(Loggable):
         self._edge_counter = HashCounter(new_edge_hash)
         self._node_counter = HashCounter(node_hash)
         self._weights = {}
+        self.created_at = str(arrow.now())
+        self.updated_at = None
         self.is_cached = False
+
+    def _was_updated(self):
+        self.updated_last = str(arrow.now())
 
     def reset(self):
         self.is_cached = False
@@ -83,6 +93,7 @@ class EdgeWeightContainer(Loggable):
     def compute(self):
         """Compute the weights. If previously computed, this function will avoid re-caching plans and wires."""
         self._info("Computing weights for {} plans".format(len(self.plans)))
+        self._was_updated()
         if not self.is_cached:
             self.cache_plans(self.plans)
         else:
@@ -180,6 +191,8 @@ class EdgeWeightContainer(Loggable):
         return self.cost_function(n, t)
 
     def cost_function(self, n, t):
+        n = max(n, 0)
+        t = max(t, 0)
         p = 10e-6
         if t > 0:
             p = n / t
@@ -188,9 +201,48 @@ class EdgeWeightContainer(Loggable):
 
     def get_weight(self, n1, n2):
         if not self.is_cached:
-            raise Exception("The tally and weights have not been computed")
+            raise AutoPlannerException("The tally and weights have not been computed")
         ehash = self._edge_counter.hash_function((n1, n2))
         return self._weights.get(ehash, self.cost(n1, n2))
+
+    def copy(self):
+        return self.__copy__()
+
+    def __copy__(self):
+        new = self.__class__(self.browser, None, None, self.plans)
+        new._edge_counter = self._edge_counter.copy()
+        new._node_counter = self._node_counter.copy()
+        new.is_cached = self.is_cached
+        return new
+
+    def __add__(self, other):
+        new = self.copy()
+        new._edge_counter = self._edge_counter + other._edge_counter
+        new._node_counter = self._node_counter + other._node_counter
+        new._was_updated()
+        return new
+
+    def __sub__(self, other):
+        new = self.copy()
+        new._edge_counter = self._edge_counter - other._edge_counter
+        new._node_counter = self._node_counter - other._node_counter
+
+        # make sure there are no negative values
+        for k, v in new._edge_counter.counter:
+            new._edge_counter.counter[k] = max(v, 0)
+
+        for k, v in new._node_counter.counter:
+            new._node_counter.counter[k] = max(v, 0)
+
+        new._was_updated()
+        return new
+
+    def __mul__(self, num):
+        new = self.copy()
+        new._edge_counter = self._edge_counter * num
+        new._node_counter = self._node_counter * num
+        new._was_updated()
+        return new
 
     # def __getstate__(self):
     #     return {
@@ -315,13 +367,13 @@ class BrowserGraph(object):
             if model1 is not None:
                 self.add_node(model1, n1)
             else:
-                raise Exception("Model1 must be provided")
+                raise AutoPlannerException("Model1 must be provided")
 
         if n2 not in self.graph:
             if model1 is not None:
                 self.add_node(model2, n2)
             else:
-                raise Exception("Model2 must be provided")
+                raise AutoPlannerException("Model2 must be provided")
 
         return self.graph.add_edge(n1, n2, edge_type=edge_type, **kwargs)
 
@@ -514,6 +566,7 @@ class BrowserGraph(object):
         copied.model_hashes = self.model_hashes
         return copied
 
+
 class ModelFactory(object):
     """
     Build models from a shared model cache.
@@ -526,20 +579,26 @@ class ModelFactory(object):
         """Emulate a particular user (or users if supplied a list)"""
         users = self.browser.where({"login": logins}, model_class='User')
         user_ids = [u.id for u in users]
-        plans = self.browser.last(limit, user_id=user_ids)
+        print(user_ids)
+        plans = self.browser.last(limit, user_id=user_ids, model_class="Plan")
         return AutoPlannerModel(self.browser, plans)
 
-    def new(self, plans):
+    def new(self, plans=None):
         """New model from plans"""
         return AutoPlannerModel(self.browser, plans)
 
+    def union(self, models):
+        new_model = AutoPlannerModel(self.browser)
+        for m in models:
+            new_model += m
+        return new_model
 
 class AutoPlannerModel(Loggable):
     """
     Builds a model from historical plan data.
     """
 
-    def __init__(self, session, plans_or_depth=None):
+    def __init__(self, session, plans_or_depth=None, name=None):
         if isinstance(session, AqSession):
             self.browser = Browser(session)
         elif isinstance(session, Browser):
@@ -550,11 +609,33 @@ class AutoPlannerModel(Loggable):
             plans = plans_or_depth
         else:
             plans = None
-        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, plans=plans)
+        self.weight_container = EdgeWeightContainer(self.browser, self._hash_afts, self._external_aft_hash, plans=plans)
         self._template_graph = None
         self.model_filters = []
+        if name is None:
+            name = "unnamed_{}".format(id(self))
+        self.name = name
         self._version = __version__
-        self.init_logger("AutoPlanner@{url}".format(url=session.url))
+        self.created_at = str(arrow.now())
+        self.updated_at = str(arrow.now())
+        self.init_logger("AutoPlanner@{url}".format(url=self.browser.session.url))
+
+    def info(self):
+        return {
+            'name': self.name,
+            'version': self.version,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'has_template_graph': self._template_graph is not None,
+            'num_plans': len(self.weight_container.plans)
+        }
+
+    def print_info(self):
+        print(json.dumps(self.info(), indent=2))
+
+    # TODO: method for printing statistics and plots for the model
+    def plots(self):
+        raise NotImplemented()
 
     @property
     def version(self):
@@ -564,17 +645,13 @@ class AutoPlannerModel(Loggable):
         self.weight_container.plans = plans
         self._template_graph = None
 
-    def set_depth(self, depth):
-        self.weight_container.depth = depth
-        self._template_graph = None
-
     def set_verbose(self, verbose):
         if self.weight_container:
             self.weight_container.set_verbose(verbose)
         super().set_verbose(verbose)
 
     @staticmethod
-    def external_aft_hash(aft):
+    def _external_aft_hash(aft):
         """A has function representing two 'external' :class:`pydent.models.AllowableFieldType`
         models (i.e. a wire)"""
         if not aft.field_type:
@@ -590,7 +667,7 @@ class AutoPlannerModel(Loggable):
         )
 
     @staticmethod
-    def internal_aft_hash(aft):
+    def _internal_aft_hash(aft):
         """A has function representing two 'internal' :class:`pydent.models.AllowableFieldType`
         models (i.e. an operation)"""
 
@@ -601,13 +678,13 @@ class AutoPlannerModel(Loggable):
         )
 
     @classmethod
-    def hash_afts(cls, pair):
+    def _hash_afts(cls, pair):
         """Make a unique hash for a :class:`pydent.models.AllowableFieldType` pair"""
-        source_hash = cls.external_aft_hash(pair[0])
-        dest_hash = cls.external_aft_hash(pair[1])
+        source_hash = cls._external_aft_hash(pair[0])
+        dest_hash = cls._external_aft_hash(pair[1])
         return "{}->{}".format(source_hash, dest_hash)
 
-    def cache_afts(self):
+    def _cache_afts(self):
         """Cache :class:`AllowableFieldType`"""
         ots = self.browser.where({"deployed": True}, "OperationType")
 
@@ -642,48 +719,48 @@ class AutoPlannerModel(Loggable):
         return input_afts, output_afts
 
     @classmethod
-    def match_internal_afts(cls, input_afts, output_afts):
+    def _match_internal_afts(cls, input_afts, output_afts):
         internal_groups = {}
         for aft in output_afts:
-            internal_groups.setdefault(cls.internal_aft_hash(aft), []).append(aft)
+            internal_groups.setdefault(cls._internal_aft_hash(aft), []).append(aft)
 
         edges = []
 
         for iaft in input_afts:
-            hsh = cls.internal_aft_hash(iaft)
+            hsh = cls._internal_aft_hash(iaft)
             internals = internal_groups.get(hsh, [])
             for aft in internals:
                 edges.append((iaft, aft))
         return edges
 
     @classmethod
-    def match_external_afts(cls, input_afts, output_afts):
+    def _match_external_afts(cls, input_afts, output_afts):
         external_groups = {}
         for aft in input_afts:
-            external_groups.setdefault(cls.external_aft_hash(aft), []).append(aft)
+            external_groups.setdefault(cls._external_aft_hash(aft), []).append(aft)
 
         edges = []
         for oaft in output_afts:
-            hsh = cls.external_aft_hash(oaft)
+            hsh = cls._external_aft_hash(oaft)
             externals = external_groups.get(hsh, [])
             for aft in externals:
                 edges.append((oaft, aft))
         return edges
 
     @classmethod
-    def match_afts(cls, input_afts, output_afts):
-        return cls.match_internal_afts(input_afts, output_afts) + \
-               cls.match_external_afts(input_afts, output_afts)
+    def _match_afts(cls, input_afts, output_afts):
+        return cls._match_internal_afts(input_afts, output_afts) + \
+               cls._match_external_afts(input_afts, output_afts)
 
-    def get_aft_pairs(self):
+    def _get_aft_pairs(self):
         """
         Construct edges from all deployed allowable_field_types
 
         :return: list of tuples representing connections between AllowableFieldType
         :rtype: list
         """
-        input_afts, output_afts = self.cache_afts()
-        return self.match_afts(input_afts, output_afts)
+        input_afts, output_afts = self._cache_afts()
+        return self._match_afts(input_afts, output_afts)
 
     @property
     def template_graph(self):
@@ -700,8 +777,8 @@ class AutoPlannerModel(Loggable):
     def reset_model_filters(self):
         self.model_filter = []
 
-    def add_weighted_edges(self, graph, weight_container):
-        for aft1, aft2 in self.get_aft_pairs():
+    def update_weights(self, graph, weight_container):
+        for aft1, aft2 in self._get_aft_pairs():
 
             edge_type = None
             roles = [aft.field_type.role for aft in [aft1, aft2]]
@@ -718,9 +795,6 @@ class AutoPlannerModel(Loggable):
             )
 
     def build(self):
-        return self.construct_template_graph()
-
-    def construct_template_graph(self):
         """
         Construct a graph of all possible Operation connections.
         """
@@ -732,14 +806,15 @@ class AutoPlannerModel(Loggable):
         # G.model_hashes = {
         #     "AllowableFieldType": lambda m: "{}_{}_{}_{}".format(m.__class__.__name__, m.object_type_id, m.sample_type_id, m.field_type_id)
         # }
-        self.add_weighted_edges(G, self.weight_container)
+        self.update_weights(G, self.weight_container)
         self._info("  {} edges".format(len(list(G.edges()))))
         self._info("  {} nodes".format(len(G)))
 
         self._template_graph = G
-        return G
+        self._was_updated()
+        return self
 
-    def collect_afts(self, graph):
+    def _collect_afts(self, graph):
         """
         Collect :class:`pydent.models.AllowableFieldType` models from graph
 
@@ -813,7 +888,10 @@ class AutoPlannerModel(Loggable):
             dill.dump({
                 'browser': self.browser,
                 'template_graph': self.template_graph,
-                'version': self._version
+                'version': self._version,
+                'name': self.name,
+                'created_at': self.created_at,
+                'updated_at': self.updated_at
             }, f)
         statinfo = stat(path)
         self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
@@ -824,15 +902,59 @@ class AutoPlannerModel(Loggable):
     @classmethod
     def load(cls, path):
         with open(path, 'rb') as f:
-            data = dill.load(f)
-            browser = data['browser']
-            ap = cls(browser.session)
+            try:
+                data = dill.load(f)
+                if data['version'] != __version__:
+                    warnings.warn(
+                        "Version number of saved model ('{}') does not match current model version ('{}')".format(
+                            data['version'],
+                            __version__
+                        ))
+                browser = data['browser']
+                ap = cls(browser.session)
 
-            statinfo = stat(path)
-            ap._info("{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
-                statinfo.st_size, path, id(ap)))
+                statinfo = stat(path)
+                ap._info("{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
+                    statinfo.st_size, path, id(ap)))
 
-            ap.browser = browser
-            ap._template_graph = data['template_graph']
-            ap._version = data['version']
-            return ap
+                ap.browser = browser
+                ap._template_graph = data['template_graph']
+                ap._version = data['version']
+                ap.name = data.get('name', None)
+                ap.updated_at = data.get('updated_at', None)
+                ap.created_at = data.get('created_at', None)
+                return ap
+            except Exception as e:
+                msg = "An error occurred while loading an {} model".format(cls.__name__)
+                if 'version' in data and data['version'] != __version__:
+                    msg = "Version notice: This may have occurred since saved model version {} " \
+                          "does not match current version {}".format(
+                        data['version'], __version__)
+                raise AutoPlannerLoadingError('\n'.join([str(e), msg])) from e
+
+    def _was_updated(self):
+        self.updated_at = str(arrow.now())
+
+    def copy(self):
+        return self.__copy__()
+
+    def __copy__(self):
+        new = self.__class__(self.browser, None, self.name + "_copy")
+        new.weight_container = self.weight_container
+        if self._template_graph:
+            new._template_graph = self._template_graph.copy()
+        return new
+
+    def __add__(self, other):
+        new = self.copy()
+        new.weight_container = self.weight_container + other.weight_container
+        if self._template_graph:
+            new.update_weights(self._template_graph, new.weight_container)
+        return new
+
+    def __mul__(self, num):
+        new = self.copy()
+        new.weight_container = self.weight_container * num
+        if self._template_graph:
+            new.update_weights(self._template_graph, new.weight_container)
+        return new

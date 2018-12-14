@@ -102,6 +102,25 @@ to build an optimal experiment.
 
 ![top_50_connections](assets/images/top_50_optypes.png)
 
+## Model Factory
+
+```python
+factory = ModelFactory(session)
+
+# make a model from a single user
+model1 = factory.emulate('user1').build()
+
+# make a model from a group of users
+user_group = ['user2', 'user3']
+model2 = factory.emulate(user_group).build()
+
+# make a model from the last 100 plans
+model3 = factory.new(100).build()
+
+# compose a weighted model
+model = model1 + model2 * 3
+```
+
 ## Future Version
 
 * estimate convidence for certain inventory items or operations based on
