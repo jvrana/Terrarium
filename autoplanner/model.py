@@ -4,7 +4,7 @@ from uuid import uuid4
 
 import dill
 import networkx as nx
-import pandas as pd
+from pydent import AqSession
 from pydent.base import ModelBase as TridentBase
 from pydent.browser import Browser
 from pydent.utils.logger import Loggable
@@ -514,17 +514,42 @@ class BrowserGraph(object):
         copied.model_hashes = self.model_hashes
         return copied
 
+class ModelFactory(object):
+    """
+    Build models from a shared model cache.
+    """
+
+    def __init__(self, session):
+        self.browser = Browser(session)
+
+    def emulate(self, logins, limit=-1):
+        """Emulate a particular user (or users if supplied a list)"""
+        users = self.browser.where({"login": logins}, model_class='User')
+        user_ids = [u.id for u in users]
+        plans = self.browser.last(limit, user_id=user_ids)
+        return AutoPlannerModel(self.browser, plans)
+
+    def new(self, plans):
+        """New model from plans"""
+        return AutoPlannerModel(self.browser, plans)
+
 
 class AutoPlannerModel(Loggable):
     """
     Builds a model from historical plan data.
     """
 
-    def __init__(self, session, depth=100, plans=None):
-        self.browser = Browser(session)
-        if plans is None:
-            plans = self.browser.last(depth, model_class="Plan")
-        plans = plans[:depth]
+    def __init__(self, session, plans_or_depth=None):
+        if isinstance(session, AqSession):
+            self.browser = Browser(session)
+        elif isinstance(session, Browser):
+            self.browser = session
+        if isinstance(plans_or_depth, int):
+            plans = self.browser.last(plans_or_depth, model_class="Plan")
+        elif isinstance(plans_or_depth, list):
+            plans = plans_or_depth
+        else:
+            plans = None
         self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, plans=plans)
         self._template_graph = None
         self.model_filters = []
