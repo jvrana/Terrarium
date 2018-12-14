@@ -16,6 +16,9 @@ class HashCounter(object):
     def hash_by_attributes(data, attributes=()):
         return "%".join([str(getattr(data, x, None)) for x in attributes])
 
+    def clear(self):
+        self.counter.clear()
+
     def __setitem__(self, k, v):
         self.counter[self.hash_function(k)] = v
 

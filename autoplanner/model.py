@@ -38,10 +38,8 @@ class EdgeWeightContainer(Loggable):
             h = edge_hash(pair)
             return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
 
-        self._edge_hash = new_edge_hash
-        self._node_hash = node_hash
-        self._edge_counter = HashCounter(self._edge_hash)
-        self._node_counter = HashCounter(self._node_hash)
+        self._edge_counter = HashCounter(new_edge_hash)
+        self._node_counter = HashCounter(node_hash)
         self._weights = {}
         self.is_cached = False
 
@@ -164,25 +162,6 @@ class EdgeWeightContainer(Loggable):
         edges = [(n1, n2) for n1, n2 in edges if n1 is not None and n2 is not None]
         return edges
 
-    def calculate_weights(self, edges):
-        edge_counter = HashCounter(func=self._edge_hash)
-        node_counter = HashCounter(func=self._node_hash)
-
-        rows = []
-        for n1, n2 in edges:
-            if n1 and n2:
-                rows.append({
-                    "source": n1.id,
-                    "destination": n2.id,
-                    "count": edge_counter[(n1, n2)],
-                    "total": node_counter[n1],
-                })
-        df = pd.DataFrame(rows)
-        df.drop_duplicates(inplace=True)
-        df['weight'] = df['count'] / df['total']
-        df.sort_values(by=['weight'], inplace=True, ascending=True)
-        return df
-
     def update_tally(self, edges):
         self._info("Hashing and counting edges...")
         for n1, n2 in tqdm(edges, desc="counting edges"):
@@ -193,7 +172,7 @@ class EdgeWeightContainer(Loggable):
     def save_weights(self, edges):
         for n1, n2 in edges:
             if n1 and n2:
-                self._weights[self._edge_hash((n1, n2))] = self.cost(n1, n2)
+                self._weights[self._edge_counter.hash_function((n1, n2))] = self.cost(n1, n2)
 
     def cost(self, n1, n2):
         n = self._edge_counter[(n1, n2)] * 1.0
@@ -210,23 +189,23 @@ class EdgeWeightContainer(Loggable):
     def get_weight(self, n1, n2):
         if not self.is_cached:
             raise Exception("The tally and weights have not been computed")
-        ehash = self._edge_hash((n1, n2))
+        ehash = self._edge_counter.hash_function((n1, n2))
         return self._weights.get(ehash, self.cost(n1, n2))
 
-    def __getstate__(self):
-        return {
-            "_edge_counter": self._edge_counter,
-            "_node_counter": self._node_counter,
-            "_edge_hash": dill.dumps(self._edge_hash),
-            "_node_hash": dill.dumps(self._node_hash),
-        }
-
-    def __setstate__(self, state):
-        self.__dict__.update(state)
-        # self._edge_counter = state['_node_counter']
-        # self._node_counter = state['_node_counter']
-        # self._edge_hash = dill.loads(state['_edge_hash'])
-        # self._node_counter = dill.loads(state['_node_hash'])
+    # def __getstate__(self):
+    #     return {
+    #         "_edge_counter": self._edge_counter,
+    #         "_node_counter": self._node_counter,
+    #         "_edge_hash": dill.dumps(self._edge_hash),
+    #         "_node_hash": dill.dumps(self._node_hash),
+    #     }
+    #
+    # def __setstate__(self, state):
+    #     self.__dict__.update(state)
+    #     # self._edge_counter = state['_node_counter']
+    #     # self._node_counter = state['_node_counter']
+    #     # self._edge_hash = dill.loads(state['_edge_hash'])
+    #     # self._node_counter = dill.loads(state['_node_hash'])
 
 
 class BrowserGraph(object):
