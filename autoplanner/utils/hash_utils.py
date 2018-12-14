@@ -1,30 +1,26 @@
 from collections import Counter
-import functools
 
 
-class HashCounter(Counter):
+class HashCounter(object):
     """
     HashCounter counts objects according to a custom hashing function.
     """
-    def __init__(self, data=(), func=None):
+    def __init__(self, func, data=None):
+        self.counter = Counter()
         self.hash_function = func
-        super().__init__()
-        for d in data:
-            self[d] += 1
-
-    def by_attrs(self, *attrs):
-        self.hash_function = functools.partial(self.hash_by_attributes, attributes=attrs)
-        return self
+        if data:
+            for d in data:
+                self[d] += 1
 
     @staticmethod
     def hash_by_attributes(data, attributes=()):
         return "%".join([str(getattr(data, x, None)) for x in attributes])
 
     def __setitem__(self, k, v):
-        return super().__setitem__(self.hash_function(k), v)
+        self.counter[self.hash_function(k)] = v
 
     def __getitem__(self, k):
-        return super().__getitem__(self.hash_function(k))
+        return self.counter[self.hash_function(k)]
 
 
 class HashView(object):

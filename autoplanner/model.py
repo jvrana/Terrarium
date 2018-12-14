@@ -15,11 +15,8 @@ from autoplanner.__version__ import __version__
 
 
 class EdgeWeightContainer(Loggable):
-    DEFAULT_DEPTH = 100
-    DEFAULT = "DEFAULT"
 
-    def __init__(self, browser, edge_hash, node_hash, depth=None,
-                 plans=None, cost_function=None):
+    def __init__(self, browser, edge_hash, node_hash, plans):
         """
         EdgeCalculator initializer
 
@@ -31,65 +28,21 @@ class EdgeWeightContainer(Loggable):
         :type node_hash: function
         :param plans: optional list of plans
         :type plans: list
-        :param depth: the number of plans to use in the caching. If None, will default either to the length of
-        the plans provided or, if that is not provided, to self.DEFAULT_DEPTH (100)
-        :type depth: int
         """
 
         self.init_logger("EdgeCalculator@{}".format(browser.session.url))
         self.browser = browser
-
-        if cost_function is None:
-            self._cost_function = self.default_cost_function
-        else:
-            self._cost_function = cost_function
-
-        self._plans = plans
-        self._depth = depth
-
-        if not plans:
-            if not depth:
-                self.depth = self.DEFAULT_DEPTH
-            self.plans = self.browser.last(self.depth, "Plan")
-        else:
-            self.depth = len(plans)
-
-        self._edge_hash = edge_hash
-        self._node_hash = node_hash
+        self.plans = plans
 
         def new_edge_hash(pair):
             h = edge_hash(pair)
             return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
 
-        def new_node_hash(n):
-            return '{}_{}'.format(node_hash(n), n.field_type.parent_id)
-
         self._edge_hash = new_edge_hash
         self._node_hash = node_hash
-        self._edge_counter = HashCounter(func=self._edge_hash)
-        self._node_counter = HashCounter(func=self._node_hash)
+        self._edge_counter = HashCounter(self._edge_hash)
+        self._node_counter = HashCounter(self._node_hash)
         self._weights = {}
-        self.is_cached = False
-
-    @property
-    def plans(self):
-        """Returns list of plans to compute (limited to depth)"""
-        return list(self._plans)[-self.depth:]
-
-    @plans.setter
-    def plans(self, plans):
-        """Sets the plans. """
-        self._plans = plans
-        self.is_cached = False
-
-    @property
-    def depth(self):
-        return self._depth
-
-    @depth.setter
-    def depth(self, val):
-        """Sets the depth"""
-        self._depth = val
         self.is_cached = False
 
     def reset(self):
@@ -245,9 +198,9 @@ class EdgeWeightContainer(Loggable):
     def cost(self, n1, n2):
         n = self._edge_counter[(n1, n2)] * 1.0
         t = self._node_counter[n1] * 1.0
-        return self._cost_function(n, t)
+        return self.cost_function(n, t)
 
-    def default_cost_function(self, n, t):
+    def cost_function(self, n, t):
         p = 10e-6
         if t > 0:
             p = n / t
@@ -260,34 +213,20 @@ class EdgeWeightContainer(Loggable):
         ehash = self._edge_hash((n1, n2))
         return self._weights.get(ehash, self.cost(n1, n2))
 
-    def make_df(self):
-        edges = self.edges
-        counter = HashCounter(func=self._edge_hash)
-        node_counter = HashCounter(func=self._node_hash)
-        for n1, n2 in edges:
-            counter[(n1, n2)] += 1
-            node_counter[n1] += 1
+    def __getstate__(self):
+        return {
+            "_edge_counter": self._edge_counter,
+            "_node_counter": self._node_counter,
+            "_edge_hash": dill.dumps(self._edge_hash),
+            "_node_hash": dill.dumps(self._node_hash),
+        }
 
-        rows = []
-        for n1, n2 in edges:
-            if n1 and n2:
-                rows.append({
-                    "source": "{}_{}".format(n1.id, n1.field_type.operation_type.name),
-                    "destination": "{}_{}".format(n2.id, n2.field_type.operation_type.name),
-                    "count": counter[(n1, n2)],
-                    "total": node_counter[n2],
-                })
-        df = pd.DataFrame(rows)
-        df.drop_duplicates(inplace=True)
-        df['probability'] = df['count'] / df['total']
-        df.sort_values(by=['probability'], inplace=True, ascending=True)
-        return df
-
-    # def heatmap(self):
-    #     df = self.make_df()
-    #     sns.set()
-    #     f, ax = plt.subplots(figsize=(12,9))
-    #     sns.heatmap(df, annot=False, ax=ax, cmap="YlGnBu")
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        # self._edge_counter = state['_node_counter']
+        # self._node_counter = state['_node_counter']
+        # self._edge_hash = dill.loads(state['_edge_hash'])
+        # self._node_counter = dill.loads(state['_node_hash'])
 
 
 class BrowserGraph(object):
@@ -604,8 +543,10 @@ class AutoPlannerModel(Loggable):
 
     def __init__(self, session, depth=100, plans=None):
         self.browser = Browser(session)
-        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash,
-                                                    depth=depth, plans=plans)
+        if plans is None:
+            plans = self.browser.last(depth, model_class="Plan")
+        plans = plans[:depth]
+        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, plans=plans)
         self._template_graph = None
         self.model_filters = []
         self._version = __version__
