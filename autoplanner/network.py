@@ -27,7 +27,7 @@ class NetworkFactory(object):
         self.algorithms[algorithm.gid] = algorithm
 
     def new_from_composition(self, sample_composition_graph):
-        algorithm = NetworkOptimization(self.browser, sample_composition_graph, self.template_graph.copy())
+        algorithm = NetworkOptimizer(self.browser, sample_composition_graph, self.template_graph.copy())
         self.add(algorithm)
         return algorithm
 
@@ -198,8 +198,10 @@ class NetworkOptimizer(Loggable):
                     input_name = input_aft.field_type.name
 
                     if input_aft.field_type.array:
+                        print("Setting input array {} to sample='{}'".format(input_name, input_sample))
                         input_fv = canvas.set_input_field_value_array(op, input_name, sample=input_sample)
                     else:
+                        print("Setting input {} to sample='{}'".format(input_name, input_sample))
                         input_fv = canvas.set_field_value(op.input(input_name), sample=input_sample)
                     print("Setting input field_value for '{}'".format(prev_node[0]))
                     prev_node[1]['field_value'] = input_fv
@@ -766,6 +768,7 @@ class NetworkOptimizer(Loggable):
 
         if verbose:
             cprint("Single path found with cost {}".format(cost), None, 'blue')
+            cprint(graph_utils.get_path_weights(bgraph, path), None, 'blue')
 
         ############################################
         # 3. mark edges as 'visited'
@@ -891,7 +894,7 @@ class NetworkOptimizer(Loggable):
         ############################################
 
 
-        sample_penalty = (len(expected_samples) - len(visited_samples)) * 10000
+        sample_penalty = max([(len(expected_samples) - len(visited_samples)) * 10000, 0])
         cprint("SAMPLES {}/{}".format(len(visited_samples), len(expected_samples)))
         cprint("COST AT DEPTH {}: {}".format(depth, cost), None, 'red')
         cprint("SAMPLE PENALTY: {}".format(sample_penalty))

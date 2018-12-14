@@ -11,6 +11,7 @@ from pydent.utils.logger import Loggable
 from tqdm import tqdm
 
 from autoplanner.utils.hash_utils import HashCounter
+from autoplanner.__version__ import __version__
 
 
 class EdgeWeightContainer(Loggable):
@@ -234,7 +235,7 @@ class EdgeWeightContainer(Loggable):
         for n1, n2 in tqdm(edges, desc="counting edges"):
             if n1 and n2:
                 self._edge_counter[(n1, n2)] += 1
-                self._node_counter[n1] += 1
+                self._node_counter[n2] += 1
 
     def save_weights(self, edges):
         for n1, n2 in edges:
@@ -274,7 +275,7 @@ class EdgeWeightContainer(Loggable):
                     "source": "{}_{}".format(n1.id, n1.field_type.operation_type.name),
                     "destination": "{}_{}".format(n2.id, n2.field_type.operation_type.name),
                     "count": counter[(n1, n2)],
-                    "total": node_counter[n1],
+                    "total": node_counter[n2],
                 })
         df = pd.DataFrame(rows)
         df.drop_duplicates(inplace=True)
@@ -601,12 +602,18 @@ class AutoPlannerModel(Loggable):
     Builds a model from historical plan data.
     """
 
-    def __init__(self, session, depth=100):
+    def __init__(self, session, depth=100, plans=None):
         self.browser = Browser(session)
-        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash, depth)
+        self.weight_container = EdgeWeightContainer(self.browser, self.hash_afts, self.external_aft_hash,
+                                                    depth=depth, plans=plans)
         self._template_graph = None
         self.model_filters = []
+        self._version = __version__
         self.init_logger("AutoPlanner@{url}".format(url=session.url))
+
+    @property
+    def version(self):
+        return self._version
 
     def set_plans(self, plans):
         self.weight_container.plans = plans
@@ -860,7 +867,8 @@ class AutoPlannerModel(Loggable):
         with open(path, 'wb') as f:
             dill.dump({
                 'browser': self.browser,
-                'template_graph': self.template_graph
+                'template_graph': self.template_graph,
+                'version': self._version
             }, f)
         statinfo = stat(path)
         self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
@@ -881,4 +889,5 @@ class AutoPlannerModel(Loggable):
 
             ap.browser = browser
             ap._template_graph = data['template_graph']
+            ap._version = data['version']
             return ap
