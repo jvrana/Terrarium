@@ -579,7 +579,6 @@ class ModelFactory(object):
         """Emulate a particular user (or users if supplied a list)"""
         users = self.browser.where({"login": logins}, model_class='User')
         user_ids = [u.id for u in users]
-        print(user_ids)
         plans = self.browser.last(limit, user_id=user_ids, model_class="Plan")
         return AutoPlannerModel(self.browser, plans)
 
