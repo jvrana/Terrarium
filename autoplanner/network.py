@@ -26,6 +26,11 @@ class NetworkFactory(object):
     def add(self, algorithm):
         self.algorithms[algorithm.gid] = algorithm
 
+    def new_from_sample(self, sample):
+        scgraph = nx.DiGraph()
+        scgraph.add_node(sample.id, sample=sample)
+        return self.new_from_composition(scgraph)
+
     def new_from_composition(self, sample_composition_graph):
         algorithm = NetworkOptimizer(self.browser, sample_composition_graph, self.template_graph.copy())
         self.add(algorithm)
@@ -457,7 +462,7 @@ class NetworkOptimizer(Loggable):
         non_part_afts = [aft for aft in afts if not aft.field_type.part]
         object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
 
-        self._cinfo("finding all relevant items")
+        self._cinfo("finding all relevant items for {} samples and {} object_types".format(len(sample_ids), len(object_type_ids)))
         items = browser.where(model_class="Item", query={'sample_id': sample_ids, 'object_type_id': object_type_ids})
         items = [item for item in items if item.location != 'deleted']
         self._info("{} total items found".format(len(items)))
