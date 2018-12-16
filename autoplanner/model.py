@@ -1,4 +1,5 @@
 import json
+import sys
 import warnings
 from functools import reduce
 from os import stat
@@ -7,14 +8,43 @@ from uuid import uuid4
 import arrow
 import dill
 import networkx as nx
-from autoplanner.__version__ import __version__
-from autoplanner.exceptions import AutoPlannerException, AutoPlannerLoadingError
-from autoplanner.utils.hash_utils import HashCounter
 from pydent import AqSession
 from pydent.base import ModelBase as TridentBase
 from pydent.browser import Browser
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
+
+from autoplanner.__version__ import __version__
+from autoplanner.exceptions import AutoPlannerException, AutoPlannerLoadingError
+from autoplanner.utils.hash_utils import HashCounter
+
+from functools import wraps
+
+
+class SetRecusion(object):
+
+    DEFAULT = 2000
+
+    def __init__(self, limit, default=2000):
+        self.limit = limit
+        self.default = default
+
+    def __enter__(self):
+        sys.setrecursionlimit(self.limit)
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        sys.setrecursionlimit(self.default)
+
+    @classmethod
+    def set_recursion_limit(cls, limit, default=DEFAULT):
+        def wrapper(fxn):
+            @wraps(fxn)
+            def _wrapped(*args, **kwargs):
+                with cls(limit, default):
+                    result = fxn(*args, **kwargs)
+                return result
+            return _wrapped
+        return wrapper
 
 
 class EdgeWeightContainer(Loggable):
@@ -37,6 +67,8 @@ class EdgeWeightContainer(Loggable):
         self.browser = browser
 
         # filter only those plans that have operations
+        self._plans = []
+        self._plan_ids = []
         self.plans = plans
 
         def new_edge_hash(pair):
@@ -49,6 +81,15 @@ class EdgeWeightContainer(Loggable):
         self.created_at = str(arrow.now())
         self.updated_at = None
         self.is_cached = False
+
+    @property
+    def plans(self):
+        return self._plans
+
+    @plans.setter
+    def plans(self, new_plans):
+        self._plans = new_plans
+        self._plan_ids = [p.id for p in new_plans]
 
     def _was_updated(self):
         self.updated_last = str(arrow.now())
@@ -244,20 +285,15 @@ class EdgeWeightContainer(Loggable):
         new._was_updated()
         return new
 
-    # def __getstate__(self):
-    #     return {
-    #         "_edge_counter": self._edge_counter,
-    #         "_node_counter": self._node_counter,
-    #         "_edge_hash": dill.dumps(self._edge_hash),
-    #         "_node_hash": dill.dumps(self._node_hash),
-    #     }
-    #
-    # def __setstate__(self, state):
-    #     self.__dict__.update(state)
-    #     # self._edge_counter = state['_node_counter']
-    #     # self._node_counter = state['_node_counter']
-    #     # self._edge_hash = dill.loads(state['_edge_hash'])
-    #     # self._node_counter = dill.loads(state['_node_hash'])
+    def __getstate__(self):
+        return {
+            "_edge_counter": self._edge_counter,
+            "_node_counter": self._node_counter,
+        }
+
+    def __setstate__(self, state):
+        self._edge_counter = state['_edge_counter']
+        self._node_counter = state['_node_counter']
 
 
 class BrowserGraph(object):
@@ -575,22 +611,23 @@ class ModelFactory(object):
     def __init__(self, session):
         self.browser = Browser(session)
 
+    def new(self, plans=None):
+        """New model from plans"""
+        return AutoPlannerModel(self.browser, plans)
+
     def emulate(self, logins, limit=-1):
         """Emulate a particular user (or users if supplied a list)"""
         users = self.browser.where({"login": logins}, model_class='User')
         user_ids = [u.id for u in users]
         plans = self.browser.last(limit, user_id=user_ids, model_class="Plan")
-        return AutoPlannerModel(self.browser, plans)
-
-    def new(self, plans=None):
-        """New model from plans"""
-        return AutoPlannerModel(self.browser, plans)
+        return self.new(plans)
 
     def union(self, models):
         new_model = AutoPlannerModel(self.browser)
         for m in models:
             new_model += m
         return new_model
+
 
 class AutoPlannerModel(Loggable):
     """
@@ -626,7 +663,7 @@ class AutoPlannerModel(Loggable):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'has_template_graph': self._template_graph is not None,
-            'num_plans': len(self.weight_container.plans)
+            'num_plans': len(self.weight_container._plan_ids)
         }
 
     def print_info(self):
@@ -882,6 +919,7 @@ class AutoPlannerModel(Loggable):
             print(pathlen)
             self.print_path(path, graph)
 
+    @SetRecusion.set_recursion_limit(10000)
     def dump(self, path):
         with open(path, 'wb') as f:
             dill.dump({
@@ -924,12 +962,12 @@ class AutoPlannerModel(Loggable):
                 ap.created_at = data.get('created_at', None)
                 return ap
             except Exception as e:
-                msg = "An error occurred while loading an {} model".format(cls.__name__)
+                msg = "An error occurred while loading an {} model.".format(cls.__name__)
                 if 'version' in data and data['version'] != __version__:
                     msg = "Version notice: This may have occurred since saved model version {} " \
                           "does not match current version {}".format(
                         data['version'], __version__)
-                raise AutoPlannerLoadingError('\n'.join([str(e), msg])) from e
+                raise AutoPlannerLoadingError(msg)
 
     def _was_updated(self):
         self.updated_at = str(arrow.now())

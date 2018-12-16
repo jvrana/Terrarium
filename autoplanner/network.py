@@ -18,9 +18,8 @@ from pydent.models import Sample
 
 class NetworkFactory(object):
 
-    def __init__(self, browser, template_graph):
-        self.browser = browser
-        self.template_graph = template_graph
+    def __init__(self, model):
+        self.model = model
         self.algorithms = {}
 
     def add(self, algorithm):
@@ -32,7 +31,9 @@ class NetworkFactory(object):
         return self.new_from_composition(scgraph)
 
     def new_from_composition(self, sample_composition_graph):
-        algorithm = NetworkOptimizer(self.browser, sample_composition_graph, self.template_graph.copy())
+        browser = self.model.browser
+        template_graph = self.model.template_graph
+        algorithm = NetworkOptimizer(browser, sample_composition_graph, template_graph)
         self.add(algorithm)
         return algorithm
 
@@ -67,6 +68,11 @@ class NetworkFactory(object):
             scgraph.add_node(s2.id, sample=s2)
             scgraph.add_edge(s1.id, s2.id)
         return scgraph
+
+    @classmethod
+    def load_model(cls, path):
+        model = AutoPlannerModel.load(path)
+        return cls(model)
 
 
 none_sample = Sample()
