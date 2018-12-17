@@ -1,4 +1,5 @@
 import pytest
+
 from autoplanner.model import ModelFactory
 
 
@@ -16,9 +17,11 @@ def users(session):
     users = session.User.find(list(user_ids))
     return users
 
+
 def test_empty_model(factory):
     model = factory.new()
     assert model
+
 
 @pytest.mark.parametrize('num', [1, 11])
 def test_model_factory_new(factory, num):
@@ -57,7 +60,6 @@ def test_model_attributes(factory):
 
 
 def test_model_info(factory):
-
     model = factory.new(1)
     model.print_info()
 
@@ -77,17 +79,20 @@ def test_basic_search(autoplanner, session):
     autoplanner.add_model_filter("AllowableFieldType", lambda m: m.field_type.parent_id in ignore)
 
     autoplanner.search_graph(session.Sample.one(),
-                                 session.ObjectType.find_by_name("Yeast Glycerol Stock"),
-                                 session.ObjectType.find_by_name("Fragment Stock")
+                             session.ObjectType.find_by_name("Yeast Glycerol Stock"),
+                             session.ObjectType.find_by_name("Fragment Stock")
                              )
 
 
-def test_model_save():
-    pass
+def test_model_saves_and_load(factory, tmpdir):
+    model = factory.new(10)
+    model.build()
+    path = tmpdir.mkdir("models").join("test_model.pkl")
+    model.save(path)
 
-
-def test_load():
-    pass
+    loaded = factory.load_model(path)
+    assert len(loaded.weight_container._edge_counter.counter) > 0
+    assert len(loaded.weight_container._node_counter.counter) > 0
 
 
 def test_model_add(factory, users):
@@ -131,9 +136,8 @@ def test_model_compose_complex(factory, users):
     m2 = models[1]
     m3 = models[3]
 
-    m4 = m1 + m2*3 + m3
+    m4 = m1 + m2 * 3 + m3
 
 
 def test_model_sub():
     assert False, "Test not built yet..."
-

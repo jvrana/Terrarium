@@ -74,6 +74,10 @@ class NetworkFactory(object):
         model = AutoPlannerModel.load(path)
         return cls(model)
 
+    # TODO: chaining; incrementally build solution from series of sample_composition graphs
+    def chain(self):
+        pass
+
 
 none_sample = Sample()
 none_sample.sample_type_id = None
@@ -291,8 +295,10 @@ class NetworkOptimizer(Loggable):
         return graph
 
     def update_sample_composition(self):
-        updated_sample_composition = self._update_sample_composition(graph=self.sample_composition)
+        updated_sample_composition = self.expand_sample_composition(browser=self.browser,
+                                                                    graph=self.sample_composition)
         self.sample_composition = updated_sample_composition
+        return self.sample_composition
 
     def print_sample_composition(self):
         for s1, s2 in self.sample_composition.edges:
@@ -304,7 +310,8 @@ class NetworkOptimizer(Loggable):
         nodes = graph_utils.find_leaves(self.sample_composition)
         return [self.sample_composition.node[n]['sample'] for n in nodes]
 
-    def _update_sample_composition(self, samples=None, graph=None):
+    @classmethod
+    def expand_sample_composition(cls, browser, samples=None, graph=None):
         if graph is None:
             graph = nx.DiGraph()
         if samples is None:
@@ -315,7 +322,7 @@ class NetworkOptimizer(Loggable):
             samples = [graph.node[n]['sample'] for n in graph]
         if not samples:
             return graph
-        self.browser.recursive_retrieve(samples, {'field_values': 'sample'})
+        browser.recursive_retrieve(samples, {'field_values': 'sample'})
         new_samples = []
         for s1 in samples:
             for fv in s1.field_values:
@@ -325,7 +332,7 @@ class NetworkOptimizer(Loggable):
                     graph.add_node(s1.id, sample=s1)
                     graph.add_node(s2.id, sample=s2)
                     graph.add_edge(s2.id, s1.id)
-        return self._update_sample_composition(new_samples, graph)
+        return cls.expand_sample_composition(browser, new_samples, graph)
 
     @staticmethod
     def decompose_template_graph_into_samples(template_graph, samples, include_none=True):
