@@ -49,7 +49,7 @@ class SetRecusion(object):
 
 class EdgeWeightContainer(Loggable):
 
-    def __init__(self, browser, edge_hash, node_hash, plans):
+    def __init__(self, browser, edge_hash, node_hash, plans, plan_ids=None):
         """
         EdgeCalculator initializer
 
@@ -68,8 +68,12 @@ class EdgeWeightContainer(Loggable):
 
         # filter only those plans that have operations
         self._plans = []
-        self._plan_ids = []
-        self.plans = plans
+        if plan_ids is not None:
+            self._plan_ids = plan_ids
+        else:
+            self._plan_ids = []
+        if plans is not None:
+            self.plans = plans
 
         def new_edge_hash(pair):
             h = edge_hash(pair)
@@ -92,7 +96,7 @@ class EdgeWeightContainer(Loggable):
         self._plan_ids = [p.id for p in new_plans]
 
     def _was_updated(self):
-        self.updated_last = str(arrow.now())
+        self.updated_at = str(arrow.now())
 
     def reset(self):
         self.is_cached = False
@@ -289,12 +293,21 @@ class EdgeWeightContainer(Loggable):
         return {
             "_edge_counter": self._edge_counter,
             "_node_counter": self._node_counter,
+            'plan_ids': self._plan_ids,
+            'is_cached': self.is_cached,
+            '_weights': self._weights,
+            'updated_at': self.updated_at,
+            'created_at': self.created_at
         }
 
     def __setstate__(self, state):
         self._edge_counter = state['_edge_counter']
         self._node_counter = state['_node_counter']
-
+        self._plan_ids = state['plan_ids']
+        self.is_cached = state['is_cached']
+        self._weights = state['_weights']
+        self.updated_at = state['updated_at']
+        self.created_at = state['created_at']
 
 class BrowserGraph(object):
     """Graph class for representing Aquarium model-to-model relationships."""
@@ -628,6 +641,10 @@ class ModelFactory(object):
             new_model += m
         return new_model
 
+    @staticmethod
+    def load_model(path):
+        return AutoPlannerModel.load(path)
+
 
 class AutoPlannerModel(Loggable):
     """
@@ -928,7 +945,8 @@ class AutoPlannerModel(Loggable):
                 'version': self._version,
                 'name': self.name,
                 'created_at': self.created_at,
-                'updated_at': self.updated_at
+                'updated_at': self.updated_at,
+                'weight_container': self.weight_container
             }, f)
         statinfo = stat(path)
         self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
@@ -937,6 +955,7 @@ class AutoPlannerModel(Loggable):
         return self.dump(path)
 
     @classmethod
+    @SetRecusion.set_recursion_limit(10000)
     def load(cls, path):
         with open(path, 'rb') as f:
             try:
@@ -948,19 +967,20 @@ class AutoPlannerModel(Loggable):
                             __version__
                         ))
                 browser = data['browser']
-                ap = cls(browser.session)
+                model = cls(browser.session)
 
                 statinfo = stat(path)
-                ap._info("{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
-                    statinfo.st_size, path, id(ap)))
+                model._info("{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
+                    statinfo.st_size, path, id(model)))
 
-                ap.browser = browser
-                ap._template_graph = data['template_graph']
-                ap._version = data['version']
-                ap.name = data.get('name', None)
-                ap.updated_at = data.get('updated_at', None)
-                ap.created_at = data.get('created_at', None)
-                return ap
+                model.browser = browser
+                model.weight_container = data['weight_container']
+                model._template_graph = data['template_graph']
+                model._version = data['version']
+                model.name = data.get('name', None)
+                model.updated_at = data.get('updated_at', None)
+                model.created_at = data.get('created_at', None)
+                return model
             except Exception as e:
                 msg = "An error occurred while loading an {} model.".format(cls.__name__)
                 if 'version' in data and data['version'] != __version__:
