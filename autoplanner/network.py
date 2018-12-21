@@ -130,8 +130,9 @@ class NetworkOptimizer(Loggable):
         self._cinfo("STAGE 3: Optimizing")
         return self.optimize_steiner_tree(start_nodes, end_nodes, graph, [])
 
-    def run(self, goal_object_type, ignore=None):
-        goal_sample = self.goal_samples()[0]
+    def run(self, goal_object_type, goal_sample=None, ignore=None):
+        if goal_sample is None:
+            goal_sample = self.root_samples()[0]
         if goal_sample.sample_type_id != goal_object_type.sample_type_id:
             raise Exception("ObjectType {} does not match Sample {}".format(goal_object_type.name, goal_sample.name))
 
@@ -139,6 +140,9 @@ class NetworkOptimizer(Loggable):
         # Stage 0
         ############################
         graph = self.run_stage0()
+
+        if goal_sample.id not in self.sample_composition:
+            raise Exception("Sample id={} not found in sample composition".format(goal_sample.id))
 
         ############################
         # Stage 1
@@ -306,7 +310,7 @@ class NetworkOptimizer(Loggable):
             s2 = self.sample_composition.node[s2]
             print(s1['sample'].name + " => " + s2['sample'].name)
 
-    def goal_samples(self):
+    def root_samples(self):
         nodes = graph_utils.find_leaves(self.sample_composition)
         return [self.sample_composition.node[n]['sample'] for n in nodes]
 
@@ -547,9 +551,12 @@ class NetworkOptimizer(Loggable):
                 ))
             elif node['node_class'] == 'Item':
                 item = node['model']
+                sample_name = 'None'
+                if item.sample:
+                    sample_name = item.sample.name
                 print("<Item id={:<10} {:<20} {:<20}>".format(
                     item.id,
-                    item.sample.name,
+                    sample_name,
                     item.object_type.name,
                 ))
         except Exception as e:
@@ -617,11 +624,7 @@ class NetworkOptimizer(Loggable):
                 if pnode['node_class'] == 'AllowableFieldType':
                     is_array = pnode['model'].field_type.array is True
                     if not is_array and pnode['model'].field_type_id == aft.field_type_id:
-                        #                     print("is not array and field_type_id same")
                         continue
-                    # TODO: maybe uncomment this? idk
-                    #                 if pnode['sample'].id == node_data['sample'].id:
-                    #                     continue
                     if is_array:
                         key = '{}_{}'.format(pnode['model'].field_type_id, pnode['sample'].id)
                     else:
@@ -642,7 +645,10 @@ class NetworkOptimizer(Loggable):
         for otname, items in grouped_by_object_type.items():
             cprint(otname, 'white', 'black')
             for item in items:
-                print("    <Item id={} {} {}".format(item.id, item.object_type.name, item.sample.name))
+                sample_name = 'None'
+                if item.sample:
+                    sample_name = item.sample.name
+                print("    <Item id={} {} {}".format(item.id, item.object_type.name, sample_name))
 
         for n, ndata in graph.iter_model_data(model_class='AllowableFieldType', nbunch=node_ids):
             self.print_aft(graph, n)
