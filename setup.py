@@ -51,11 +51,6 @@ setup(name='autoplanner',
           'networkx',
           'tqdm'
       ],
-      extras_require=[
-          'seaborn',
-          'pandas',
-          'numpy'
-      ],
       # long_description=readme(),
       url=ver['url'],
       license='',
