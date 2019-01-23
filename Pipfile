@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pydent = {editable = true, path = "./../trident"}
+pydent = {path = "./../trident"}
 mysession = {path = "./../mysession"}
 dill = "*"
 pandas = "*"

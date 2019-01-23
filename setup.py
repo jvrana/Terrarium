@@ -44,17 +44,17 @@ class VerifyVersionCommand(install):
 
 setup(name='autoplanner',
       title=ver['title'],
-      packages=['autoplanner'],
+      packages=['autoplanner', 'autoplanner.utils'],
       version=ver['version'],
       install_requires=[
           'pydent',
           'networkx',
-          'tqdm'
-      ],
-      extras_require=[
-          'seaborn',
+          'tqdm',
+          'arrow',
+          'dill',
           'pandas',
-          'numpy'
+          'webcolors',
+          'colorama'
       ],
       # long_description=readme(),
       url=ver['url'],

@@ -79,6 +79,7 @@ class EdgeWeightContainer(Loggable):
             h = edge_hash(pair)
             return '{}_{}_{}'.format(pair[0].field_type.parent_id, h, pair[1].field_type.parent_id)
 
+        self.edges = []
         self._edge_counter = HashCounter(new_edge_hash)
         self._node_counter = HashCounter(node_hash)
         self._weights = {}
@@ -297,17 +298,20 @@ class EdgeWeightContainer(Loggable):
             'is_cached': self.is_cached,
             '_weights': self._weights,
             'updated_at': self.updated_at,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'edges': self.edges,
         }
 
     def __setstate__(self, state):
         self._edge_counter = state['_edge_counter']
         self._node_counter = state['_node_counter']
+        self.edges = state['edges']
         self._plan_ids = state['plan_ids']
         self.is_cached = state['is_cached']
         self._weights = state['_weights']
         self.updated_at = state['updated_at']
         self.created_at = state['created_at']
+
 
 class BrowserGraph(object):
     """Graph class for representing Aquarium model-to-model relationships."""
