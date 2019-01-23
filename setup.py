@@ -54,7 +54,8 @@ setup(name='autoplanner',
           'dill',
           'pandas',
           'webcolors',
-          'colorama'
+          'colorama',
+          'tqdm'
       ],
       # long_description=readme(),
       url=ver['url'],
