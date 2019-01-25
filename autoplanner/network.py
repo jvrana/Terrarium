@@ -329,13 +329,20 @@ class NetworkOptimizer(Loggable):
         browser.recursive_retrieve(samples, {'field_values': 'sample'})
         new_samples = []
         for s1 in samples:
-            for fv in s1.field_values:
-                if fv.sample:
-                    s2 = fv.sample
-                    new_samples.append(s2)
-                    graph.add_node(s1.id, sample=s1)
-                    graph.add_node(s2.id, sample=s2)
-                    graph.add_edge(s2.id, s1.id)
+            fvdict = s1._fv_dict()
+            for ft in s1.sample_type.field_types:
+                if ft.ftype == 'sample':
+                    fv = fvdict[ft.name]
+                    if not isinstance(fv, list):
+                        fv = [fv]
+                    for _fv in fv:
+                        if _fv:
+                            s2 = _fv.sample
+                            if s2:
+                                new_samples.append(s2)
+                                graph.add_node(s1.id, sample=s1)
+                                graph.add_node(s2.id, sample=s2)
+                                graph.add_edge(s2.id, s1.id)
         return cls.expand_sample_composition(browser, new_samples, graph)
 
     @staticmethod
