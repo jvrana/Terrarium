@@ -1,4 +1,4 @@
-# Aquarium AutoPlanner
+# Terrarium
 
 This piece of software automatically plans scientific experiments in Aquarium using historical
 planning data and current laboratory inventory. Data can be pulled from specific researchers
