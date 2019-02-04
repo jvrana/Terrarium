@@ -4,6 +4,10 @@ This piece of software automatically plans scientific experiments in Aquarium us
 planning data and current laboratory inventory. Data can be pulled from specific researchers
 to emulate how that particular researcher would plan experiments.
 
+## License
+
+Feb. 4, 2019 - This software is not currently licensed. The author (Justin D. Vrana of University of Washington) does not grant permission to copy or modify code base.
+
 ## Requirements
 
 * development version of **trident (v0.1.0)**
