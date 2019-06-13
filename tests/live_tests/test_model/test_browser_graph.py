@@ -1,4 +1,4 @@
-from autoplanner.model import BrowserGraph
+from autoplanner.browser_graph import BrowserGraph
 from pydent.browser import Browser
 
 

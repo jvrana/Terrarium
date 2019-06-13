@@ -6,6 +6,7 @@ class HashCounter(object):
     HashCounter counts objects according to a custom hashing function. A superficial composition
     of a Counter instance
     """
+
     def __init__(self, func, data=None):
         self.counter = Counter()
         self.hash_function = func
@@ -58,6 +59,7 @@ class HashView(object):
     """
     HashView maintains a named dictionary of HashCounters
     """
+
     def __init__(self, data):
         self.data = data
         self.counters = {}
