@@ -38,9 +38,7 @@ def hash_test_function(func):
     else:
         cls = "None"
     return "{module}_{cls}_{name}".format(
-        module=func.module.__name__,
-        cls=cls,
-        name=func.name,
+        module=func.module.__name__, cls=cls, name=func.name
     )
 
 
@@ -50,8 +48,8 @@ def matcher(r1, r2):
 
 
 myvcr = vcr.VCR()
-myvcr.register_matcher('matcher', matcher)
-myvcr.match_on = ['matcher']
+myvcr.register_matcher("matcher", matcher)
+myvcr.match_on = ["matcher"]
 myvcr.record_mode = RECORD_MODE
 here = os.path.abspath(os.path.dirname(__file__))
 fixtures_path = os.path.join(here, "fixtures/vcr_cassettes")
@@ -61,13 +59,14 @@ fixtures_path = os.path.join(here, "fixtures/vcr_cassettes")
 # Test hooks
 ############
 
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem):
     """Sorts through each test, uses a vcr cassette to run the test, storing the
     request results into a single file location"""
     cassette_name = hash_test_function(pyfuncitem)
-    recordmode = pyfuncitem.keywords._markers.get('record', None)
-    if recordmode and recordmode.args[0] != 'no':
+    recordmode = pyfuncitem.keywords._markers.get("record", None)
+    if recordmode and recordmode.args[0] != "no":
         myvcr.record_mode = recordmode.args[0]
         with myvcr.use_cassette(os.path.join(fixtures_path, cassette_name) + ".yaml"):
             outcome = yield
@@ -79,6 +78,7 @@ def pytest_pyfunc_call(pyfuncitem):
 # Fixtures
 ###########
 
+
 @pytest.fixture(scope="session")
 def session(config):
     """
@@ -87,11 +87,11 @@ def session(config):
     return AqSession(**config)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def datadir():
     here = os.path.dirname(os.path.abspath(__file__))
-    dirpath = os.path.join(here, 'fixtures', 'data')
-    assert os.path.isdir(dirpath), 'Data folder does not exist: {}'.format(dirpath)
+    dirpath = os.path.join(here, "fixtures", "data")
+    assert os.path.isdir(dirpath), "Data folder does not exist: {}".format(dirpath)
     return dirpath
 
 
@@ -103,16 +103,17 @@ def new_model(session):
     apm.build()
     return apm
 
+
 # new_autoplanner.dump(os.path.join(datadir, 'autoplanner.pkl'))
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def autoplanner(session, datadir):
     """The default autoplanner object used in tests. Preferrably loads a pickled
     object. If the pickled object does not exist, a new autoplanner object is created
     and pickled. This object is then unpickled and used."""
 
-    filepath = os.path.join(datadir, 'autoplanner.pkl')
+    filepath = os.path.join(datadir, "autoplanner.pkl")
 
     if not os.path.isfile(filepath):
         print("TESTS: No file found with path '{}'".format(filepath))

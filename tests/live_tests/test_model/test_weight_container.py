@@ -5,13 +5,13 @@ from pydent.browser import Browser
 import dill
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def wc(session):
 
     edge_hash = AutoPlannerModel._hash_afts
     node_hash = AutoPlannerModel._external_aft_hash
     browser = Browser(session)
-    plans = browser.last(10, model_class='Plan')
+    plans = browser.last(10, model_class="Plan")
     wc = EdgeWeightContainer(browser, edge_hash, node_hash, plans=plans)
     wc.compute()
     return wc
@@ -51,7 +51,7 @@ def test_node_hash_function_loaded(wc, loaded_wc, session):
 
     afts = session.AllowableFieldType.last(10)
 
-    counter_attr = '_node_counter'
+    counter_attr = "_node_counter"
     counter = getattr(wc, counter_attr).counter
     loaded_counter = getattr(loaded_wc, counter_attr).counter
 
@@ -76,7 +76,7 @@ def test_node_hash_function_loaded(wc, loaded_wc, session):
 def test_edge_hash_function_loaded(wc, loaded_wc, session):
     afts = session.AllowableFieldType.last(10)
 
-    counter_attr = '_edge_counter'
+    counter_attr = "_edge_counter"
     counter = getattr(wc, counter_attr).counter
     loaded_counter = getattr(loaded_wc, counter_attr).counter
 

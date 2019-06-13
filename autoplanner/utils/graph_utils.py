@@ -10,7 +10,7 @@ def get_edges_from_path(path):
     return zip(path[:-1], path[1:])
 
 
-def get_path_weights(graph, path, weight='weight'):
+def get_path_weights(graph, path, weight="weight"):
     edge_weights = []
     for e1, e2 in get_edges_from_path(path):
         edge = graph.edges[e1, e2]
@@ -18,7 +18,7 @@ def get_path_weights(graph, path, weight='weight'):
     return edge_weights
 
 
-def get_path_length(graph, path, weight='weight'):
+def get_path_length(graph, path, weight="weight"):
     length = 0
     for e1, e2 in get_edges_from_path(path):
         edge = graph.edges[e1, e2]
@@ -26,7 +26,9 @@ def get_path_length(graph, path, weight='weight'):
     return length
 
 
-def iter_top_paths(graph, bellman_ford_path_length_dict, start_nodes, end_nodes, cutoff):
+def iter_top_paths(
+    graph, bellman_ford_path_length_dict, start_nodes, end_nodes, cutoff
+):
     for start in start_nodes:
         for end in end_nodes:
             shortest_length = bellman_ford_path_length_dict[start].get(end, None)
@@ -37,7 +39,7 @@ def iter_top_paths(graph, bellman_ford_path_length_dict, start_nodes, end_nodes,
                         yield path_length, path
 
 
-def top_paths(nodes, graph, weight='weight'):
+def top_paths(nodes, graph, weight="weight"):
     """Find min path through a list of nodes"""
 
     all_paths = []
@@ -71,6 +73,7 @@ def find_roots(graph):
         if not len(list(graph.predecessors(n))):
             roots.append(n)
     return roots
+
 
 # def _topological_sort_helper(graph):
 #     """Attempt a rudimentary topological sort on the plan"""

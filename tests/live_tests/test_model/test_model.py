@@ -3,12 +3,12 @@ import pytest
 from autoplanner.model import ModelFactory
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def factory(session):
     return ModelFactory(session)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def users(session):
     NUM_PLANS = 30
     plans = session.Plan.last(NUM_PLANS)
@@ -23,7 +23,7 @@ def test_empty_model(factory):
     assert model
 
 
-@pytest.mark.parametrize('num', [1, 11])
+@pytest.mark.parametrize("num", [1, 11])
 def test_model_factory_new(factory, num):
     """Expect factory to pull in exactly the specified number of plans"""
     model = factory.new(num)
@@ -33,8 +33,8 @@ def test_model_factory_new(factory, num):
 def test_model_factory_emulate_single_user(factory, config, session):
     """Expect emulate to pull in specified number of plans, all belonging
     to the single user"""
-    login = config['login']
-    user = session.User.one(login=login)
+    login = config["login"]
+    user = session.User.one(query=dict(login=login))
     model = factory.emulate(login, limit=10)
     assert len(model.weight_container.plans) == 10
     for p in model.weight_container.plans:
@@ -53,10 +53,10 @@ def test_model_attributes(factory):
     """Models should have a 'version', 'name', 'updated'"""
 
     model = factory.new(1)
-    assert hasattr(model, 'version')
-    assert hasattr(model, 'name')
-    assert hasattr(model, 'created_at')
-    assert hasattr(model, 'updated_at')
+    assert hasattr(model, "version")
+    assert hasattr(model, "name")
+    assert hasattr(model, "created_at")
+    assert hasattr(model, "updated_at")
 
 
 def test_model_info(factory):
@@ -73,15 +73,20 @@ def test_build(factory):
 def test_basic_search(autoplanner, session):
     autoplanner.set_verbose(True)
 
-    ignore_ots = session.OperationType.where({"category": "Control Blocks", "deployed": True})
+    ignore_ots = session.OperationType.where(
+        {"category": "Control Blocks", "deployed": True}
+    )
     ignore = [ot.id for ot in ignore_ots]
 
-    autoplanner.add_model_filter("AllowableFieldType", lambda m: m.field_type.parent_id in ignore)
+    autoplanner.add_model_filter(
+        "AllowableFieldType", lambda m: m.field_type.parent_id in ignore
+    )
 
-    autoplanner.search_graph(session.Sample.one(),
-                             session.ObjectType.find_by_name("Yeast Glycerol Stock"),
-                             session.ObjectType.find_by_name("Fragment Stock")
-                             )
+    autoplanner.search_graph(
+        session.Sample.one(),
+        session.ObjectType.find_by_name("Yeast Glycerol Stock"),
+        session.ObjectType.find_by_name("Fragment Stock"),
+    )
 
 
 def test_model_saves_and_load(factory, tmpdir):

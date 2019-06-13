@@ -32,7 +32,7 @@ def hex_to_color_name(h):
     for name, rgb in colors_rgb.items():
         rgb2 = webcolors.hex_to_rgb(h)
         d = 0
-        for _c in ['red', 'green', 'blue']:
+        for _c in ["red", "green", "blue"]:
             d += (getattr(rgb2, _c) - getattr(rgb, _c)) ** 2
         if d < distance:
             distance = d
@@ -49,9 +49,7 @@ def _colored(text, hex_color, fore_or_back):
     except ValueError:
         color_name = hex_color
     s = "{color}{text}{end}".format(
-        color=getattr(fore_or_back, color_name.upper()),
-        text=text,
-        end=Style.RESET_ALL
+        color=getattr(fore_or_back, color_name.upper()), text=text, end=Style.RESET_ALL
     )
     return s
 

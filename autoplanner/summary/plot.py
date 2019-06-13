@@ -13,20 +13,22 @@ def plot_plan_composition(model):
 
     rows = []
     for p, op in ops:
-        rows.append({
-            "OperationType": op.operation_type.name,
-            "Category": op.operation_type.category,
-            "PlanID": p.id,
-            "Status": op.status
-        })
+        rows.append(
+            {
+                "OperationType": op.operation_type.name,
+                "Category": op.operation_type.category,
+                "PlanID": p.id,
+                "Status": op.status,
+            }
+        )
 
     df = pd.DataFrame(rows)
-    type_names, type_counts = np.unique(df['OperationType'], return_counts=True)
+    type_names, type_counts = np.unique(df["OperationType"], return_counts=True)
     argsort = np.argsort(type_counts)
     type_names = type_names[argsort]
     type_counts = type_counts[argsort]
 
-    cat_names, cat_counts = np.unique(df['Category'], return_counts=True)
+    cat_names, cat_counts = np.unique(df["Category"], return_counts=True)
     argsort = np.argsort(cat_counts)
     cat_names = cat_names[argsort]
     cat_counts = cat_counts[argsort]
@@ -46,7 +48,7 @@ def plot_plan_composition(model):
         tick.set_rotation(90)
 
     sns.set(style="white")
-    sns.despine(left=True, )
+    sns.despine(left=True)
 
 
 def edges_df(model, edges):
@@ -56,19 +58,23 @@ def edges_df(model, edges):
     rows = []
     for n1, n2 in edges:
         if n1 and n2:
-            rows.append({
-                "source": "{}_{}".format(n1.id, n1.field_type.operation_type.name),
-                "destination": "{}_{}".format(n2.id, n2.field_type.operation_type.name),
-                "source_obj": "{}".format(n1.object_type.name),
-                "dest_obj": "{}".format(n1.object_type.name),
-                "count": edge_counter[(n1, n2)],
-                "total": node_counter[n1],
-                "cost": int(model.weight_container.cost(n1, n2))
-            })
+            rows.append(
+                {
+                    "source": "{}_{}".format(n1.id, n1.field_type.operation_type.name),
+                    "destination": "{}_{}".format(
+                        n2.id, n2.field_type.operation_type.name
+                    ),
+                    "source_obj": "{}".format(n1.object_type.name),
+                    "dest_obj": "{}".format(n1.object_type.name),
+                    "count": edge_counter[(n1, n2)],
+                    "total": node_counter[n1],
+                    "cost": int(model.weight_container.cost(n1, n2)),
+                }
+            )
     df = pd.DataFrame(rows)
     df.drop_duplicates(inplace=True)
-    df['probability'] = df['count'] / df['total']
-    df.sort_values(by=['probability'], inplace=True, ascending=False)
+    df["probability"] = df["count"] / df["total"]
+    df.sort_values(by=["probability"], inplace=True, ascending=False)
     return df
 
 
@@ -79,12 +85,12 @@ def explain_operation_type(model, operation_type):
     for ft in operation_type.field_types:
         for aft in ft.allowable_field_types:
             node_id = graph.node_id(aft)
-            n = graph.get_node(node_id)['model']
+            n = graph.get_node(node_id)["model"]
             for successor in graph.successors(node_id):
-                s = graph.get_node(successor)['model']
+                s = graph.get_node(successor)["model"]
                 edges.append((n, s))
             for pred in graph.predecessors(node_id):
-                p = graph.get_node(pred)['model']
+                p = graph.get_node(pred)["model"]
                 edges.append((p, n))
 
     df = edges_df(model, edges)

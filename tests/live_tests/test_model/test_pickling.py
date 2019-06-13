@@ -18,6 +18,3 @@ def test_browser_loads(session):
     loaded_browser = dill.loads(s)
 
     assert len(loaded_browser.model_cache) > 0
-
-
-def test_dump_model()

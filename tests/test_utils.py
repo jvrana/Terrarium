@@ -4,7 +4,7 @@ import dill
 
 def test_dump_hash_counter():
     """Expect to be able to dump and load counter"""
-    hc = hash_utils.HashCounter(lambda x: str(x**2), [1,2,3,4])
+    hc = hash_utils.HashCounter(lambda x: str(x ** 2), [1, 2, 3, 4])
 
     hc[5] += 1
     hc[6] += 4
@@ -22,14 +22,14 @@ def test_hash_counter():
 
     data_dict = {}
     for d in data:
-        x = str(d%3)
+        x = str(d % 3)
 
         if x not in data_dict:
             data_dict[x] = 0
         data_dict[x] += 1
 
     for k in data:
-        assert hc1[k] == data_dict[str(k%3)]
+        assert hc1[k] == data_dict[str(k % 3)]
 
 
 def test_hash_counter_add():
