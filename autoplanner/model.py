@@ -8,15 +8,15 @@ from uuid import uuid4
 import arrow
 import dill
 import networkx as nx
-from pydent import AqSession
-from pydent.base import ModelBase as TridentBase
 from pydent.browser import Browser
 from pydent.utils.logger import Loggable
+from pydent.models import User
 from tqdm import tqdm
 
 from autoplanner.__version__ import __version__
 from autoplanner.exceptions import AutoPlannerException, AutoPlannerLoadingError
 from autoplanner.utils.hash_utils import HashCounter
+from autoplanner.browser_graph import BrowserGraph
 
 from functools import wraps
 
@@ -63,8 +63,6 @@ class EdgeWeightContainer(Loggable):
         :param plans: optional list of plans
         :type plans: list
         """
-
-        self.init_logger("EdgeCalculator@{}".format(browser.session.url))
         self.browser = browser
 
         # filter only those plans that have operations
@@ -123,15 +121,14 @@ class EdgeWeightContainer(Loggable):
             self._info("Ignoring {} existing plans".format(num_ignored))
         self._info("Updating edge counter with {} new plans".format(len(plans)))
 
-        self.cache_plans(plans)
+        self.cache_plans()
 
-        wires = self.collect_wires(plans)
+        wires = self.collect_wires()
         self._info("  {} wires loaded".format(len(wires)))
 
-        operations = self.collect_operations(plans)
+        operations = self.collect_operations()
         self._info("  {} operations loaded".format(len(operations)))
 
-        self.cache_wires(wires)
         edges = self.to_edges(wires, operations)
         self.update_tally(edges)
 
@@ -144,69 +141,33 @@ class EdgeWeightContainer(Loggable):
         self._info("Computing weights for {} plans".format(len(self.plans)))
         self._was_updated()
         if not self.is_cached:
-            self.cache_plans(self.plans)
+            self.cache_plans()
         else:
             self._info("   Plans already cached. Skipping...")
-        wires = self.collect_wires(self.plans)
+        wires = self.collect_wires()
         self._info("  {} wires loaded".format(len(wires)))
-        operations = self.collect_operations(self.plans)
+        operations = self.collect_operations()
         self._info("  {} operations loaded".format(len(operations)))
-        if not self.is_cached:
-            self.cache_wires(wires)
-        else:
-            self._info("   Wires already cached. Skipping...")
         self.is_cached = True
         self.edges = self.to_edges(wires, operations)
         self.update_tally(self.edges)
         self.save_weights(self.edges)
 
-    @staticmethod
-    def collect_wires(plans):
-        for p in plans:
-            p.wires
-        all_wires = reduce((lambda x, y: x + y), [p.wires for p in plans])
-        return all_wires
-
-    @staticmethod
-    def collect_operations(plans):
-        all_operations = reduce((lambda x, y: x + y), [p.operations for p in plans])
-        return all_operations
-
-    def cache_wires(self, wires):
-        self._info("   Caching {} wires...".format(len(wires)))
-        self.browser.recursive_retrieve(
-            wires[:],
-            {
-                "source": {
-                    "field_type": [],
-                    "operation": "operation_type",
-                    "allowable_field_type": {"field_type"},
-                },
-                "destination": {
-                    "field_type": [],
-                    "operation": "operation_type",
-                    "allowable_field_type": {"field_type"},
-                },
-            },
-            strict=False,
-        )
-
-    def cache_plans(self, plans):
+    def cache_plans(self):
         self._info("   Caching plans...")
-        self.browser.recursive_retrieve(
-            plans,
-            {
-                "operations": {
-                    "field_values": {
-                        "allowable_field_type": {"field_type"},
-                        "field_type": [],
-                        "wires_as_source": [],
-                        "wires_as_dest": [],
-                    }
-                }
-            },
-            strict=False,
-        )
+        self.browser.get("Plan", {"operations": {"field_values"}})
+
+        self.browser.get("Wire", {"source", "destination"})
+
+        self.browser.get("FieldValue", {"allowable_field_type": "field_type"})
+
+        self.browser.get("Operation", "operation_type")
+
+    def collect_wires(self):
+        return self.browser.get("Wire")
+
+    def collect_operations(self):
+        return self.browser.get("Operation")
 
     @staticmethod
     def to_edges(wires, operations):
@@ -334,15 +295,34 @@ class ModelFactory(object):
         self.browser = Browser(session)
 
     def new(self, plans=None):
-        """New model from plans"""
+        """
+
+        :param plans: list of plans
+        :type plans: list
+        :return:
+        :rtype: AutPlannerModel
+        """
         return AutoPlannerModel(self.browser, plans)
 
-    def emulate(self, logins, limit=-1):
+    def emulate(self, login=None, user_id=None, user=None, limit=-1):
         """Emulate a particular user (or users if supplied a list)"""
-        users = self.browser.where({"login": logins}, model_class="User")
-        user_ids = [u.id for u in users]
+        if not user:
+            query = {
+                k: v
+                for k, v in {"login": login, "id": user_id}.items()
+                if v is not None
+            }
+            if not query:
+                raise ValueError(
+                    "You must provide either a login, user_id, or user instance"
+                )
+            user = self.browser.one(query=query, model_class="User")
+        if not issubclass(type(user), User):
+            raise ValueError(
+                "Expected a {} class but found a {}".format(type(User), type(user))
+            )
         plans = self.browser.last(
-            limit, query=dict(user_id=user_ids, model_class="Plan")
+            limit, query=dict(user_id=user.id), model_class="Plan"
         )
         return self.new(plans)
 
@@ -354,6 +334,13 @@ class ModelFactory(object):
 
     @staticmethod
     def load_model(path):
+        """
+        Loads a new model from a filepath
+        :param path:
+        :type path:
+        :return:
+        :rtype:
+        """
         return AutoPlannerModel.load(path)
 
 
@@ -362,17 +349,12 @@ class AutoPlannerModel(Loggable):
     Builds a model from historical plan data.
     """
 
-    def __init__(self, session, plans_or_depth=None, name=None):
-        if isinstance(session, AqSession):
-            self.browser = Browser(session)
-        elif isinstance(session, Browser):
-            self.browser = session
-        if isinstance(plans_or_depth, int):
-            plans = self.browser.last(plans_or_depth, model_class="Plan")
-        elif isinstance(plans_or_depth, list):
-            plans = plans_or_depth
-        else:
-            plans = None
+    def __init__(self, browser, plans=None, name=None):
+        self.browser = browser
+        self.init_logger("AutoPlanner@{url}".format(url=self.browser.session.url))
+        if plans:
+            self.plans = plans
+            self.browser.update_cache(plans)
         self.weight_container = EdgeWeightContainer(
             self.browser, self._hash_afts, self._external_aft_hash, plans=plans
         )
@@ -384,7 +366,6 @@ class AutoPlannerModel(Loggable):
         self._version = __version__
         self.created_at = str(arrow.now())
         self.updated_at = str(arrow.now())
-        self.init_logger("AutoPlanner@{url}".format(url=self.browser.session.url))
 
     def info(self):
         return {
@@ -412,8 +393,6 @@ class AutoPlannerModel(Loggable):
         self._template_graph = None
 
     def set_verbose(self, verbose):
-        if self.weight_container:
-            self.weight_container.set_verbose(verbose)
         super().set_verbose(verbose)
 
     @staticmethod
@@ -575,9 +554,6 @@ class AutoPlannerModel(Loggable):
 
         self._info("Building Graph:")
         G = BrowserGraph(self.browser)
-        # G.model_hashes = {
-        #     "AllowableFieldType": lambda m: "{}_{}_{}_{}".format(m.__class__.__name__, m.object_type_id, m.sample_type_id, m.field_type_id)
-        # }
         self.update_weights(G, self.weight_container)
         self._info("  {} edges".format(len(list(G.edges()))))
         self._info("  {} nodes".format(len(G)))
@@ -715,8 +691,8 @@ class AutoPlannerModel(Loggable):
                 model.created_at = data.get("created_at", None)
                 return model
             except Exception as e:
-                msg = "An error occurred while loading an {} model.".format(
-                    cls.__name__
+                msg = "An error occurred while loading an {} model:\n{}".format(
+                    cls.__name__, str(e)
                 )
                 if "version" in data and data["version"] != __version__:
                     msg = (
@@ -725,7 +701,7 @@ class AutoPlannerModel(Loggable):
                             data["version"], __version__
                         )
                     )
-                raise AutoPlannerLoadingError(msg)
+                raise AutoPlannerLoadingError(msg) from e
 
     def _was_updated(self):
         self.updated_at = str(arrow.now())
