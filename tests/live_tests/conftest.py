@@ -91,20 +91,24 @@ def session(config):
 def datadir():
     here = os.path.dirname(os.path.abspath(__file__))
     dirpath = os.path.join(here, "fixtures", "data")
+    if not os.path.isdir(dirpath):
+        os.makedirs(dirpath)
     assert os.path.isdir(dirpath), "Data folder does not exist: {}".format(dirpath)
     return dirpath
 
 
-@pytest.fixture(scope="module")
 def new_model(session):
     """Force creation of a new model"""
-    apm = AutoPlannerModel(session, DEFAULT_NUM_PLANS)
+
+    with session.with_cache(timeout=60) as sess:
+        operation_type = sess.OperationType.find_by_name("Assemble Plasmid")
+        sess.Operation.last(500, query=dict(operation_type_id=operation_type.id))
+        sess.browser.get("Operation", "plans")
+        plans = sess.browser.get("Plan")
+    apm = AutoPlannerModel(session.browser, plans)
     apm.set_verbose(True)
     apm.build()
     return apm
-
-
-# new_autoplanner.dump(os.path.join(datadir, 'autoplanner.pkl'))
 
 
 @pytest.fixture(scope="function")

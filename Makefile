@@ -1,7 +1,6 @@
 make:
-	curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 	poetry self:update
-	poerty install
+	poetry install
 	poetry run pre-commit install
 
 format:
@@ -10,3 +9,14 @@ format:
 
 test:
 	poetry run pytest
+
+
+clean:
+	rm -rf tests/.pytest_cache
+	rm -rf tests/live_tests/fixtures
+	rm -rf .pytest_cache
+
+
+benchmark:
+	rm -rf .benchmarks/images/*svg
+	poetry run python -m pytest -m benchmark --benchmark-autosave --benchmark-compare=0001 --benchmark-histogram=assets/benchmark/histogram

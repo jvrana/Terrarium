@@ -1,0 +1,69 @@
+{
+    "machine_info": {
+        "node": "Justins-iMac.local",
+        "processor": "i386",
+        "machine": "x86_64",
+        "python_compiler": "Clang 4.0.1 (tags/RELEASE_401/final)",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.7.2",
+        "python_version": "3.7.2",
+        "python_build": [
+            "default",
+            "Dec 29 2018 00:00:04"
+        ],
+        "release": "16.7.0",
+        "system": "Darwin",
+        "cpu": {
+            "vendor_id": "GenuineIntel",
+            "hardware": "unknown",
+            "brand": "Intel(R) Core(TM) i5-3570K CPU @ 3.40GHz"
+        }
+    },
+    "commit_info": {
+        "id": "f7896412d18db664eb064b7b3cb56edd55bdcd89",
+        "time": "2019-06-13T13:50:55-07:00",
+        "author_time": "2019-06-13T13:50:55-07:00",
+        "dirty": true,
+        "project": "Terrarium",
+        "branch": "master"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_build_benchmark",
+            "fullname": "tests/live_tests/test_benchmark/test_benchmark.py::TestModelBuildBenchmark::test_build_benchmark",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 0.1,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.8760271690000003,
+                "max": 1.1357811960000008,
+                "mean": 1.0195200684000003,
+                "stddev": 0.10412774065862794,
+                "rounds": 5,
+                "median": 1.0496587989999995,
+                "iqr": 0.16186517825000069,
+                "q1": 0.9340933982500002,
+                "q3": 1.0959585765000008,
+                "iqr_outliers": 0,
+                "stddev_outliers": 2,
+                "outliers": "2;0",
+                "ld15iqr": 0.8760271690000003,
+                "hd15iqr": 1.1357811960000008,
+                "ops": 0.9808536692851624,
+                "total": 5.097600342000002,
+                "iterations": 1
+            }
+        }
+    ],
+    "datetime": "2019-06-13T22:54:10.470812",
+    "version": "3.2.2"
+}

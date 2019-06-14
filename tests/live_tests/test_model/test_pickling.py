@@ -1,7 +1,5 @@
 import dill
-from autoplanner import AutoPlannerModel
 from pydent.browser import Browser
-import os
 
 
 def test_browser_dumps(session):

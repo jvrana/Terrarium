@@ -9,8 +9,8 @@ def test_subgraph(session):
 
     s1, s2 = browser.last(2)
 
-    graph.add_node(s1)
-    graph.add_node(s2)
+    graph.add_model(s1)
+    graph.add_model(s2)
 
     assert len(graph) == 2
 

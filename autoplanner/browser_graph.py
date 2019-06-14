@@ -1,4 +1,5 @@
 import networkx as nx
+from pydent.base import ModelBase as TridentBase
 
 
 class BrowserGraph(object):
