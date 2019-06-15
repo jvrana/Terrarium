@@ -1,5 +1,4 @@
 class Serializer(object):
-
     @staticmethod
     def serialize(model, *args, **kwargs):
         data = model.dump(*args, **kwargs)

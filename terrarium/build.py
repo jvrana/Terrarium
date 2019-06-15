@@ -11,7 +11,6 @@ from .serializer import Serializer
 
 
 class SampleGraphBuilder(object):
-
     @classmethod
     def build(cls, samples, g=None, visited=None):
         """
@@ -34,7 +33,9 @@ class SampleGraphBuilder(object):
         model_serializer = Serializer.serialize
 
         sample_data_array = [model_serializer(s) for s in samples]
-        sample_data_array = [d for d in sample_data_array if g.node_id(d) not in visited]
+        sample_data_array = [
+            d for d in sample_data_array if g.node_id(d) not in visited
+        ]
 
         if sample_data_array:
             for sample_data in sample_data_array:
@@ -54,16 +55,16 @@ class SampleGraphBuilder(object):
                     g.add_edge_from_models(m1, m2)
 
         browser = sample.session.browser
-        browser.get(parent_samples, {
-            'field_values': 'sample'
-        })
+        browser.get(parent_samples, {"field_values": "sample"})
 
         return cls.build(parent_samples, g=g, visited=visited)
 
-class Utils(object):
 
+class Utils(object):
     @staticmethod
-    def match_afts(afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable):
+    def match_afts(
+        afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable
+    ):
         group1 = group_by(afts1, hash_function)
         group2 = group_by(afts2, hash_function)
 
@@ -73,7 +74,6 @@ class Utils(object):
 
 
 class ProtocolBlueprintBuilder(object):
-
     def __init__(self):
         self.edge_counter = GroupCounter()
         self.node_counter = GroupCounter()
@@ -85,7 +85,9 @@ class ProtocolBlueprintBuilder(object):
     def template_graph(self):
         return self._template_graph
 
-    def update_counters(self, node_data: Sequence[dict], edge_data: Sequence[dict]) -> None:
+    def update_counters(
+        self, node_data: Sequence[dict], edge_data: Sequence[dict]
+    ) -> None:
         self.node_counter.update(node_data)
         self.edge_counter.update(edge_data)
 
@@ -106,14 +108,18 @@ class ProtocolBlueprintBuilder(object):
         n = self.node_counter.get(0, src, default=0)
         return self.cost_function(n, e)
 
-    def build(self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]) -> ModelGraph:
+    def build(
+        self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]
+    ) -> ModelGraph:
         self.update_counters(nodes, edges)
         self._template_graph = self.build_template_graph(all_nodes)
         return self._template_graph
 
     def build_template_graph(self, all_nodes: Sequence[dict]) -> ModelGraph:
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
-        output_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "output"]
+        output_afts = [
+            aft for aft in all_nodes if aft["field_type"]["role"] == "output"
+        ]
 
         external_edges = Utils.match_afts(output_afts, input_afts, external_aft_hash)
         internal_edges = Utils.match_afts(input_afts, output_afts, internal_aft_hash)
@@ -135,14 +141,17 @@ class ProtocolBlueprintBuilder(object):
 
 
 class ProtocolGraphBuilder(object):
-
     @classmethod
     def connect_sample_graphs(cls, g1: ModelGraph, g2: ModelGraph) -> Sequence[tuple]:
         def collect_role(graph, role):
-            return [ndata for n, ndata in graph.nodes(data='data') if ndata['field_type']['role'] == role]
+            return [
+                ndata
+                for n, ndata in graph.nodes(data="data")
+                if ndata["field_type"]["role"] == role
+            ]
 
-        in_afts = collect_role(g1.graph, 'input')
-        out_afts = collect_role(g2.graph, 'output')
+        in_afts = collect_role(g1.graph, "input")
+        out_afts = collect_role(g2.graph, "output")
         matching_afts = Utils.match_afts(in_afts, out_afts, internal_aft_hash)
         return matching_afts
 
@@ -150,18 +159,20 @@ class ProtocolGraphBuilder(object):
     def sample_type_subgraph(cls, template_graph: ModelGraph, stid: int) -> ModelGraph:
         graph = template_graph.graph
         nbunch = []
-        for n, ndata in graph.nodes(data='data'):
-            if ndata['sample_type_id'] == stid:
+        for n, ndata in graph.nodes(data="data"):
+            if ndata["sample_type_id"] == stid:
                 nbunch.append(n)
         return template_graph.subgraph(nbunch)
 
     @classmethod
-    def build_graph(cls, blueprint_graph: ModelGraph, sample_graph: ModelGraph) -> ModelGraph:
+    def build_graph(
+        cls, blueprint_graph: ModelGraph, sample_graph: ModelGraph
+    ) -> ModelGraph:
         sample_graphs = {}
-        for nid, ndata in sample_graph.graph.nodes(data='data'):
-            if ndata['__class__'] == 'Sample':
-                sample_id = ndata['primary_key']
-                stid = ndata['sample_type_id']
+        for nid, ndata in sample_graph.graph.nodes(data="data"):
+            if ndata["__class__"] == "Sample":
+                sample_id = ndata["primary_key"]
+                stid = ndata["sample_type_id"]
                 g = cls.sample_type_subgraph(blueprint_graph, stid)
                 g.set_prefix("Sample{}_".format(sample_id))
                 sample_graphs[sample_id] = g
@@ -173,8 +184,8 @@ class ProtocolGraphBuilder(object):
             s1 = sample_graph.get_data(x[0])
             s2 = sample_graph.get_data(x[1])
 
-            g1 = sample_graphs[s1['primary_key']]
-            g2 = sample_graphs[s2['primary_key']]
+            g1 = sample_graphs[s1["primary_key"]]
+            g2 = sample_graphs[s2["primary_key"]]
             edges = cls.connect_sample_graphs(g1, g2)
             for e in edges:
                 n1 = g1.node_id(e[0])
@@ -188,6 +199,7 @@ class ProtocolGraphBuilder(object):
                     n1, n2, weight=edge["weight"], edge_type="sample_to_sample"
                 )
         return graph
+
 
 #
 #

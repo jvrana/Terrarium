@@ -4,8 +4,8 @@ import networkx as nx
 class ModelGraph(object):
     def __init__(self):
         self._graph = nx.DiGraph()
-        self.prefix = ''
-        self.suffix = ''
+        self.prefix = ""
+        self.suffix = ""
 
     @property
     def graph(self):
@@ -54,7 +54,7 @@ class ModelGraph(object):
         self.graph.add_node(self.node_id(model_data), data=model_data)
 
     def get_data(self, node_id):
-        return self.graph.nodes[node_id]['data']
+        return self.graph.nodes[node_id]["data"]
 
     def get_edge(self, n1, n2):
         return self.graph[n1][n2]

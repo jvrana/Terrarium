@@ -10,7 +10,10 @@ def external_aft_hash(aft):
     if not aft["field_type_id"]:
         return str(uuid4())
     return make_hash(
-        aft["__class__"], aft["object_type_id"], aft["sample_type_id"], aft["field_type"]["part"] is True
+        aft["__class__"],
+        aft["object_type_id"],
+        aft["sample_type_id"],
+        aft["field_type"]["part"] is True,
     )
 
 
@@ -20,4 +23,6 @@ def internal_aft_hash(aft):
 
 def edge_hash(pair):
     h = "{}->{}".format(external_aft_hash(pair[0]), external_aft_hash(pair[1]))
-    return make_hash(pair[0]["field_type"]["parent_id"], h, pair[1]["field_type"]["parent_id"])
+    return make_hash(
+        pair[0]["field_type"]["parent_id"], h, pair[1]["field_type"]["parent_id"]
+    )
