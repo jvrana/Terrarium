@@ -50,8 +50,14 @@ class ModelGraph(object):
         self.graph = nx.relabel_nodes(self.graph, mapping)
         self.suffix = suffix
 
-    def add_model(self, model_data):
+    def add_data(self, model_data):
         self.graph.add_node(self.node_id(model_data), data=model_data)
+
+    def get_data(self, node_id):
+        return self.graph.nodes[node_id]['data']
+
+    def get_edge(self, n1, n2):
+        return self.graph[n1][n2]
 
     def add_edge(self, n1, n2, **kwargs):
         assert n1 in self.graph
@@ -62,9 +68,9 @@ class ModelGraph(object):
         n1 = self.node_id(m1)
         n2 = self.node_id(m2)
         if n1 not in self.graph:
-            self.add_model(m1)
+            self.add_data(m1)
         if n2 not in self.graph:
-            self.add_model(m2)
+            self.add_data(m2)
         self.graph.add_edge(n1, n2, **kwargs)
 
     @staticmethod
@@ -116,6 +122,9 @@ class ModelGraph(object):
 
     def contains_model(self, model):
         return self.node_id(model) in self
+
+    def __len__(self):
+        return self.graph.number_of_nodes()
 
     def __contains__(self, item):
         return item in self.graph

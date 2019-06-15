@@ -34,13 +34,13 @@ class SampleGraphBuilder(object):
         model_serializer = Serializer.serialize
 
         sample_data_array = [model_serializer(s) for s in samples]
-        sample_data_array = [d for d in sample_data_array if g.node_id(d) not in g]
+        sample_data_array = [d for d in sample_data_array if g.node_id(d) not in visited]
 
         if sample_data_array:
             for sample_data in sample_data_array:
                 node_id = g.node_id(sample_data)
                 visited.add(node_id)
-                g.add_model(sample_data)
+                g.add_data(sample_data)
         else:
             return g
 
@@ -59,6 +59,17 @@ class SampleGraphBuilder(object):
         })
 
         return cls.build(parent_samples, g=g, visited=visited)
+
+class Utils(object):
+
+    @staticmethod
+    def match_afts(afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable):
+        group1 = group_by(afts1, hash_function)
+        group2 = group_by(afts2, hash_function)
+
+        d = dict_intersection(group1, group2, lambda a, b: product(a, b))
+        edges = chain(*flatten((d.values())))
+        return edges
 
 
 class ProtocolBlueprintBuilder(object):
@@ -79,15 +90,6 @@ class ProtocolBlueprintBuilder(object):
         self.edge_counter.update(edge_data)
 
     @staticmethod
-    def match_afts(afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable):
-        group1 = group_by(afts1, hash_function)
-        group2 = group_by(afts2, hash_function)
-
-        d = dict_intersection(group1, group2, lambda a, b: product(a, b))
-        edges = chain(*flatten((d.values())))
-        return edges
-
-    @staticmethod
     def cost_function(source_counts: int, edge_counts: int) -> float:
         s = source_counts
         e = edge_counts
@@ -106,40 +108,30 @@ class ProtocolBlueprintBuilder(object):
 
     def build(self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]) -> ModelGraph:
         self.update_counters(nodes, edges)
-        self._template_graph = self._build_template_graph(all_nodes)
+        self._template_graph = self.build_template_graph(all_nodes)
         return self._template_graph
 
     def build_template_graph(self, all_nodes: Sequence[dict]) -> ModelGraph:
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "output"]
 
-        external_edges = self.match_afts(output_afts, input_afts, external_aft_hash)
-        internal_edges = self.match_afts(input_afts, output_afts, internal_aft_hash)
+        external_edges = Utils.match_afts(output_afts, input_afts, external_aft_hash)
+        internal_edges = Utils.match_afts(input_afts, output_afts, internal_aft_hash)
 
         graph = ModelGraph()
 
         for aft1, aft2 in external_edges:
             cost = self.edge_cost(aft1, aft2)
-            graph.add_model(aft1)
-            graph.add_model(aft2)
+            graph.add_data(aft1)
+            graph.add_data(aft2)
             graph.add_edge_from_models(aft1, aft2, weight=cost, edge_type="external")
 
         for aft1, aft2 in internal_edges:
             cost = self.edge_cost(aft1, aft2)
-            graph.add_model(aft1)
-            graph.add_model(aft2)
+            graph.add_data(aft1)
+            graph.add_data(aft2)
             graph.add_edge_from_models(aft1, aft2, weight=cost, edge_type="internal")
         return graph
-
-    @classmethod
-    def sample_type_subgraph(cls, template_graph: ModelGraph, stid: int) -> ModelGraph:
-        graph = template_graph.graph
-        nbunch = []
-        for n in graph:
-            ndata = graph[n]
-            if ndata['sample_type_id'] == stid:
-                nbunch.append(n)
-        return template_graph.subgraph(nbunch)
 
 
 class ProtocolGraphBuilder(object):
@@ -147,35 +139,48 @@ class ProtocolGraphBuilder(object):
     @classmethod
     def connect_sample_graphs(cls, g1: ModelGraph, g2: ModelGraph) -> Sequence[tuple]:
         def collect_role(graph, role):
-            return [ndata for n, ndata in graph.nodes(data=True) if ndata['field_type']['role'] == role]
-        out_afts = collect_role(g1.graph, 'output')
-        in_afts = collect_role(g2.graph, 'input')
-        edges = cls.match_afts(in_afts, out_afts, internal_aft_hash)
-        return edges
+            return [ndata for n, ndata in graph.nodes(data='data') if ndata['field_type']['role'] == role]
+
+        in_afts = collect_role(g1.graph, 'input')
+        out_afts = collect_role(g2.graph, 'output')
+        matching_afts = Utils.match_afts(in_afts, out_afts, internal_aft_hash)
+        return matching_afts
 
     @classmethod
-    def build_graph(cls, template_graph: ModelGraph, sample_graph: ModelGraph) -> ModelGraph:
-        sample_graphs = {}
-        for sample in sample_graph.iter_models(model_class="Sample"):
-            g = cls.sample_type_subgraph(template_graph, sample.sample_type_id)
-            g.set_prefix("Sample{}_".format(sample.id))
-            sample_graphs[sample.id] = g
+    def sample_type_subgraph(cls, template_graph: ModelGraph, stid: int) -> ModelGraph:
+        graph = template_graph.graph
+        nbunch = []
+        for n, ndata in graph.nodes(data='data'):
+            if ndata['sample_type_id'] == stid:
+                nbunch.append(n)
+        return template_graph.subgraph(nbunch)
 
-        graph = ModelGraph(template_graph.browser)
+    @classmethod
+    def build_graph(cls, blueprint_graph: ModelGraph, sample_graph: ModelGraph) -> ModelGraph:
+        sample_graphs = {}
+        for nid, ndata in sample_graph.graph.nodes(data='data'):
+            if ndata['__class__'] == 'Sample':
+                sample_id = ndata['primary_key']
+                stid = ndata['sample_type_id']
+                g = cls.sample_type_subgraph(blueprint_graph, stid)
+                g.set_prefix("Sample{}_".format(sample_id))
+                sample_graphs[sample_id] = g
+
+        graph = ModelGraph()
         graph._graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
 
         for x in sample_graph.edges():
-            s1 = sample_graph.get_model(x[0])
-            s2 = sample_graph.get_model(x[1])
+            s1 = sample_graph.get_data(x[0])
+            s2 = sample_graph.get_data(x[1])
 
-            g1 = sample_graphs[s1.id]
-            g2 = sample_graphs[s2.id]
+            g1 = sample_graphs[s1['primary_key']]
+            g2 = sample_graphs[s2['primary_key']]
             edges = cls.connect_sample_graphs(g1, g2)
             for e in edges:
-                n1 = template_graph.node_id(e[0])
-                n2 = template_graph.node_id(e[1])
-                edge = template_graph.get_edge(
-                    template_graph.node_id(e[0]), template_graph.node_id(e[1])
+                n1 = g1.node_id(e[0])
+                n2 = g2.node_id(e[1])
+                edge = blueprint_graph.get_edge(
+                    blueprint_graph.node_id(e[0]), blueprint_graph.node_id(e[1])
                 )
                 graph.nodes[n1]["sample"] = s1
                 graph.nodes[n2]["sample"] = s2
