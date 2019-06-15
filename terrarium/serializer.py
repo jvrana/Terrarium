@@ -1,7 +1,7 @@
 class Serializer(object):
 
     @staticmethod
-    def deserializer(model, *args, **kwargs):
+    def serialize(model, *args, **kwargs):
         data = model.dump(*args, **kwargs)
         data["primary_key"] = model._primary_key
         data["__class__"] = model.__class__.__name__
@@ -9,7 +9,7 @@ class Serializer(object):
 
     @classmethod
     def serialize_aft(cls, aft):
-        data = cls.deserializer(aft, include="field_type")
+        data = cls.serialize(aft, include="field_type")
         return data
 
     @classmethod

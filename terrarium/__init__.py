@@ -1,2 +1,2 @@
-from terrarium.template_graph import TemplateGraphBuilder
+from terrarium.build import TemplateGraphBuilder, SampleGraphBuilder
 from terrarium.serializer import Serializer

@@ -11,4 +11,4 @@ def test_build_template_graph(session):
         all_afts = Serializer.serialize_all_afts(sess)
 
     graph_builder = TemplateGraphBuilder()
-    graph_builder.build(all_afts, nodes, edges)
+    graph_builder.build_template_graph(all_afts, nodes, edges)

@@ -3,9 +3,17 @@ import networkx as nx
 
 class ModelGraph(object):
     def __init__(self):
-        self.graph = nx.DiGraph()
+        self._graph = nx.DiGraph()
         self.prefix = ''
         self.suffix = ''
+
+    @property
+    def graph(self):
+        return self._graph
+
+    @graph.setter
+    def graph(self, g):
+        self._graph = g
 
     @property
     def nodes(self):
@@ -85,7 +93,7 @@ class ModelGraph(object):
                     "Type '{}' {} not recognized as a node".format(type(n), n)
                 )
         return formatted_nodes
-git
+
     def subgraph(self, nodes):
         nodes = self._array_to_identifiers(nodes)
 
@@ -106,29 +114,13 @@ git
     def copy(self):
         return self.__copy__()
 
+    def contains_model(self, model):
+        return self.node_id(model) in self
+
     def __contains__(self, item):
-        return ite
+        return item in self.graph
 
     def __copy__(self):
         copied = self.__class__()
         copied.graph = self.copy_graph(self.graph)
         return copied
-
-
-def samples_to_parent_graphs(sample, g=None, visited=[]):
-    if g is None:
-        g = nx.DiGraph()
-    if node_id(sample) in visited:
-        return g
-    else:
-        visited.append(g.node_id(sample))
-
-    g.add_node("Sample_{}".format(sample._primary_key))
-
-    fvs = sample.field_values
-
-    for fv in fvs:
-        if fv.sample:
-            g.add_edge_from_models(sample, fv.sample)
-            samples_to_parent_graphs(fv.sample, g=g, visited=visited)
-    return g
