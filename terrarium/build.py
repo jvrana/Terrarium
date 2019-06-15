@@ -11,6 +11,7 @@ from .serializer import Serializer
 
 
 class SampleGraphBuilder(object):
+
     @classmethod
     def build(cls, samples, g=None, visited=None):
         """
@@ -200,6 +201,90 @@ class ProtocolGraphBuilder(object):
                 )
         return graph
 
+    def assign_items(self):
+
+
+        ##############################
+        # Get items
+        ##############################
+
+        # requires aft[field_type][part]
+        # list of non-part items
+        # items by object_type_id
+        # part items from sample_ids
+        # assign items to graph
+
+        non_part_afts = [aft for aft in afts if not aft.field_type.part]
+        object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
+
+        self._cinfo(
+            "finding all relevant items for {} samples and {} object_types".format(
+                len(sample_ids), len(object_type_ids)
+            )
+        )
+        items = browser.where(
+            model_class="Item",
+            query={"sample_id":
+
+            , "object_type_id": object_type_ids},
+        )
+        items = [item for item in items if item.location != "deleted"]
+        self._info("{} total items found".format(len(items)))
+        items_by_object_type_id = defaultdict(list)
+        for item in items:
+            items_by_object_type_id[item.object_type_id].append(item)
+
+        ##############################
+        # Get parts
+        ##############################
+
+        self._cinfo("finding relevant parts/collections")
+        part_by_sample_by_type = self._find_parts_for_samples(
+            browser, sample_ids, lim=50
+        )
+        self._cinfo("found {} collection types".format(len(part_by_sample_by_type)))
+
+        ##############################
+        # Assign Items/Parts/Collections
+        ##############################
+
+        new_nodes = []
+        new_edges = []
+        for node, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
+            aft = ndata["model"]
+            sample = ndata["sample"]
+            if sample:
+                sample_id = sample.id
+                sample_type_id = sample.sample_type_id
+            else:
+                sample_id = None
+                sample_type_id = None
+            if aft.sample_type_id == sample_type_id:
+                if aft.field_type.part:
+                    parts = part_by_sample_by_type.get(aft.object_type_id, {}).get(
+                        sample_id, []
+                    )
+                    for part in parts[-1:]:
+                        if part.sample_id == sample_id:
+                            new_nodes.append(part)
+                            new_edges.append((part, sample, node))
+                else:
+                    items = items_by_object_type_id[aft.object_type_id]
+                    for item in items:
+                        if item.sample_id == sample_id:
+                            new_nodes.append(item)
+                            new_edges.append((item, sample, node))
+
+        for n in new_nodes:
+            graph.add_node(n)
+
+        for item, sample, node in new_edges:
+            graph.add_edge(graph.node_id(item), node, weight=0)
+
+        self._info(
+            "{} items added to various allowable_field_types".format(len(new_edges))
+        )
+        return graph
 
 #
 #
