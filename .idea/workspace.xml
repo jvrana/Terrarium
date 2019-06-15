@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a64d43e-aa55-4a4c-a0d3-620f0f820846" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/terrarium/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/build.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/hashes.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/hashes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/model_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/model_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_build.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_build.py" afterDir="false" />
-    </list>
+    <list default="true" id="6a64d43e-aa55-4a4c-a0d3-620f0f820846" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/conftest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+            <state relative-caret-position="120">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -83,10 +74,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/test_build_template_graph.py">
+        <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="54" />
+            <state relative-caret-position="90">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#0#111#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,8 +109,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="135">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -185,22 +179,6 @@
               <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
-              <item name="terrarium" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
-              <item name="terrarium" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -216,7 +194,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -324,7 +302,7 @@
       <workItem from="1560552313782" duration="6650000" />
       <workItem from="1560603996427" duration="3998000" />
       <workItem from="1560612131916" duration="725000" />
-      <workItem from="1560613067423" duration="3370000" />
+      <workItem from="1560613067423" duration="3489000" />
     </task>
     <servers />
   </component>
@@ -361,11 +339,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15739000" />
+    <option name="totallyTimeSpent" value="15858000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1875" y="23" width="1707" height="1009" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19459459" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -436,27 +413,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_build_template_graph.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/conftest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -518,10 +478,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
+    <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/conftest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
     </entry>
