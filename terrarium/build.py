@@ -61,7 +61,7 @@ class SampleGraphBuilder(object):
         return cls.build(parent_samples, g=g, visited=visited)
 
 
-class TemplateGraphBuilder(object):
+class ProtocolBlueprintBuilder(object):
 
     def __init__(self):
         self.edge_counter = GroupCounter()
@@ -104,12 +104,12 @@ class TemplateGraphBuilder(object):
         n = self.node_counter.get(0, src, default=0)
         return self.cost_function(n, e)
 
-    def build_template_graph(self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]) -> ModelGraph:
+    def build(self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]) -> ModelGraph:
         self.update_counters(nodes, edges)
         self._template_graph = self._build_template_graph(all_nodes)
         return self._template_graph
 
-    def _build_template_graph(self, all_nodes: Sequence[dict]) -> ModelGraph:
+    def build_template_graph(self, all_nodes: Sequence[dict]) -> ModelGraph:
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "output"]
 
@@ -142,7 +142,7 @@ class TemplateGraphBuilder(object):
         return template_graph.subgraph(nbunch)
 
 
-class NetworkBuilder(object):
+class ProtocolGraphBuilder(object):
 
     @classmethod
     def connect_sample_graphs(cls, g1: ModelGraph, g2: ModelGraph) -> Sequence[tuple]:
