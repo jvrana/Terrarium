@@ -1,14 +1,7 @@
 import networkx as nx
 import json
 from terrarium.utils import validate_with_schema
-
-
-class ValidationError(Exception):
-    """Error for schema validate errors"""
-
-
-class GraphWriter(object):
-    pass
+from terrarium.exceptions import SchemaValidationError
 
 
 class GraphBase(object):
@@ -20,6 +13,10 @@ class GraphBase(object):
         self.graph.name = name
 
     @property
+    def meta(self):
+        return self.graph.graph
+
+    @property
     def graph(self):
         return self._graph
 
@@ -29,7 +26,15 @@ class GraphBase(object):
         self._init_graph()
 
     def _init_graph(self):
-        pass
+        self._graph.graph.update(self.meta)
+
+    @property
+    def name(self):
+        return self.graph.name
+
+    @name.setter
+    def name(self, n):
+        self.graph.name = n
 
     @property
     def nodes(self):
@@ -57,15 +62,21 @@ class GraphBase(object):
         return self.__copy__()
 
     @staticmethod
-    def nx_copy(graph):
+    def nx_shallow_copy(graph):
         graph_copy = graph.__class__()
+        graph_copy.graph = dict(graph.graph)
+        return graph_copy
+
+    @classmethod
+    def nx_copy(cls, graph):
+        graph_copy = cls.nx_shallow_copy(graph)
         graph_copy.add_nodes_from(graph.nodes(data=True))
         graph_copy.add_edges_from(graph.edges(data=True))
         return graph_copy
 
-    @staticmethod
-    def nx_subgraph(graph, nbunch):
-        graph_copy = graph.__class__()
+    @classmethod
+    def nx_subgraph(cls, graph, nbunch):
+        graph_copy = cls.nx_shallow_copy(graph)
         graph_copy.add_nodes_from((n, graph.nodes[n]) for n in nbunch)
         edges = []
         for n1, n2 in graph.edges:
@@ -75,23 +86,13 @@ class GraphBase(object):
         return graph_copy
 
     def json(self):
+        self._init_graph()
         return nx.adjacency_data(self.graph)
-
-    @property
-    def name(self):
-        return self.graph.name
-
-    @name.setter
-    def name(self, n):
-        self.graph.name = n
 
     def subgraph(self, nbunch):
         copied = self.shallow_copy()
         copied.graph = self.nx_subgraph(self.graph, nbunch)
         return copied
-
-    def shallow_copy(self):
-        return self.__class__(name=self.name, graph_class=self.graph.__class__)
 
     @classmethod
     def load(cls, json_data):
@@ -121,6 +122,9 @@ class GraphBase(object):
         model_graph.suffix = suffix
         return model_graph
 
+    def shallow_copy(self):
+        return self.__class__(name=self.name, graph_class=self.graph.__class__)
+
     def __contains__(self, item):
         return item in self.graph
 
@@ -137,7 +141,8 @@ class MapperGraph(GraphBase):
 
     PREFIX_KEY = "__prefix__"
     SUFFIX_KEY = "__suffix__"
-    DEFAULT_DATA_KEY = "data"
+    DEFAULT_DATA_KEY = "__data__"
+    DATA_KEY_KEY = "__data_key__"
 
     def __init__(
         self,
@@ -148,38 +153,36 @@ class MapperGraph(GraphBase):
         graph_class=nx.DiGraph,
         graph=None,
     ):
-        super().__init__(name=name, graph_class=graph_class, graph=graph)
         self.value_func = value_func
         self.key_func = key_func
+
+        super().__init__(name=name, graph_class=graph_class, graph=graph)
+
         if data_key is None:
             data_key = self.DEFAULT_DATA_KEY
-        self._data_key = data_key
-
-    @property
-    def data_key(self):
-        return self._data_key
-
-    def _init_graph(self):
-        if self.SUFFIX_KEY not in self._graph.graph:
-            self.suffix = ""
-        if self.PREFIX_KEY not in self._graph.graph:
-            self.prefix = ""
+        self.meta[self.DATA_KEY_KEY] = data_key
+        self.prefix = ""
+        self.suffix = ""
 
     @property
     def prefix(self):
-        return self._graph.graph[self.PREFIX_KEY]
-
-    @property
-    def suffix(self):
-        return self._graph.graph[self.SUFFIX_KEY]
+        return self.meta[self.PREFIX_KEY]
 
     @prefix.setter
     def prefix(self, p):
-        self._graph.graph[self.PREFIX_KEY] = p
+        self.meta[self.PREFIX_KEY] = p
+
+    @property
+    def suffix(self):
+        return self.meta[self.SUFFIX_KEY]
 
     @suffix.setter
     def suffix(self, s):
-        self._graph.graph[self.SUFFIX_KEY] = s
+        self.meta[self.SUFFIX_KEY] = s
+
+    @property
+    def data_key(self):
+        return self.meta[self.DATA_KEY_KEY]
 
     def add_prefix(self, prefix):
         """Sets this graph to have a prefix."""
@@ -205,10 +208,13 @@ class MapperGraph(GraphBase):
         return self.prefix + s + self.suffix
 
     def add_data(self, model_data):
-        self.add_node(self.node_id(model_data), **{self._data_key: model_data})
+        self.add_node(self.node_id(model_data), **{self.data_key: model_data})
 
     def get_data(self, node_id):
-        return self.graph.nodes[node_id][self._data_key]
+        return self.graph.nodes[node_id][self.data_key]
+
+    def node_data(self):
+        return self.graph.nodes(data=self.data_key)
 
     def add_edge_from_models(self, m1, m2, **kwargs):
         n1 = self.node_id(m1)
@@ -223,7 +229,7 @@ class MapperGraph(GraphBase):
         return self.__class__(
             key_func=self.key_func,
             value_func=self.value_func,
-            data_key=self._data_key,
+            data_key=self.data_key,
             name=self.name,
             graph_class=self.graph.__class__,
         )
@@ -259,14 +265,14 @@ class SchemaGraph(MapperGraph):
     def validate(self, raises=False):
         valid = True
         if self.schemas:
-            for n, ndata in self.graph.nodes(data=self._data_key):
+            for n, ndata in self.graph.nodes(data=self.data_key):
                 if not any(
                     validate_with_schema(ndata, schema) for schema in self.schemas
                 ):
                     valid = False
                     break
         if raises and not valid:
-            raise ValidationError("Graph has invalid data.")
+            raise SchemaValidationError("Graph has invalid data.")
         return valid
 
     def validate_data(self, data, raises=False):
@@ -274,7 +280,7 @@ class SchemaGraph(MapperGraph):
         if self.schemas:
             valid = any(validate_with_schema(data, schema) for schema in self.schemas)
             if raises and not valid:
-                raise ValidationError("Data is invalid for {}".format(self))
+                raise SchemaValidationError("Data is invalid for {}".format(self))
         return valid
 
     def add_data(self, model_data):
@@ -282,7 +288,7 @@ class SchemaGraph(MapperGraph):
         super().add_data(model_data)
 
     def get_data(self, node_id):
-        return self.graph.nodes[node_id][self._data_key]
+        return self.graph.nodes[node_id][self.data_key]
 
     def get_edge(self, n1, n2):
         return self.graph[n1][n2]
@@ -305,7 +311,7 @@ class SchemaGraph(MapperGraph):
         return self.__class__(
             self.key_func,
             value_func=self.value_func,
-            data_key=self._data_key,
+            data_key=self.data_key,
             schemas=list(self.schemas),
             name=self.name,
             graph_class=self.graph.__class__,
@@ -314,14 +320,9 @@ class SchemaGraph(MapperGraph):
 
 class ModelGraph(SchemaGraph):
     def __init__(self, name=None, graph=None):
-        super().__init__(self.model_id, name=name, graph=graph)
+        model_id = lambda data: "{}_{}".format(data["__class__"], data["primary_key"])
+        super().__init__(model_id, name=name, graph=graph)
         self.schemas.append({"__class__": str, "primary_key": int})
 
-    @classmethod
-    def model_id(cls, model_data):
-        return "{}_{}".format(model_data["__class__"], model_data["primary_key"])
-
     def shallow_copy(self):
-        return self.__class__(
-            name=self.name
-        )
+        return self.__class__(name=self.name)

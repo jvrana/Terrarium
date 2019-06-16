@@ -65,6 +65,7 @@ class TestReadWrite(object):
         """Expect a file to be written to the temporary path"""
         filepath = tmp_path / "sample_graph.test.json"
         self.write_tester(sample_graph, filepath)
+        self.write_tester(sample_graph, "sample_graph.json")
 
     def test_sample_graph_load(self, sample_graph, tmp_path):
         """We expect the loaded nx.DiGraph to be equivalent to the """

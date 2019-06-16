@@ -146,20 +146,19 @@ class ProtocolGraphBuilder(object):
         def collect_role(graph, role):
             return [
                 ndata
-                for n, ndata in graph.nodes(data="data")
+                for n, ndata in graph.node_data()
                 if ndata["field_type"]["role"] == role
             ]
 
-        in_afts = collect_role(g1.graph, "input")
-        out_afts = collect_role(g2.graph, "output")
+        in_afts = collect_role(g1, "input")
+        out_afts = collect_role(g2, "output")
         matching_afts = Utils.match_afts(in_afts, out_afts, internal_aft_hash)
         return matching_afts
 
     @classmethod
     def sample_type_subgraph(cls, template_graph: ModelGraph, stid: int) -> ModelGraph:
-        graph = template_graph.graph
         nbunch = []
-        for n, ndata in graph.nodes(data="data"):
+        for n, ndata in template_graph.node_data():
             if ndata["sample_type_id"] == stid:
                 nbunch.append(n)
         return template_graph.subgraph(nbunch)
@@ -169,7 +168,7 @@ class ProtocolGraphBuilder(object):
         cls, blueprint_graph: ModelGraph, sample_graph: ModelGraph
     ) -> ModelGraph:
         sample_graphs = {}
-        for nid, ndata in sample_graph.graph.nodes(data="data"):
+        for nid, ndata in sample_graph.node_data():
             if ndata["__class__"] == "Sample":
                 sample_id = ndata["primary_key"]
                 stid = ndata["sample_type_id"]

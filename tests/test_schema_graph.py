@@ -1,4 +1,4 @@
-from terrarium.graph import SchemaGraph, ValidationError
+from terrarium.graph import SchemaGraph, SchemaValidationError
 import pytest
 import json
 
@@ -20,7 +20,7 @@ def test_schema_graph():
 def test_schema_graph_raises():
     f = lambda d: json.dumps(d)
     g = SchemaGraph(f)
-    with pytest.raises(ValidationError):
+    with pytest.raises(SchemaValidationError):
         g.schemas.append({"name": str, "id": str})
         g.add_data({"name": "anyong", "id": 4})
 
