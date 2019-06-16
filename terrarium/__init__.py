@@ -1,4 +1,4 @@
-from terrarium.build import (
+from terrarium.builders import (
     ProtocolBlueprintBuilder,
     SampleGraphBuilder,
     ProtocolGraphBuilder,

@@ -6,8 +6,13 @@ from typing import Sequence
 
 from .utils import GroupCounter, group_by, dict_intersection
 from .hashes import external_aft_hash, internal_aft_hash, edge_hash
-from .graph import ModelGraph
 from .serializer import Serializer
+from .graph import ModelGraph
+
+
+class SampleGraph(ModelGraph):
+    def __init__(self, name=None):
+        super().__init__(name=name)
 
 
 class SampleGraphBuilder(object):

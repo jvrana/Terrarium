@@ -1,17 +1,23 @@
-def validate_with_schema(conf, struct, reasons=None):
+def validate_with_schema(data, schema, reasons=None, strict=False):
     if reasons is None:
         reasons = []
-    if isinstance(struct, dict) and isinstance(conf, dict):
-        # struct is a dict of types or other dicts
+    if isinstance(schema, dict) and isinstance(data, dict):
+        # schema is a dict of types or other dicts
         return all(
-            k in conf and validate_with_schema(conf[k], struct[k], reasons)
-            for k in struct
+            k in data
+            and validate_with_schema(data[k], schema[k], reasons, strict=strict)
+            for k in schema
         )
-    if isinstance(struct, list) and isinstance(conf, list):
-        # struct is list in the form [type or dict]
-        return all(validate_with_schema(c, struct[0], reasons) for c in conf)
-    elif isinstance(struct, type):
-        # struct is the type of conf
-        return isinstance(conf, struct)
+    if isinstance(schema, list) and isinstance(data, list):
+        # schema is list in the form [type or dict]
+        return all(
+            validate_with_schema(c, schema[0], reasons, strict=strict) for c in data
+        )
+    elif isinstance(schema, type):
+        # schema is the type of conf
+        return isinstance(data, schema)
     else:
-        return False
+        if strict:
+            return type(schema) is type(data) and data == schema
+        else:
+            return data == schema

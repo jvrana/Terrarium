@@ -57,3 +57,23 @@ def test_validate_floats():
     false_schema = {"key": int}
     assert validate_with_schema(data, true_schema)
     assert not validate_with_schema(data, false_schema)
+
+
+def test_validate_exact_value_str():
+    data = {"key": "hello"}
+
+    true_schema = {"key": "hello"}
+    false_schema = {"key": "nhello"}
+    assert validate_with_schema(data, true_schema)
+    assert not validate_with_schema(data, false_schema)
+
+
+def test_validate_exact_value_float_strict():
+
+    data = {"key": 1.0}
+
+    true_schema = {"key": 1}
+    false_schema = {"key": int}
+    assert not validate_with_schema(data, true_schema, strict=True)
+    assert validate_with_schema(data, true_schema, strict=False)
+    assert not validate_with_schema(data, false_schema)
