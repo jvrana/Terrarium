@@ -1,11 +1,33 @@
 import networkx as nx
+import json
 
 
 class ModelGraph(object):
-    def __init__(self):
+
+    PREFIX_KEY = 'prefix'
+    SUFFIX_KEY = 'suffix'
+
+    def __init__(self, name=None):
         self._graph = nx.DiGraph()
+        self._graph.name = name
         self.prefix = ""
         self.suffix = ""
+
+    @property
+    def prefix(self):
+        return self._graph.graph[self.PREFIX_KEY]
+
+    @property
+    def suffix(self):
+        return self._graph.graph[self.SUFFIX_KEY]
+
+    @prefix.setter
+    def prefix(self, p):
+        self._graph.graph[self.PREFIX_KEY] = p
+
+    @suffix.setter
+    def suffix(self, s):
+        self._graph.graph[self.SUFFIX_KEY] = s
 
     @property
     def graph(self):
@@ -122,6 +144,38 @@ class ModelGraph(object):
 
     def contains_model(self, model):
         return self.node_id(model) in self
+
+    def json(self):
+        return nx.adjacency_data(self.graph)
+
+    @classmethod
+    def load(cls, json_data):
+        graph = nx.adjacency_graph(json_data)
+        model_graph = cls()
+        model_graph.graph = graph
+        return model_graph
+
+    def write(self, path):
+        with open(path, 'w') as f:
+            json.dump(self.json(), f)
+
+    @classmethod
+    def read(cls, path):
+        with open(path, 'r') as f:
+            cls.load(json.load(f))
+
+    def save_gexf(self, path):
+        return nx.write_gexf(self.graph, path)
+
+    # TODO: put prefix and suffix on metadata attributes using XML?
+    @classmethod
+    def load_gexf(cls, path, prefix='', suffix=''):
+        graph = nx.read_gexf(path)
+        model_graph = cls()
+        model_graph.graph = graph
+        model_graph.prefix = prefix
+        model_graph.suffix = suffix
+        return model_graph
 
     def __len__(self):
         return self.graph.number_of_nodes()
