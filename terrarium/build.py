@@ -6,7 +6,7 @@ from typing import Sequence
 
 from .utils import GroupCounter, group_by, dict_intersection
 from .hashes import external_aft_hash, internal_aft_hash, edge_hash
-from .model_graph import ModelGraph
+from .graph import ModelGraph
 from .serializer import Serializer
 
 
@@ -174,7 +174,7 @@ class ProtocolGraphBuilder(object):
                 sample_id = ndata["primary_key"]
                 stid = ndata["sample_type_id"]
                 g = cls.sample_type_subgraph(blueprint_graph, stid)
-                g.set_prefix("Sample{}_".format(sample_id))
+                g.add_prefix("Sample{}_".format(sample_id))
                 sample_graphs[sample_id] = g
 
         graph = ModelGraph()
