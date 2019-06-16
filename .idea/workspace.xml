@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a64d43e-aa55-4a4c-a0d3-620f0f820846" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Terrarium2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Terrarium2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/build.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terrarium/model_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/model_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_build.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_build.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_build.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/terrarium/model_graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="162" column="12" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="12" />
+            <state relative-caret-position="225">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -38,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/test_build.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-90">
-              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+            <state relative-caret-position="140">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -71,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terrarium/build.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="202" selection-start-line="202" selection-end-line="202" />
+            <state relative-caret-position="140">
+              <caret line="190" selection-start-line="190" selection-end-line="190" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -122,6 +120,10 @@
       <find>pytest</find>
       <find>hello</find>
       <find>DAy</find>
+      <find>_graph</find>
+      <find>_graph =</find>
+      <find>self._graph</find>
+      <find>self._graph =</find>
     </findStrings>
     <replaceStrings>
       <replace>session</replace>
@@ -149,8 +151,8 @@
         <option value="$PROJECT_DIR$/tests/conftest.py" />
         <option value="$PROJECT_DIR$/terrarium/build.py" />
         <option value="$PROJECT_DIR$/../trident/graph.gml" />
-        <option value="$PROJECT_DIR$/terrarium/model_graph.py" />
         <option value="$PROJECT_DIR$/tests/test_build.py" />
+        <option value="$PROJECT_DIR$/terrarium/model_graph.py" />
       </list>
     </option>
   </component>
@@ -219,8 +221,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_build.test_sample_graph_load">
-    <configuration name="pytest for test_build" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.pytest in test_main.py">
+    <configuration name="pytest for tests.test_main" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Terrarium2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -232,11 +234,11 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_build&quot;" />
+      <option name="_new_target" value="&quot;tests.test_main&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_build.test_build" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for tests.test_main.TestBuilds" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Terrarium2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -248,11 +250,11 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_build.test_build&quot;" />
+      <option name="_new_target" value="&quot;tests.test_main.TestBuilds&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_build.test_sample_graph_load" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for tests.test_main.TestReadWrite" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Terrarium2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -264,11 +266,11 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_build.test_sample_graph_load&quot;" />
+      <option name="_new_target" value="&quot;tests.test_main.TestReadWrite&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_build.test_sample_graph_save" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for tests.test_main.TestReadWrite.test_sample_graph_save" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Terrarium2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -280,11 +282,11 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_build.test_sample_graph_save&quot;" />
+      <option name="_new_target" value="&quot;tests.test_main.TestReadWrite.test_sample_graph_save&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in test_build.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest in test_main.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Terrarium2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -296,17 +298,17 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_build.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_main.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for test_build.test_sample_graph_load" />
-        <item itemvalue="Python tests.pytest for test_build.test_sample_graph_save" />
-        <item itemvalue="Python tests.pytest for test_build.test_build" />
-        <item itemvalue="Python tests.pytest in test_build.py" />
-        <item itemvalue="Python tests.pytest for test_build" />
+        <item itemvalue="Python tests.pytest in test_main.py" />
+        <item itemvalue="Python tests.pytest for tests.test_main.TestReadWrite" />
+        <item itemvalue="Python tests.pytest for tests.test_main.TestReadWrite.test_sample_graph_save" />
+        <item itemvalue="Python tests.pytest for tests.test_main.TestBuilds" />
+        <item itemvalue="Python tests.pytest for tests.test_main" />
       </list>
     </recent_temporary>
   </component>
@@ -331,39 +333,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 19h 35m 43s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestBuilds - 2019.06.16 at 08h 22m 00s.xml">
+      <configuration name="pytest for test_build.TestBuilds" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 19h 42m 01s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite - 2019.06.16 at 08h 23m 28s.xml">
+      <configuration name="pytest for test_build.TestReadWrite" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 19h 42m 03s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite - 2019.06.16 at 08h 26m 03s.xml">
+      <configuration name="pytest for test_build.TestReadWrite" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 19h 58m 08s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite_test_sample_graph_save - 2019.06.16 at 08h 26m 08s.xml">
+      <configuration name="pytest for test_build.TestReadWrite.test_sample_graph_save" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 20h 04m 53s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite_test_sample_graph_save - 2019.06.16 at 08h 26m 38s.xml">
+      <configuration name="pytest for test_build.TestReadWrite.test_sample_graph_save" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_save - 2019.06.15 at 20h 05m 08s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_save" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite - 2019.06.16 at 08h 26m 48s.xml">
+      <configuration name="pytest for test_build.TestReadWrite" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_load - 2019.06.15 at 20h 07m 36s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_load" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite - 2019.06.16 at 08h 27m 21s.xml">
+      <configuration name="pytest for test_build.TestReadWrite" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_load - 2019.06.15 at 20h 07m 47s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_load" configurationId="tests" />
+    <history-entry file="pytest_for_test_build_TestReadWrite - 2019.06.16 at 08h 27m 34s.xml">
+      <configuration name="pytest for test_build.TestReadWrite" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_load - 2019.06.15 at 20h 07m 58s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_load" configurationId="tests" />
+    <history-entry file="pytest_in_test_main_py - 2019.06.16 at 08h 27m 50s.xml">
+      <configuration name="pytest in test_main.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_build_test_sample_graph_load - 2019.06.15 at 20h 08m 00s.xml">
-      <configuration name="pytest for test_build.test_sample_graph_load" configurationId="tests" />
+    <history-entry file="pytest_in_test_main_py - 2019.06.16 at 08h 31m 07s.xml">
+      <configuration name="pytest in test_main.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24216000" />
+    <option name="totallyTimeSpent" value="25853000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -392,7 +394,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32947975" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32550335" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3251445" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -409,8 +411,12 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_template_graph_test_build_template_graph.coverage" NAME="pytest for test_build_template_graph.test_build_template_graph Coverage Results" MODIFIED="1560561389172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_test_sample_graph_save.coverage" NAME="pytest for test_build.test_sample_graph_save Coverage Results" MODIFIED="1560654306950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_test_sample_graph_load.coverage" NAME="pytest for test_build.test_sample_graph_load Coverage Results" MODIFIED="1560654478909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_test_sample_graph_save.coverage" NAME="pytest for test_build.test_sample_graph_save Coverage Results" MODIFIED="1560698057265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_test_sample_graph_load.coverage" NAME="pytest for test_build.test_sample_graph_load Coverage Results" MODIFIED="1560698250186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_TestReadWrite.coverage" NAME="pytest for test_build.TestReadWrite Coverage Results" MODIFIED="1560698846339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_TestReadWrite_test_sample_graph_save.coverage" NAME="pytest for test_build.TestReadWrite.test_sample_graph_save Coverage Results" MODIFIED="1560698796530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_TestBuilds.coverage" NAME="pytest for test_build.TestBuilds Coverage Results" MODIFIED="1560698508477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_in_test_main_py.coverage" NAME="pytest in test_main.py Coverage Results" MODIFIED="1560699056565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_test_build.coverage" NAME="pytest for test_build.test_build Coverage Results" MODIFIED="1560650170908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
   <component name="editorHistoryManager">
@@ -464,13 +470,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_build_sample_graph.py" />
     <entry file="file://$PROJECT_DIR$/tests/test_build_template_graph.py" />
-    <entry file="file://$PROJECT_DIR$/terrarium/serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
@@ -523,32 +522,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/terrarium/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/build.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="202" selection-start-line="202" selection-end-line="202" />
+        <state relative-caret-position="140">
+          <caret line="190" selection-start-line="190" selection-end-line="190" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/model_graph.py">
+    <entry file="file://$PROJECT_DIR$/tests/test_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="162" column="12" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="12" />
+        <state relative-caret-position="140">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_build.py">
+    <entry file="file://$PROJECT_DIR$/terrarium/model_graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+        <state relative-caret-position="225">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
