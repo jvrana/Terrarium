@@ -1,7 +1,8 @@
 import networkx as nx
 import json
-from terrarium.utils import validate_with_schema
+from terrarium.utils import validate_with_schema, validate_with_schema_errors
 from terrarium.exceptions import SchemaValidationError
+from more_itertools import flatten
 
 
 class GraphBase(object):
@@ -262,25 +263,38 @@ class SchemaGraph(MapperGraph):
         super()._init_graph()
         self.validate(raises=True)
 
+    @staticmethod
+    def raise_validation_error(msg, errors):
+        validation_msg = msg + "\n"
+        validation_msg += "\n".join(
+            ["({}) - {}".format(i, e) for i, e in enumerate(errors)]
+        )
+        raise SchemaValidationError(validation_msg)
+
     def validate(self, raises=False):
-        valid = True
         if self.schemas:
             for n, ndata in self.graph.nodes(data=self.data_key):
-                if not any(
-                    validate_with_schema(ndata, schema) for schema in self.schemas
-                ):
-                    valid = False
-                    break
-        if raises and not valid:
-            raise SchemaValidationError("Graph has invalid data.")
-        return valid
+                if not self.validate_data(ndata, raises=raises):
+                    return False
+        return True
 
     def validate_data(self, data, raises=False):
         valid = True
         if self.schemas:
             valid = any(validate_with_schema(data, schema) for schema in self.schemas)
             if raises and not valid:
-                raise SchemaValidationError("Data is invalid for {}".format(self))
+                msg = "Data is invalid for {}".format(self)
+
+                for schema_i, schema in enumerate(self.schemas):
+                    _, errors = validate_with_schema_errors(data, schema)
+                    explain = "\n".join(
+                        [
+                            "Schema {} - err {} - {}".format(schema_i, i, e)
+                            for i, e in enumerate(errors)
+                        ]
+                    )
+                    msg += "\n" + explain
+                raise SchemaValidationError(msg)
         return valid
 
     def add_data(self, model_data):

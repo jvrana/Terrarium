@@ -1,23 +1,77 @@
-def validate_with_schema(data, schema, reasons=None, strict=False):
-    if reasons is None:
-        reasons = []
+def is_any_type_of(*types):
+    def f(x):
+        if x is None and None in types:
+            return True
+        return any(isinstance(x, t) for t in types if t is not None)
+
+    return f
+
+
+def is_in(instances):
+    return lambda x: x in instances
+
+
+def validation_errors(data, schema, strict=False, keys=None, fail_fast=True):
+    errors = []
+    if keys is None:
+        keys = []
+
+    key_msg = lambda k: "".join(["['{}']".format(_) for _ in k])
+
     if isinstance(schema, dict) and isinstance(data, dict):
         # schema is a dict of types or other dicts
-        return all(
-            k in data
-            and validate_with_schema(data[k], schema[k], reasons, strict=strict)
-            for k in schema
-        )
-    if isinstance(schema, list) and isinstance(data, list):
+        for k in schema:
+            if k not in data:
+                errors.append("{} is not in data".format(key_msg(keys + [k])))
+            else:
+                new_errors = validation_errors(
+                    data[k], schema[k], strict=strict, keys=keys + [k]
+                )
+                errors += new_errors
+                if new_errors and fail_fast:
+                    break
+    elif isinstance(schema, list) and isinstance(data, list):
         # schema is list in the form [type or dict]
-        return all(
-            validate_with_schema(c, schema[0], reasons, strict=strict) for c in data
-        )
+        for c in data:
+            new_errors = validation_errors(c, schema[0], strict=strict, keys=keys[:])
+            errors += new_errors
+            if new_errors and fail_fast:
+                break
     elif isinstance(schema, type):
         # schema is the type of conf
-        return isinstance(data, schema)
+        if not isinstance(data, schema):
+            errors.append(
+                "{}={} is not an instance of {}".format(key_msg(keys), data, schema)
+            )
+    elif callable(schema):
+        if not schema(data):
+            errors.append(
+                "{}={} did not pass callable schema {}".format(
+                    key_msg(keys), data, schema
+                )
+            )
     else:
-        if strict:
-            return type(schema) is type(data) and data == schema
-        else:
-            return data == schema
+        if not data == schema:
+            errors.append(
+                "{}={} did not match schema {}".format(key_msg(keys), data, schema)
+            )
+        elif strict and type(schema) is not type(data):
+            errors.append(
+                "{}={} did not match expected type when strict=True. {} != {}".format(
+                    key_msg(keys), data, type(data), type(schema)
+                )
+            )
+    return errors
+
+
+def validate_with_schema(data, schema, strict=False):
+    errors = validation_errors(data, schema, strict=strict, fail_fast=True)
+    return len(errors) == 0
+
+
+def validate_with_schema_errors(data, schema, strict=False, verbose=False):
+    if verbose:
+        errors = validation_errors(data, schema, strict=strict, fail_fast=True)
+    else:
+        errors = validation_errors(data, schema, strict=strict, fail_fast=False)
+    return (len(errors) == 0, errors)

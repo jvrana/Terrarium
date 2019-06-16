@@ -28,7 +28,15 @@ class Serializer(object):
             },
         )
         afts = session.browser.get("AllowableFieldType")
-        return [cls.serialize_aft(aft) for aft in afts]
+        data = [cls.serialize_aft(aft) for aft in afts]
+
+        # fix cases were field_type.part is None
+        for aft in data:
+            part = aft["field_type"]["part"]
+            if part is None:
+                aft["field_type"]["part"] = False
+
+        return data
 
     @classmethod
     def serialize_plans(cls, plans):

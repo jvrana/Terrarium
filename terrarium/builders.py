@@ -4,15 +4,34 @@ import networkx as nx
 
 from typing import Sequence
 
-from .utils import GroupCounter, group_by, dict_intersection
+from .utils import GroupCounter, group_by, dict_intersection, validate
 from .hashes import external_aft_hash, internal_aft_hash, edge_hash
 from .serializer import Serializer
 from .graph import ModelGraph
 
 
-class SampleGraph(ModelGraph):
+class BuilderGraphBase(ModelGraph):
+
+    SCHEMA = {}
+
     def __init__(self, name=None):
         super().__init__(name=name)
+        self.schemas[0].update(self.SCHEMA)
+
+
+class SampleGraph(BuilderGraphBase):
+
+    SCHEMA = {"__class__": "Sample"}
+
+
+class AFTGraph(BuilderGraphBase):
+
+    SCHEMA = {
+        "__class__": "AllowableFieldType",
+        "object_type_id": validate.is_any_type_of(int, None),
+        "sample_type_id": validate.is_any_type_of(int, None),
+        "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
+    }
 
 
 class SampleGraphBuilder(object):
@@ -33,7 +52,7 @@ class SampleGraphBuilder(object):
         if visited is None:
             visited = set()
         if g is None:
-            g = ModelGraph()
+            g = SampleGraph()
 
         model_serializer = Serializer.serialize
 
@@ -115,12 +134,12 @@ class ProtocolBlueprintBuilder(object):
 
     def build(
         self, all_nodes: Sequence[dict], nodes: Sequence[dict], edges: Sequence[tuple]
-    ) -> ModelGraph:
+    ) -> AFTGraph:
         self.update_counters(nodes, edges)
         self._template_graph = self.build_template_graph(all_nodes)
         return self._template_graph
 
-    def build_template_graph(self, all_nodes: Sequence[dict]) -> ModelGraph:
+    def build_template_graph(self, all_nodes: Sequence[dict]) -> AFTGraph:
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [
             aft for aft in all_nodes if aft["field_type"]["role"] == "output"
@@ -129,7 +148,7 @@ class ProtocolBlueprintBuilder(object):
         external_edges = Utils.match_afts(output_afts, input_afts, external_aft_hash)
         internal_edges = Utils.match_afts(input_afts, output_afts, internal_aft_hash)
 
-        graph = ModelGraph()
+        graph = AFTGraph()
 
         for aft1, aft2 in external_edges:
             cost = self.edge_cost(aft1, aft2)
@@ -147,7 +166,7 @@ class ProtocolBlueprintBuilder(object):
 
 class ProtocolGraphBuilder(object):
     @classmethod
-    def connect_sample_graphs(cls, g1: ModelGraph, g2: ModelGraph) -> Sequence[tuple]:
+    def connect_sample_graphs(cls, g1: SampleGraph, g2: SampleGraph) -> Sequence[tuple]:
         def collect_role(graph, role):
             return [
                 ndata
@@ -161,7 +180,7 @@ class ProtocolGraphBuilder(object):
         return matching_afts
 
     @classmethod
-    def sample_type_subgraph(cls, template_graph: ModelGraph, stid: int) -> ModelGraph:
+    def sample_type_subgraph(cls, template_graph: AFTGraph, stid: int) -> AFTGraph:
         nbunch = []
         for n, ndata in template_graph.node_data():
             if ndata["sample_type_id"] == stid:
@@ -170,7 +189,7 @@ class ProtocolGraphBuilder(object):
 
     @classmethod
     def build_graph(
-        cls, blueprint_graph: ModelGraph, sample_graph: ModelGraph
+        cls, blueprint_graph: AFTGraph, sample_graph: SampleGraph
     ) -> ModelGraph:
         sample_graphs = {}
         for nid, ndata in sample_graph.node_data():
