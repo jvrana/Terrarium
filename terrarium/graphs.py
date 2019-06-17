@@ -342,7 +342,14 @@ class ModelGraph(SchemaGraph):
     def __init__(self, name=None, graph=None):
         model_id = lambda data: "{}_{}".format(data["__class__"], data["primary_key"])
         super().__init__(model_id, name=name, graph=graph)
-        self.schemas.append({"__class__": str, "primary_key": int})
+        self.schemas.append(self.new_model_schema())
+
+    @classmethod
+    def new_model_schema(cls, model_class=str, kwargs=None):
+        schema = {"__class__": model_class, "primary_key": int}
+        if kwargs:
+            schema.update(kwargs)
+        return schema
 
     def shallow_copy(self):
         return self.__class__(name=self.name)
@@ -369,9 +376,36 @@ class SampleGraph(BuilderGraphBase):
 
 class AFTGraph(BuilderGraphBase):
 
-    SCHEMA = {
-        "__class__": "AllowableFieldType",
-        "object_type_id": is_any_type_of(int, None),
-        "sample_type_id": is_any_type_of(int, None),
-        "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
-    }
+    SCHEMA = BuilderGraphBase.new_model_schema(
+        "AllowableFieldType",
+        {
+            "object_type_id": is_any_type_of(int, None),
+            "sample_type_id": is_any_type_of(int, None),
+            "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
+        },
+    )
+
+
+class ProtocolGraph(BuilderGraphBase):
+
+    AFT_SCHEMA = BuilderGraphBase.new_model_schema(
+        "AllowableFieldType",
+        {
+            "object_type_id": is_any_type_of(int, None),
+            "sample_type_id": is_any_type_of(int, None),
+            "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
+            "sample": {"sample_type_id": int},
+        },
+    )
+
+    ITEM_SCHEMA = BuilderGraphBase.new_model_schema(
+        "Item",
+        {
+            "is_part": bool,
+            "object_type_id": is_any_type_of(int, None),
+            "collections": [{"object_type_id": int}],
+        },
+    )
+
+    def __init__(self, name=None):
+        super().__init__(name=name)

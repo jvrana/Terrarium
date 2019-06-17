@@ -1,6 +1,6 @@
 from terrarium.serializer import Serializer
 from terrarium.utils import group_by
-from terrarium.graphs import SampleGraph, AFTGraph, ModelGraph
+from terrarium.graphs import SampleGraph, AFTGraph, ProtocolGraph
 from typing import Sequence
 from .utils import match_afts
 from .hashes import internal_aft_hash
@@ -55,14 +55,14 @@ class ProtocolGraphBuilder(BuilderABC):
     def build(self):
         return self.build_basic_graph()
 
-    def build_basic_graph(self) -> ModelGraph:
+    def build_basic_graph(self) -> ProtocolGraph:
         sample_graphs = {}
         for nid, sample_data in self.sample_graph.model_data("Sample"):
             sample_graphs[sample_data["primary_key"]] = self.sample_subgraph(
                 sample_data
             )
 
-        graph = ModelGraph()
+        graph = ProtocolGraph()
         graph.schemas[0].update({"sample": dict})
         graph.graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
 
@@ -85,7 +85,7 @@ class ProtocolGraphBuilder(BuilderABC):
                 )
         return graph
 
-    def assign_items(self, graph, part_limit=50):
+    def assign_items(self, graph: ProtocolGraph, part_limit=50):
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         sample_ids = self.collect_sample_ids(self.sample_graph)
         item_data = self.requester.collect_items(afts, sample_ids)
@@ -101,6 +101,9 @@ class ProtocolGraphBuilder(BuilderABC):
             k: group_by(v, key=lambda x: x["sample_id"])
             for k, v in parts_by_collection.items()
         }
+
+        for aft in afts:
+            sample = aft["sample"]
 
         # new_nodes = []
         # new_edges = []
