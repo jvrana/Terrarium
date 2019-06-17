@@ -5,6 +5,7 @@ from terrarium import (
     ProtocolBlueprintBuilder,
     ProtocolGraphBuilder,
 )
+from terrarium.builders import DataRequester
 import os
 import networkx as nx
 from terrarium.graphs import ModelGraph
@@ -17,29 +18,26 @@ def sample_graph(base_session):
     session = base_session.with_cache(timeout=60)
     session.set_verbose(True)
     s = session.Sample.find(EXAMPLE_SAMPLE_ID)
-    sample_graph = SampleGraphBuilder.build([s])
+
+    builder = SampleGraphBuilder(DataRequester(session))
+
+    sample_graph = builder.build([s])
     yield sample_graph
 
 
 @pytest.fixture(scope="module")
 def blueprint_graph(base_session, sample_graph):
-
     with base_session.with_cache(timeout=60) as sess:
-        plans = sess.Plan.last(30)
-        nodes, edges = Serializer.serialize_plans(plans)
-
-    with base_session.with_cache(timeout=60) as sess:
-        all_afts = Serializer.serialize_all_afts(sess)
-    blueprint = ProtocolBlueprintBuilder().build(
-        all_nodes=all_afts, nodes=nodes, edges=edges
-    )
+        blueprint = ProtocolBlueprintBuilder(DataRequester(sess)).build(30)
     return blueprint
 
 
 @pytest.fixture(scope="module")
-def basic_graph(sample_graph, blueprint_graph):
-    graph = ProtocolGraphBuilder.build_graph(blueprint_graph, sample_graph)
-    return graph
+def basic_graph(base_session, sample_graph, blueprint_graph):
+    sess = base_session.with_cache(timeout=60)
+    builder = ProtocolGraphBuilder(DataRequester(sess), blueprint_graph, sample_graph)
+    graph = builder.build_basic_graph()
+    return graph, builder
 
 
 class TestBuilds(object):
@@ -50,18 +48,11 @@ class TestBuilds(object):
         assert blueprint_graph
 
     def test_build_basic_graph(self, basic_graph):
-        assert basic_graph
+        assert basic_graph[0]
 
-    def test_assign_items(self, base_session, sample_graph, basic_graph):
-
-        session = base_session.with_cache(timeout=60)
-        browser = session.browser
-        sample_ids = []
-        for n, ndata in sample_graph.model_data("Sample"):
-            if ndata["id"] not in sample_ids:
-                sample_ids.append(ndata["id"])
-
-        ProtocolGraphBuilder.assign_items(basic_graph, browser, sample_ids)
+    def test_assign_items(self, session, basic_graph):
+        graph, builder = basic_graph
+        builder.assign_items(graph, part_limit=50)
 
 
 class TestReadWrite(object):

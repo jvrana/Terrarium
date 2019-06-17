@@ -13,33 +13,7 @@ class Serializer(object):
     @classmethod
     def serialize_aft(cls, aft):
         data = cls.serialize(aft, include="field_type")
-        return data
-
-    @classmethod
-    def serialize_all_afts(cls, session):
-        session.OperationType.where({"deployed": True})
-
-        session.browser.get(
-            "OperationType",
-            {
-                "field_types": {
-                    "allowable_field_types": {
-                        "object_type",
-                        "sample_type",
-                        "field_type",
-                    }
-                }
-            },
-        )
-        afts = session.browser.get("AllowableFieldType")
-        data = [cls.serialize_aft(aft) for aft in afts]
-
-        # fix cases were field_type.part is None
-        for aft in data:
-            part = aft["field_type"]["part"]
-            if part is None:
-                aft["field_type"]["part"] = False
-
+        data["field_type"]["part"] = data["field_type"]["part"] is True
         return data
 
     @classmethod
