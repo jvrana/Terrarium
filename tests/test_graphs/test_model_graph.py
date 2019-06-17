@@ -4,7 +4,7 @@ import random
 import networkx as nx
 import pytest
 
-from terrarium.graph import ModelGraph, SchemaValidationError
+from terrarium.graphs import ModelGraph, SchemaValidationError
 from uuid import uuid4
 from copy import copy
 

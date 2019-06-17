@@ -1,7 +1,6 @@
-from terrarium.utils.validate import validate_with_schema_errors, is_in, is_any_type_of
 from copy import deepcopy
 import pytest
-from terrarium.utils.matcher import aft_matches_item
+from terrarium.builders.utils import aft_matches_item
 
 
 class TestMatchAFT(object):

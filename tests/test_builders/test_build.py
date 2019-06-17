@@ -7,7 +7,7 @@ from terrarium import (
 )
 import os
 import networkx as nx
-from terrarium.graph import ModelGraph
+from terrarium.graphs import ModelGraph
 
 EXAMPLE_SAMPLE_ID = 27608
 

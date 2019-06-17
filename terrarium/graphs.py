@@ -1,6 +1,10 @@
 import networkx as nx
 import json
-from terrarium.utils import validate_with_schema, validate_with_schema_errors
+from terrarium.utils.validate import (
+    validate_with_schema,
+    validate_with_schema_errors,
+    is_any_type_of,
+)
 from terrarium.exceptions import SchemaValidationError
 from more_itertools import flatten
 from copy import deepcopy
@@ -347,3 +351,27 @@ class ModelGraph(SchemaGraph):
         for n, ndata in self.node_data():
             if ndata["__class__"] == model_class:
                 yield n, ndata
+
+
+class BuilderGraphBase(ModelGraph):
+
+    SCHEMA = {}
+
+    def __init__(self, name=None):
+        super().__init__(name=name)
+        self.schemas[0].update(self.SCHEMA)
+
+
+class SampleGraph(BuilderGraphBase):
+
+    SCHEMA = {"__class__": "Sample"}
+
+
+class AFTGraph(BuilderGraphBase):
+
+    SCHEMA = {
+        "__class__": "AllowableFieldType",
+        "object_type_id": is_any_type_of(int, None),
+        "sample_type_id": is_any_type_of(int, None),
+        "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
+    }
