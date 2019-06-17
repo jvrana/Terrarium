@@ -52,7 +52,7 @@ class TestBuilds(object):
     def test_build_basic_graph(self, basic_graph):
         assert basic_graph
 
-    def test_assign_items(self, base_session, sample_graph):
+    def test_assign_items(self, base_session, sample_graph, basic_graph):
 
         session = base_session.with_cache(timeout=60)
         browser = session.browser

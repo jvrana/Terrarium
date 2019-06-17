@@ -181,27 +181,29 @@ class ProtocolGraphBuilder(object):
         return matching_afts
 
     @classmethod
-    def sample_type_subgraph(cls, template_graph: AFTGraph, stid: int) -> AFTGraph:
+    def sample_subgraph(cls, template_graph: AFTGraph, sample: dict) -> AFTGraph:
         nbunch = []
         for n, ndata in template_graph.node_data():
-            if ndata["sample_type_id"] == stid:
+            if ndata["sample_type_id"] == sample["sample_type_id"]:
                 nbunch.append(n)
-        return template_graph.subgraph(nbunch)
+        subgraph = template_graph.subgraph(nbunch)
+        subgraph.add_prefix("Sample{}_".format(sample["primary_key"]))
+        for _, ndata in subgraph.node_data():
+            ndata["sample"] = sample
+        return subgraph
 
     @classmethod
     def build_graph(
         cls, blueprint_graph: AFTGraph, sample_graph: SampleGraph
     ) -> ModelGraph:
         sample_graphs = {}
-        for nid, ndata in sample_graph.node_data():
-            if ndata["__class__"] == "Sample":
-                sample_id = ndata["primary_key"]
-                stid = ndata["sample_type_id"]
-                g = cls.sample_type_subgraph(blueprint_graph, stid)
-                g.add_prefix("Sample{}_".format(sample_id))
-                sample_graphs[sample_id] = g
+        for nid, sample_data in sample_graph.model_data("Sample"):
+            sample_graphs[sample_data["primary_key"]] = cls.sample_subgraph(
+                blueprint_graph, sample_data
+            )
 
         graph = ModelGraph()
+        graph.schemas[0].update({"sample": dict})
         graph.graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
 
         for x in sample_graph.edges():
@@ -217,17 +219,16 @@ class ProtocolGraphBuilder(object):
                 edge = blueprint_graph.get_edge(
                     blueprint_graph.node_id(e[0]), blueprint_graph.node_id(e[1])
                 )
-                graph.nodes[n1]["sample"] = s1
-                graph.nodes[n2]["sample"] = s2
                 graph.add_edge(
                     n1, n2, weight=edge["weight"], edge_type="sample_to_sample"
                 )
         return graph
 
-    def assign_items(self, graph, browser, sample_ids):
+    @classmethod
+    def assign_items(cls, graph, browser, sample_ids):
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
-        non_part_afts = [aft for aft in afts if not aft.field_type.part]
-        object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
+        non_part_afts = [aft for aft in afts if not aft["field_type"]["part"]]
+        object_type_ids = list(set([aft["object_type_id"] for aft in non_part_afts]))
 
         items = browser.where(
             model_class="Item",
@@ -238,7 +239,7 @@ class ProtocolGraphBuilder(object):
         for item in items:
             items_by_object_type_id[item.object_type_id].append(item)
 
-        part_by_sample_by_type = self._find_parts_for_samples(
+        part_by_sample_by_type = cls._find_parts_for_samples(
             browser, sample_ids, lim=50
         )
 
@@ -298,9 +299,9 @@ class ProtocolGraphBuilder(object):
         for sample_id in sample_ids:
             sample_parts = browser.last(
                 lim,
-                model_class="Item",
-                object_type_id=part_type.id,
-                sample_id=sample_id,
+                query=dict(
+                    model_class="Item", object_type_id=part_type.id, sample_id=sample_id
+                ),
             )
             all_parts += sample_parts
         browser.get(all_parts, "collections")
