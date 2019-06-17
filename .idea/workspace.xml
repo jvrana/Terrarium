@@ -4,11 +4,6 @@
     <list default="true" id="6a64d43e-aa55-4a4c-a0d3-620f0f820846" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/terrarium/builders.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/builders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terrarium/graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terrarium/utils/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/utils/validate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/sample_graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sample_graph.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_schema_validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_schema_validator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terrarium/graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-199">
-              <caret line="288" column="48" selection-start-line="288" selection-start-column="48" selection-end-line="288" selection-end-column="48" />
+            <state relative-caret-position="347">
+              <caret line="346" column="30" selection-start-line="346" selection-start-column="30" selection-end-line="346" selection-end-column="30" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -63,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terrarium/utils/validate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-598">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="-583">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -72,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/terrarium/builders.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+            <state relative-caret-position="242">
+              <caret line="287" column="20" lean-forward="true" selection-start-line="287" selection-start-column="20" selection-end-line="287" selection-end-column="20" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -105,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_schema_validator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
+            <state relative-caret-position="105">
+              <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -158,9 +153,9 @@
       <find>&quot;field_type&quot;</find>
       <find>&quot;part&quot;</find>
       <find>browser.get</find>
+      <find>fail_fast</find>
       <find>browser.get(</find>
       <find>validate_with_schema</find>
-      <find>fail_fast</find>
     </findStrings>
     <replaceStrings>
       <replace>session</replace>
@@ -202,10 +197,10 @@
         <option value="$PROJECT_DIR$/terrarium/__init__.py" />
         <option value="$PROJECT_DIR$/tests/test_main.py" />
         <option value="$PROJECT_DIR$/terrarium/utils/__init__.py" />
-        <option value="$PROJECT_DIR$/terrarium/graph.py" />
         <option value="$PROJECT_DIR$/terrarium/serializer.py" />
         <option value="$PROJECT_DIR$/terrarium/utils/validate.py" />
         <option value="$PROJECT_DIR$/tests/test_schema_validator.py" />
+        <option value="$PROJECT_DIR$/terrarium/graph.py" />
         <option value="$PROJECT_DIR$/terrarium/builders.py" />
       </list>
     </option>
@@ -239,12 +234,7 @@
               <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
               <item name="terrarium" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Terrarium2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Terrarium2" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="graph.py" type="8704e2dd:PyFileNode" />
             </path>
           </expand>
           <select />
@@ -425,7 +415,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43761000" />
+    <option name="totallyTimeSpent" value="47165000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,12 +430,12 @@
     <frame x="90" y="45" width="1273" height="807" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25345248" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25345248" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32658958" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3251445" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3251445" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39739883" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -454,7 +444,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32947975" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3251445" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3251445" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -627,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/hashes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="69" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_model_graph.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -644,13 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/utils/grouper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -658,27 +634,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/graph.py">
+    <entry file="file://$PROJECT_DIR$/tests/test_schema_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199">
-          <caret line="288" column="48" selection-start-line="288" selection-start-column="48" selection-end-line="288" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="105">
+          <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/utils/validate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-598">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="-583">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_schema_validator.py">
+    <entry file="file://$PROJECT_DIR$/terrarium/hashes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
+          <caret line="20" column="69" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/terrarium/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
@@ -692,10 +672,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/terrarium/graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="346" column="30" selection-start-line="346" selection-start-column="30" selection-end-line="346" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/builders.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        <state relative-caret-position="242">
+          <caret line="287" column="20" lean-forward="true" selection-start-line="287" selection-start-column="20" selection-end-line="287" selection-end-column="20" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

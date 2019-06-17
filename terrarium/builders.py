@@ -8,6 +8,7 @@ from .utils import GroupCounter, group_by, dict_intersection, validate
 from .hashes import external_aft_hash, internal_aft_hash, edge_hash
 from .serializer import Serializer
 from .graph import ModelGraph
+from collections import defaultdict
 
 
 class BuilderGraphBase(ModelGraph):
@@ -222,6 +223,91 @@ class ProtocolGraphBuilder(object):
                     n1, n2, weight=edge["weight"], edge_type="sample_to_sample"
                 )
         return graph
+
+    def assign_items(self, graph, browser, sample_ids, afts):
+        non_part_afts = [aft for aft in afts if not aft.field_type.part]
+        object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
+
+        items = browser.where(
+            model_class="Item",
+            query={"sample_id": sample_ids, "object_type_id": object_type_ids},
+        )
+
+        items_by_object_type_id = defaultdict(list)
+        for item in items:
+            items_by_object_type_id[item.object_type_id].append(item)
+
+        for node, ndata in graph.model_data("AllowableFieldType"):
+            sample = ndata["sample"]
+            sample_type_id = ndata["sample_type_id"]
+
+            # new_nodes = []
+            # new_edges = []
+            # for node, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
+            #     aft = ndata["model"]
+            #     sample = ndata["sample"]
+            #     if sample:
+            #         sample_id = sample.id
+            #         sample_type_id = sample.sample_type_id
+            #     else:
+            #         sample_id = None
+            #         sample_type_id = None
+            #     if aft.sample_type_id == sample_type_id:
+            #         if aft.field_type.part:
+            #             parts = part_by_sample_by_type.get(aft.object_type_id, {}).get(
+            #                 sample_id, []
+            #             )
+            #             for part in parts[-1:]:
+            #                 if part.sample_id == sample_id:
+            #                     new_nodes.append(part)
+            #                     new_edges.append((part, sample, node))
+            #         else:
+            #             items = items_by_object_type_id[aft.object_type_id]
+            #             for item in items:
+            #                 if item.sample_id == sample_id:
+            #                     new_nodes.append(item)
+            #                     new_edges.append((item, sample, node))
+            #
+            # for n in new_nodes:
+            #     graph.add_node(n)
+            #
+            # for item, sample, node in new_edges:
+            #     graph.add_edge(graph.node_id(item), node, weight=0)
+            #
+            # self._info(
+            #     "{} items added to various allowable_field_types".format(len(new_edges))
+            # )
+            # return graph
+
+    @staticmethod
+    def _find_parts_for_samples(browser, sample_ids, lim=50):
+        all_parts = []
+        part_type = browser.find_by_name("__Part", model_class="ObjectType")
+        for sample_id in sample_ids:
+            sample_parts = browser.last(
+                lim,
+                model_class="Item",
+                object_type_id=part_type.id,
+                sample_id=sample_id,
+            )
+            all_parts += sample_parts
+        browser.retrieve(all_parts, "collections")
+
+        # filter out parts that do not exist
+        all_parts = [
+            part
+            for part in all_parts
+            if part.collections and part.collections[0].location != "deleted"
+        ]
+
+        # create a Part-by-Sample-by-ObjectType dictionary
+        data = {}
+        for part in all_parts:
+            if part.collections:
+                data.setdefault(part.collections[0].object_type_id, {}).setdefault(
+                    part.sample_id, []
+                ).append(part)
+        return data
 
     # def assign_items(self):
     #

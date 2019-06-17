@@ -340,3 +340,8 @@ class ModelGraph(SchemaGraph):
 
     def shallow_copy(self):
         return self.__class__(name=self.name)
+
+    def model_data(self, model_class):
+        for n, ndata in self.node_data():
+            if ndata["__class__"] == model_class:
+                yield n, ndata
