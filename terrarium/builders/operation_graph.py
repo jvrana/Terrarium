@@ -1,4 +1,4 @@
-from terrarium.utils import group_by
+from terrarium.utils import group_by, multi_group_by_key, multi_group_by
 from terrarium.graphs import SampleGraph, AFTGraph, OperationGraph
 from typing import Sequence
 from .utils import match_afts
@@ -90,19 +90,36 @@ class OperationGraphBuilder(BuilderABC):
         item_data = self.requester.collect_items(afts, sample_ids)
         part_data = self.requester.collect_parts(sample_ids, lim=part_limit)
 
-        items_by_object_type_id = group_by(item_data, key=lambda i: i["object_type_id"])
+        item_dict = multi_group_by_key(item_data, keys=['object_type_id', 'sample_id'])
+        part_dict = multi_group_by(part_data, keyfuncs=[
+            lambda x: x['collections'][0].get('object_type_id', None),
+            lambda x: x['sample_id']
+        ])
 
-        def get_collection_type_id(part):
-            return part.get("collections", [{}])[0].get("object_type_id", None)
-
-        parts_by_collection = group_by(part_data, key=get_collection_type_id)
-        parts_by_collection_by_sample = {
-            k: group_by(v, key=lambda x: x["sample_id"])
-            for k, v in parts_by_collection.items()
-        }
+        new_nodes = []
+        new_edges = []
 
         for aft in afts:
-            sample = aft["sample"]
+            sample_id = aft["sample"]['id']
+            object_type_id = aft["object_type_id"]
+            if aft["field_type"]["part"]:
+                data = part_dict
+            else:
+                data = item_dict
+
+            try:
+                items = data[object_type_id][sample_id]
+            except KeyError:
+                items = []
+            for item in items:
+                new_nodes.append(item)
+                new_edges.append((item, aft))
+
+        for n in new_nodes:
+            graph.add_data(n)
+
+        for item, node in new_edges:
+            graph.add_edge_from_models(item, node, weight=0)
 
         # new_nodes = []
         # new_edges = []

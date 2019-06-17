@@ -1,6 +1,7 @@
 from terrarium.utils.grouper import Grouper, GroupCounter
 from terrarium.utils.validate import validate_with_schema, validate_with_schema_errors
 from itertools import chain
+from more_itertools import map_reduce
 
 
 def dict_intersection(a, b, func):
@@ -23,7 +24,22 @@ def dict_intersection(a, b, func):
 
 def group_by(a, key):
     """Groups a list by a key function"""
-    d = {}
-    for _a in a:
-        d.setdefault(key(_a), []).append(_a)
-    return d
+    return dict(map_reduce(a, keyfunc=key))
+
+
+def multi_group_by(d, keyfuncs, valuefunc=None, reducefunc=None):
+    if callable(keyfuncs):
+        keyfuncs = [keyfuncs]
+    groups = map_reduce(
+        d, keyfunc=keyfuncs[0], valuefunc=valuefunc, reducefunc=reducefunc
+    )
+    if keyfuncs[1:]:
+        return {k: multi_group_by(v, keyfuncs=keyfuncs[1:]) for k, v in groups.items()}
+    else:
+        return groups
+
+
+def multi_group_by_key(d, keys, valuefunc=None, reducefunc=None):
+    return multi_group_by(
+        d, [lambda x: x[k] for k in keys], valuefunc=valuefunc, reducefunc=reducefunc
+    )

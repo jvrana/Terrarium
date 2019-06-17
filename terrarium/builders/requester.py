@@ -111,7 +111,7 @@ class DataRequester(object):
             if part.collections and part.collections[0].location != "deleted"
         ]
 
-        return [Serializer.serialize(part) for part in parts_list]
+        return [Serializer.serialize(part, include='collections') for part in parts_list]
 
     def collect_afts_from_plans(self, num):
         plans = self.session.Plan.last(num)
