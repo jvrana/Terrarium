@@ -202,7 +202,7 @@ class ProtocolGraphBuilder(object):
                 sample_graphs[sample_id] = g
 
         graph = ModelGraph()
-        graph._graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
+        graph.graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
 
         for x in sample_graph.edges():
             s1 = sample_graph.get_data(x[0])
@@ -224,7 +224,8 @@ class ProtocolGraphBuilder(object):
                 )
         return graph
 
-    def assign_items(self, graph, browser, sample_ids, afts):
+    def assign_items(self, graph, browser, sample_ids):
+        afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         non_part_afts = [aft for aft in afts if not aft.field_type.part]
         object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
 
@@ -237,9 +238,20 @@ class ProtocolGraphBuilder(object):
         for item in items:
             items_by_object_type_id[item.object_type_id].append(item)
 
+        part_by_sample_by_type = self._find_parts_for_samples(
+            browser, sample_ids, lim=50
+        )
+
+        new_nodes = []
+
         for node, ndata in graph.model_data("AllowableFieldType"):
-            sample = ndata["sample"]
-            sample_type_id = ndata["sample_type_id"]
+            sample_id = ndata["sample"]["id"]
+            if ndata["field_type"]["part"]:
+                parts = part_by_sample_by_type.get(ndata["object_type_id"], {}).get(
+                    sample_id, []
+                )
+                for part in parts[-1:]:
+                    new_nodes.append(part)
 
             # new_nodes = []
             # new_edges = []
@@ -291,7 +303,7 @@ class ProtocolGraphBuilder(object):
                 sample_id=sample_id,
             )
             all_parts += sample_parts
-        browser.retrieve(all_parts, "collections")
+        browser.get(all_parts, "collections")
 
         # filter out parts that do not exist
         all_parts = [
@@ -306,7 +318,7 @@ class ProtocolGraphBuilder(object):
             if part.collections:
                 data.setdefault(part.collections[0].object_type_id, {}).setdefault(
                     part.sample_id, []
-                ).append(part)
+                ).append(Serializer.serialize(part))
         return data
 
     # def assign_items(self):

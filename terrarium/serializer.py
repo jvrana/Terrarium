@@ -1,3 +1,7 @@
+# TODO: this should be the only class that makes requests
+# TODO: this should take in a session object and reuse that object throughout
+
+
 class Serializer(object):
     @staticmethod
     def serialize(model, *args, **kwargs):

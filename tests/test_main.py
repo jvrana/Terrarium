@@ -36,6 +36,12 @@ def blueprint_graph(base_session, sample_graph):
     return blueprint
 
 
+@pytest.fixture(scope="module")
+def basic_graph(sample_graph, blueprint_graph):
+    graph = ProtocolGraphBuilder.build_graph(blueprint_graph, sample_graph)
+    return graph
+
+
 class TestBuilds(object):
     def test_sample_graph_build(self, sample_graph, session):
         assert sample_graph
@@ -43,11 +49,19 @@ class TestBuilds(object):
     def test_blueprint_graph(self, blueprint_graph):
         assert blueprint_graph
 
-    def test_build(self, session, blueprint_graph, sample_graph):
-        graph = ProtocolGraphBuilder.build_graph(blueprint_graph, sample_graph)
-        import networkx as nx
+    def test_build_basic_graph(self, basic_graph):
+        assert basic_graph
 
-        print(nx.info(graph.graph))
+    def test_assign_items(self, base_session, sample_graph):
+
+        session = base_session.with_cache(timeout=60)
+        browser = session.browser
+        sample_ids = []
+        for n, ndata in sample_graph.model_data("Sample"):
+            if ndata["id"] not in sample_ids:
+                sample_ids.append(ndata["id"])
+
+        ProtocolGraphBuilder.assign_items(basic_graph, browser, sample_ids)
 
 
 class TestReadWrite(object):

@@ -1,4 +1,5 @@
 from terrarium.utils.validate import (
+    validation_errors,
     validate_with_schema,
     validate_with_schema_errors,
     is_any_type_of,
@@ -41,7 +42,7 @@ def test_valid_list_of_int_schema():
 
     true_schema = {"key": [int]}
     false_schema = {"key": int}
-
+    print(validate_with_schema_errors(data, true_schema))
     assert validate_with_schema(data, true_schema)
     assert not validate_with_schema(data, false_schema)
 
@@ -127,3 +128,19 @@ def test_callable_schema():
 
     assert validate_with_schema(data1, schema1)
     assert not validate_with_schema(data2, schema1)
+
+
+def test_validate_deepcopy():
+    from copy import deepcopy
+
+    arr = [3, 4]
+    data1 = {"level1": {"level2": [1, 2, arr]}}
+    data2 = deepcopy(data1)
+    data3 = deepcopy(data1)
+    data3["level1"]["level2"][2] = arr
+
+    errors = validation_errors(data1, data2)
+    assert not errors
+
+    errors = validation_errors(data2, data1)
+    assert not errors

@@ -3,6 +3,7 @@ import json
 from terrarium.utils import validate_with_schema, validate_with_schema_errors
 from terrarium.exceptions import SchemaValidationError
 from more_itertools import flatten
+from copy import deepcopy
 
 
 class GraphBase(object):
@@ -70,10 +71,11 @@ class GraphBase(object):
 
     @classmethod
     def nx_copy(cls, graph):
-        graph_copy = cls.nx_shallow_copy(graph)
-        graph_copy.add_nodes_from(graph.nodes(data=True))
-        graph_copy.add_edges_from(graph.edges(data=True))
-        return graph_copy
+        return graph.copy()
+
+    @classmethod
+    def nx_deepcopy(cls, graph):
+        return deepcopy(graph)
 
     @classmethod
     def nx_subgraph(cls, graph, nbunch):
@@ -84,7 +86,7 @@ class GraphBase(object):
             if n1 in nbunch and n2 in nbunch:
                 edges.append((n1, n2, graph.edges[n1, n2]))
         graph_copy.add_edges_from(edges)
-        return graph_copy
+        return cls.nx_deepcopy(graph_copy)
 
     def json(self):
         self._init_graph()
@@ -134,7 +136,7 @@ class GraphBase(object):
 
     def __copy__(self):
         copy = self.shallow_copy()
-        copy.graph = self.nx_copy(self.graph)
+        copy.graph = self.nx_deepcopy(self.graph)
         return copy
 
 
