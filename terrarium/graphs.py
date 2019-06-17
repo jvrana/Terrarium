@@ -386,7 +386,7 @@ class AFTGraph(BuilderGraphBase):
     )
 
 
-class ProtocolGraph(BuilderGraphBase):
+class OperationGraph(BuilderGraphBase):
 
     AFT_SCHEMA = BuilderGraphBase.new_model_schema(
         "AllowableFieldType",

@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a64d43e-aa55-4a4c-a0d3-620f0f820846" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/terrarium/builders/protocol_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/builders/protocol_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terrarium/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terrarium/builders/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/builders/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terrarium/builders/protocol_blueprint.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/builders/operation_blueprint.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terrarium/builders/protocol_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/builders/operation_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terrarium/graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/terrarium/graphs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/sample_graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sample_graph.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_builders/test_build.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_builders/test_build.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,37 +23,33 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/terrarium/builders/sample_graph.py">
+        <entry file="file://$PROJECT_DIR$/terrarium/builders/operation_graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+            <state>
               <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/terrarium/builders/protocol_graph.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#1#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/terrarium/builders/requester.py">
+        <entry file="file://$PROJECT_DIR$/terrarium/builders/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="60">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
               <folding>
-                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -65,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terrarium/graphs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="409" selection-start-line="409" selection-end-line="410" selection-end-column="35" />
+            <state relative-caret-position="243">
+              <caret line="388" column="12" selection-start-line="388" selection-start-column="6" selection-end-line="388" selection-end-column="20" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -74,14 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/test_builders/test_build.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="44" column="6" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="60">
+              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -99,10 +97,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/terrarium/builders/protocol_blueprint.py">
+        <entry file="file://$PROJECT_DIR$/terrarium/builders/operation_blueprint.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="827">
-              <caret line="80" column="27" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+            <state relative-caret-position="149">
+              <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -139,7 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.data_key</find>
       <find>self.data</find>
       <find>shallow_copyd</find>
       <find>load_meta</find>
@@ -168,6 +165,7 @@
       <find>browser.get</find>
       <find>Sequence</find>
       <find>self._templ</find>
+      <find>protocol</find>
       <find>self.graph</find>
     </findStrings>
     <replaceStrings>
@@ -184,7 +182,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/terrarium/utils.py" />
         <option value="$PROJECT_DIR$/terrarium/utils/grouper.py" />
         <option value="$PROJECT_DIR$/terrarium/build_template_graph.py" />
         <option value="$PROJECT_DIR$/terrarium/server_interface.py" />
@@ -203,7 +200,6 @@
         <option value="$PROJECT_DIR$/terrarium/exceptionsw.py" />
         <option value="$PROJECT_DIR$/terrarium/exceptions.py" />
         <option value="$PROJECT_DIR$/terrarium/build.py" />
-        <option value="$PROJECT_DIR$/terrarium/__init__.py" />
         <option value="$PROJECT_DIR$/tests/test_tmp.py" />
         <option value="$PROJECT_DIR$/terrarium/data_utils.py" />
         <option value="$PROJECT_DIR$/terrarium/utils/data_utils.py" />
@@ -226,15 +222,17 @@
         <option value="$PROJECT_DIR$/tests/test_builders/test_main.py" />
         <option value="$PROJECT_DIR$/tests/test_builders/test_aft_item_matcher.py" />
         <option value="$PROJECT_DIR$/terrarium/utils/__init__.py" />
-        <option value="$PROJECT_DIR$/terrarium/builders/__init__.py" />
         <option value="$PROJECT_DIR$/terrarium/serializer.py" />
         <option value="$PROJECT_DIR$/terrarium/builders/builder_abc.py" />
         <option value="$PROJECT_DIR$/terrarium/builders/sample_graph.py" />
         <option value="$PROJECT_DIR$/terrarium/builders/requester.py" />
-        <option value="$PROJECT_DIR$/tests/test_builders/test_build.py" />
+        <option value="$PROJECT_DIR$/terrarium/builders/protocol_graph.py" />
         <option value="$PROJECT_DIR$/terrarium/builders/protocol_blueprint.py" />
         <option value="$PROJECT_DIR$/terrarium/graphs.py" />
-        <option value="$PROJECT_DIR$/terrarium/builders/protocol_graph.py" />
+        <option value="$PROJECT_DIR$/terrarium/builders/operation_graph.py" />
+        <option value="$PROJECT_DIR$/terrarium/builders/__init__.py" />
+        <option value="$PROJECT_DIR$/terrarium/__init__.py" />
+        <option value="$PROJECT_DIR$/tests/test_builders/test_build.py" />
       </list>
     </option>
   </component>
@@ -446,26 +444,11 @@
       <workItem from="1560617134088" duration="92000" />
       <workItem from="1560621786131" duration="4361000" />
       <workItem from="1560782967483" duration="12486000" />
-      <workItem from="1560798640206" duration="6325000" />
+      <workItem from="1560798640206" duration="6523000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_tests - 2019.06.17 at 13h 24m 29s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_tests - 2019.06.17 at 13h 28m 51s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_tests - 2019.06.17 at 13h 29m 52s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_tests - 2019.06.17 at 13h 30m 15s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_tests - 2019.06.17 at 13h 30m 47s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_for_test_build_TestBuilds_test_assign_items - 2019.06.17 at 13h 36m 00s.xml">
       <configuration name="pytest for test_build.TestBuilds.test_assign_items" configurationId="tests" />
     </history-entry>
@@ -481,9 +464,24 @@
     <history-entry file="pytest_in_tests - 2019.06.17 at 14h 01m 06s.xml">
       <configuration name="pytest in tests" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_tests - 2019.06.17 at 14h 01m 54s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_tests - 2019.06.17 at 14h 03m 45s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_tests - 2019.06.17 at 14h 04m 11s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_tests - 2019.06.17 at 14h 04m 22s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_tests - 2019.06.17 at 14h 04m 45s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65976000" />
+    <option name="totallyTimeSpent" value="66174000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -558,7 +556,7 @@
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_template_graph_test_build_template_graph.coverage" NAME="pytest for test_build_template_graph.test_build_template_graph Coverage Results" MODIFIED="1560561389172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_schema_validator_test_nested__schema.coverage" NAME="pytest for test_schema_validator.test_nested__schema Coverage Results" MODIFIED="1560714458044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_schema_validator_test_validate_exact_value.coverage" NAME="pytest for test_schema_validator.test_validate_exact_value Coverage Results" MODIFIED="1560711275069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Terrarium2$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1560805284945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Terrarium2$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1560805474610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_build_TestBuilds.coverage" NAME="pytest for test_build.TestBuilds Coverage Results" MODIFIED="1560698508477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_schema_graph_test_schema_graph.coverage" NAME="pytest for test_schema_graph.test_schema_graph Coverage Results" MODIFIED="1560701620353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Terrarium2$pytest_for_test_tmp_TestMatchAFT_test_aft_otid_is_none.coverage" NAME="pytest for test_tmp.TestMatchAFT.test_aft_otid_is_none Coverage Results" MODIFIED="1560785760065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -645,16 +643,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/exceptionsw.py" />
-    <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#0#114#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/data_utils.py" />
     <entry file="file://$PROJECT_DIR$/terrarium/graphs/__init__.py" />
     <entry file="file://$PROJECT_DIR$/terrarium/graphs/model_graphs.py" />
@@ -728,16 +716,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/builders/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/utils/grouper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-721">
@@ -792,16 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_builders/test_build.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="44" column="6" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/builders/builder_abc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -816,10 +784,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/builders/protocol_blueprint.py">
+    <entry file="file://$PROJECT_DIR$/terrarium/builders/operation_blueprint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
-          <caret line="80" column="27" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+        <state relative-caret-position="149">
+          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -828,21 +796,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/terrarium/graphs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="409" selection-start-line="409" selection-end-line="410" selection-end-column="35" />
+        <state relative-caret-position="243">
+          <caret line="388" column="12" selection-start-line="388" selection-start-column="6" selection-end-line="388" selection-end-column="20" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/terrarium/builders/protocol_graph.py">
+    <entry file="file://$PROJECT_DIR$/terrarium/builders/operation_graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+        <state>
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#1#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/terrarium/builders/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/terrarium/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_builders/test_build.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
         </state>
       </provider>
     </entry>

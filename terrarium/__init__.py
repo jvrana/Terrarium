@@ -1,6 +1,6 @@
 from terrarium.builders import (
-    ProtocolBlueprintBuilder,
+    OperationBlueprintBuilder,
     SampleGraphBuilder,
-    ProtocolGraphBuilder,
+    OperationGraphBuilder,
 )
 from terrarium.serializer import Serializer

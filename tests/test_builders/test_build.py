@@ -1,9 +1,8 @@
 import pytest
 from terrarium import (
-    Serializer,
     SampleGraphBuilder,
-    ProtocolBlueprintBuilder,
-    ProtocolGraphBuilder,
+    OperationBlueprintBuilder,
+    OperationGraphBuilder,
 )
 from terrarium.builders import DataRequester
 import os
@@ -28,14 +27,14 @@ def sample_graph(base_session):
 @pytest.fixture(scope="module")
 def blueprint_graph(base_session, sample_graph):
     with base_session.with_cache(timeout=60) as sess:
-        blueprint = ProtocolBlueprintBuilder(DataRequester(sess)).build(30)
+        blueprint = OperationBlueprintBuilder(DataRequester(sess)).build(30)
     return blueprint
 
 
 @pytest.fixture(scope="module")
 def basic_graph(base_session, sample_graph, blueprint_graph):
     sess = base_session.with_cache(timeout=60)
-    builder = ProtocolGraphBuilder(DataRequester(sess), blueprint_graph, sample_graph)
+    builder = OperationGraphBuilder(DataRequester(sess), blueprint_graph, sample_graph)
     graph = builder.build_basic_graph()
     return graph, builder
 

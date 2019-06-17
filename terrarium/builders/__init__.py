@@ -1,4 +1,4 @@
 from .sample_graph import SampleGraphBuilder
-from .protocol_blueprint import ProtocolBlueprintBuilder
-from .protocol_graph import ProtocolGraphBuilder
+from .operation_blueprint import OperationBlueprintBuilder
+from .operation_graph import OperationGraphBuilder
 from .requester import DataRequester

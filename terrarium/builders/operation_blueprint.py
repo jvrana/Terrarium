@@ -9,6 +9,10 @@ from abc import abstractmethod
 
 
 class BlueprintBuilderABC(BuilderABC):
+    """
+    A blueprint builder that constructs a graph of all possible deployed operations
+    """
+
     @abstractmethod
     def collect(self):
         raise NotImplementedError
@@ -51,7 +55,7 @@ class BlueprintBuilderABC(BuilderABC):
         return self.build_template_graph(all_nodes)
 
 
-class ProtocolBlueprintBuilder(BlueprintBuilderABC):
+class OperationBlueprintBuilder(BlueprintBuilderABC):
     def __init__(self, requester: DataRequester):
         super().__init__(requester)
         self.edge_counter = GroupCounter()
