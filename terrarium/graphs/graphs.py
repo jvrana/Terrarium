@@ -218,6 +218,22 @@ class MapperGraph(GraphBase):
     def node_data(self):
         return self.graph.nodes(data=self.data_key)
 
+    def data_filter(self, filters=None):
+        """
+        Returns generator for (n, data) tuples for data that passes the
+        filters in `keys` argument.
+
+        :param filters: list of callable filters
+        :return:
+        """
+        if filters is None:
+            filters = []
+        elif callable(filters):
+            filters = [filters]
+        for n, data in self.node_data():
+            if all(k(data) for k in filters):
+                yield n, data
+
     def add_edge_from_models(self, m1, m2, **kwargs):
         n1 = self.node_id(m1)
         n2 = self.node_id(m2)

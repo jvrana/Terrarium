@@ -1,0 +1,1127 @@
+interactions:
+- request:
+    body: '{"model": "OperationType", "method": "where", "arguments": {"id": [500,
+      453, 21, 56, 649, 25]}, "options": {"offset": -1, "limit": -1, "reverse": false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '153'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=aUF%2BelknNQrZQ5S4eA8AwG2k9zbXp%2BDLg7qduqydPcWNChCZ4XXqg1tEC3yrJW8xIeauxXk77sdgviJa7P1DPA%3D%3D;
+        _aquarium_YourLab_production_session=Z01XcWo1NXRJV2NmdHNoR1VYWDlKNkc5OEJkei9aS1JMem9iKzUxb1NLS1hGa1N0S3VzR3FFaWNXQ0JEK0RCTDc2aW9vWkRJUGlINTZkOGRsVmFzTnIya1d2SWRVelhqK0pRTWRhazJ4UEZudklBaW5kbzQ4VXptSFJXSUJZTzlyUDRMMmllMkt5bGpBSWR5NDFBUnZtYVNRMEFYRUd6SEhJTkFzQStWSmUzUzhXTE51cHZCWXMrcXgrcFlxeTVMMnBSbUVUQVc0TE1MUnlId1MrUXNPKzJBNElFZDE3VEpiVi9TamNacUt4dEhmczVoY2ZzTTVXdVFnZ0g1UkFHbm02Uk1oVUdJM2NRN1lUT1NNd2hxRk45dTdRbFJyWHRBeHlmd3QvMVhzVnlSNzRhaDNKbk9zakJ4MnRLb1NkTXg3aXVJR2VZWWUxYkZrY3UrRWd5QW9HTTBQaTRaM1cwOStKeU1VZ3BQQy9ZRWNxRVBOL0ptdDlLYW9US0tJOWhtN2I1NXgzTmV2UGlkbmFEUDZXZVdoUnZVemszdmlmSVFzVSttZXFzVmRIMD0tLXhqUEt2QU91TWh0Y3l1UDBjaGFxQ1E9PQ%3D%3D--321893d258409150fc907acc1fccda07753736f9;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":21,"name":"Order Primer","category":"Cloning","deployed":true,"on_the_fly":false,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:26:53.000-07:00"},{"id":25,"name":"Assemble
+        Plasmid","category":"Cloning","deployed":true,"on_the_fly":false,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:27:10.000-07:00"},{"id":56,"name":"Order
+        Addgene Plasmid","category":"Manager","deployed":true,"on_the_fly":false,"created_at":"2017-07-19T07:58:41.000-07:00","updated_at":"2017-08-27T15:38:36.000-07:00"},{"id":453,"name":"Assemble
+        Plasmid w/ Backbone","category":"Cloning Sandbox","deployed":true,"on_the_fly":false,"created_at":"2018-04-24T16:20:11.000-07:00","updated_at":"2018-05-01T10:36:59.000-07:00"},{"id":500,"name":"[ADV
+        USERS ONLY] Listen to Channel","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-30T13:56:58.000-07:00","updated_at":"2018-09-14T14:36:36.000-07:00"},{"id":649,"name":"Tandem
+        Phosphorylation and Ligation","category":"Cloning Sandbox","deployed":true,"on_the_fly":null,"created_at":"2019-04-15T10:37:28.000-07:00","updated_at":"2019-04-15T10:43:08.000-07:00"}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:06:14 GMT
+      ETag:
+      - W/"e8b97625c4d2fb77a51c627bdce64d72"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=8Se%2Blg5eIsK4Iw28r3psbnI8X7UTKe0ABJQ%2Biy8Ve1QVbNB1tgz9Szokknh8UAOfPn4GRr214wznkIFrb3UFrQ%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=dGdYWW9EN0hBa014bU1BbXFwMGg4UzROU3dacnR1cmNCdklXSEg1OWc5VWhzNU44cGRLb1ozWitvOVZhTHljZjVTVDNER2MzMTAyeE9UczlpeUlGa0x1c05xTHdhYnQwck9wT1NGMkR4ZExwc29MbzZZb2RoQkNPUG85aUF0M3duY1VKbFg4L3JCZ0d5WFVtWDVEWWRSQ1BwdDNOd2hqQWw0d2xXM0VEOWJlNjAxUVRyU2F0OUtTTDRqRGtzTjVvc2hadGlpZTQySkpQcHkxRkJESTR4SG0zNXNoSFF0TFkwM1dCOWQwL1kzYmJFTXc3WXRzSnJBRUcvOVlHYlk2cGk1bUFoVHpkSklmQ0R0RGZFNEI2cUl5UDJKc1hzV1BXVnFGL1F4ZVlNL0NHek5WWVlScEFHdW80V0pnV2F0TjVFdUFtTGpPU2tpaTlHWUxLQXZKdTVKWkJ4b21hZi9oR2hQQ0R4VFNSajlPd3RHM2tzb3RzWElpa2ZHYXA4c0VNbEVIN3BtK3lpdGdTdndkSmhoSmljbnhIYmViNWtHYlg2QlZvaHFYY3NhUT0tLXI5UTZLZHBsYnZkODJ0Y0hMcnpOVVE9PQ%3D%3D--eb4a5b067580806bab689ea24507b3b23be43e89;
+        path=/; HttpOnly
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 5b48caf8-8629-48b5-9da1-2850f17543f2
+      X-Runtime:
+      - '0.010299'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 21,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":99,"parent_id":21,"name":"Primer","ftype":"sample","choices":null,"array":false,"required":null,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:25:38.000-07:00","parent_class":"OperationType","role":"output","part":false,"routing":"P","preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[{"id":77,"field_type_id":99,"sample_type_id":1,"object_type_id":550,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:28:13.000-07:00","sample_type":{"id":1,"name":"Primer","description":"A
+        short double stranded piece of DNA for PCR and sequencing","created_at":"2013-10-08T10:18:01.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":550,"name":"Lyophilized
+        Primer","description":"Some barely visible white powder","min":1,"max":10000,"handler":"sample_container","safety":"","cleanup":"","data":"","vendor":"","created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:29:03.000-07:00","unit":"tube","cost":5.0,"release_method":"return","release_description":"","sample_type_id":1,"image":"","prefix":"","rows":null,"columns":null}}]},{"id":100,"parent_id":21,"name":"Urgent?","ftype":"string","choices":"yes,no","array":false,"required":null,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:33:14.000-07:00","parent_class":"OperationType","role":"input","part":false,"routing":null,"preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[]}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"8ca4427b5362b5e68ae4a63c35323670"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=C1skgyHWldfblB5LftsPoSPSz9sBv0KllLGKUrJ1LWZNcC4OO5MBmP8qae%2BOMT1R93D3HvLPLRdS3rz1lpaGSg%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=MGR5WHhNNHBhalRrRzV0TzV6cGdSOS9vR0xjTitiUjFQL0JiK0hvQzA2K2ZsZzAxMnVNcnZNQ1JRbWFwQURISTUwR0o5ZnpYeVQ1Z0RMZW9RZWNyMmJLZUJPSG4rNllsZk10cWtZNy80eUFqTXU4empUR0piYVFSOWgydDY3Y2hjYldrczJvTW96VXE1Mk1pRjE4NmlhaHZOUkJHK0JwUlJkdXZMcG84ZXQ0bkRuV1MzVmZrNnNpbmdpQmtZaEwyWEtQOFllVEJ2ZjRIL2ZIbWxrbmZlaGVJd1E2SWgxc1UxQnJFWHVVT0JmLzBmNTBzd2d4R0cyS094czQ3UWZXQkdXcVdWcGUvSThJZkVWYWVrSUZQOVVVYWFIQ2h4M1MvZG9JRE5PMmxhL29YWC8wbnNXZmRjWlVYcUxuY0cxdnFTR29mU3ZKSGtMc1ROMG03UzRXaUlMTFpkajZDRmJWYloyV095L0JSZzhWSDNVUGRMbExZWkpndFRQMzcxaGdJdlNNd2J6bXNON0d0TkwzdGRCVm9XWW1SNERIMUEyOXViY2pDM2JyS09xcz0tLXAzYTdySWZ3eGxNNTR1VHptbExQMGc9PQ%3D%3D--85c4d37fb6aafb01a19b5c8061f936ae2d4cf29f;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 4cbed389-509f-4277-b385-c06fe84ced73
+      X-Runtime:
+      - '0.008945'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 25,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":110,"parent_id":25,"name":"Fragment","ftype":"sample","choices":null,"array":true,"required":null,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T22:48:56.000-07:00","parent_class":"OperationType","role":"input","part":false,"routing":"F","preferred_operation_type_id":24,"preferred_field_type_id":109,"allowable_field_types":[{"id":88,"field_type_id":110,"sample_type_id":4,"object_type_id":295,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:25:38.000-07:00","sample_type":{"id":4,"name":"Fragment","description":"A
+        linear double stranded piece of DNA from PCR or Restriction Digest","created_at":"2013-10-16T14:33:41.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":295,"name":"Fragment
+        Stock","description":"Fragment stock in 1.5 mL tube, usually stored in M20
+        fridge.","min":0,"max":1000,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T16:12:01.000-08:00","updated_at":"2014-01-12T16:12:01.000-08:00","unit":"Fragment","cost":50.0,"release_method":"return","release_description":"","sample_type_id":4,"image":"","prefix":"M20","rows":null,"columns":null}}]},{"id":111,"parent_id":25,"name":"Assembled
+        Plasmid","ftype":"sample","choices":null,"array":false,"required":null,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:25:38.000-07:00","parent_class":"OperationType","role":"output","part":false,"routing":"P","preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[{"id":89,"field_type_id":111,"sample_type_id":2,"object_type_id":294,"created_at":"2017-07-12T19:25:38.000-07:00","updated_at":"2017-07-12T19:25:38.000-07:00","sample_type":{"id":2,"name":"Plasmid","description":"A
+        circular piece of double stranded DNA","created_at":"2013-10-15T09:59:25.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":294,"name":"Gibson
+        Reaction Result","description":"A plasmid that was made from Gibson reaction
+        and stayed in the Gibson reaction tube. One can use this to do transform and
+        extract the plasmid.","min":0,"max":1000,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T15:50:42.000-08:00","updated_at":"2014-01-21T14:27:49.000-08:00","unit":"Plasmid","cost":10.0,"release_method":"return","release_description":"","sample_type_id":2,"image":"","prefix":"M20","rows":null,"columns":null}}]}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"add3537d6eb1255075bfa60aac9081bb"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=oopfieSYx%2Frp4YrS2W56ttmZZ4X06%2FLB%2BepTpKhZzrnkoVUE%2Ft1Ttc1f%2FXYphEhGDTtfQAebnXM%2FhWUDjLpllQ%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=bjUxUGNSRi96VHRPTmZIOTlnZmVEQ0lZNHd2bGFYelhkZ3lBbUp6QW5IbDdDOGpsZkxGWTFhaE5iTzRBVjdmWTkvMWhBcHZtUzNXazJVK0hmY2FWbGZQNlNhdXlYSUZxaUF4MGoyL2hiVHdvYXE2MGVZSDRDb3JiQ3ppOTdlVGlCWFc3a01ScnhUcFh3b2d1ak03cGZnR09HVzJCeTN2UmpTK1hMeW5xZkZ2endpcys0bTVrTlB5K09IYnFtcXVzcDk4aVFZcml3RU81ZEdjOFZHZ1NRYkRwM01RTE1XMHBCdEJRM3ZGTW5GcFp6SFFwRk1iandoV1d0N0FyTklFN29NQmYwamljVno1R1B2SFhtem9hdWRJQWROV01Qb3BVdHFwd3ZPRk9ZSlAyVnpFbk5TOGRoak5ubDhqdW40Q0NLQzhrNlZkY28vTTJLZnBjOUFvVmpZb0V0TnhYUkRrSU8rRGJYblpjcmJqeUREc3ZHZFFMcEc4TXljREg0eUlRRTZTZ3hCMXN3VUJnbkJXQmNNUGNNdUhQM2RiODMrcHJwblQ4VWFTVC9vND0tLUthcUI1MnNlQnoxQ1VmMlQyRGduZkE9PQ%3D%3D--134063e1be9eda71a8390633e75cea1ba098e2c0;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 6d7c98ba-4433-4c96-a128-135c3114f2b4
+      X-Runtime:
+      - '0.010365'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 56,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":196,"parent_id":56,"name":"Plasmid","ftype":"sample","choices":null,"array":false,"required":null,"created_at":"2017-07-19T07:58:41.000-07:00","updated_at":"2017-07-19T07:58:41.000-07:00","parent_class":"OperationType","role":"output","part":false,"routing":"P","preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[{"id":180,"field_type_id":196,"sample_type_id":2,"object_type_id":558,"created_at":"2017-07-19T07:58:41.000-07:00","updated_at":"2017-07-19T07:58:41.000-07:00","sample_type":{"id":2,"name":"Plasmid","description":"A
+        circular piece of double stranded DNA","created_at":"2013-10-15T09:59:25.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":558,"name":"Addgene
+        Order","description":"An abstract item that signifies a yet to be receieved
+        Addgene order of an agar stab. Receive Addgene order will create an agar stab
+        that can be used in downstream workflows.","min":0,"max":1,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2017-07-19T07:58:41.000-07:00","updated_at":"2017-07-19T07:58:41.000-07:00","unit":"Plasmid","cost":0.01,"release_method":"return","release_description":"","sample_type_id":null,"image":null,"prefix":"","rows":null,"columns":null}}]},{"id":197,"parent_id":56,"name":"Addgene
+        Number","ftype":"number","choices":null,"array":false,"required":null,"created_at":"2017-07-19T07:58:41.000-07:00","updated_at":"2017-07-19T07:58:41.000-07:00","parent_class":"OperationType","role":"input","part":false,"routing":null,"preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[]}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"5500797e54a8c6c6155f5074527b05a1"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=XpPThwaklCp1X6aOzoMHPSAB5SIcY2AiGHp4gx2fK5gYuNkKHOEAZVHh0So%2BaTXN9KPd5%2B8TD5DeFU4kOXyAtA%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=M28xc254SzdlVmlGVE5KZFdWU1FkeDlPRVRCZnVRWDY3bmp2aHJPRHdVMjczZEVUYVgzUnlEL2VuRWhiUHUvY2k3T1l6cUFtWHE5Y2lGRU9WWURmM2RCZjhxUlVhVU5DQ0NkVm1aZk5SdFZCQTVKd3M0K2hxSzRiY2RlOGNER3pyNlJMZEZTNXFRdThSU1FkRTVtL1dqeFpvSENpcSttNWNOcUx2Z3ZsanhxS1NXaHg4NlUwNkVkQXJnREY3cXdhWFdVd1dQVTRYYlFwT1RYVEM5OUhRbFNpaG53TWNydVhlY0FHOUgzcUxsbE9OVmUwNCt4aFVIckdVVTlvWVBGWi9DbEVyOVBZYlVTN3d3MGtCUWM0K243aG94R2FYbFNIeGRZN3JLayt0OU11U0l2bVFrUktKckh2bW1heXEzK3N5alVpNGprblNJSUpISGhiQlZIalA3azd2V3lLQklNTmxEWXl0Nmlxb0U2ZDVCYVZqaHdLbkZOSTJoaWtjU1hmR2lMOHRzRmRqMlh3MVNNSEo0c2t3bG1VZ1hIc2NJNjBQSXRBTUZQMWlLRT0tLVNEVGczUEpKNGRFOGs1cytvOHRobHc9PQ%3D%3D--1f5cfc8c4dcd4304178d577b58c07c90c3c296b8;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 555fb8fd-d91a-4e3d-bf99-3604fe477e67
+      X-Runtime:
+      - '0.007582'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 453,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":3268,"parent_id":453,"name":"Backbone","ftype":"sample","choices":null,"array":false,"required":null,"created_at":"2018-04-24T16:20:11.000-07:00","updated_at":"2018-04-24T16:21:58.000-07:00","parent_class":"OperationType","role":"input","part":false,"routing":"B","preferred_operation_type_id":24,"preferred_field_type_id":109,"allowable_field_types":[{"id":1673,"field_type_id":3268,"sample_type_id":4,"object_type_id":295,"created_at":"2018-04-24T16:20:11.000-07:00","updated_at":"2018-04-24T16:20:11.000-07:00","sample_type":{"id":4,"name":"Fragment","description":"A
+        linear double stranded piece of DNA from PCR or Restriction Digest","created_at":"2013-10-16T14:33:41.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":295,"name":"Fragment
+        Stock","description":"Fragment stock in 1.5 mL tube, usually stored in M20
+        fridge.","min":0,"max":1000,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T16:12:01.000-08:00","updated_at":"2014-01-12T16:12:01.000-08:00","unit":"Fragment","cost":50.0,"release_method":"return","release_description":"","sample_type_id":4,"image":"","prefix":"M20","rows":null,"columns":null}}]},{"id":3269,"parent_id":453,"name":"Assembled
+        Plasmid","ftype":"sample","choices":null,"array":false,"required":null,"created_at":"2018-04-24T16:20:11.000-07:00","updated_at":"2018-04-24T16:20:11.000-07:00","parent_class":"OperationType","role":"output","part":false,"routing":"P","preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[{"id":1674,"field_type_id":3269,"sample_type_id":2,"object_type_id":294,"created_at":"2018-04-24T16:20:11.000-07:00","updated_at":"2018-04-24T16:20:11.000-07:00","sample_type":{"id":2,"name":"Plasmid","description":"A
+        circular piece of double stranded DNA","created_at":"2013-10-15T09:59:25.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":294,"name":"Gibson
+        Reaction Result","description":"A plasmid that was made from Gibson reaction
+        and stayed in the Gibson reaction tube. One can use this to do transform and
+        extract the plasmid.","min":0,"max":1000,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T15:50:42.000-08:00","updated_at":"2014-01-21T14:27:49.000-08:00","unit":"Plasmid","cost":10.0,"release_method":"return","release_description":"","sample_type_id":2,"image":"","prefix":"M20","rows":null,"columns":null}}]},{"id":3270,"parent_id":453,"name":"Insert","ftype":"sample","choices":null,"array":true,"required":null,"created_at":"2018-04-24T16:21:06.000-07:00","updated_at":"2018-05-01T10:12:55.000-07:00","parent_class":"OperationType","role":"input","part":null,"routing":"I","preferred_operation_type_id":24,"preferred_field_type_id":109,"allowable_field_types":[{"id":1675,"field_type_id":3270,"sample_type_id":4,"object_type_id":295,"created_at":"2018-04-24T16:21:06.000-07:00","updated_at":"2018-04-24T16:21:06.000-07:00","sample_type":{"id":4,"name":"Fragment","description":"A
+        linear double stranded piece of DNA from PCR or Restriction Digest","created_at":"2013-10-16T14:33:41.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":295,"name":"Fragment
+        Stock","description":"Fragment stock in 1.5 mL tube, usually stored in M20
+        fridge.","min":0,"max":1000,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T16:12:01.000-08:00","updated_at":"2014-01-12T16:12:01.000-08:00","unit":"Fragment","cost":50.0,"release_method":"return","release_description":"","sample_type_id":4,"image":"","prefix":"M20","rows":null,"columns":null}}]}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"19d578c6ef82ee6ce39bd831ecc267ad"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=Oj%2FrB3LffXCLsuuPqllcSYbyrSWwm0XY8R4wGhjlZUN8FOGKaJrpP68MnCtas265UlCV4EPrKmo3cQa9PAbObw%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=cUZ0TURZREN5TWhEL092ZHlrOEVwWmlnQnNjK3JwNjlvYnFER3NERC9oK0hZVHV1ZzFtSUt4Q2tYMC9Rc052dnVmcWJvWlNGQjBnM01IVmlaV3Z3cUJkaGFwSVIrRkgvaFZwZ0krRmZadjZWcWlnVms2SHBUUEI4eVh1c25NMlYwNWdSK1VYQXJ3Uk9VTWdxS3NKU0VFbnF3eGl1ZW1Ma1h3eWh1d1J1S0M5VVRoK2ZHVWpXRXBXWE1EMk0yV0xYQWVCZzB2UFo4dVI4NjBNYTJGTlIzZVNIdHdweVhTOFI4MUhVMm5NR01QWEg3MVNyczBTY0FSRDBtMzVSeXJBNWNma1BKaHIwZzhuV0twSVc4MFd5T2ZTNW5QMURRS2VpVG92c3k3d2FSQ2NRTGNJeUoxWktLQ2lLSG54QU9seXc0WjFJOXNmSHZWc2hKdXg4RXFWMnlvdlUzYzhSSGhXLzBFUkEyMUgzYjB0Z1VqUG5xRzF4STJGMHpDOXI1S1g1SVhDK1l2dm5qR2E3N080TlRmdDNVVUFHT0dIMUlsZ3dKZFROK2x4a2FiUT0tLW8xeW1qV2dseXowMEpmNm1WUVNkaVE9PQ%3D%3D--2aa3b4e0a5c8d4ac50517803f9df5cd2a651b246;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 8fd8a4fa-58e7-4a86-ba10-4d507c7b933c
+      X-Runtime:
+      - '0.012945'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 500,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: "[{\"id\":4907,\"parent_id\":500,\"name\":\"Output\",\"ftype\":\"sample\"\
+        ,\"choices\":null,\"array\":false,\"required\":null,\"created_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:56:58.000-07:00\",\"parent_class\":\"OperationType\"\
+        ,\"role\":\"output\",\"part\":false,\"routing\":\"X\",\"preferred_operation_type_id\"\
+        :null,\"preferred_field_type_id\":null,\"allowable_field_types\":[{\"id\"\
+        :2098,\"field_type_id\":4907,\"sample_type_id\":4,\"object_type_id\":295,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":4,\"name\":\"Fragment\",\"description\":\"A linear\
+        \ double stranded piece of DNA from PCR or Restriction Digest\",\"created_at\"\
+        :\"2013-10-16T14:33:41.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":295,\"name\":\"Fragment Stock\",\"description\"\
+        :\"Fragment stock in 1.5 mL tube, usually stored in M20 fridge.\",\"min\"\
+        :0,\"max\":1000,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-01-12T16:12:01.000-08:00\",\"\
+        updated_at\":\"2014-01-12T16:12:01.000-08:00\",\"unit\":\"Fragment\",\"cost\"\
+        :50.0,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2099,\"field_type_id\":4907,\"sample_type_id\":4,\"object_type_id\":421,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":4,\"name\":\"Fragment\",\"description\":\"A linear\
+        \ double stranded piece of DNA from PCR or Restriction Digest\",\"created_at\"\
+        :\"2013-10-16T14:33:41.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":421,\"name\":\"1 ng/\xB5L Fragment Stock\",\"description\"\
+        :\"A diluted fragment stock to use as a PCR template\",\"min\":0,\"max\":1,\"\
+        handler\":\"sample_container\",\"safety\":\"No safety information\",\"cleanup\"\
+        :\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-06-30T09:53:49.000-07:00\",\"updated_at\":\"2014-06-30T09:55:39.000-07:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2100,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":294,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":294,\"name\":\"Gibson Reaction Result\",\"description\"\
+        :\"A plasmid that was made from Gibson reaction and stayed in the Gibson reaction\
+        \ tube. One can use this to do transform and extract the plasmid.\",\"min\"\
+        :0,\"max\":1000,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-01-12T15:50:42.000-08:00\",\"\
+        updated_at\":\"2014-01-21T14:27:49.000-08:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :10.0,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2101,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":208,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :208,\"name\":\"Plasmid Stock\",\"description\":\"A 1.5 mL tube containing\
+        \ purified plasmid DNA\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"concentration:\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2013-10-15T10:01:41.000-07:00\",\"updated_at\":\"2014-05-09T16:10:47.000-07:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":2.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2102,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":385,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":385,\"name\":\"1 ng/\xB5L Plasmid Stock\",\"description\"\
+        :\"Diluted stock for use as a template in PCR\",\"min\":0,\"max\":1,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-03-27T12:19:20.000-07:00\",\"updated_at\":\"2014-06-30T09:52:52.000-07:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":0.01,\"release_method\":\"query\",\"release_description\"\
+        :\"If this is an aliquot for the \\\"Transformation Efficiency Project\\\"\
+        , dispose of it. Otherwise, return it.\",\"sample_type_id\":2,\"image\":\"\
+        \",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"id\":2103,\"field_type_id\"\
+        :4907,\"sample_type_id\":2,\"object_type_id\":552,\"created_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":552,\"name\":\"Checked\
+        \ E coli Plate of Plasmid\",\"description\":\"It's a checked plate\",\"min\"\
+        :0,\"max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2017-07-12T19:25:39.000-07:00\",\"\
+        updated_at\":\"2017-07-12T19:44:15.000-07:00\",\"unit\":\"plate\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"\",\"rows\":null,\"columns\":null}},{\"id\"\
+        :2104,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":365,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :365,\"name\":\"E coli Plate of Plasmid\",\"description\":\"A plate containing\
+        \ E. coli transformed with a plasmid\",\"min\":0,\"max\":1,\"handler\":\"\
+        sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"No cleanup\
+        \ information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-02-25T17:05:34.000-08:00\",\"updated_at\":\"2015-03-02T10:45:33.000-08:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"DFP\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2105,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":366,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":366,\"name\":\"TB Overnight of Plasmid\",\"description\"\
+        :\"An overnight of E. coli transformed with a plasmid in TB + antibiotic\"\
+        ,\"min\":0,\"max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety\
+        \ information\",\"cleanup\":\"No cleanup information\",\"data\":\"No data\"\
+        ,\"vendor\":\"No vendor information\",\"created_at\":\"2014-02-25T17:07:26.000-08:00\"\
+        ,\"updated_at\":\"2015-03-02T10:21:13.000-08:00\",\"unit\":\"Plasmid\",\"\
+        cost\":0.01,\"release_method\":\"return\",\"release_description\":\"\",\"\
+        sample_type_id\":2,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"columns\"\
+        :null}},{\"id\":2106,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\"\
+        :366,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :366,\"name\":\"TB Overnight of Plasmid\",\"description\":\"An overnight of\
+        \ E. coli transformed with a plasmid in TB + antibiotic\",\"min\":0,\"max\"\
+        :1,\"handler\":\"sample_container\",\"safety\":\"No safety information\",\"\
+        cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"No\
+        \ vendor information\",\"created_at\":\"2014-02-25T17:07:26.000-08:00\",\"\
+        updated_at\":\"2015-03-02T10:21:13.000-08:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2107,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":386,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :386,\"name\":\"Transformed E. coli Aliquot\",\"description\":\"An aliquot\
+        \ containing transformed E. coli - usually in a 1.5 mL tube\",\"min\":0,\"\
+        max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-04-03T17:14:46.000-07:00\",\"\
+        updated_at\":\"2014-07-25T10:23:53.000-07:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :0.01,\"release_method\":\"dispose\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"\",\"rows\":null,\"columns\":null}},{\"id\"\
+        :2108,\"field_type_id\":4907,\"sample_type_id\":1,\"object_type_id\":207,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":1,\"name\":\"Primer\",\"description\":\"A short double\
+        \ stranded piece of DNA for PCR and sequencing\",\"created_at\":\"2013-10-08T10:18:01.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :207,\"name\":\"Primer Aliquot\",\"description\":\"Primers at low concentration\
+        \ (10uM) for every day use\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"{ \\\"measure\\\": { \\\"type\\\": \\\"concentration\\\", \\\"\
+        unit\\\": \\\"micromolar\\\" } }\",\"vendor\":\"No vendor information\",\"\
+        created_at\":\"2013-10-14T17:03:58.000-07:00\",\"updated_at\":\"2019-02-13T14:54:25.000-08:00\"\
+        ,\"unit\":\"Primer\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":1,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2109,\"field_type_id\":4907,\"sample_type_id\":1,\"\
+        object_type_id\":322,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":1,\"name\":\"Primer\"\
+        ,\"description\":\"A short double stranded piece of DNA for PCR and sequencing\"\
+        ,\"created_at\":\"2013-10-08T10:18:01.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":322,\"name\":\"Primer Stock\",\"description\":\"\
+        rehydrated primer in tube from IDT at 100uM\",\"min\":0,\"max\":1,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"{ \\\"measure\\\": { \\\"type\\\": \\\"\
+        concentration\\\", \\\"unit\\\": \\\"micromolar\\\" } }\",\"vendor\":\"No\
+        \ vendor information\",\"created_at\":\"2014-01-22T16:56:36.000-08:00\",\"\
+        updated_at\":\"2019-02-13T14:54:56.000-08:00\",\"unit\":\"Primer\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :1,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2110,\"field_type_id\":4907,\"sample_type_id\":5,\"object_type_id\":214,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":5,\"name\":\"Yeast Strain\",\"description\":\"A strain\
+        \ of yeast distinguished from others by genomic or plasmid modifications\"\
+        ,\"created_at\":\"2013-10-16T14:37:29.000-07:00\",\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"\
+        },\"object_type\":{\"id\":214,\"name\":\"Yeast Glycerol Stock\",\"description\"\
+        :\"A 1.8mL culture of half saturated yeast overnight and half 50% glycerol\
+        \ stored in the -80C freezer\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"No data\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2013-10-16T15:07:47.000-07:00\",\"updated_at\":\"2014-08-12T18:35:37.000-07:00\"\
+        ,\"unit\":\"Yeast Strain\",\"cost\":5.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":5,\"image\":\"\",\"prefix\":\"M80\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2111,\"field_type_id\":4907,\"sample_type_id\":5,\"\
+        object_type_id\":347,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":5,\"name\":\"Yeast\
+        \ Strain\",\"description\":\"A strain of yeast distinguished from others by\
+        \ genomic or plasmid modifications\",\"created_at\":\"2013-10-16T14:37:29.000-07:00\"\
+        ,\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"},\"object_type\":{\"id\"\
+        :347,\"name\":\"Yeast Overnight Suspension\",\"description\":\"Yeast Overnight\
+        \ Suspension\",\"min\":0,\"max\":1000,\"handler\":\"sample_container\",\"\
+        safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"No data\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2014-02-13T14:02:38.000-08:00\",\"updated_at\":\"2017-10-23T13:35:19.000-07:00\"\
+        ,\"unit\":\"Yeast Strain\",\"cost\":1.0,\"release_method\":\"query\",\"release_description\"\
+        :\"\",\"sample_type_id\":5,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2112,\"field_type_id\":4907,\"sample_type_id\":5,\"\
+        object_type_id\":350,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":5,\"name\":\"Yeast\
+        \ Strain\",\"description\":\"A strain of yeast distinguished from others by\
+        \ genomic or plasmid modifications\",\"created_at\":\"2013-10-16T14:37:29.000-07:00\"\
+        ,\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"},\"object_type\":{\"id\"\
+        :350,\"name\":\"Yeast Plate\",\"description\":\"Yeast Plate\",\"min\":0,\"\
+        max\":100000,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-02-13T14:04:32.000-08:00\",\"\
+        updated_at\":\"2015-03-02T10:44:55.000-08:00\",\"unit\":\"Yeast Strain\",\"\
+        cost\":1.0,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :5,\"image\":\"\",\"prefix\":\"DFP\",\"rows\":null,\"columns\":null}}]},{\"\
+        id\":4909,\"parent_id\":500,\"name\":\"Channel\",\"ftype\":\"number\",\"choices\"\
+        :null,\"array\":null,\"required\":null,\"created_at\":\"2018-07-30T13:58:08.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:58:08.000-07:00\",\"parent_class\":\"OperationType\"\
+        ,\"role\":\"input\",\"part\":null,\"routing\":null,\"preferred_operation_type_id\"\
+        :null,\"preferred_field_type_id\":null,\"allowable_field_types\":[]},{\"id\"\
+        :4910,\"parent_id\":500,\"name\":\"Selection Method\",\"ftype\":\"string\"\
+        ,\"choices\":\"First,Last,Random\",\"array\":null,\"required\":null,\"created_at\"\
+        :\"2018-07-30T13:58:08.000-07:00\",\"updated_at\":\"2018-07-30T13:58:14.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":null,\"routing\"\
+        :null,\"preferred_operation_type_id\":null,\"preferred_field_type_id\":null,\"\
+        allowable_field_types\":[]}]"
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"77a7d36a3ee1349cd10a7e1c5a9b033e"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=UUt%2FV95gKENUR4jqyhJCEFESCduUZtLOWk7asBzhVp0XYHXaxCW8DHD5%2F046%2BHDghbAxHmcWvXycIewXOAL9sQ%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=R3R6RFVRRThJekVKOFViWncvenJwR1JZSnpqUTI4VjR4V2ZwV2MycHBJaDZzZ0ZVL0JPWWwwMEJ6L3JXNzgwYWpDZ0JrcHF4bWhIalNIZXFOSHp4UlBUbnExdGVOckJrYUNpdzNHWnAzUW9xWWI3WXA4RkJtc3ByZ2lCaXJhSlBhUmhZWU9HWll6aTg4ZTlCdkJBVjh0M2dLRldNYjNIdVEzelhvM0RicU1ZV1c4M0IxdVMrU3BZVEw4VHdpTlJsNW5LSUZJNE9oNDdXUDByaTY5Q2xreUV3ZWxuWEI3ZmMrUjBndzMycGRkY2V3dGYzR3pCbjcwTEZpNzg3OTZ5RFBrczl3cHhBaXdNRHIyWVVlRjRTVGZMc0JuN0Z6RFB5cDZtcjFxMlJjUmlES1RDY1lKZ0ltQWs4bTRLSGppQS9UYXowdFdOWnlYcVlwTVpUUWl1Um5ERTBscWU0ZlRRbFh6Ykl0VFZYNWlVeEFhR2UwTkpmREpiVFllUTR3bnJsZjhseHBja0NHV0s5S2tSbDRqVGtVcVhZRmNIcXp6a1JhN3pDdFNXamMzUT0tLUd1Rk54SDBGMmZrOWkrdk4wM0YyWlE9PQ%3D%3D--54e1c5cb90dee1aa39f8d33ef462984afedba2c7;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - ee99ed65-e2df-4fdb-9808-4ef18f120df1
+      X-Runtime:
+      - '0.041165'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": 649,
+      "parent_class": "OperationType"}, "options": {"offset": -1, "limit": -1, "reverse":
+      false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=QsfDDEDQP7ARQT6tAceOXo%2BL6Hd2gd%2FGEWwglqg3PV0E7MmBWpWr%2FzX%2FSQnxLbyuWynQsoXxsHTXAxYxjNSWcQ%3D%3D;
+        _aquarium_YourLab_production_session=UjlJaExwaXRpSlQ1VGR0eE9pNnk2Q0xPM095b3M4K1o2NDB0Si9JcFZBVDNDdHVtbHk1SHZJcmlzbkV3QWFIb3o4WFdTUklzdHozTEZySGtzcGttTVMzc1lWM0dwcksxU2xBQW5QU0c1REpTVWlKZ01MUGtNcldDWDJiVDlMNlhnLzBvU3RIK2dqOVhYNnVwbG5TNU5DRDJwbnEvbFFxN2RBdFl4bmhGUzdaU2tKakYrU1M5ZVd3bk1IRjIxbng0Q2FYWnBXeTZVRDM5QkRLRWpuWVNHYWFUdFJ5TDh3bkg2dnN4TktiSFR4RVcvVy8yQVB0NkRVaWRReG5BaFhxVlRHVDhiRjR2S3hGK25qck1jVmZmM2FXb09HM0Z1cFNland3NmVNbnNCcjRINXFWK2l2ZW1vaTI0eXozaENveXVtSkN0bkM2UnY4RGc1ei9ZWUhaZGlqY0NCK0hXNDBvV09kNmJNaWFuOTY4dGdRQng0bmc1aWRXYXRlK1k0bENMRzR5QzBYM3Y2R3ZNb0pQQ1hZREgzbW1aWGJqcmE5ZnZnWmJaeTNoWlNTcz0tLWRKak5YR2JrS2FiQytsMENFdTVPNEE9PQ%3D%3D--68e0117f5e74a8c3790e3002886f9f87f6eadbe4;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":8467,"parent_id":649,"name":"Fragment","ftype":"sample","choices":null,"array":null,"required":null,"created_at":"2019-04-15T10:37:28.000-07:00","updated_at":"2019-04-15T10:37:37.000-07:00","parent_class":"OperationType","role":"input","part":true,"routing":"F","preferred_operation_type_id":534,"preferred_field_type_id":5365,"allowable_field_types":[{"id":2830,"field_type_id":8467,"sample_type_id":4,"object_type_id":440,"created_at":"2019-04-15T10:37:28.000-07:00","updated_at":"2019-04-15T10:37:28.000-07:00","sample_type":{"id":4,"name":"Fragment","description":"A
+        linear double stranded piece of DNA from PCR or Restriction Digest","created_at":"2013-10-16T14:33:41.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":440,"name":"Stripwell","description":"Stripwell","min":0,"max":10000,"handler":"collection","safety":"No
+        safety information","cleanup":"No cleanup information","data":"  {\r\n    \"materials\":
+        10.48,\r\n    \"labor\": 10\r\n  }","vendor":"No vendor information","created_at":"2014-08-28T17:19:55.000-07:00","updated_at":"2017-04-18T17:01:00.000-07:00","unit":"stripwell","cost":1.0,"release_method":"query","release_description":"","sample_type_id":null,"image":"","prefix":"","rows":1,"columns":12}}]},{"id":8468,"parent_id":649,"name":"Plasmid","ftype":"sample","choices":null,"array":null,"required":null,"created_at":"2019-04-15T10:38:05.000-07:00","updated_at":"2019-04-15T10:38:05.000-07:00","parent_class":"OperationType","role":"output","part":true,"routing":"P","preferred_operation_type_id":null,"preferred_field_type_id":null,"allowable_field_types":[{"id":2831,"field_type_id":8468,"sample_type_id":2,"object_type_id":440,"created_at":"2019-04-15T10:38:05.000-07:00","updated_at":"2019-04-15T10:38:05.000-07:00","sample_type":{"id":2,"name":"Plasmid","description":"A
+        circular piece of double stranded DNA","created_at":"2013-10-15T09:59:25.000-07:00","updated_at":"2015-11-29T07:55:20.000-08:00"},"object_type":{"id":440,"name":"Stripwell","description":"Stripwell","min":0,"max":10000,"handler":"collection","safety":"No
+        safety information","cleanup":"No cleanup information","data":"  {\r\n    \"materials\":
+        10.48,\r\n    \"labor\": 10\r\n  }","vendor":"No vendor information","created_at":"2014-08-28T17:19:55.000-07:00","updated_at":"2017-04-18T17:01:00.000-07:00","unit":"stripwell","cost":1.0,"release_method":"query","release_description":"","sample_type_id":null,"image":"","prefix":"","rows":1,"columns":12}}]}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:07:01 GMT
+      ETag:
+      - W/"1a762e58037e088ed94d08b871718aa4"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=GuUI9WhyXmug7PjkvrWy1dIk5sIwgpBmpzmFXcZNFOdczgJ4cjfKJIRSj0BOX4AlBobeB8Py%2F9RhVrP64q6%2Fyw%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=YnNSQmJ6azJxbnd5bytEVitSSXFUcUNyTzhNUXM3MEVTNWI0dE90Qm9EZWhTQ3h2V2Y1RVFGM3p6cmpUNEtSRnNJVVlRM20waGtRaWx0bEZEMDlnN2JpR1VsR2p5Q2dXTDI3aWVtOEFsT1Z3enowcFBVdjBoMUVSREtGYmlQNHFzMUxQa2hESXlkODd5MCt1ZWVKeXpmSEFyYUQ5NHNsazExSExJZlBmdTdPRmpkUExQWEkveWtCcFJHYzJoVGlFWng5ME9NOFFJZFJsK3o2VHFIMzFMZzZuSG9rbzlBNFBjOW8rZGowRlJ2M2k5YmwxeWNCTWJIQmhQMkxBUFBBVHpLVXNUUWVueXlpVE8xay9VYUFwN1ZFTEpaZHBGTHUwSUNRa3djcEd2ODhUVFYzWkhIRUpjTnV5aitLemllRDVLL1daZTNMVzIzVVlzaHk4UmpDWVU3QlZIeHJJV2pyN1RmdTdpbUJkbVBqa0RlbkJVQ3FpbkdINlNVcUxJT1FuNXhQa2RsTlVDdlRKai9OU2pwZzlzZEpSNk00VFhCQkptRklCZUd4MmtBaz0tLWxYNTJXSEN5ZjJHYm1HRThpa204UHc9PQ%3D%3D--fd0f9bdba1a9d897f214b735b9b1d8df61cb4227;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 4454abe7-d492-4322-baa6-893665a5b454
+      X-Runtime:
+      - '0.039674'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "FieldType", "method": "where", "arguments": {"parent_id": [21,
+      25, 56, 453, 500, 649], "parent_class": ["OperationType"]}, "options": {"offset":
+      -1, "limit": -1, "reverse": false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '191'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=kFKbD62C1JDVChS9rMPrEGSP6tCs%2BZNf%2BnfbWJKkfvMmj%2B5ITdacQCbUv%2FENparREwZAkOCzFdYS8ZxKyunEpg%3D%3D;
+        _aquarium_YourLab_production_session=aGtpdHdwaG15UTY5d21hS2pnRkRRUm9iWTUwTm05Q21JU0JjQU1wSVIvN1FxN0YyRlV1VzVlWGZSTGVXekFhRWdNeG1OOU5ZUVhlSzlPb3htU2xUMHRDck1uUWRIZU5obzZvUStFb1ZkZjQ0K0NxMnJnREk0eG9NTHd0alViWE1HZ1VaWFpvMTNRbFFYRUFwQkl3MUlTVFVuZTQ5WlFoRlE3UlF6UzhHcWlVbmp0dThsUnBsZVk3R2luSWhUVWVVTE0vYUNSSjRUT3JKU1lGSzVsSjNTU1gweU5hT1EyVlFzMW4rZ1hsU3R5U2ZrekVZMHppSXVDVzA1cWdmekdBTHBwYjE0VGpPa1pVbEhEeksxaGduanUrSEJhd3lJN2NPVklVMjdUVkZ6YW1tMWlrbTZWaVIwL3NxTlM2NHVLRjVUMXQva2ZKTnlTTmM4ZHZ3Qlc0cWRIMlczSDk0U3pxWXJORzI1YzZGeWRZdjNkTkoyTEpXV3loZnJETytDNld4V0NwandFY0FjTStFZTlJTEtYRmorV3A2UnlZaUIrSG1aTTBnWGFUWlNudz0tLUJXVWg3YkJXS2pkd1NNVWZkckN3clE9PQ%3D%3D--68b0db7b46a0fdb42a91f8fdfbf874d2e6764694;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: "[{\"id\":99,\"parent_id\":21,\"name\":\"Primer\",\"ftype\":\"sample\"\
+        ,\"choices\":null,\"array\":false,\"required\":null,\"created_at\":\"2017-07-12T19:25:38.000-07:00\"\
+        ,\"updated_at\":\"2017-07-12T19:25:38.000-07:00\",\"parent_class\":\"OperationType\"\
+        ,\"role\":\"output\",\"part\":false,\"routing\":\"P\",\"preferred_operation_type_id\"\
+        :null,\"preferred_field_type_id\":null,\"allowable_field_types\":[{\"id\"\
+        :77,\"field_type_id\":99,\"sample_type_id\":1,\"object_type_id\":550,\"created_at\"\
+        :\"2017-07-12T19:25:38.000-07:00\",\"updated_at\":\"2017-07-12T19:28:13.000-07:00\"\
+        ,\"sample_type\":{\"id\":1,\"name\":\"Primer\",\"description\":\"A short double\
+        \ stranded piece of DNA for PCR and sequencing\",\"created_at\":\"2013-10-08T10:18:01.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :550,\"name\":\"Lyophilized Primer\",\"description\":\"Some barely visible\
+        \ white powder\",\"min\":1,\"max\":10000,\"handler\":\"sample_container\"\
+        ,\"safety\":\"\",\"cleanup\":\"\",\"data\":\"\",\"vendor\":\"\",\"created_at\"\
+        :\"2017-07-12T19:25:38.000-07:00\",\"updated_at\":\"2017-07-12T19:29:03.000-07:00\"\
+        ,\"unit\":\"tube\",\"cost\":5.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":1,\"image\":\"\",\"prefix\":\"\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":100,\"parent_id\":21,\"name\":\"Urgent?\",\"ftype\"\
+        :\"string\",\"choices\":\"yes,no\",\"array\":false,\"required\":null,\"created_at\"\
+        :\"2017-07-12T19:25:38.000-07:00\",\"updated_at\":\"2017-07-12T19:33:14.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":false,\"routing\"\
+        :null,\"preferred_operation_type_id\":null,\"preferred_field_type_id\":null,\"\
+        allowable_field_types\":[]},{\"id\":110,\"parent_id\":25,\"name\":\"Fragment\"\
+        ,\"ftype\":\"sample\",\"choices\":null,\"array\":true,\"required\":null,\"\
+        created_at\":\"2017-07-12T19:25:38.000-07:00\",\"updated_at\":\"2017-07-12T22:48:56.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":false,\"routing\"\
+        :\"F\",\"preferred_operation_type_id\":24,\"preferred_field_type_id\":109,\"\
+        allowable_field_types\":[{\"id\":88,\"field_type_id\":110,\"sample_type_id\"\
+        :4,\"object_type_id\":295,\"created_at\":\"2017-07-12T19:25:38.000-07:00\"\
+        ,\"updated_at\":\"2017-07-12T19:25:38.000-07:00\",\"sample_type\":{\"id\"\
+        :4,\"name\":\"Fragment\",\"description\":\"A linear double stranded piece\
+        \ of DNA from PCR or Restriction Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :295,\"name\":\"Fragment Stock\",\"description\":\"Fragment stock in 1.5 mL\
+        \ tube, usually stored in M20 fridge.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T16:12:01.000-08:00\",\"updated_at\":\"2014-01-12T16:12:01.000-08:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":50.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":111,\"parent_id\":25,\"name\":\"Assembled Plasmid\"\
+        ,\"ftype\":\"sample\",\"choices\":null,\"array\":false,\"required\":null,\"\
+        created_at\":\"2017-07-12T19:25:38.000-07:00\",\"updated_at\":\"2017-07-12T19:25:38.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"output\",\"part\":false,\"\
+        routing\":\"P\",\"preferred_operation_type_id\":null,\"preferred_field_type_id\"\
+        :null,\"allowable_field_types\":[{\"id\":89,\"field_type_id\":111,\"sample_type_id\"\
+        :2,\"object_type_id\":294,\"created_at\":\"2017-07-12T19:25:38.000-07:00\"\
+        ,\"updated_at\":\"2017-07-12T19:25:38.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":294,\"name\":\"Gibson\
+        \ Reaction Result\",\"description\":\"A plasmid that was made from Gibson\
+        \ reaction and stayed in the Gibson reaction tube. One can use this to do\
+        \ transform and extract the plasmid.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T15:50:42.000-08:00\",\"updated_at\":\"2014-01-21T14:27:49.000-08:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":10.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":196,\"parent_id\":56,\"name\":\"Plasmid\",\"ftype\"\
+        :\"sample\",\"choices\":null,\"array\":false,\"required\":null,\"created_at\"\
+        :\"2017-07-19T07:58:41.000-07:00\",\"updated_at\":\"2017-07-19T07:58:41.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"output\",\"part\":false,\"\
+        routing\":\"P\",\"preferred_operation_type_id\":null,\"preferred_field_type_id\"\
+        :null,\"allowable_field_types\":[{\"id\":180,\"field_type_id\":196,\"sample_type_id\"\
+        :2,\"object_type_id\":558,\"created_at\":\"2017-07-19T07:58:41.000-07:00\"\
+        ,\"updated_at\":\"2017-07-19T07:58:41.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":558,\"name\":\"Addgene\
+        \ Order\",\"description\":\"An abstract item that signifies a yet to be receieved\
+        \ Addgene order of an agar stab. Receive Addgene order will create an agar\
+        \ stab that can be used in downstream workflows.\",\"min\":0,\"max\":1,\"\
+        handler\":\"sample_container\",\"safety\":\"No safety information\",\"cleanup\"\
+        :\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2017-07-19T07:58:41.000-07:00\",\"updated_at\":\"2017-07-19T07:58:41.000-07:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":null,\"image\":null,\"prefix\":\"\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":197,\"parent_id\":56,\"name\":\"Addgene Number\"\
+        ,\"ftype\":\"number\",\"choices\":null,\"array\":false,\"required\":null,\"\
+        created_at\":\"2017-07-19T07:58:41.000-07:00\",\"updated_at\":\"2017-07-19T07:58:41.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":false,\"routing\"\
+        :null,\"preferred_operation_type_id\":null,\"preferred_field_type_id\":null,\"\
+        allowable_field_types\":[]},{\"id\":3268,\"parent_id\":453,\"name\":\"Backbone\"\
+        ,\"ftype\":\"sample\",\"choices\":null,\"array\":false,\"required\":null,\"\
+        created_at\":\"2018-04-24T16:20:11.000-07:00\",\"updated_at\":\"2018-04-24T16:21:58.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":false,\"routing\"\
+        :\"B\",\"preferred_operation_type_id\":24,\"preferred_field_type_id\":109,\"\
+        allowable_field_types\":[{\"id\":1673,\"field_type_id\":3268,\"sample_type_id\"\
+        :4,\"object_type_id\":295,\"created_at\":\"2018-04-24T16:20:11.000-07:00\"\
+        ,\"updated_at\":\"2018-04-24T16:20:11.000-07:00\",\"sample_type\":{\"id\"\
+        :4,\"name\":\"Fragment\",\"description\":\"A linear double stranded piece\
+        \ of DNA from PCR or Restriction Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :295,\"name\":\"Fragment Stock\",\"description\":\"Fragment stock in 1.5 mL\
+        \ tube, usually stored in M20 fridge.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T16:12:01.000-08:00\",\"updated_at\":\"2014-01-12T16:12:01.000-08:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":50.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":3269,\"parent_id\":453,\"name\":\"Assembled Plasmid\"\
+        ,\"ftype\":\"sample\",\"choices\":null,\"array\":false,\"required\":null,\"\
+        created_at\":\"2018-04-24T16:20:11.000-07:00\",\"updated_at\":\"2018-04-24T16:20:11.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"output\",\"part\":false,\"\
+        routing\":\"P\",\"preferred_operation_type_id\":null,\"preferred_field_type_id\"\
+        :null,\"allowable_field_types\":[{\"id\":1674,\"field_type_id\":3269,\"sample_type_id\"\
+        :2,\"object_type_id\":294,\"created_at\":\"2018-04-24T16:20:11.000-07:00\"\
+        ,\"updated_at\":\"2018-04-24T16:20:11.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":294,\"name\":\"Gibson\
+        \ Reaction Result\",\"description\":\"A plasmid that was made from Gibson\
+        \ reaction and stayed in the Gibson reaction tube. One can use this to do\
+        \ transform and extract the plasmid.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T15:50:42.000-08:00\",\"updated_at\":\"2014-01-21T14:27:49.000-08:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":10.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":3270,\"parent_id\":453,\"name\":\"Insert\",\"ftype\"\
+        :\"sample\",\"choices\":null,\"array\":true,\"required\":null,\"created_at\"\
+        :\"2018-04-24T16:21:06.000-07:00\",\"updated_at\":\"2018-05-01T10:12:55.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":null,\"routing\"\
+        :\"I\",\"preferred_operation_type_id\":24,\"preferred_field_type_id\":109,\"\
+        allowable_field_types\":[{\"id\":1675,\"field_type_id\":3270,\"sample_type_id\"\
+        :4,\"object_type_id\":295,\"created_at\":\"2018-04-24T16:21:06.000-07:00\"\
+        ,\"updated_at\":\"2018-04-24T16:21:06.000-07:00\",\"sample_type\":{\"id\"\
+        :4,\"name\":\"Fragment\",\"description\":\"A linear double stranded piece\
+        \ of DNA from PCR or Restriction Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :295,\"name\":\"Fragment Stock\",\"description\":\"Fragment stock in 1.5 mL\
+        \ tube, usually stored in M20 fridge.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T16:12:01.000-08:00\",\"updated_at\":\"2014-01-12T16:12:01.000-08:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":50.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}}]},{\"id\":4907,\"parent_id\":500,\"name\":\"Output\",\"ftype\"\
+        :\"sample\",\"choices\":null,\"array\":false,\"required\":null,\"created_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"output\",\"part\":false,\"\
+        routing\":\"X\",\"preferred_operation_type_id\":null,\"preferred_field_type_id\"\
+        :null,\"allowable_field_types\":[{\"id\":2098,\"field_type_id\":4907,\"sample_type_id\"\
+        :4,\"object_type_id\":295,\"created_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\"\
+        :4,\"name\":\"Fragment\",\"description\":\"A linear double stranded piece\
+        \ of DNA from PCR or Restriction Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :295,\"name\":\"Fragment Stock\",\"description\":\"Fragment stock in 1.5 mL\
+        \ tube, usually stored in M20 fridge.\",\"min\":0,\"max\":1000,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-01-12T16:12:01.000-08:00\",\"updated_at\":\"2014-01-12T16:12:01.000-08:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":50.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2099,\"field_type_id\":4907,\"sample_type_id\":4,\"\
+        object_type_id\":421,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":4,\"name\":\"Fragment\"\
+        ,\"description\":\"A linear double stranded piece of DNA from PCR or Restriction\
+        \ Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\",\"updated_at\"\
+        :\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":421,\"name\":\"\
+        1 ng/\xB5L Fragment Stock\",\"description\":\"A diluted fragment stock to\
+        \ use as a PCR template\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"No data\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2014-06-30T09:53:49.000-07:00\",\"updated_at\":\"2014-06-30T09:55:39.000-07:00\"\
+        ,\"unit\":\"Fragment\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":4,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2100,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":294,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":294,\"name\":\"Gibson Reaction Result\",\"description\"\
+        :\"A plasmid that was made from Gibson reaction and stayed in the Gibson reaction\
+        \ tube. One can use this to do transform and extract the plasmid.\",\"min\"\
+        :0,\"max\":1000,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-01-12T15:50:42.000-08:00\",\"\
+        updated_at\":\"2014-01-21T14:27:49.000-08:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :10.0,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2101,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":208,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :208,\"name\":\"Plasmid Stock\",\"description\":\"A 1.5 mL tube containing\
+        \ purified plasmid DNA\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"concentration:\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2013-10-15T10:01:41.000-07:00\",\"updated_at\":\"2014-05-09T16:10:47.000-07:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":2.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2102,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":385,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":385,\"name\":\"1 ng/\xB5L Plasmid Stock\",\"description\"\
+        :\"Diluted stock for use as a template in PCR\",\"min\":0,\"max\":1,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-03-27T12:19:20.000-07:00\",\"updated_at\":\"2014-06-30T09:52:52.000-07:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":0.01,\"release_method\":\"query\",\"release_description\"\
+        :\"If this is an aliquot for the \\\"Transformation Efficiency Project\\\"\
+        , dispose of it. Otherwise, return it.\",\"sample_type_id\":2,\"image\":\"\
+        \",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"id\":2103,\"field_type_id\"\
+        :4907,\"sample_type_id\":2,\"object_type_id\":552,\"created_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":552,\"name\":\"Checked\
+        \ E coli Plate of Plasmid\",\"description\":\"It's a checked plate\",\"min\"\
+        :0,\"max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2017-07-12T19:25:39.000-07:00\",\"\
+        updated_at\":\"2017-07-12T19:44:15.000-07:00\",\"unit\":\"plate\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"\",\"rows\":null,\"columns\":null}},{\"id\"\
+        :2104,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":365,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :365,\"name\":\"E coli Plate of Plasmid\",\"description\":\"A plate containing\
+        \ E. coli transformed with a plasmid\",\"min\":0,\"max\":1,\"handler\":\"\
+        sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"No cleanup\
+        \ information\",\"data\":\"No data\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-02-25T17:05:34.000-08:00\",\"updated_at\":\"2015-03-02T10:45:33.000-08:00\"\
+        ,\"unit\":\"Plasmid\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":2,\"image\":\"\",\"prefix\":\"DFP\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2105,\"field_type_id\":4907,\"sample_type_id\":2,\"\
+        object_type_id\":366,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":2,\"name\":\"Plasmid\"\
+        ,\"description\":\"A circular piece of double stranded DNA\",\"created_at\"\
+        :\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":366,\"name\":\"TB Overnight of Plasmid\",\"description\"\
+        :\"An overnight of E. coli transformed with a plasmid in TB + antibiotic\"\
+        ,\"min\":0,\"max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety\
+        \ information\",\"cleanup\":\"No cleanup information\",\"data\":\"No data\"\
+        ,\"vendor\":\"No vendor information\",\"created_at\":\"2014-02-25T17:07:26.000-08:00\"\
+        ,\"updated_at\":\"2015-03-02T10:21:13.000-08:00\",\"unit\":\"Plasmid\",\"\
+        cost\":0.01,\"release_method\":\"return\",\"release_description\":\"\",\"\
+        sample_type_id\":2,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"columns\"\
+        :null}},{\"id\":2106,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\"\
+        :366,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :366,\"name\":\"TB Overnight of Plasmid\",\"description\":\"An overnight of\
+        \ E. coli transformed with a plasmid in TB + antibiotic\",\"min\":0,\"max\"\
+        :1,\"handler\":\"sample_container\",\"safety\":\"No safety information\",\"\
+        cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"No\
+        \ vendor information\",\"created_at\":\"2014-02-25T17:07:26.000-08:00\",\"\
+        updated_at\":\"2015-03-02T10:21:13.000-08:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2107,\"field_type_id\":4907,\"sample_type_id\":2,\"object_type_id\":386,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":2,\"name\":\"Plasmid\",\"description\":\"A circular\
+        \ piece of double stranded DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :386,\"name\":\"Transformed E. coli Aliquot\",\"description\":\"An aliquot\
+        \ containing transformed E. coli - usually in a 1.5 mL tube\",\"min\":0,\"\
+        max\":1,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-04-03T17:14:46.000-07:00\",\"\
+        updated_at\":\"2014-07-25T10:23:53.000-07:00\",\"unit\":\"Plasmid\",\"cost\"\
+        :0.01,\"release_method\":\"dispose\",\"release_description\":\"\",\"sample_type_id\"\
+        :2,\"image\":\"\",\"prefix\":\"\",\"rows\":null,\"columns\":null}},{\"id\"\
+        :2108,\"field_type_id\":4907,\"sample_type_id\":1,\"object_type_id\":207,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":1,\"name\":\"Primer\",\"description\":\"A short double\
+        \ stranded piece of DNA for PCR and sequencing\",\"created_at\":\"2013-10-08T10:18:01.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :207,\"name\":\"Primer Aliquot\",\"description\":\"Primers at low concentration\
+        \ (10uM) for every day use\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"{ \\\"measure\\\": { \\\"type\\\": \\\"concentration\\\", \\\"\
+        unit\\\": \\\"micromolar\\\" } }\",\"vendor\":\"No vendor information\",\"\
+        created_at\":\"2013-10-14T17:03:58.000-07:00\",\"updated_at\":\"2019-02-13T14:54:25.000-08:00\"\
+        ,\"unit\":\"Primer\",\"cost\":0.01,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":1,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2109,\"field_type_id\":4907,\"sample_type_id\":1,\"\
+        object_type_id\":322,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":1,\"name\":\"Primer\"\
+        ,\"description\":\"A short double stranded piece of DNA for PCR and sequencing\"\
+        ,\"created_at\":\"2013-10-08T10:18:01.000-07:00\",\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"\
+        },\"object_type\":{\"id\":322,\"name\":\"Primer Stock\",\"description\":\"\
+        rehydrated primer in tube from IDT at 100uM\",\"min\":0,\"max\":1,\"handler\"\
+        :\"sample_container\",\"safety\":\"No safety information\",\"cleanup\":\"\
+        No cleanup information\",\"data\":\"{ \\\"measure\\\": { \\\"type\\\": \\\"\
+        concentration\\\", \\\"unit\\\": \\\"micromolar\\\" } }\",\"vendor\":\"No\
+        \ vendor information\",\"created_at\":\"2014-01-22T16:56:36.000-08:00\",\"\
+        updated_at\":\"2019-02-13T14:54:56.000-08:00\",\"unit\":\"Primer\",\"cost\"\
+        :0.01,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :1,\"image\":\"\",\"prefix\":\"M20\",\"rows\":null,\"columns\":null}},{\"\
+        id\":2110,\"field_type_id\":4907,\"sample_type_id\":5,\"object_type_id\":214,\"\
+        created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\":\"2018-07-30T13:56:58.000-07:00\"\
+        ,\"sample_type\":{\"id\":5,\"name\":\"Yeast Strain\",\"description\":\"A strain\
+        \ of yeast distinguished from others by genomic or plasmid modifications\"\
+        ,\"created_at\":\"2013-10-16T14:37:29.000-07:00\",\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"\
+        },\"object_type\":{\"id\":214,\"name\":\"Yeast Glycerol Stock\",\"description\"\
+        :\"A 1.8mL culture of half saturated yeast overnight and half 50% glycerol\
+        \ stored in the -80C freezer\",\"min\":0,\"max\":1,\"handler\":\"sample_container\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"No data\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2013-10-16T15:07:47.000-07:00\",\"updated_at\":\"2014-08-12T18:35:37.000-07:00\"\
+        ,\"unit\":\"Yeast Strain\",\"cost\":5.0,\"release_method\":\"return\",\"release_description\"\
+        :\"\",\"sample_type_id\":5,\"image\":\"\",\"prefix\":\"M80\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2111,\"field_type_id\":4907,\"sample_type_id\":5,\"\
+        object_type_id\":347,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":5,\"name\":\"Yeast\
+        \ Strain\",\"description\":\"A strain of yeast distinguished from others by\
+        \ genomic or plasmid modifications\",\"created_at\":\"2013-10-16T14:37:29.000-07:00\"\
+        ,\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"},\"object_type\":{\"id\"\
+        :347,\"name\":\"Yeast Overnight Suspension\",\"description\":\"Yeast Overnight\
+        \ Suspension\",\"min\":0,\"max\":1000,\"handler\":\"sample_container\",\"\
+        safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"No data\",\"vendor\":\"No vendor information\",\"created_at\"\
+        :\"2014-02-13T14:02:38.000-08:00\",\"updated_at\":\"2017-10-23T13:35:19.000-07:00\"\
+        ,\"unit\":\"Yeast Strain\",\"cost\":1.0,\"release_method\":\"query\",\"release_description\"\
+        :\"\",\"sample_type_id\":5,\"image\":\"\",\"prefix\":\"DFO\",\"rows\":null,\"\
+        columns\":null}},{\"id\":2112,\"field_type_id\":4907,\"sample_type_id\":5,\"\
+        object_type_id\":350,\"created_at\":\"2018-07-30T13:56:58.000-07:00\",\"updated_at\"\
+        :\"2018-07-30T13:56:58.000-07:00\",\"sample_type\":{\"id\":5,\"name\":\"Yeast\
+        \ Strain\",\"description\":\"A strain of yeast distinguished from others by\
+        \ genomic or plasmid modifications\",\"created_at\":\"2013-10-16T14:37:29.000-07:00\"\
+        ,\"updated_at\":\"2015-12-08T17:40:57.000-08:00\"},\"object_type\":{\"id\"\
+        :350,\"name\":\"Yeast Plate\",\"description\":\"Yeast Plate\",\"min\":0,\"\
+        max\":100000,\"handler\":\"sample_container\",\"safety\":\"No safety information\"\
+        ,\"cleanup\":\"No cleanup information\",\"data\":\"No data\",\"vendor\":\"\
+        No vendor information\",\"created_at\":\"2014-02-13T14:04:32.000-08:00\",\"\
+        updated_at\":\"2015-03-02T10:44:55.000-08:00\",\"unit\":\"Yeast Strain\",\"\
+        cost\":1.0,\"release_method\":\"return\",\"release_description\":\"\",\"sample_type_id\"\
+        :5,\"image\":\"\",\"prefix\":\"DFP\",\"rows\":null,\"columns\":null}}]},{\"\
+        id\":4909,\"parent_id\":500,\"name\":\"Channel\",\"ftype\":\"number\",\"choices\"\
+        :null,\"array\":null,\"required\":null,\"created_at\":\"2018-07-30T13:58:08.000-07:00\"\
+        ,\"updated_at\":\"2018-07-30T13:58:08.000-07:00\",\"parent_class\":\"OperationType\"\
+        ,\"role\":\"input\",\"part\":null,\"routing\":null,\"preferred_operation_type_id\"\
+        :null,\"preferred_field_type_id\":null,\"allowable_field_types\":[]},{\"id\"\
+        :4910,\"parent_id\":500,\"name\":\"Selection Method\",\"ftype\":\"string\"\
+        ,\"choices\":\"First,Last,Random\",\"array\":null,\"required\":null,\"created_at\"\
+        :\"2018-07-30T13:58:08.000-07:00\",\"updated_at\":\"2018-07-30T13:58:14.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":null,\"routing\"\
+        :null,\"preferred_operation_type_id\":null,\"preferred_field_type_id\":null,\"\
+        allowable_field_types\":[]},{\"id\":8467,\"parent_id\":649,\"name\":\"Fragment\"\
+        ,\"ftype\":\"sample\",\"choices\":null,\"array\":null,\"required\":null,\"\
+        created_at\":\"2019-04-15T10:37:28.000-07:00\",\"updated_at\":\"2019-04-15T10:37:37.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"input\",\"part\":true,\"routing\"\
+        :\"F\",\"preferred_operation_type_id\":534,\"preferred_field_type_id\":5365,\"\
+        allowable_field_types\":[{\"id\":2830,\"field_type_id\":8467,\"sample_type_id\"\
+        :4,\"object_type_id\":440,\"created_at\":\"2019-04-15T10:37:28.000-07:00\"\
+        ,\"updated_at\":\"2019-04-15T10:37:28.000-07:00\",\"sample_type\":{\"id\"\
+        :4,\"name\":\"Fragment\",\"description\":\"A linear double stranded piece\
+        \ of DNA from PCR or Restriction Digest\",\"created_at\":\"2013-10-16T14:33:41.000-07:00\"\
+        ,\"updated_at\":\"2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\"\
+        :440,\"name\":\"Stripwell\",\"description\":\"Stripwell\",\"min\":0,\"max\"\
+        :10000,\"handler\":\"collection\",\"safety\":\"No safety information\",\"\
+        cleanup\":\"No cleanup information\",\"data\":\"  {\\r\\n    \\\"materials\\\
+        \": 10.48,\\r\\n    \\\"labor\\\": 10\\r\\n  }\",\"vendor\":\"No vendor information\"\
+        ,\"created_at\":\"2014-08-28T17:19:55.000-07:00\",\"updated_at\":\"2017-04-18T17:01:00.000-07:00\"\
+        ,\"unit\":\"stripwell\",\"cost\":1.0,\"release_method\":\"query\",\"release_description\"\
+        :\"\",\"sample_type_id\":null,\"image\":\"\",\"prefix\":\"\",\"rows\":1,\"\
+        columns\":12}}]},{\"id\":8468,\"parent_id\":649,\"name\":\"Plasmid\",\"ftype\"\
+        :\"sample\",\"choices\":null,\"array\":null,\"required\":null,\"created_at\"\
+        :\"2019-04-15T10:38:05.000-07:00\",\"updated_at\":\"2019-04-15T10:38:05.000-07:00\"\
+        ,\"parent_class\":\"OperationType\",\"role\":\"output\",\"part\":true,\"routing\"\
+        :\"P\",\"preferred_operation_type_id\":null,\"preferred_field_type_id\":null,\"\
+        allowable_field_types\":[{\"id\":2831,\"field_type_id\":8468,\"sample_type_id\"\
+        :2,\"object_type_id\":440,\"created_at\":\"2019-04-15T10:38:05.000-07:00\"\
+        ,\"updated_at\":\"2019-04-15T10:38:05.000-07:00\",\"sample_type\":{\"id\"\
+        :2,\"name\":\"Plasmid\",\"description\":\"A circular piece of double stranded\
+        \ DNA\",\"created_at\":\"2013-10-15T09:59:25.000-07:00\",\"updated_at\":\"\
+        2015-11-29T07:55:20.000-08:00\"},\"object_type\":{\"id\":440,\"name\":\"Stripwell\"\
+        ,\"description\":\"Stripwell\",\"min\":0,\"max\":10000,\"handler\":\"collection\"\
+        ,\"safety\":\"No safety information\",\"cleanup\":\"No cleanup information\"\
+        ,\"data\":\"  {\\r\\n    \\\"materials\\\": 10.48,\\r\\n    \\\"labor\\\"\
+        : 10\\r\\n  }\",\"vendor\":\"No vendor information\",\"created_at\":\"2014-08-28T17:19:55.000-07:00\"\
+        ,\"updated_at\":\"2017-04-18T17:01:00.000-07:00\",\"unit\":\"stripwell\",\"\
+        cost\":1.0,\"release_method\":\"query\",\"release_description\":\"\",\"sample_type_id\"\
+        :null,\"image\":\"\",\"prefix\":\"\",\"rows\":1,\"columns\":12}}]}]"
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 18 Jun 2019 22:23:29 GMT
+      ETag:
+      - W/"81dc11e36249d1e11e5c3bded37305a4"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=vMy9X%2FUYbp0mV5XbH19DbgudZSwQxDJ3c%2BGCEa%2BCgqIKEcgYFUwmTdWJPpe%2BOQKvfBTPbFyOtP6bZ8UD98849w%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=TUpyWm9JUjhHL2ppMjFZTzFMQWNYZHVtNytDSkxHNzUzOVcyOXZLZXJMUmlTOGVJekVWR1pGek1KNVd1U1c3SUR3UmFkeFBWQ3FNYjY4R3JnS3hXYmtyUHRvZER0c1Z4dUt1bmZVTER3MDV0Rm11TkpTMktkdDlLRWdELzZibzdMcEEyajhpcmViZi8wVzVqT0FhYkRoOW9LdHF4ODI3dzJidlZKNjBmTVBYV1k1dlA4OStVQTJiWFhRTUU3NzJ5TlNIR1BRNkU5YWVMRnFwNUprUWsyZjRXVHdzRDFoVWZEdzB3TmRjZ051eVpNREtLSHV1dXhEMzh2aHUySDlza2tKcWhhakdORGUvOS81eXJXZzFjbVFnUk4vS0lCWWtHQW9vcjI2czBxc1RRRWg0QkUvQmRGcDFkNnc2ZlQxMWhPTzZxZDlra3lHNGRqWXlVSS9Ob1ROci9QZGRUNVNGNEVNNnBsMHllM2x3UkVPZFYrT053TnJwOEJJS2pPZUFhT0ZFOHlqSmxERkE1SUoyQWNkMVV5U1B4VW1EOGlQWTVabXZMK0NDUXZBUT0tLXVyVEpsaGZoOWlOMjUyazhmSnU5UHc9PQ%3D%3D--f44e8bac75271d55984cb534d7e9c185dfaa7b4f;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 95572ec6-9be4-4de7-aed3-a9c492f35970
+      X-Runtime:
+      - '0.067131'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -25,6 +25,8 @@ class BlueprintBuilderABC(BuilderABC):
     def edge_cost(self, src: dict, dest: dict) -> float:
         raise NotImplementedError
 
+    # TODO: change edge_type to a constant
+    # TODO: change aft to something else like iof for iofilter
     def build_template_graph(self, all_nodes: Sequence[dict]) -> AFTGraph:
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [

@@ -37,7 +37,6 @@ class Serializer(object):
     @classmethod
     def serialize_aft(cls, aft):
         data = cls.serialize(aft, include="field_type")
-        data["field_type"]["part"] = data["field_type"]["part"] is True
         return data
 
     @classmethod

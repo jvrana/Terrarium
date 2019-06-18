@@ -1,57 +1,25 @@
-import pytest
-from terrarium import (
-    SampleGraphBuilder,
-    OperationBlueprintBuilder,
-    OperationGraphBuilder,
-)
-from terrarium.adapters.aquarium.requester import DataRequester
 import os
 import networkx as nx
 from terrarium.graphs import ModelGraph
-
-EXAMPLE_SAMPLE_ID = 27608
-
-
-@pytest.fixture(scope="module")
-def sample_graph(base_session):
-    session = base_session.with_cache(timeout=60)
-    session.set_verbose(True)
-    s = session.Sample.find(EXAMPLE_SAMPLE_ID)
-
-    builder = SampleGraphBuilder(DataRequester(session))
-
-    sample_graph = builder.build([s])
-    yield sample_graph
-
-
-@pytest.fixture(scope="module")
-def blueprint_graph(base_session, sample_graph):
-    with base_session.with_cache(timeout=60) as sess:
-        blueprint = OperationBlueprintBuilder(DataRequester(sess)).build(30)
-    return blueprint
-
-
-@pytest.fixture(scope="module")
-def basic_graph(base_session, sample_graph, blueprint_graph):
-    sess = base_session.with_cache(timeout=60)
-    builder = OperationGraphBuilder(DataRequester(sess), blueprint_graph, sample_graph)
-    graph = builder.build_basic_graph()
-    return graph, builder
 
 
 class TestBuilds(object):
     def test_sample_graph_build(self, sample_graph, session):
         assert sample_graph
+        assert len(list(sample_graph.edges))
 
     def test_blueprint_graph(self, blueprint_graph):
         assert blueprint_graph
+        assert len(list(blueprint_graph.edges))
 
     def test_build_basic_graph(self, basic_graph):
         assert basic_graph[0]
+        assert len(list(basic_graph[0].edges))
 
-    def test_assign_items(self, session, basic_graph):
-        graph, builder = basic_graph
-        builder.assign_inventory(graph, part_limit=50)
+    def test_assign_items(self, graph_with_assigned_inventory):
+        graph, builder = graph_with_assigned_inventory
+        model_classes = [ndata["__class__"] for n, ndata in graph.model_data()]
+        assert "Item" in model_classes
 
     def test_build(self, basic_graph):
         graph, builder = basic_graph
