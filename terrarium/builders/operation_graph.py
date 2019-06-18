@@ -1,10 +1,10 @@
-from terrarium.utils import group_by, multi_group_by_key, multi_group_by
+from terrarium.utils import multi_group_by_key, multi_group_by
 from terrarium.graphs import SampleGraph, AFTGraph, OperationGraph
 from typing import Sequence
 from .utils import match_afts
 from .hashes import internal_aft_hash
 import networkx as nx
-from .requester import DataRequester
+from terrarium.requester import DataRequester
 from .builder_abc import BuilderABC
 
 
@@ -84,23 +84,26 @@ class OperationGraphBuilder(BuilderABC):
                 )
         return graph
 
-    def assign_items(self, graph: OperationGraph, part_limit=50):
+    def assign_inventory(self, graph: OperationGraph, part_limit=50):
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         sample_ids = self.collect_sample_ids(self.sample_graph)
         item_data = self.requester.collect_items(afts, sample_ids)
         part_data = self.requester.collect_parts(sample_ids, lim=part_limit)
 
-        item_dict = multi_group_by_key(item_data, keys=['object_type_id', 'sample_id'])
-        part_dict = multi_group_by(part_data, keyfuncs=[
-            lambda x: x['collections'][0].get('object_type_id', None),
-            lambda x: x['sample_id']
-        ])
+        item_dict = multi_group_by_key(item_data, keys=["object_type_id", "sample_id"])
+        part_dict = multi_group_by(
+            part_data,
+            keyfuncs=[
+                lambda x: x["collections"][0].get("object_type_id", None),
+                lambda x: x["sample_id"],
+            ],
+        )
 
         new_nodes = []
         new_edges = []
 
         for aft in afts:
-            sample_id = aft["sample"]['id']
+            sample_id = aft["sample"]["id"]
             object_type_id = aft["object_type_id"]
             if aft["field_type"]["part"]:
                 data = part_dict

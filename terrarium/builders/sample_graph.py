@@ -1,4 +1,4 @@
-from .requester import DataRequester
+from terrarium.requester import DataRequester
 from .builder_abc import BuilderABC
 
 

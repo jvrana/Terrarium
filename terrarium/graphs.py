@@ -409,7 +409,4 @@ class OperationGraph(BuilderGraphBase):
 
     def __init__(self, name=None):
         super().__init__(name=name)
-        self.schemas = [
-            self.AFT_SCHEMA,
-            self.ITEM_SCHEMA
-        ]
+        self.schemas = [self.AFT_SCHEMA, self.ITEM_SCHEMA]
