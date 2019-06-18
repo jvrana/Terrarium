@@ -3,7 +3,7 @@ from .hashes import edge_hash, internal_aft_hash, external_aft_hash
 from typing import Sequence
 from terrarium.graphs import AFTGraph
 from terrarium.builders.utils import match_afts
-from terrarium.requester import DataRequester
+from terrarium.adapters.aquarium.requester import DataRequester
 from .builder_abc import BuilderABC
 from abc import abstractmethod
 

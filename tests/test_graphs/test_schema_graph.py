@@ -1,4 +1,4 @@
-from terrarium.graphs import SchemaGraph, SchemaValidationError
+from terrarium.graphs.graphs import SchemaGraph, SchemaValidationError
 import pytest
 import json
 

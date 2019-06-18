@@ -2,7 +2,7 @@ from typing import Sequence
 from terrarium.utils import dict_intersection, group_by
 from itertools import product, chain
 from more_itertools import flatten
-from terrarium.utils.validate import validate_with_schema_errors, is_in
+from terrarium.schemas.validate import validate_with_schema_errors, is_in
 
 
 def match_afts(afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable):

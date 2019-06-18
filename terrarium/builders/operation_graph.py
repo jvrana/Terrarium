@@ -4,7 +4,7 @@ from typing import Sequence
 from .utils import match_afts
 from .hashes import internal_aft_hash
 import networkx as nx
-from terrarium.requester import DataRequester
+from terrarium.adapters.aquarium.requester import DataRequester
 from .builder_abc import BuilderABC
 
 
@@ -52,7 +52,8 @@ class OperationGraphBuilder(BuilderABC):
         return subgraph
 
     def build(self):
-        return self.build_basic_graph()
+        graph = self.build_basic_graph()
+        self.assign_inventory(graph)
 
     def build_basic_graph(self) -> OperationGraph:
         sample_graphs = {}
@@ -123,41 +124,3 @@ class OperationGraphBuilder(BuilderABC):
 
         for item, node in new_edges:
             graph.add_edge_from_models(item, node, weight=0)
-
-        # new_nodes = []
-        # new_edges = []
-        # for node, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
-        #     aft = ndata["model"]
-        #     sample = ndata["sample"]
-        #     if sample:
-        #         sample_id = sample.id
-        #         sample_type_id = sample.sample_type_id
-        #     else:
-        #         sample_id = None
-        #         sample_type_id = None
-        #     if aft.sample_type_id == sample_type_id:
-        #         if aft.field_type.part:
-        #             parts = part_by_sample_by_type.get(aft.object_type_id, {}).get(
-        #                 sample_id, []
-        #             )
-        #             for part in parts[-1:]:
-        #                 if part.sample_id == sample_id:
-        #                     new_nodes.append(part)
-        #                     new_edges.append((part, sample, node))
-        #         else:
-        #             items = items_by_object_type_id[aft.object_type_id]
-        #             for item in items:
-        #                 if item.sample_id == sample_id:
-        #                     new_nodes.append(item)
-        #                     new_edges.append((item, sample, node))
-        #
-        # for n in new_nodes:
-        #     graph.add_node(n)
-        #
-        # for item, sample, node in new_edges:
-        #     graph.add_edge(graph.node_id(item), node, weight=0)
-        #
-        # self._info(
-        #     "{} items added to various allowable_field_types".format(len(new_edges))
-        # )
-        # return graph

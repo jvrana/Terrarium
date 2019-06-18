@@ -3,8 +3,8 @@ import random
 
 import networkx as nx
 import pytest
-
-from terrarium.graphs import ModelGraph, SchemaValidationError
+from terrarium.exceptions import SchemaValidationError
+from terrarium.graphs import ModelGraph
 from uuid import uuid4
 from copy import copy
 

@@ -1,13 +1,37 @@
 # TODO: this should be the only class that makes requests
 # TODO: this should take in a session object and reuse that object throughout
+from terrarium.schemas.schemas import Schema
+
+from functools import wraps
+from terrarium.schemas.validate import validate_with_schema_errors
+from terrarium.exceptions import SchemaValidationError
+
+
+def validate(schema):
+    def validate_function(f):
+        @wraps(f)
+        def validation_wrapper(*args, **kwargs):
+            result = f(*args, **kwargs)
+            valid, errors = validate_with_schema_errors(result, schema)
+            if errors:
+                SchemaValidationError.raise_from_errors("Data was invalid", errors)
+            return result
+
+        return validation_wrapper
+
+    return validate_function
 
 
 class Serializer(object):
+    """
+    Serializes models.
+    """
+
     @staticmethod
     def serialize(model, *args, **kwargs):
         data = model.dump(*args, **kwargs)
-        data["primary_key"] = model._primary_key
-        data["__class__"] = model.__class__.__name__
+        data[Schema.PRIMARY_KEY] = model._primary_key
+        data[Schema.MODEL_CLASS] = model.__class__.__name__
         return data
 
     @classmethod

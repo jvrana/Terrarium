@@ -1,4 +1,4 @@
-from terrarium.utils.validate import (
+from terrarium.schemas.validate import (
     validation_errors,
     validate_with_schema,
     validate_with_schema_errors,

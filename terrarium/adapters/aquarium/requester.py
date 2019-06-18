@@ -1,4 +1,4 @@
-from terrarium.serializer import Serializer
+from terrarium.adapters.aquarium.serializer import Serializer
 from terrarium.graphs import SampleGraph
 from typing import Sequence
 
@@ -84,7 +84,7 @@ class DataRequester(object):
         items = self.session.Item.where(
             {"sample_id": sample_ids, "object_type_id": object_type_ids}
         )
-        items = [i for i in items if i.location != 'deleted']
+        items = [i for i in items if i.location != "deleted"]
         return [Serializer.serialize(i) for i in items]
 
     def collect_parts(self, sample_ids, lim):

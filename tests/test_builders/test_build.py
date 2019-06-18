@@ -4,7 +4,7 @@ from terrarium import (
     OperationBlueprintBuilder,
     OperationGraphBuilder,
 )
-from terrarium.requester import DataRequester
+from terrarium.adapters.aquarium.requester import DataRequester
 import os
 import networkx as nx
 from terrarium.graphs import ModelGraph
@@ -52,6 +52,10 @@ class TestBuilds(object):
     def test_assign_items(self, session, basic_graph):
         graph, builder = basic_graph
         builder.assign_inventory(graph, part_limit=50)
+
+    def test_build(self, basic_graph):
+        graph, builder = basic_graph
+        builder.build()
 
 
 class TestReadWrite(object):

@@ -1,0 +1,18 @@
+class Constants(object):
+    PRIMARY_KEY = "primary_key"
+    MODEL_CLASS = "__class__"
+
+    OPERATION_TYPE = "operation_type"
+    IO_TYPE_FILTER = "allowable_field_type"
+    IO_TYPE = "field_type"
+    OPERATIONS = "operations"
+    IOS = "field_values"
+    PART = "part"
+    EXTERNAL_EDGE = "external"
+    INTERNAL_EDGE = "internal"
+    COLLECTIONS = "collections"
+    OBJECT_TYPE = "object_type"
+    OBJECT_TYPE_ID = "object_type_id"
+    SAMPLE_TYPE_ID = "sample_type_id"
+    SAMPLE_ID = "sample_id"
+    SAMPLE = "sample"

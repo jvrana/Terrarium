@@ -1,12 +1,7 @@
 import networkx as nx
 import json
-from terrarium.utils.validate import (
-    validate_with_schema,
-    validate_with_schema_errors,
-    is_any_type_of,
-)
+from terrarium.schemas.validate import validate_with_schema, validate_with_schema_errors
 from terrarium.exceptions import SchemaValidationError
-from more_itertools import flatten
 from copy import deepcopy
 
 
@@ -269,14 +264,6 @@ class SchemaGraph(MapperGraph):
         super()._init_graph()
         self.validate(raises=True)
 
-    @staticmethod
-    def raise_validation_error(msg, errors):
-        validation_msg = msg + "\n"
-        validation_msg += "\n".join(
-            ["({}) - {}".format(i, e) for i, e in enumerate(errors)]
-        )
-        raise SchemaValidationError(validation_msg)
-
     def validate(self, raises=False):
         if self.schemas:
             for n, ndata in self.graph.nodes(data=self.data_key):
@@ -336,77 +323,3 @@ class SchemaGraph(MapperGraph):
             name=self.name,
             graph_class=self.graph.__class__,
         )
-
-
-class ModelGraph(SchemaGraph):
-    def __init__(self, name=None, graph=None):
-        model_id = lambda data: "{}_{}".format(data["__class__"], data["primary_key"])
-        super().__init__(model_id, name=name, graph=graph)
-        self.schemas.append(self.new_model_schema())
-
-    @classmethod
-    def new_model_schema(cls, model_class=str, kwargs=None):
-        schema = {"__class__": model_class, "primary_key": int}
-        if kwargs:
-            schema.update(kwargs)
-        return schema
-
-    def shallow_copy(self):
-        return self.__class__(name=self.name)
-
-    def model_data(self, model_class):
-        for n, ndata in self.node_data():
-            if ndata["__class__"] == model_class:
-                yield n, ndata
-
-
-class BuilderGraphBase(ModelGraph):
-
-    SCHEMA = {}
-
-    def __init__(self, name=None):
-        super().__init__(name=name)
-        self.schemas[0].update(self.SCHEMA)
-
-
-class SampleGraph(BuilderGraphBase):
-
-    SCHEMA = {"__class__": "Sample"}
-
-
-class AFTGraph(BuilderGraphBase):
-
-    SCHEMA = BuilderGraphBase.new_model_schema(
-        "AllowableFieldType",
-        {
-            "object_type_id": is_any_type_of(int, None),
-            "sample_type_id": is_any_type_of(int, None),
-            "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
-        },
-    )
-
-
-class OperationGraph(BuilderGraphBase):
-
-    AFT_SCHEMA = BuilderGraphBase.new_model_schema(
-        "AllowableFieldType",
-        {
-            "object_type_id": is_any_type_of(int, None),
-            "sample_type_id": is_any_type_of(int, None),
-            "field_type": {"role": str, "part": bool, "ftype": str, "parent_id": int},
-            "sample": {"sample_type_id": int},
-        },
-    )
-
-    ITEM_SCHEMA = BuilderGraphBase.new_model_schema(
-        "Item",
-        {
-            "is_part": bool,
-            "object_type_id": is_any_type_of(int, None),
-            "collections": [{"object_type_id": int}],
-        },
-    )
-
-    def __init__(self, name=None):
-        super().__init__(name=name)
-        self.schemas = [self.AFT_SCHEMA, self.ITEM_SCHEMA]

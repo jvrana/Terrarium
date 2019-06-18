@@ -3,4 +3,4 @@ from terrarium.builders import (
     SampleGraphBuilder,
     OperationGraphBuilder,
 )
-from terrarium.serializer import Serializer
+from terrarium.adapters.aquarium.serializer import Serializer
