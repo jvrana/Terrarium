@@ -37,6 +37,10 @@ class ModelGraph(SchemaGraph):
             if ndata[Schema.MODEL_CLASS] == model_class:
                 yield n, ndata
 
+    def models(self, model_class):
+        for n, ndata in self.model_data(model_class):
+            yield ndata
+
 
 class SampleGraph(ModelGraph):
 
