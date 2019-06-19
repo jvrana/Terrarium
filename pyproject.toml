@@ -8,6 +8,9 @@ authors = ["Justin Vrana <justin.vrana@gmail.com>"]
 python = "^3.7"
 pydent = {path = "../trident"}
 dill = "^0.2.9"
+webcolors = "^1.9"
+colorama = "^0.4.1"
+termcolor = "^1.1"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0",allows-prereleases = true}

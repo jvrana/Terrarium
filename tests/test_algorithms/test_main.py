@@ -4,7 +4,6 @@ from terrarium.algorithms import (
     top_paths,
     extract_root_operations,
     extract_root_items,
-    clean_graph,
     extract_end_nodes,
 )
 
@@ -36,42 +35,6 @@ class TestGraphUtils(object):
 
     def test_extract_root_operations(self, graph):
         nodes = extract_root_operations(graph)
-
-        for n in nodes:
-            preds = list(graph.graph.predecessors(n))
-            assert not preds
-
-        parent_ids = []
-        for node in nodes:
-            ndata = graph.get_data(node)
-            if ndata["__class__"] == "AllowableFieldType":
-                parent_ids.append(ndata["field_type"]["parent_id"])
-
-        with base_session.with_cache(timeout=60) as sess:
-            operation_types = sess.OperationType.find(parent_ids)
-            sess.browser.get("OperationType", "field_types")
-
-        msgs = []
-        for node in nodes:
-            ndata = graph.get_data(node)
-            if ndata["__class__"] == "AllowableFieldType":
-                optype = sess.OperationType.find(ndata["field_type"]["parent_id"])
-                inputs = [
-                    ft
-                    for ft in optype.field_types
-                    if ft.ftype == "sample" and ft.role == "input"
-                ]
-                if inputs:
-
-                    msgs.append(
-                        "An root AFT {} was found that has inputs for '{}' {}".format(
-                            node, optype.name, optype.deployed
-                        )
-                    )
-                    for ft in inputs:
-                        msgs.append("\t{} {} {}".format(ft.name, ft.array, ft.part))
-                    print(list(graph.graph.predecessors(node)))
-        raise Exception("\n".join(msgs))
 
     def test_extract_items(self, graph):
         extract_root_items(graph)

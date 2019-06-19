@@ -110,7 +110,7 @@ def top_paths(G, include_nodes, weight_key):
     return cost, list(unique_justseen(path))
 
 
-from terrarium.utils.color_utils import cprint
+from termcolor import cprint
 from more_itertools import windowed, unique_justseen
 
 
@@ -174,8 +174,8 @@ class Algorithms(object):
             cprint(graph_utils.get_path_length(G, path), "blue")
             return cost, final_paths, visited
         if verbose:
-            cprint("Single path found with cost {}".format(cost), None, "blue")
-            cprint(graph_utils.get_path_weights(G, path), None, "blue")
+            cprint("Single path found with cost {}".format(cost), "blue")
+            cprint(graph_utils.get_path_weights(G, path), "blue")
 
         ############################################
         # 3. mark edges as 'visited'
