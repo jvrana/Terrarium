@@ -51,16 +51,61 @@ class OperationGraphBuilder(BuilderABC):
             ndata["sample"] = sample
         return subgraph
 
-    def build(self):
-        graph = self.build_basic_graph()
-        self.assign_inventory(graph)
-
-    def build_basic_graph(self) -> OperationGraph:
+    def sample_subgraph_dict(self):
         sample_graphs = {}
         for nid, sample_data in self.sample_graph.model_data("Sample"):
             sample_graphs[sample_data["primary_key"]] = self.sample_subgraph(
                 sample_data
             )
+        return sample_graphs
+
+    @staticmethod
+    def has_invalid_internal_routing(d1: dict, d2: dict) -> bool:
+        """
+        Identifies afts that have invalid internal routing, that is wires
+        that have the same sample_ids but different routing, or have the same
+        routing but different sample_ids.
+
+        :param d1:
+        :param d2:
+        :return: bool
+        """
+        if d1["field_type"]["role"] == "input" and d2["field_type"]["role"] == "output":
+            routing1 = d1["field_type"]["routing"]
+            routing2 = d2["field_type"]["routing"]
+            sid1 = d1["sample"]["id"]
+            sid2 = d2["sample"]["id"]
+            if (sid1 == sid2) ^ (routing1 == routing2):
+                return True
+        return False
+
+    @classmethod
+    def clean(cls, graph: OperationGraph) -> OperationGraph:
+        """
+        Remove invalid wires from graph.
+
+        :param graph:
+        :type graph:
+        :return:
+        :rtype:
+        """
+        removal = []
+        aft_nodes = [n for n, _ in graph.model_data("AllowableFieldType")]
+        for n1, n2 in graph.edges:
+            if n1 in aft_nodes and n2 in aft_nodes:
+                ndata1 = graph.get_data(n1)
+                ndata2 = graph.get_data(n2)
+                if cls.has_invalid_internal_routing(ndata1, ndata2):
+                    removal.append((n1, n2))
+        graph.graph.remove_edges_from(removal)
+        return graph
+
+    def build(self):
+        graph = self.build_basic_graph()
+        self.assign_inventory(graph)
+
+    def build_basic_graph(self) -> OperationGraph:
+        sample_graphs = self.sample_subgraph_dict()
 
         graph = OperationGraph()
         graph.schemas[0].update({"sample": dict})

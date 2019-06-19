@@ -21,9 +21,35 @@ class TestBuilds(object):
         model_classes = [ndata["__class__"] for n, ndata in graph.model_data()]
         assert "Item" in model_classes
 
+    def test_clean(self, basic_graph):
+        graph, builder = basic_graph
+        builder.clean(graph)
+
     def test_build(self, basic_graph):
         graph, builder = basic_graph
         builder.build()
+
+
+class TestGraphValidity(object):
+    def check_num_inputs_vs_num_predecessors(self, g):
+        for n, ndata in g.model_data(
+            "AllowableFieldType", lambda x: x["field_type"]["role"] == "output"
+        ):
+            fts = ndata["field_type"]["operation_type"]["field_types"]
+            inputs = [
+                ft for ft in fts if ft["role"] == "input" and ft["ftype"] == "sample"
+            ]
+
+            num_inputs = len(inputs)
+            num_predecessors = len(list(g.graph.predecessors(n)))
+            assert num_inputs <= num_predecessors
+
+    def test_valid_blueprint(self, blueprint_graph):
+        self.check_num_inputs_vs_num_predecessors(blueprint_graph)
+
+    def test_valid_basic_graph(self, basic_graph):
+        graph, builder = basic_graph
+        self.check_num_inputs_vs_num_predecessors(graph)
 
 
 class TestReadWrite(object):
@@ -41,7 +67,6 @@ class TestReadWrite(object):
         """Expect a file to be written to the temporary path"""
         filepath = tmp_path / "sample_graph.test.json"
         self.write_tester(sample_graph, filepath)
-        self.write_tester(sample_graph, "sample_graph.json")
 
     def test_sample_graph_load(self, sample_graph, tmp_path):
         """We expect the loaded nx.DiGraph to be equivalent to the """

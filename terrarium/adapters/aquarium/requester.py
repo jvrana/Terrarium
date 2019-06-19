@@ -128,14 +128,12 @@ class DataRequester(object):
                 "OperationType",
                 {
                     "field_types": {
-                        "allowable_field_types": {
-                            "object_type",
-                            "sample_type",
-                            "field_type",
-                        }
+                        "allowable_field_types": {"field_type": []},
+                        "operation_type": "field_types",
                     }
                 },
             )
 
             afts = sess.browser.get("AllowableFieldType")
+
         return [Serializer.serialize_aft(aft) for aft in afts]

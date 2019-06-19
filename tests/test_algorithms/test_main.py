@@ -10,7 +10,6 @@ from terrarium.algorithms import (
 
 import networkx as nx
 import pytest
-import json
 
 
 def test_main(graph):
@@ -35,7 +34,7 @@ class TestGraphUtils(object):
             assert not top_paths(G, [1, 0, 4], None)
             assert not top_paths(G, [1, 5], None)
 
-    def test_extract_root_operations(self, base_session, graph):
+    def test_extract_root_operations(self, graph):
         nodes = extract_root_operations(graph)
 
         for n in nodes:
@@ -52,26 +51,30 @@ class TestGraphUtils(object):
             operation_types = sess.OperationType.find(parent_ids)
             sess.browser.get("OperationType", "field_types")
 
+        msgs = []
         for node in nodes:
             ndata = graph.get_data(node)
             if ndata["__class__"] == "AllowableFieldType":
                 optype = sess.OperationType.find(ndata["field_type"]["parent_id"])
-                if "input" in [
-                    ft.role for ft in optype.field_types if ft.ftype == "sample"
-                ]:
-                    print(
-                        "An root AFT was found that has inputs for '{}'".format(
-                            optype.name
+                inputs = [
+                    ft
+                    for ft in optype.field_types
+                    if ft.ftype == "sample" and ft.role == "input"
+                ]
+                if inputs:
+
+                    msgs.append(
+                        "An root AFT {} was found that has inputs for '{}' {}".format(
+                            node, optype.name, optype.deployed
                         )
                     )
-                    print(json.dumps(ndata, indent=2))
-                    raise Exception()
+                    for ft in inputs:
+                        msgs.append("\t{} {} {}".format(ft.name, ft.array, ft.part))
+                    print(list(graph.graph.predecessors(node)))
+        raise Exception("\n".join(msgs))
 
     def test_extract_items(self, graph):
         extract_root_items(graph)
-
-    def test_clean_graph(self, graph):
-        clean_graph(graph)
 
     def test_extract_end_nodes(self, session, graph):
         extract_end_nodes(graph, 1, 1)

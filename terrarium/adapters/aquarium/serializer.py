@@ -34,9 +34,12 @@ class Serializer(object):
         data[Schema.MODEL_CLASS] = model.__class__.__name__
         return data
 
+    # TODO: operation tpe and field type serialization is unnecessary
     @classmethod
     def serialize_aft(cls, aft):
-        data = cls.serialize(aft, include="field_type")
+        data = cls.serialize(
+            aft, include={"field_type": {"operation_type": "field_types"}}
+        )
         return data
 
     @classmethod
