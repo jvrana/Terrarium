@@ -1,7 +1,3 @@
-# @title Group utilities
-from itertools import chain
-
-
 class Grouper(object):
     class NONETYPE(object):
         pass

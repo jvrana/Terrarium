@@ -1,4 +1,3 @@
-from terrarium.adapters.aquarium.requester import DataRequester
 from .builder_abc import BuilderABC
 
 

@@ -1,4 +1,4 @@
-from terrarium.schemas.validate import validate_with_schema, validate_with_schema_errors
+from terrarium.schemas.validate import validate_with_schema
 from terrarium.utils import group_by, graph_utils
 from terrarium.graphs import OperationGraph
 from typing import Sequence
