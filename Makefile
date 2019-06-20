@@ -6,10 +6,10 @@ init:
 	poetry run pre-commit install
 
 docs:
-    echo "No documentation"
+	echo "No documentation"
 
 format:
 	poetry run black terrarium tests
 
 release:
-    sh scripts/quick_release.sh
+	sh scripts/quick_release.sh
