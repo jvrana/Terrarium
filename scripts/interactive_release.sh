@@ -99,14 +99,16 @@ printf "\n$SEP Publishing $SEP\n"
 
 
 if [ "$REPO" != "" ]; then
-    printf "$CWARN Are you sure you want to publish $NAME $VERSION to $REPO ([y]/n)$END"
+    printf "$CWARN Are you sure you want to publish $NAME $VERSION to $REPO ([y]/n)?: $END"
     read input
     if [ "$input" == "n" ]; then
         REPO=""
     fi
 
-    if [ "$REPO" != "" ]; then
-        poetry publish -r $REPO --build
+    if [ "$REPO" == "pypi" ]; then
+        poetry publish --build
+    elif [ "$REPO" != "" ]; then
+        poetry publish --build -r $REPO
     fi
 else
     printf "$CWARN skipping publishing, repo not specified $END\n"
