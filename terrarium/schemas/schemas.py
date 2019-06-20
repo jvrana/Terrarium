@@ -1,5 +1,5 @@
 from terrarium.schemas.validate import is_any_type_of
-from terrarium.constants import Constants as C
+from terrarium import constants as C
 from copy import deepcopy
 
 
@@ -38,6 +38,7 @@ class CustomSchemas(object):
         {
             "object_type_id": is_any_type_of(int, None),
             "sample_type_id": is_any_type_of(int, None),
+            "field_type_id": int,
             "field_type": dict(
                 operation_type=dict(name=str, field_types=[FT_SCHEMA]), **FT_SCHEMA
             ),

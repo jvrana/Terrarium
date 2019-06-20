@@ -1,6 +1,7 @@
 import os
 import networkx as nx
 from terrarium.graphs import ModelGraph
+from terrarium import constants as C
 
 
 class TestBuilds(object):
@@ -13,21 +14,19 @@ class TestBuilds(object):
         assert len(list(blueprint_graph.edges))
 
     def test_build_basic_graph(self, basic_graph):
-        assert basic_graph[0]
-        assert len(list(basic_graph[0].edges))
+        assert basic_graph
+        assert len(list(basic_graph.edges))
 
     def test_assign_items(self, graph_with_assigned_inventory):
-        graph, builder = graph_with_assigned_inventory
-        model_classes = [ndata["__class__"] for n, ndata in graph.model_data()]
+        graph = graph_with_assigned_inventory
+        model_classes = [ndata[C.MODEL_CLASS] for n, ndata in graph.model_data()]
         assert "Item" in model_classes
 
-    def test_clean(self, basic_graph):
-        graph, builder = basic_graph
-        builder.clean(graph)
+    def test_clean(self, basic_graph, graph_builder):
+        graph_builder.clean(basic_graph)
 
-    def test_build(self, basic_graph):
-        graph, builder = basic_graph
-        builder.build()
+    def test_build(self, graph_builder):
+        graph_builder.build()
 
 
 class TestGraphValidity(object):
@@ -48,8 +47,26 @@ class TestGraphValidity(object):
         self.check_num_inputs_vs_num_predecessors(blueprint_graph)
 
     def test_valid_basic_graph(self, basic_graph):
-        graph, builder = basic_graph
-        self.check_num_inputs_vs_num_predecessors(graph)
+        self.check_num_inputs_vs_num_predecessors(basic_graph)
+
+    def test_new_edges(self, basic_graph, graph_builder):
+        sample_graph_dict = graph_builder.sample_subgraph_dict()
+
+        for n1, n2 in graph_builder.sample_graph.edges:
+            ndata1 = graph_builder.sample_graph.get_data(n1)
+            ndata2 = graph_builder.sample_graph.get_data(n2)
+
+            sg1 = sample_graph_dict[ndata1["id"]]
+            sg2 = sample_graph_dict[ndata2["id"]]
+
+            assert graph_builder.connect_sample_graphs(sg1, sg2)
+
+    def test_has_sample_to_sample_edges(self, basic_graph):
+        s2s = []
+        for e1, e2, edata in basic_graph.edges.data():
+            if edata[C.EDGE_TYPE] == C.SAMPLE_TO_SAMPLE:
+                s2s.append((e1, e2))
+        assert s2s
 
 
 class TestReadWrite(object):

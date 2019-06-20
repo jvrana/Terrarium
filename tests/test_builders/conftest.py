@@ -4,8 +4,8 @@ from terrarium.builders import (
     OperationBlueprintBuilder,
     OperationGraphBuilder,
 )
-from terrarium.adapters import DataRequester
-
+from terrarium.adapters import AquariumAdapter
+from copy import deepcopy
 
 EXAMPLE_SAMPLE_ID = 27608
 
@@ -21,7 +21,7 @@ def sample_graph(base_session, example_sample):
     session.set_verbose(True)
     s = example_sample
 
-    builder = SampleGraphBuilder(DataRequester(session))
+    builder = SampleGraphBuilder(AquariumAdapter(session))
 
     sample_graph = builder.build([s])
     yield sample_graph
@@ -30,20 +30,32 @@ def sample_graph(base_session, example_sample):
 @pytest.fixture(scope="module")
 def blueprint_graph(base_session, sample_graph):
     with base_session.with_cache(timeout=60) as sess:
-        blueprint = OperationBlueprintBuilder(DataRequester(sess)).build(30)
+        blueprint = OperationBlueprintBuilder(AquariumAdapter(sess)).build(30)
     return blueprint
 
 
 @pytest.fixture(scope="module")
-def basic_graph(base_session, sample_graph, blueprint_graph):
+def build_basic_graph(base_session, sample_graph, blueprint_graph):
     sess = base_session.with_cache(timeout=60)
-    builder = OperationGraphBuilder(DataRequester(sess), blueprint_graph, sample_graph)
+    builder = OperationGraphBuilder(
+        AquariumAdapter(sess), blueprint_graph, sample_graph
+    )
     graph = builder.build_basic_graph()
     return graph, builder
 
 
 @pytest.fixture(scope="module")
-def graph_with_assigned_inventory(basic_graph):
-    graph, builder = basic_graph
-    builder.assign_inventory(graph, part_limit=50)
-    return graph, builder
+def basic_graph(build_basic_graph):
+    return build_basic_graph[0]
+
+
+@pytest.fixture(scope="module")
+def graph_builder(build_basic_graph):
+    return build_basic_graph[1]
+
+
+@pytest.fixture(scope="module")
+def graph_with_assigned_inventory(graph_builder, basic_graph):
+    graph = deepcopy(basic_graph)
+    graph_builder.assign_inventory(graph, part_limit=50)
+    return graph

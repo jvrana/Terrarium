@@ -3,9 +3,10 @@ from .hashes import edge_hash, internal_aft_hash, external_aft_hash
 from typing import Sequence
 from terrarium.graphs import AFTGraph
 from terrarium.builders.utils import match_afts
-from terrarium.adapters.aquarium.requester import DataRequester
+from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
 from abc import abstractmethod
+from terrarium import constants as C
 
 
 class BlueprintBuilderABC(BuilderABC):
@@ -42,13 +43,17 @@ class BlueprintBuilderABC(BuilderABC):
             cost = self.edge_cost(aft1, aft2)
             graph.add_data(aft1)
             graph.add_data(aft2)
-            graph.add_edge_from_models(aft1, aft2, weight=cost, edge_type="external")
+            graph.add_edge_from_models(
+                aft1, aft2, **{C.WEIGHT: cost, C.EDGE_TYPE: C.EXTERNAL_EDGE}
+            )
 
         for aft1, aft2 in internal_edges:
             cost = self.edge_cost(aft1, aft2)
             graph.add_data(aft1)
             graph.add_data(aft2)
-            graph.add_edge_from_models(aft1, aft2, weight=cost, edge_type="internal")
+            graph.add_edge_from_models(
+                aft1, aft2, **{C.WEIGHT: cost, C.EDGE_TYPE: C.INTERNAL_EDGE}
+            )
         return graph
 
     def build(self, num_plans):
@@ -58,7 +63,7 @@ class BlueprintBuilderABC(BuilderABC):
 
 
 class OperationBlueprintBuilder(BlueprintBuilderABC):
-    def __init__(self, requester: DataRequester):
+    def __init__(self, requester: AdapterABC):
         super().__init__(requester)
         self.edge_counter = GroupCounter()
         self.node_counter = GroupCounter()

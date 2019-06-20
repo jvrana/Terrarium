@@ -7,17 +7,18 @@ from terrarium.exceptions import SchemaValidationError
 from terrarium.graphs import ModelGraph
 from uuid import uuid4
 from copy import copy
+from terrarium import constants as C
 
 
 def test_validation_error():
     model_graph = ModelGraph()
     with pytest.raises(SchemaValidationError):
-        model_graph.add_data({"primary_key": "hello"})
+        model_graph.add_data({C.PRIMARY_KEY: "hello"})
 
 
 def build_random_graph(num_nodes, num_edges):
     node_ids = list(range(num_nodes))
-    x = lambda i: {"__class__": "Sample", "primary_key": i}
+    x = lambda i: {C.MODEL_CLASS: "Sample", C.PRIMARY_KEY: i}
 
     edges = []
     for _ in range(num_edges):
@@ -29,6 +30,14 @@ def build_random_graph(num_nodes, num_edges):
     for n1, n2 in edges:
         g.add_edge_from_models(x(n1), x(n2))
     return g
+
+
+class TestMethods(object):
+    def test_edge_data(self):
+        g = build_random_graph(5, 3)
+
+        for x in g.edges.data():
+            print(x)
 
 
 class TestCopyMethodsModelGraphs(object):
@@ -74,8 +83,8 @@ class TestCopyMethodsModelGraphs(object):
     def test_copy_node_data(self, copy_function):
         g = ModelGraph()
         d = {
-            "__class__": "Sample",
-            "primary_key": 4,
+            C.MODEL_CLASS: "Sample",
+            C.PRIMARY_KEY: 4,
             "id": 5,
             "list": [1, 2, 3],
             "nested_list": [[1]],

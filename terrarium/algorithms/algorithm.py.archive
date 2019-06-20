@@ -548,7 +548,7 @@ class NetworkOptimizer(Loggable):
 
             x = (template_graph.node_id(aft1), template_graph.node_id(aft2))
             edge = template_graph.get_edge(*x)
-            graph.add_edge(n1, n2, edge_type="sample_to_sample", weight=edge["weight"])
+            graph.add_edge(n1, n2, edge_type=C.SAMPLE_TO_SAMPLE, weight=edge["weight"])
 
         afts = list(graph.iter_models(model_class="AllowableFieldType"))
         browser.retrieve(afts, "field_type")

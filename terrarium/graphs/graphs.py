@@ -23,6 +23,9 @@ class GraphBase(object):
 
     @graph.setter
     def graph(self, g):
+        self.set_graph(g)
+
+    def set_graph(self, g):
         self._graph = g
         self._init_graph()
 
@@ -44,6 +47,10 @@ class GraphBase(object):
     @property
     def edges(self):
         return self.graph.edges
+
+    @property
+    def edge_data(self):
+        return self.edges.data
 
     def get_node(self, n):
         return self.graph.nodes[n]
@@ -276,9 +283,14 @@ class SchemaGraph(MapperGraph):
             graph=graph,
         )
 
-    def _init_graph(self):
+    def _init_graph(self, validate=True):
         super()._init_graph()
-        self.validate(raises=True)
+        if validate:
+            self.validate(raises=True)
+
+    def set_graph(self, g, validate=True):
+        self._graph = g
+        self._init_graph(validate=validate)
 
     def validate(self, raises=False):
         if self.schemas:

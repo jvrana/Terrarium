@@ -6,6 +6,7 @@ from itertools import chain
 import networkx as nx
 from itertools import product
 import math
+from terrarium import constants as C
 
 
 def extract_end_nodes(
@@ -171,11 +172,11 @@ class Algorithms(object):
         final_paths = [path]
         if cost > THRESHOLD:
             cprint("Path beyond threshold, returning early", "red")
-            cprint(graph_utils.get_path_length(G, path), "blue")
+            cprint(graph_utils.get_path_length(G, path, C.WEIGHT), "blue")
             return cost, final_paths, visited
         if verbose:
             cprint("Single path found with cost {}".format(cost), "blue")
-            cprint(graph_utils.get_path_weights(G, path), "blue")
+            cprint(graph_utils.get_path_weights(G, path, C.WEIGHT), "blue")
 
         ############################################
         # 3. mark edges as 'visited'

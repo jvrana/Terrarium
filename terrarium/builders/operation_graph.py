@@ -4,14 +4,15 @@ from typing import Sequence
 from .utils import match_afts
 from .hashes import internal_aft_hash
 import networkx as nx
-from terrarium.adapters.aquarium.requester import DataRequester
+from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
+from terrarium import constants as C
 
 
 class OperationGraphBuilder(BuilderABC):
     def __init__(
         self,
-        requester: DataRequester,
+        requester: AdapterABC,
         blueprint_graph: AFTGraph,
         sample_graph: SampleGraph,
     ):
@@ -36,7 +37,7 @@ class OperationGraphBuilder(BuilderABC):
     @classmethod
     def collect_sample_ids(cls, sample_graph: SampleGraph) -> Sequence[int]:
         sample_ids = [
-            ndata["primary_key"] for _, ndata in sample_graph.model_data("Sample")
+            ndata[C.PRIMARY_KEY] for _, ndata in sample_graph.model_data("Sample")
         ]
         return sorted(list(set(sample_ids)))
 
@@ -46,7 +47,7 @@ class OperationGraphBuilder(BuilderABC):
             if ndata["sample_type_id"] == sample["sample_type_id"]:
                 nbunch.append(n)
         subgraph = self.blueprint_graph.subgraph(nbunch)
-        subgraph.add_prefix("Sample{}_".format(sample["primary_key"]))
+        subgraph.add_prefix("Sample{}_".format(sample[C.PRIMARY_KEY]))
         for _, ndata in subgraph.node_data():
             ndata["sample"] = sample
         return subgraph
@@ -54,7 +55,7 @@ class OperationGraphBuilder(BuilderABC):
     def sample_subgraph_dict(self):
         sample_graphs = {}
         for nid, sample_data in self.sample_graph.model_data("Sample"):
-            sample_graphs[sample_data["primary_key"]] = self.sample_subgraph(
+            sample_graphs[sample_data[C.PRIMARY_KEY]] = self.sample_subgraph(
                 sample_data
             )
         return sample_graphs
@@ -109,14 +110,15 @@ class OperationGraphBuilder(BuilderABC):
 
         graph = OperationGraph()
         graph.schemas[0].update({"sample": dict})
-        graph.graph = nx.compose_all([sg.graph for sg in sample_graphs.values()])
+        composed = nx.compose_all([sg.graph for sg in sample_graphs.values()])
+        graph.set_graph(composed, validate=False)
 
         for x in self.sample_graph.edges():
             s1 = self.sample_graph.get_data(x[0])
             s2 = self.sample_graph.get_data(x[1])
 
-            g1 = sample_graphs[s1["primary_key"]]
-            g2 = sample_graphs[s2["primary_key"]]
+            g1 = sample_graphs[s1[C.PRIMARY_KEY]]
+            g2 = sample_graphs[s2[C.PRIMARY_KEY]]
             edges = self.connect_sample_graphs(g1, g2)
             for e in edges:
                 n1 = g1.node_id(e[0])
@@ -126,7 +128,9 @@ class OperationGraphBuilder(BuilderABC):
                     self.blueprint_graph.node_id(e[1]),
                 )
                 graph.add_edge(
-                    n1, n2, weight=edge["weight"], edge_type="sample_to_sample"
+                    n1,
+                    n2,
+                    **{C.WEIGHT: edge[C.WEIGHT], C.EDGE_TYPE: C.SAMPLE_TO_SAMPLE}
                 )
         return graph
 
@@ -168,4 +172,4 @@ class OperationGraphBuilder(BuilderABC):
             graph.add_data(n)
 
         for item, node in new_edges:
-            graph.add_edge_from_models(item, node, weight=0)
+            graph.add_edge_from_models(item, node, **{C.WEIGHT: 0})

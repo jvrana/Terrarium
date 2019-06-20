@@ -6,7 +6,7 @@ from terrarium.builders import (
     OperationBlueprintBuilder,
     OperationGraphBuilder,
 )
-from terrarium.adapters import DataRequester
+from terrarium.adapters import AquariumAdapter
 
 
 EXAMPLE_SAMPLE_ID = 27608
@@ -33,7 +33,7 @@ def graph(base_session, example_sample):
     if not isfile(filepath):
         with base_session.with_cache(timeout=TIMEOUT) as sess:
             s = example_sample
-            requester = DataRequester(sess)
+            requester = AquariumAdapter(sess)
 
             sample_builder = SampleGraphBuilder(requester)
             blueprint_builder = OperationBlueprintBuilder(requester)
@@ -42,7 +42,7 @@ def graph(base_session, example_sample):
             blueprint = blueprint_builder.build(NUM_PLANS)
 
             builder = OperationGraphBuilder(
-                DataRequester(sess), blueprint, sample_graph
+                AquariumAdapter(sess), blueprint, sample_graph
             )
             graph = builder.build_basic_graph()
             builder.assign_inventory(graph, part_limit=50)

@@ -15,7 +15,7 @@ def get_edges_from_path(path):
     return zip(path[:-1], path[1:])
 
 
-def get_path_weights(graph, path, weight="weight"):
+def get_path_weights(graph, path, weight):
     edge_weights = []
     for e1, e2 in get_edges_from_path(path):
         edge = graph.edges[e1, e2]
@@ -23,7 +23,7 @@ def get_path_weights(graph, path, weight="weight"):
     return edge_weights
 
 
-def get_path_length(graph, path, weight="weight"):
+def get_path_length(graph, path, weight):
     length = 0
     for e1, e2 in get_edges_from_path(path):
         edge = graph.edges[e1, e2]

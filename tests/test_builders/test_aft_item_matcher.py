@@ -8,7 +8,7 @@ class TestMatchAFT(object):
     def aft_data(self, session):
         aft = session.AllowableFieldType.one()
         aft_data = aft.dump(include={"field_type"})
-        aft_data["field_type"]["part"] = aft_data["field_type"]["part"] == True
+        aft_data["field_type"]["part"] = aft_data["field_type"]["part"] is True
         return aft_data
 
     @pytest.fixture

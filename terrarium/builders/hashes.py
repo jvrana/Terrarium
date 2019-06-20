@@ -1,3 +1,4 @@
+from terrarium import constants as C
 from uuid import uuid4
 
 
@@ -10,7 +11,7 @@ def external_aft_hash(aft):
     if not aft["field_type_id"]:
         return str(uuid4())
     return make_hash(
-        aft["__class__"],
+        aft[C.MODEL_CLASS],
         aft["object_type_id"],
         aft["sample_type_id"],
         aft["field_type"]["part"] is True,
@@ -18,7 +19,7 @@ def external_aft_hash(aft):
 
 
 def internal_aft_hash(aft):
-    return make_hash(aft["__class__"], aft["field_type"]["parent_id"])
+    return make_hash(aft[C.MODEL_CLASS], aft["field_type"]["parent_id"])
 
 
 def edge_hash(pair):
