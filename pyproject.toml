@@ -1,12 +1,16 @@
 [tool.poetry]
-name = "terrarium"
-version = "0.0.0"
+name = "terrarium-capp"
+version = "0.0.1"
 description = "Adaptive Computer Aided Process Planner"
 authors = ["Justin Vrana <justin.vrana@gmail.com>"]
 homepage = "https://www.github.com/jvrana/Terrarium"
 repository = "https://www.github.com/jvrana/Terrarium"
 documentation = "https://www.github.com/jvrana/Terrarium"
 readme = 'README.md'
+packages = [
+    { include = "terrarium", from = "." },
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -23,6 +27,7 @@ pytest = "^4.6"
 pre-commit = "^1.17"
 vcrpy = "^2.0"
 pytest-cov = "^2.7"
+toml = "^0.10.0"
 
 [tool.poetry.scripts]
 upver = 'terrarium:_version.pull_version'

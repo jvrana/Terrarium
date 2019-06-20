@@ -1,47 +1,34 @@
-import json
+import toml
 from os.path import dirname, abspath, join
+import json
 from os import getenv
 import sys
-from configparser import ConfigParser
 
-VERSION_JSON_PATH = "version.json"
-VERSION_TOML = "pyproject.toml"
-VERSION_KEY = "tool.poetry"
-VERSION_DIR = dirname(abspath(__file__))
+here = dirname(abspath(__file__))
+INPATH = join(here, "../../pyproject.toml")
+OUTPATH = join(here, "version.json")
 
 
 def pull_version():
     """Pulls version from pyproject.toml and moves to version JSON"""
-    rel_dir = join(VERSION_DIR, "..", "..")
-    config_filename = join(rel_dir, VERSION_TOML)
-
-    config = ConfigParser()
-    config.read(config_filename)
-    print(config)
-    ver_data = dict(config[VERSION_KEY])
-
-    clean = lambda s: s.replace('"', "").replace('"', "")
-
-    for k, v in ver_data.items():
-        ver_data[k] = clean(v)
-
-    target_path = join(VERSION_DIR, VERSION_JSON_PATH)
+    config = toml.load(INPATH)
+    ver_data = dict(config["tool"]["poetry"])
     try:
-        with open(target_path, "r") as f:
+        with open(OUTPATH, "r") as f:
             print(">> Previous Version:")
             print(f.read())
     except:
         pass
 
-    with open(target_path, "w") as f:
-        print("<< New Version (path={}):".format(target_path))
+    with open(OUTPATH, "w") as f:
+        print("<< New Version (path={}):".format(OUTPATH))
         print(json.dumps(ver_data, indent=2))
         json.dump(ver_data, f, indent=2)
 
 
 def parse_version():
     """Parses version JSON"""
-    with open(join(VERSION_DIR, VERSION_JSON_PATH), "r") as f:
+    with open(join(OUTPATH), "r") as f:
         ver = json.load(f)
     return ver
 
