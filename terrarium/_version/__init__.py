@@ -59,6 +59,12 @@ def get_version():
     return v
 
 
+def get_name():
+    name = ver["name"]
+    print(name)
+    return name
+
+
 def verify_ci():
     tag = getenv("CIRCLE_TAG")
 

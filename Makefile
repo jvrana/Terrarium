@@ -5,6 +5,11 @@ init:
 	poetry install
 	poetry run pre-commit install
 
+docs:
+    echo "No documentation"
 
 format:
 	poetry run black terrarium tests
+
+release:
+    sh scripts/quick_release.sh
