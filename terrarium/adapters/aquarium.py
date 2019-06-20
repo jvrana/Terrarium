@@ -143,9 +143,9 @@ class AquariumAdapter(AdapterABC):
             Serializer.serialize(part, include="collections") for part in parts_list
         ]
 
-    def collect_afts_from_plans(self, num):
+    def collect_afts_from_plans(self, plans):
         with self.session.with_cache(timeout=60) as sess:
-            sess.Plan.last(num)
+            sess.browser.update_cache(plans)
             sess.browser.get("Plan", {"operations": {"field_values"}})
             sess.browser.get("Wire", {"source", "destination"})
             sess.browser.get("FieldValue", {"allowable_field_type": "field_type"})
