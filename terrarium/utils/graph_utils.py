@@ -1,4 +1,5 @@
 import networkx as nx
+from more_itertools import windowed, unique_justseen
 
 
 def get_roots(G, nbunch=None):
@@ -42,3 +43,21 @@ def iter_top_paths(
                     path_length = get_path_length(graph, path)
                     if path_length <= cutoff:
                         yield path_length, path
+
+
+def top_paths(G, include_nodes, weight_key):
+    """
+
+
+        :param G: a nx.DiGraph
+        :param include_nodes: list of nodes to include in the path
+        :param weight_key: weight key
+        :return:
+        """
+
+    path = []
+    cost = 0
+    for start, end in windowed(include_nodes, 2):
+        path += nx.dijkstra_path(G, start, end, weight=weight_key)
+        cost += nx.dijkstra_path_length(G, start, end, weight=weight_key)
+    return cost, list(unique_justseen(path))

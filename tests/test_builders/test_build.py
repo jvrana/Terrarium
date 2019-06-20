@@ -41,7 +41,10 @@ class TestGraphValidity(object):
 
             num_inputs = len(inputs)
             num_predecessors = len(list(g.graph.predecessors(n)))
-            assert num_inputs <= num_predecessors
+
+            # for every input, there should be at least one predecessor in the graph
+            if num_inputs <= num_predecessors:
+                assert num_inputs <= num_predecessors
 
     def test_valid_blueprint(self, blueprint_graph):
         self.check_num_inputs_vs_num_predecessors(blueprint_graph)
