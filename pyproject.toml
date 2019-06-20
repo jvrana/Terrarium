@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terrarium"
-version = "0.1.0"
+version = "1.0.0a"
 description = ""
 authors = ["Justin Vrana <justin.vrana@gmail.com>"]
 
@@ -18,6 +18,10 @@ pytest = "^4.6"
 pre-commit = "^1.17"
 vcrpy = "^2.0"
 pytest-cov = "^2.7"
+
+[tool.poetry.scripts]
+upver = 'pydent:_version.pull_version'
+version = 'pydent:_version.get_version'
 
 [build-system]
 requires = ["poetry>=0.12"]
