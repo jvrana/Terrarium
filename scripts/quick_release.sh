@@ -97,8 +97,6 @@ echo $msg
 
 if [ "$PUBLISH" == 1 ]; then
     git tag $TAG
-    git push
-    git push origin $TAG
 else
     echo "skipping tagging"
 fi
@@ -111,7 +109,7 @@ echo "4/$STEPS Publishing"
 echo "********************"
 
 if [ "$REPO" != "" -a "$PUBLISH" == 1 ]; then
-    poetry publish --build
+    poetry publish
 else
     echo "Skipping publishing"
 fi
