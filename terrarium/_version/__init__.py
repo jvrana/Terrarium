@@ -17,6 +17,7 @@ def pull_version():
 
     config = ConfigParser()
     config.read(config_filename)
+    print(config)
     ver_data = dict(config[VERSION_KEY])
 
     clean = lambda s: s.replace('"', "").replace('"', "")

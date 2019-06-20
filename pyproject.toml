@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "terrarium"
 version = "1.0.0a"
-description = ""
+description = "Adaptive Computer Aided Process Planner"
 authors = ["Justin Vrana <justin.vrana@gmail.com>"]
+homepage = "https://www.github.com/jvrana/Terrarium"
+repository = "https://www.github.com/jvrana/Terrarium"
+documentation = "https://www.github.com/jvrana/Terrarium"
+readme = 'README.md'
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -20,8 +24,8 @@ vcrpy = "^2.0"
 pytest-cov = "^2.7"
 
 [tool.poetry.scripts]
-upver = 'pydent:_version.pull_version'
-version = 'pydent:_version.get_version'
+upver = 'terrarium:_version.pull_version'
+version = 'terrarium:_version.get_version'
 
 [build-system]
 requires = ["poetry>=0.12"]
