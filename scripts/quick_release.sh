@@ -119,8 +119,14 @@ echo "********************"
 echo "4/$STEPS Publishing"
 echo "********************"
 
+
 if [ "$REPO" != "" -a "$PUBLISH" == 1 ]; then
-    poetry publish
+    echo
+    echo "$COLOR Publish? (y/n)?"
+    read continue
+    if [ "$continue" == "y" ]; then
+        poetry publish
+    fi
 else
     echo "Skipping publishing"
 fi
