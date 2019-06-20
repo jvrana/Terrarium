@@ -103,7 +103,7 @@ fi
 
 echo "Push changes to github (y/n)?"
 read continue
-if [ "$continue" != "y" ]; then
+if [ "$continue" == "y" ]; then
     git push
     git push $TAG
 fi
