@@ -1,0 +1,1 @@
+1. consider using PyMongoDB to store data from 
