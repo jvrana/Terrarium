@@ -111,7 +111,7 @@ echo "4/$STEPS Publishing"
 echo "********************"
 
 if [ "$REPO" != "" -a "$PUBLISH" == 1 ]; then
-    poetry publish -r $REPO --build
+    poetry publish --build
 else
     echo "Skipping publishing"
 fi
