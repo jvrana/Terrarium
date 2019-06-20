@@ -29,10 +29,10 @@ done
 
 
 if [ "$ARGVER" != "" ]; then
-    cmsg="Releasing version $NAME $ARGVER (publish=$PUBLISH, repo=$REPO) Continue (y/n)?"
+    cmsg="Releasing version $NAME $ARGVER (publish=$PUBLISH, repo=$REPO) Continue (y/[n])?"
 else
     current=$(poetry run version)
-    cmsg="Bumping version $NAME $current (publish=$PUBLISH, repo=$REP). Continue (y/n)?"
+    cmsg="Bumping version $NAME $current (publish=$PUBLISH, repo=$REP). Continue (y/[n])?"
 fi
 
 echo "$COLOR $cmsg"
@@ -106,7 +106,7 @@ else
 fi
 
 echo
-echo "$COLOR Push changes to github (y/n)?"
+echo "$COLOR Push changes to github (y/[n])?"
 read continue
 if [ "$continue" == "y" ]; then
     git push
@@ -122,7 +122,7 @@ echo "********************"
 
 if [ "$REPO" != "" -a "$PUBLISH" == 1 ]; then
     echo
-    echo "$COLOR Publish? (y/n)?"
+    echo "$COLOR Publish? (y/[n])?"
     read continue
     if [ "$continue" == "y" ]; then
         poetry publish
