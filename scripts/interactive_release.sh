@@ -30,6 +30,9 @@ if [ "$input" == "y" ]; then
 fi
 
 if [ "$COMMIT" == 1 ]; then
+    printf "$CINPUT Add a commit message prefix?: $END"
+    read PREFIX
+
     printf "$CINPUT Push changes to github (y/[n]): $END"
     read input
     if [ "$input" == "y" ]; then
@@ -52,8 +55,8 @@ STEPS=4
 # formatting
 printf "\n$SEP formatting code $SEP\n"
 
-msg="$CINFO formatting for release $VERSION $END\n"
-printf $msg
+msg="$PREFIX - formatting for release $VERSION"
+printf "$CINFO $msg $END\n"
 make format
 if [ "$COMMIT" == 1 ]; then
     git add .
@@ -65,7 +68,8 @@ fi
 
 # update docs
 printf "\n$SEP updating documentation $SEP\n"
-msg="$CINFO updating docs for release $VERSION $END\n"
+msg="$PREFIX - updating docs for release $VERSION "
+printf "$CINFO $msg $END\n"
 printf $msg
 make docs
 
