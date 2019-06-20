@@ -41,9 +41,7 @@ def graph(base_session, example_sample):
             sample_graph = sample_builder.build([s])
             blueprint = blueprint_builder.build(NUM_PLANS)
 
-            builder = OperationGraphBuilder(
-                AquariumAdapter(sess), blueprint, sample_graph
-            )
+            builder = OperationGraphBuilder(AquariumAdapter(sess))
             graph = builder.build_basic_graph()
             builder.assign_inventory(graph, part_limit=50)
         graph.write(filepath)

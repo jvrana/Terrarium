@@ -9,26 +9,39 @@ from abc import abstractmethod
 from terrarium import constants as C
 
 
+class BlueprintException(Exception):
+    pass
+
+
 class BlueprintBuilderABC(BuilderABC):
     """
     A blueprint builder that constructs a graph of all possible deployed operations
     """
 
-    @abstractmethod
-    def collect(self):
-        raise NotImplementedError
+    def __init__(self, adapter):
+        assert hasattr(adapter, "collect_deployed_afts")
+        assert hasattr(adapter, "collect_afts_from_plans")
+        super().__init__(adapter)
+        self.collected_data = None
+        self.deployed_nodes = None
+        self.graph = None
+
+    def collect(self, *args, **kwargs):
+        self.collected_data = self.adapter.collect_afts_from_plans(*args, **kwargs)
+
+    def collect_deployed(self, *args, **kwargs):
+        self.deployed_nodes = self.adapter.collect_deployed_afts(*args, **kwargs)
 
     @abstractmethod
-    def update(self, data):
+    def update(self, *args, **kwargs):
         raise NotImplementedError
 
     @abstractmethod
     def edge_cost(self, src: dict, dest: dict) -> float:
         raise NotImplementedError
 
-    # TODO: change edge_type to a constant
-    # TODO: change aft to something else like iof for iofilter
-    def build_template_graph(self, all_nodes: Sequence[dict]) -> AFTGraph:
+    def build_template_graph(self) -> AFTGraph:
+        all_nodes = self.deployed_nodes
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [
             aft for aft in all_nodes if aft["field_type"]["role"] == "output"
@@ -54,17 +67,25 @@ class BlueprintBuilderABC(BuilderABC):
             graph.add_edge_from_models(
                 aft1, aft2, **{C.WEIGHT: cost, C.EDGE_TYPE: C.INTERNAL_EDGE}
             )
+        self.graph = graph
         return graph
 
-    def build(self, num_plans):
-        self.update(self.collect(num_plans))
-        all_nodes = self.requester.collect_deployed_afts()
-        return self.build_template_graph(all_nodes)
+    def build(self):
+        if not self.collected_data:
+            raise BlueprintException(
+                "Please run {} to build.".format(self.collect.__name__)
+            )
+        if not self.deployed_nodes:
+            raise BlueprintException(
+                "Please run {} to build.".format(self.collect_deployed.__name__)
+            )
+        self.update()
+        return self.build_template_graph()
 
 
 class OperationBlueprintBuilder(BlueprintBuilderABC):
-    def __init__(self, requester: AdapterABC):
-        super().__init__(requester)
+    def __init__(self, adapter: AdapterABC):
+        super().__init__(adapter)
         self.edge_counter = GroupCounter()
         self.node_counter = GroupCounter()
         self.edge_counter.group(0, edge_hash)
@@ -87,11 +108,7 @@ class OperationBlueprintBuilder(BlueprintBuilderABC):
         n = self.node_counter.get(0, src, default=0)
         return self.cost_function(n, e)
 
-    def collect(self, num_plans):
-        nodes, edges = self.requester.collect_afts_from_plans(num_plans)
-        return nodes, edges
-
-    def update(self, data):
-        node_data, edge_data = data
+    def update(self):
+        node_data, edge_data = self.collected_data
         self.node_counter.update(node_data)
         self.edge_counter.update(edge_data)

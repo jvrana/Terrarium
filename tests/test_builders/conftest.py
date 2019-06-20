@@ -1,9 +1,5 @@
 import pytest
-from terrarium.builders import (
-    SampleGraphBuilder,
-    OperationBlueprintBuilder,
-    OperationGraphBuilder,
-)
+from terrarium.builders import OperationBlueprintBuilder, OperationGraphBuilder
 from terrarium.adapters import AquariumAdapter
 from copy import deepcopy
 
@@ -17,25 +13,27 @@ def example_sample(base_session):
 
 @pytest.fixture(scope="module")
 def sample_graph(base_session, example_sample):
-    session = base_session.with_cache(timeout=60)
-    session.set_verbose(True)
+
     s = example_sample
-
-    builder = SampleGraphBuilder(AquariumAdapter(session))
-
-    sample_graph = builder.build([s])
-    yield sample_graph
+    with base_session.with_cache(timeout=60) as sess:
+        adapter = AquariumAdapter(sess)
+        sample_graph = adapter.build_sample_graph([s])
+    return sample_graph
 
 
 @pytest.fixture(scope="module")
 def blueprint_graph(base_session, sample_graph):
     with base_session.with_cache(timeout=60) as sess:
-        blueprint = OperationBlueprintBuilder(AquariumAdapter(sess)).build(30)
-    return blueprint
+        adapter = AquariumAdapter(sess)
+        blueprint = OperationBlueprintBuilder(AquariumAdapter(sess))
+        blueprint.collect_deployed()
+        plans = adapter.session.Plan.last(30)
+        blueprint.collect(plans)
+        return blueprint.build()
 
 
 @pytest.fixture(scope="module")
-def build_basic_graph(base_session, sample_graph, blueprint_graph):
+def build_basic_graph(base_session, blueprint_graph, sample_graph):
     sess = base_session.with_cache(timeout=60)
     builder = OperationGraphBuilder(
         AquariumAdapter(sess), blueprint_graph, sample_graph

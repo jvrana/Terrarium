@@ -7,18 +7,33 @@ import networkx as nx
 from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
 from terrarium import constants as C
+from functools import wraps
+
+
+class OperationGraphException(Exception):
+    pass
+
+
+def needs_sample_graph(f):
+    @wraps(f)
+    def wrapped(self, *args, **kwargs):
+        if self.sample_graph is None:
+            raise OperationGraphException(
+                "Sample graph is missing. Run {}".format(self.build_sample_graph)
+            )
+        return f(self, *args, **kwargs)
+
+    return wrapped
 
 
 class OperationGraphBuilder(BuilderABC):
-    def __init__(
-        self,
-        requester: AdapterABC,
-        blueprint_graph: AFTGraph,
-        sample_graph: SampleGraph,
-    ):
-        super().__init__(requester)
+    def __init__(self, adapter: AdapterABC, blueprint_graph, sample_graph=None):
+        super().__init__(adapter)
         self.blueprint_graph = blueprint_graph
         self.sample_graph = sample_graph
+
+    def build_sample_graph(self, *args, **kwargs):
+        self.adapter.build_sample_graph(*args, **kwargs)
 
     @classmethod
     def connect_sample_graphs(cls, g1: SampleGraph, g2: SampleGraph) -> Sequence[tuple]:
@@ -52,6 +67,7 @@ class OperationGraphBuilder(BuilderABC):
             ndata["sample"] = sample
         return subgraph
 
+    @needs_sample_graph
     def sample_subgraph_dict(self):
         sample_graphs = {}
         for nid, sample_data in self.sample_graph.model_data("Sample"):
@@ -105,6 +121,7 @@ class OperationGraphBuilder(BuilderABC):
         graph = self.build_basic_graph()
         self.assign_inventory(graph)
 
+    @needs_sample_graph
     def build_basic_graph(self) -> OperationGraph:
         sample_graphs = self.sample_subgraph_dict()
 
@@ -134,11 +151,12 @@ class OperationGraphBuilder(BuilderABC):
                 )
         return graph
 
+    @needs_sample_graph
     def assign_inventory(self, graph: OperationGraph, part_limit=50):
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         sample_ids = self.collect_sample_ids(self.sample_graph)
-        item_data = self.requester.collect_items(afts, sample_ids)
-        part_data = self.requester.collect_parts(sample_ids, lim=part_limit)
+        item_data = self.adapter.collect_items(afts, sample_ids)
+        part_data = self.adapter.collect_parts(sample_ids, lim=part_limit)
 
         item_dict = multi_group_by_key(item_data, keys=["object_type_id", "sample_id"])
         part_dict = multi_group_by(

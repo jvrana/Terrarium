@@ -40,7 +40,9 @@ if [ "$COMMIT" == 1 ]; then
     fi
 fi
 
-printf "$CINPUT Publishing repo (or skip): $END"
+printf "$CINPUT Would you like to publish this package to a repo?$END\n"
+printf "$CINPUT New repos can be configures using $CINFO 'poetry config repositories.<reponame> <url>' $END\n"
+printf "$CINPUT Repository name (default: pypi): $END"
 read input
 if [ "$input" != "" ]; then
     REPO=$input
