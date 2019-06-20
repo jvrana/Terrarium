@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terrarium"
-version = "1.0.0a"
+version = "1.0.0"
 description = "Adaptive Computer Aided Process Planner"
 authors = ["Justin Vrana <justin.vrana@gmail.com>"]
 homepage = "https://www.github.com/jvrana/Terrarium"
@@ -26,6 +26,7 @@ pytest-cov = "^2.7"
 [tool.poetry.scripts]
 upver = 'terrarium:_version.pull_version'
 version = 'terrarium:_version.get_version'
+name = 'terrarium:_version.get_name'
 
 [build-system]
 requires = ["poetry>=0.12"]
