@@ -12,4 +12,4 @@ format:
 	poetry run black terrarium tests
 
 release:
-	sh scripts/quick_release.sh
+	sh scripts/interactive_release.sh
