@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+echo "Default \e[46mCyan"
+
 ARGVER=""
 PUBLISH=0
 REPO="pypi"
 
-COLOR="\e[92m"
+COLOR=""
 while [ "$1" != "" ]; do
     case $1 in
         -v | --version )        shift
@@ -33,10 +35,10 @@ else
     cmsg="Bumping version $NAME $current (publish=$PUBLISH, repo=$REP). Continue (y/n)?"
 fi
 
-echo -e "$COLOR $cmsg"
+echo "$COLOR $cmsg"
 read continue
 if [ "$continue" != "y" ]; then
-    echo -e "Canceled by user"
+    echo "Canceled by user"
     exit 0
 fi
 
@@ -47,7 +49,7 @@ VER=$(poetry run version)
 TAG=v$VER
 
 if [ "$ARGVER" != "" -a "$VER" != "$ARGVER" ]; then
-    echo -e "ERROR: Package version $VER does not match argument version $ARGVER"
+    echo "ERROR: Package version $VER does not match argument version $ARGVER"
     exit 1
 fi
 
@@ -58,53 +60,53 @@ STEPS=4
 
 # formatting
 echo
-echo -e "********************"
-echo -e "1/$STEPS FORMATTING"
-echo -e "********************"
+echo "********************"
+echo "1/$STEPS FORMATTING"
+echo "********************"
 msg="formatting for release $VER"
-echo -e $msg
+echo $msg
 make format
 if [ "$PUBLISH" == 1 ]; then
     git add .
     git commit -m "$msg"
-    echo -e "$?"
+    echo "$?"
 else
-    echo -e "skipping format commit"
+    echo "skipping format commit"
 fi
 
 # update docs
 echo
-echo -e "********************"
-echo -e "2/$STEPS DOCUMENTATION"
-echo -e "********************"
+echo "********************"
+echo "2/$STEPS DOCUMENTATION"
+echo "********************"
 msg="updating docs for release $VER"
-echo -e $msg
+echo $msg
 make docs
 
 if [ "$PUBLISH" == 1 ]; then
     git add .
     git commit -m "$msg"
 else
-    echo -e "skipping document commit"
+    echo "skipping document commit"
 fi
 
 # tagging
 echo
-echo -e "********************"
-echo -e "3/$STEPS DOCUMENTATION"
-echo -e "********************"
+echo "********************"
+echo "3/$STEPS DOCUMENTATION"
+echo "********************"
 msg="tagging $TAG"
-echo -e $msg
+echo $msg
 
 
 if [ "$PUBLISH" == 1 ]; then
     git tag $TAG
 else
-    echo -e "skipping tagging"
+    echo "skipping tagging"
 fi
 
 echo
-echo -e "$COLOR Push changes to github (y/n)?"
+echo "$COLOR Push changes to github (y/n)?"
 read continue
 if [ "$continue" == "y" ]; then
     git push
@@ -113,12 +115,12 @@ fi
 
 # releasing
 echo
-echo -e "********************"
-echo -e "4/$STEPS Publishing"
-echo -e "********************"
+echo "********************"
+echo "4/$STEPS Publishing"
+echo "********************"
 
 if [ "$REPO" != "" -a "$PUBLISH" == 1 ]; then
     poetry publish
 else
-    echo -e "Skipping publishing"
+    echo "Skipping publishing"
 fi
