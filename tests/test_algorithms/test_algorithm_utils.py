@@ -29,7 +29,6 @@ class TestGraphUtils(object):
 
     def test_extract_root_operations(self, graph):
         nodes = list(iter_root_operations(graph))
-        assert nodes
 
     def test_extract_items(self, graph):
         nodes = list(iter_root_items(graph))
@@ -37,4 +36,3 @@ class TestGraphUtils(object):
 
     def test_extract_end_nodes(self, session, graph):
         nodes = list(iter_end_nodes(graph, 1, 1))
-        assert nodes
