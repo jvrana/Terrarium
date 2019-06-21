@@ -1,14 +1,10 @@
-from terrarium.algorithms import (
-    Algorithms,
+from terrarium.algorithms import Algorithms
+from terrarium.algorithms.utils import (
     input_groups,
-    top_paths,
-    extract_root_operations,
     iter_root_items,
+    iter_root_operations,
     iter_end_nodes,
 )
-
-import networkx as nx
-import pytest
 
 
 def test_main(graph):
@@ -22,8 +18,8 @@ def test_algorithm(base_session, graph, example_sample):
     # G = cleaned.graph
     G = graph.graph
 
-    start_item_nodes = iter_root_items(graph)
-    start_op_nodes = extract_root_operations(graph)
+    start_item_nodes = list(iter_root_items(graph))
+    start_op_nodes = list(iter_root_operations(graph))
     start_nodes = start_item_nodes + start_op_nodes
 
     with base_session() as sess:

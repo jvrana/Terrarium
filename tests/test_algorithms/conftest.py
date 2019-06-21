@@ -1,11 +1,7 @@
 from os.path import dirname, join, abspath, isfile
 import pytest
 from terrarium.graphs import OperationGraph
-from terrarium.builders import (
-    SampleGraphBuilder,
-    OperationBlueprintBuilder,
-    OperationGraphBuilder,
-)
+from terrarium.builders import OperationBlueprintBuilder, OperationGraphBuilder
 from terrarium.adapters import AquariumAdapter
 
 

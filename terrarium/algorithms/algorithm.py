@@ -18,7 +18,7 @@ class Algorithms(object):
             if output_node:
                 through_nodes.append(output_node)
             try:
-                cost, path = top_paths(G, through_nodes, "weight")
+                cost, path = graph_utils.top_paths(G, through_nodes, "weight")
             except nx.exception.NetworkXNoPath:
                 continue
             paths.append((cost, path))

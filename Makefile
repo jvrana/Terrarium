@@ -1,5 +1,6 @@
 
 init:
+	pip install pip -U
 	curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 	poetry self:update
 	poetry install
