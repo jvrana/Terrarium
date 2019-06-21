@@ -31,16 +31,30 @@ def graph(base_session, example_sample):
             s = example_sample
             requester = AquariumAdapter(sess)
 
-            sample_builder = SampleGraphBuilder(requester)
-            blueprint_builder = OperationBlueprintBuilder(requester)
+            adapter = AquariumAdapter(sess)
+            blueprint = OperationBlueprintBuilder(AquariumAdapter(sess))
+            blueprint.collect_deployed()
+            plans = adapter.session.Plan.last(500)
+            blueprint.collect(plans)
+            blueprint_graph = blueprint.build()
 
-            sample_graph = sample_builder.build([s])
-            blueprint = blueprint_builder.build(NUM_PLANS)
+            s = example_sample
+            with base_session.with_cache(timeout=60) as sess:
+                adapter = AquariumAdapter(sess)
+                sample_graph = adapter.build_sample_graph([s])
 
-            builder = OperationGraphBuilder(AquariumAdapter(sess))
+            builder = OperationGraphBuilder(
+                AquariumAdapter(sess), blueprint_graph, sample_graph
+            )
+
             graph = builder.build_basic_graph()
-            builder.assign_inventory(graph, part_limit=50)
+        sample_graph.write_gexf(join(data_path, "sample_graph.gexf"))
+
         graph.write(filepath)
+        graph.write_gexf(join(data_path, "operation_graph.gexf"))
+
+        blueprint_graph.write(join(data_path, "blueprint.json"))
+        blueprint_graph.write_gexf(join(data_path, "blueprint.gexf"))
     else:
         graph = OperationGraph.read(filepath)
     return graph

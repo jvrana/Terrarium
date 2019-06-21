@@ -3,10 +3,11 @@ import json
 from terrarium.schemas.validate import validate_with_schema, validate_with_schema_errors
 from terrarium.exceptions import SchemaValidationError
 from copy import deepcopy
+from terrarium.utils import flatten_json
 
 
 class GraphBase(object):
-    def __init__(self, name=None, graph_class=nx.DiGraph, graph=None):
+    def __init__(self, name="", graph_class=nx.DiGraph, graph=None):
         self._graph = None
         if graph is not None:
             graph_class = graph.__class__
@@ -113,6 +114,26 @@ class GraphBase(object):
     def write(self, path):
         with open(path, "w") as f:
             json.dump(self.json(), f)
+
+    def write_gexf(self, path):
+        graph_copy = self.graph.copy()
+        for n, ndata in graph_copy.nodes(data=True):
+            flattened = flatten_json(ndata)
+            for k, v in flattened.items():
+                if v is None:
+                    flattened[k] = "None"
+            ndata.clear()
+            ndata.update(flattened)
+        for e1, e2, edata in graph_copy.edges.data():
+            flattened = flatten_json(edata)
+            for k, v in flattened.items():
+                if v is None:
+                    flattened[k] = "None"
+            edata.clear()
+            edata.update(flattened)
+        if graph_copy.name is None:
+            graph_copy.name = ""
+        nx.write_gexf(graph_copy, path)
 
     @classmethod
     def read(cls, path):

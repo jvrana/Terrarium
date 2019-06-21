@@ -80,8 +80,8 @@ class AquariumAdapter(AdapterABC):
             for fv in sample.field_values:
                 if fv.sample:
                     parent_samples.append(fv.sample)
-                    m1 = model_serializer(sample)
-                    m2 = model_serializer(fv.sample)
+                    m1 = model_serializer(fv.sample)
+                    m2 = model_serializer(sample)
                     g.add_edge_from_models(m1, m2)
 
         browser = sample.session.browser
@@ -156,9 +156,17 @@ class AquariumAdapter(AdapterABC):
             ]
             edges = []
             for w in sess.browser.get("Wire"):
-                src_aft = Serializer.serialize_aft(w.source.allowable_field_type)
-                dest_aft = Serializer.serialize_aft(w.destination.allowable_field_type)
-                edges.append((src_aft, dest_aft))
+                if (
+                    w.source
+                    and w.source.allowable_field_type
+                    and w.destination
+                    and w.destination.allowable_field_type
+                ):
+                    src_aft = Serializer.serialize_aft(w.source.allowable_field_type)
+                    dest_aft = Serializer.serialize_aft(
+                        w.destination.allowable_field_type
+                    )
+                    edges.append((src_aft, dest_aft))
         return nodes, edges
 
     def collect_deployed_afts(self):
