@@ -42,3 +42,22 @@ def multi_group_by_key(d, keys, valuefunc=None, reducefunc=None):
     return multi_group_by(
         d, [lambda x: x[k] for k in keys], valuefunc=valuefunc, reducefunc=reducefunc
     )
+
+
+def flatten_json(y, sep="."):
+    out = {}
+
+    def flatten(x, name=""):
+        if type(x) is dict:
+            for a in x:
+                flatten(x[a], name + a + sep)
+        elif type(x) is list:
+            i = 0
+            for a in x:
+                flatten(a, name + str(i) + sep)
+                i += 1
+        else:
+            out[name[:-1]] = x
+
+    flatten(y)
+    return out

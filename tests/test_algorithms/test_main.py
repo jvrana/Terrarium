@@ -20,14 +20,17 @@ def test_algorithm(base_session, graph, example_sample):
 
     start_item_nodes = list(iter_root_items(graph))
     start_op_nodes = list(iter_root_operations(graph))
-    start_nodes = start_item_nodes + start_op_nodes
+    start_nodes = [n for n, _ in start_item_nodes + start_op_nodes]
 
     with base_session() as sess:
         object_type = sess.ObjectType.find_by_name("Yeast Glycerol Stock")
+    end_nodes = [
+        n
+        for n, _ in iter_end_nodes(
+            graph, goal_object_type_id=object_type.id, goal_sample_id=example_sample.id
+        )
+    ]
 
-    end_nodes = iter_end_nodes(
-        graph, goal_object_type_id=object_type.id, goal_sample_id=example_sample.id
-    )
     group_assignments, groups = input_groups(graph)
     A.optimize_steiner_set_tree(
         G=G,
