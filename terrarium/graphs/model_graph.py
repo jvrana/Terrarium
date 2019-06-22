@@ -10,8 +10,10 @@ class ModelGraph(SchemaGraph):
 
     SCHEMAS = []
 
-    def __init__(self, name=None, graph=None):
-        super().__init__(self._get_model_id, name=name, graph=graph)
+    def __init__(self, name=None, graph=None, graph_class=None):
+        super().__init__(
+            self._get_model_id, name=name, graph=graph, graph_class=graph_class
+        )
         self.schemas = [s.copy() for s in self.SCHEMAS]
 
     @staticmethod

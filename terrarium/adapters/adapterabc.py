@@ -9,7 +9,7 @@ class AdapterABC(ABC):
         pass
 
     @abstractmethod
-    def collect_afts_from_plans(self):
+    def collect_data_from_plans(self):
         pass
 
     @abstractmethod

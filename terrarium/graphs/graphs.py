@@ -7,11 +7,20 @@ from terrarium.utils import flatten_json
 
 
 class GraphBase(object):
-    def __init__(self, name="", graph_class=nx.DiGraph, graph=None):
+
+    DEFAULT_GRAPH_CLASS = nx.DiGraph
+
+    def __init__(self, name="", graph_class=None, graph=None):
         self._graph = None
         if graph is not None:
-            graph_class = graph.__class__
-        self.graph = graph_class()
+            if graph_class is None:
+                self.graph = graph
+            else:
+                self.graph = graph_class(graph)
+        else:
+            if graph_class is None:
+                graph_class = self.DEFAULT_GRAPH_CLASS
+            self.graph = graph_class()
         self.graph.name = name
 
     @property
@@ -40,6 +49,10 @@ class GraphBase(object):
     @name.setter
     def name(self, n):
         self.graph.name = n
+
+    @property
+    def node(self):
+        return self.graph.node
 
     @property
     def nodes(self):
@@ -155,6 +168,9 @@ class GraphBase(object):
     def shallow_copy(self):
         return self.__class__(name=self.name, graph_class=self.graph.__class__)
 
+    def to(self, graph_class):
+        self.graph = graph_class(self.graph)
+
     def __contains__(self, item):
         return item in self.graph
 
@@ -180,7 +196,7 @@ class MapperGraph(GraphBase):
         value_func=None,
         data_key=None,
         name=None,
-        graph_class=nx.DiGraph,
+        graph_class=None,
         graph=None,
     ):
         self.value_func = value_func
@@ -237,8 +253,10 @@ class MapperGraph(GraphBase):
         s = self.key(data)
         return self.prefix + s + self.suffix
 
-    def add_data(self, model_data):
-        self.add_node(self.node_id(model_data), **{self.data_key: model_data})
+    def add_data(self, model_data, **kwargs):
+        data = {self.data_key: model_data}
+        data.update(kwargs)
+        self.add_node(self.node_id(model_data), **data)
 
     def get_data(self, node_id):
         return self.graph.nodes[node_id][self.data_key]
@@ -289,7 +307,7 @@ class SchemaGraph(MapperGraph):
         data_key=None,
         schemas=None,
         name=None,
-        graph_class=nx.DiGraph,
+        graph_class=None,
         graph=None,
     ):
         if schemas is None:

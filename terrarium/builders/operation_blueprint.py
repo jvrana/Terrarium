@@ -1,12 +1,13 @@
 from terrarium.utils import GroupCounter
 from .hashes import edge_hash, internal_aft_hash, external_aft_hash
-from typing import Sequence
 from terrarium.graphs import AFTGraph
 from terrarium.builders.utils import match_afts
 from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
 from abc import abstractmethod
 from terrarium import constants as C
+import networkx as nx
+from itertools import chain
 
 
 class BlueprintException(Exception):
@@ -20,14 +21,14 @@ class BlueprintBuilderABC(BuilderABC):
 
     def __init__(self, adapter):
         assert hasattr(adapter, "collect_deployed_afts")
-        assert hasattr(adapter, "collect_afts_from_plans")
+        assert hasattr(adapter, "collect_data_from_plans")
         super().__init__(adapter)
         self.collected_data = None
         self.deployed_nodes = None
         self.graph = None
 
     def collect(self, *args, **kwargs):
-        self.collected_data = self.adapter.collect_afts_from_plans(*args, **kwargs)
+        self.collected_data = self.adapter.collect_io_values_from_plans(*args, **kwargs)
 
     def collect_deployed(self, *args, **kwargs):
         self.deployed_nodes = self.adapter.collect_deployed_afts(*args, **kwargs)
@@ -39,6 +40,29 @@ class BlueprintBuilderABC(BuilderABC):
     @abstractmethod
     def edge_cost(self, src: dict, dest: dict) -> float:
         raise NotImplementedError
+
+    def init_graph(self):
+        all_nodes = self.deployed_nodes
+        input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
+        output_afts = [
+            aft for aft in all_nodes if aft["field_type"]["role"] == "output"
+        ]
+
+        external_edges = match_afts(output_afts, input_afts, external_aft_hash)
+        internal_edges = match_afts(input_afts, output_afts, internal_aft_hash)
+
+        graph = AFTGraph()
+        for aft1, aft2 in chain(internal_edges, external_edges):
+            graph.add_data(aft1)
+            graph.add_data(aft2)
+            graph.add_edge_from_models(
+                aft1, aft2, **{C.WEIGHT: None, C.EDGE_TYPE: C.EXTERNAL_EDGE}
+            )
+        graph.to(nx.MultiDiGraph)
+        return graph
+
+    def populate_graph(self, graph, nodes, edges):
+        pass
 
     def build_template_graph(self) -> AFTGraph:
         all_nodes = self.deployed_nodes
@@ -110,5 +134,10 @@ class OperationBlueprintBuilder(BlueprintBuilderABC):
 
     def update(self):
         node_data, edge_data = self.collected_data
-        self.node_counter.update(node_data)
-        self.edge_counter.update(edge_data)
+        aft_nodes = [n["allowable_field_type"] for n in node_data]
+        aft_edges = [
+            (e1["allowable_field_type"], e2["allowable_field_type"])
+            for e1, e2 in edge_data
+        ]
+        self.node_counter.update(aft_nodes)
+        self.edge_counter.update(aft_edges)

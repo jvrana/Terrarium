@@ -25,6 +25,13 @@ class Serializer(object):
         )
         return data
 
+    @classmethod
+    def serialize_iovalue(cls, fv):
+        data = cls.serialize(fv)
+        data["allowable_field_type"] = cls.serialize_aft(fv.allowable_field_type)
+        data["plan_id"] = fv.operation.plans[0].id
+        return data
+
 
 class AquariumAdapter(AdapterABC):
     """
@@ -143,7 +150,7 @@ class AquariumAdapter(AdapterABC):
             Serializer.serialize(part, include="collections") for part in parts_list
         ]
 
-    def collect_afts_from_plans(self, plans):
+    def collect_io_values_from_plans(self, plans):
         with self.session.with_cache(timeout=60) as sess:
             sess.browser.update_cache(plans)
             sess.browser.get("Plan", {"operations": {"field_values"}})
@@ -151,8 +158,10 @@ class AquariumAdapter(AdapterABC):
             sess.browser.get("FieldValue", {"allowable_field_type": "field_type"})
             sess.browser.get("Operation", "operation_type")
             nodes = [
-                Serializer.serialize_aft(aft)
-                for aft in sess.browser.get("AllowableFieldType")
+                Serializer.serialize_iovalue(fv)
+                for fv in sess.browser.get(
+                    "FieldValue", query={"parent_class": "Operation"}
+                )
             ]
             edges = []
             for w in sess.browser.get("Wire"):
@@ -162,12 +171,13 @@ class AquariumAdapter(AdapterABC):
                     and w.destination
                     and w.destination.allowable_field_type
                 ):
-                    src_aft = Serializer.serialize_aft(w.source.allowable_field_type)
-                    dest_aft = Serializer.serialize_aft(
-                        w.destination.allowable_field_type
-                    )
-                    edges.append((src_aft, dest_aft))
+                    src_io = Serializer.serialize_iovalue(w.source)
+                    dest_io = Serializer.serialize_iovalue(w.destination)
+                    edges.append((src_io, dest_io))
         return nodes, edges
+
+    def collect_data_from_plans(self, plans):
+        return self.collect_io_values_from_plans(plans)
 
     def collect_deployed_afts(self):
         with self.session.with_cache(timeout=60) as sess:
