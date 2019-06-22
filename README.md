@@ -4,4 +4,4 @@
 
 ## Forward Planning Algorithm
 
-Directed Steiner Tree
+Adaptive (?) Directed Steiner Tree with Groups:
