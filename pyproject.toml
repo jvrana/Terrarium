@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terrarium-capp"
-version = "0.0.0"
+version = "0.0.1a"
 description = "Adaptive Computer Aided Process Planner"
 authors = ["Justin Vrana <justin.vrana@gmail.com>"]
 homepage = "https://www.github.com/jvrana/Terrarium"
