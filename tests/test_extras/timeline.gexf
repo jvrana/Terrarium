@@ -1,0 +1,2977 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="long">
+    <attributes class="node" mode="static">
+      <attribute id="0" title="__data__.cost_limit" type="string" />
+      <attribute id="1" title="__data__.folder" type="string" />
+      <attribute id="2" title="__data__.updated_at" type="string" />
+      <attribute id="3" title="__data__.rid" type="long" />
+      <attribute id="4" title="__data__.id" type="long" />
+      <attribute id="5" title="__data__.user_id" type="long" />
+      <attribute id="6" title="__data__.budget_id" type="long" />
+      <attribute id="7" title="__data__.status" type="string" />
+      <attribute id="8" title="__data__.layout" type="string" />
+      <attribute id="9" title="__data__.created_at" type="string" />
+      <attribute id="10" title="__data__.name" type="string" />
+      <attribute id="11" title="__data__.primary_key" type="long" />
+      <attribute id="12" title="__data__.__class__" type="string" />
+      <attribute id="13" title="__data__.object" type="string" />
+      <attribute id="14" title="__data__.parent_id" type="long" />
+      <attribute id="15" title="__data__.key" type="string" />
+      <attribute id="16" title="__data__.upload_id" type="string" />
+      <attribute id="17" title="__data__.parent_class" type="string" />
+      <attribute id="18" title="__data__.url" type="string" />
+      <attribute id="19" title="__data__.object_type_id" type="long" />
+      <attribute id="20" title="__data__.quantity" type="long" />
+      <attribute id="21" title="__data__.is_part" type="boolean" />
+      <attribute id="22" title="__data__.data" type="string" />
+      <attribute id="23" title="__data__.location" type="string" />
+      <attribute id="24" title="__data__.inuse" type="long" />
+      <attribute id="25" title="__data__.sample_id" type="long" />
+      <attribute id="26" title="__data__.operation_type_id" type="long" />
+      <attribute id="27" title="__data__.y" type="double" />
+      <attribute id="28" title="__data__.x" type="double" />
+      <attribute id="29" title="__data__.routing.I" type="string" />
+      <attribute id="30" title="__data__.value" type="string" />
+      <attribute id="31" title="__data__.child_item_id" type="long" />
+      <attribute id="32" title="__data__.child_sample_id" type="long" />
+      <attribute id="33" title="__data__.role" type="string" />
+      <attribute id="34" title="__data__.column" type="string" />
+      <attribute id="35" title="__data__.allowable_field_type_id" type="long" />
+      <attribute id="36" title="__data__.field_type_id" type="long" />
+      <attribute id="37" title="__data__.row" type="string" />
+      <attribute id="38" title="__data__.sid" type="string" />
+      <attribute id="39" title="__data__.child_sample_name" type="string" />
+      <attribute id="40" title="__data__.routing.PS" type="string" />
+      <attribute id="41" title="__data__.routing.T" type="string" />
+      <attribute id="42" title="__data__.routing.P" type="string" />
+      <attribute id="43" title="__data__.routing.YS" type="string" />
+      <attribute id="44" title="__data__.routing.FP" type="string" />
+      <attribute id="45" title="__data__.routing.RP" type="string" />
+      <attribute id="46" title="__data__.description" type="string" />
+      <attribute id="47" title="__data__.sample_type_id" type="long" />
+      <attribute id="48" title="__data__.project" type="string" />
+      <attribute id="49" title="__data__.active" type="boolean" />
+      <attribute id="50" title="__data__.to_id" type="long" />
+      <attribute id="51" title="__data__.from_id" type="long" />
+    </attributes>
+    <meta>
+      <creator>NetworkX 2.3</creator>
+      <lastmodified>22/06/2019</lastmodified>
+    </meta>
+    <nodes>
+      <node end="433679" id="Plan_30380" label="Plan_30380" start="429211">
+        <attvalues>
+          <attvalue for="0" value="None" />
+          <attvalue for="1" value="3NodeBistableSwitch" />
+          <attvalue for="2" value="2019-01-01T21:19:25.000-08:00" />
+          <attvalue for="3" value="0" />
+          <attvalue for="4" value="30380" />
+          <attvalue for="5" value="66" />
+          <attvalue for="6" value="41" />
+          <attvalue for="7" value="None" />
+          <attvalue for="8" value="{&quot;id&quot;: 0, &quot;parent_id&quot;: -1, &quot;name&quot;: &quot;no_name&quot;, &quot;width&quot;: 160, &quot;height&quot;: 60, &quot;input&quot;: null, &quot;output&quot;: null, &quot;documentation&quot;: &quot;No documentation ofr this module&quot;, &quot;children&quot;: null, &quot;wires&quot;: null, &quot;text_boxes&quot;: null}" />
+          <attvalue for="9" value="2018-12-18T11:42:45.000-08:00" />
+          <attvalue for="10" value="Autoplanned 3-node bistable switches (design &quot;G1&quot;)" />
+          <attvalue for="11" value="30380" />
+          <attvalue for="12" value="Plan" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_290811" label="DataAssociation_290811" start="429234">
+        <attvalues>
+          <attvalue for="13" value="{&quot;overnight_4869&quot;: 312616}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2018-12-19T10:54:22.000-08:00" />
+          <attvalue for="3" value="5406" />
+          <attvalue for="15" value="overnight_4869" />
+          <attvalue for="4" value="290811" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2018-12-19T10:54:22.000-08:00" />
+          <attvalue for="11" value="290811" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_290812" label="DataAssociation_290812" start="429234">
+        <attvalues>
+          <attvalue for="13" value="{&quot;plasmid&quot;: 313846}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2018-12-19T10:54:24.000-08:00" />
+          <attvalue for="3" value="5407" />
+          <attvalue for="15" value="plasmid" />
+          <attvalue for="4" value="290812" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2018-12-19T10:54:23.000-08:00" />
+          <attvalue for="11" value="290812" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_290815" label="DataAssociation_290815" start="429234">
+        <attvalues>
+          <attvalue for="13" value="{&quot;overnight_9138&quot;: 312617}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2018-12-19T10:54:24.000-08:00" />
+          <attvalue for="3" value="5408" />
+          <attvalue for="15" value="overnight_9138" />
+          <attvalue for="4" value="290815" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2018-12-19T10:54:24.000-08:00" />
+          <attvalue for="11" value="290815" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_290960" label="DataAssociation_290960" start="429238">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27322&quot;: 313980}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2018-12-19T14:50:01.000-08:00" />
+          <attvalue for="3" value="5409" />
+          <attvalue for="15" value="yeast_plate_27322" />
+          <attvalue for="4" value="290960" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2018-12-19T14:50:01.000-08:00" />
+          <attvalue for="11" value="290960" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_290995" label="DataAssociation_290995" start="429256">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate&quot;: 320028}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T08:13:14.000-08:00" />
+          <attvalue for="3" value="5410" />
+          <attvalue for="15" value="yeast_plate" />
+          <attvalue for="4" value="290995" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2018-12-20T08:15:26.000-08:00" />
+          <attvalue for="11" value="290995" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_307124" label="DataAssociation_307124" start="429593">
+        <attvalues>
+          <attvalue for="13" value="{&quot;plate&quot;: 320422}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T09:52:01.000-07:00" />
+          <attvalue for="3" value="5411" />
+          <attvalue for="15" value="plate" />
+          <attvalue for="4" value="307124" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T09:22:19.000-08:00" />
+          <attvalue for="11" value="307124" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309145" label="DataAssociation_309145" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317&quot;: &quot;Your QC result for 27317 is in row 1 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:37:59.000-08:00" />
+          <attvalue for="3" value="5412" />
+          <attvalue for="15" value="qc_row_and_column_27317" />
+          <attvalue for="4" value="309145" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:37:59.000-08:00" />
+          <attvalue for="11" value="309145" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309148" label="DataAssociation_309148" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317_rep2&quot;: &quot;Your QC result for 27317 is in row 1 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:00.000-08:00" />
+          <attvalue for="3" value="5413" />
+          <attvalue for="15" value="qc_row_and_column_27317_rep2" />
+          <attvalue for="4" value="309148" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:00.000-08:00" />
+          <attvalue for="11" value="309148" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309151" label="DataAssociation_309151" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317_rep3&quot;: &quot;Your QC result for 27317 is in row 1 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:01.000-08:00" />
+          <attvalue for="3" value="5414" />
+          <attvalue for="15" value="qc_row_and_column_27317_rep3" />
+          <attvalue for="4" value="309151" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:01.000-08:00" />
+          <attvalue for="11" value="309151" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309154" label="DataAssociation_309154" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322&quot;: &quot;Your QC result for 27322 is in row 1 and column 12&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:02.000-08:00" />
+          <attvalue for="3" value="5415" />
+          <attvalue for="15" value="qc_row_and_column_27322" />
+          <attvalue for="4" value="309154" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:02.000-08:00" />
+          <attvalue for="11" value="309154" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309157" label="DataAssociation_309157" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322_rep2&quot;: &quot;Your QC result for 27322 is in row 2 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:03.000-08:00" />
+          <attvalue for="3" value="5416" />
+          <attvalue for="15" value="qc_row_and_column_27322_rep2" />
+          <attvalue for="4" value="309157" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:03.000-08:00" />
+          <attvalue for="11" value="309157" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309160" label="DataAssociation_309160" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322_rep3&quot;: &quot;Your QC result for 27322 is in row 2 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:04.000-08:00" />
+          <attvalue for="3" value="5417" />
+          <attvalue for="15" value="qc_row_and_column_27322_rep3" />
+          <attvalue for="4" value="309160" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:04.000-08:00" />
+          <attvalue for="11" value="309160" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309163" label="DataAssociation_309163" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27325&quot;: &quot;Your QC result for 27325 is in row 2 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:05.000-08:00" />
+          <attvalue for="3" value="5418" />
+          <attvalue for="15" value="qc_row_and_column_27325" />
+          <attvalue for="4" value="309163" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:05.000-08:00" />
+          <attvalue for="11" value="309163" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309166" label="DataAssociation_309166" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27325_rep2&quot;: &quot;Your QC result for 27325 is in row 2 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:06.000-08:00" />
+          <attvalue for="3" value="5419" />
+          <attvalue for="15" value="qc_row_and_column_27325_rep2" />
+          <attvalue for="4" value="309166" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:06.000-08:00" />
+          <attvalue for="11" value="309166" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309169" label="DataAssociation_309169" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27334&quot;: &quot;Your QC result for 27334 is in row 2 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:06.000-08:00" />
+          <attvalue for="3" value="5420" />
+          <attvalue for="15" value="qc_row_and_column_27334" />
+          <attvalue for="4" value="309169" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:06.000-08:00" />
+          <attvalue for="11" value="309169" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309172" label="DataAssociation_309172" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27334_rep2&quot;: &quot;Your QC result for 27334 is in row 2 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:07.000-08:00" />
+          <attvalue for="3" value="5421" />
+          <attvalue for="15" value="qc_row_and_column_27334_rep2" />
+          <attvalue for="4" value="309172" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:07.000-08:00" />
+          <attvalue for="11" value="309172" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309175" label="DataAssociation_309175" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27339&quot;: &quot;Your QC result for 27339 is in row 2 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:08.000-08:00" />
+          <attvalue for="3" value="5422" />
+          <attvalue for="15" value="qc_row_and_column_27339" />
+          <attvalue for="4" value="309175" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:08.000-08:00" />
+          <attvalue for="11" value="309175" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309178" label="DataAssociation_309178" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27339_rep2&quot;: &quot;Your QC result for 27339 is in row 2 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:09.000-08:00" />
+          <attvalue for="3" value="5423" />
+          <attvalue for="15" value="qc_row_and_column_27339_rep2" />
+          <attvalue for="4" value="309178" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:09.000-08:00" />
+          <attvalue for="11" value="309178" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309181" label="DataAssociation_309181" start="429598">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27339_rep3&quot;: &quot;Your QC result for 27339 is in row 2 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T14:38:10.000-08:00" />
+          <attvalue for="3" value="5424" />
+          <attvalue for="15" value="qc_row_and_column_27339_rep3" />
+          <attvalue for="4" value="309181" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T14:38:10.000-08:00" />
+          <attvalue for="11" value="309181" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309213" label="DataAssociation_309213" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27317_90593&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/336/original/2019-01-03_90593_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=81d8613e2160c07c5b1ecc4342513a5d90d35f207b680a3958139ba8ec5db1aa" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:07:26.000-08:00" />
+          <attvalue for="3" value="5425" />
+          <attvalue for="15" value="qc_image_27317_90593" />
+          <attvalue for="4" value="309213" />
+          <attvalue for="16" value="31336" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:07:26.000-08:00" />
+          <attvalue for="11" value="309213" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309214" label="DataAssociation_309214" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27322_90593&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/337/original/2019-01-03_90593_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=7a11a045aefdc7317380b74dc8eeab5913292c1616f8984dec3a51e7c6f92520" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:07:28.000-08:00" />
+          <attvalue for="3" value="5427" />
+          <attvalue for="15" value="qc_image_27322_90593" />
+          <attvalue for="4" value="309214" />
+          <attvalue for="16" value="31337" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:07:27.000-08:00" />
+          <attvalue for="11" value="309214" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309215" label="DataAssociation_309215" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27325_90593&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/337/original/2019-01-03_90593_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=7a11a045aefdc7317380b74dc8eeab5913292c1616f8984dec3a51e7c6f92520" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:07:29.000-08:00" />
+          <attvalue for="3" value="5429" />
+          <attvalue for="15" value="qc_image_27325_90593" />
+          <attvalue for="4" value="309215" />
+          <attvalue for="16" value="31337" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:07:29.000-08:00" />
+          <attvalue for="11" value="309215" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309216" label="DataAssociation_309216" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27334_90593&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/337/original/2019-01-03_90593_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=7a11a045aefdc7317380b74dc8eeab5913292c1616f8984dec3a51e7c6f92520" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:07:30.000-08:00" />
+          <attvalue for="3" value="5431" />
+          <attvalue for="15" value="qc_image_27334_90593" />
+          <attvalue for="4" value="309216" />
+          <attvalue for="16" value="31337" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:07:30.000-08:00" />
+          <attvalue for="11" value="309216" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309217" label="DataAssociation_309217" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27339_90593&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/337/original/2019-01-03_90593_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=7a11a045aefdc7317380b74dc8eeab5913292c1616f8984dec3a51e7c6f92520" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:07:32.000-08:00" />
+          <attvalue for="3" value="5433" />
+          <attvalue for="15" value="qc_image_27339_90593" />
+          <attvalue for="4" value="309217" />
+          <attvalue for="16" value="31337" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:07:32.000-08:00" />
+          <attvalue for="11" value="309217" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309243" label="DataAssociation_309243" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27334_column_5&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:31:43.000-08:00" />
+          <attvalue for="3" value="5435" />
+          <attvalue for="15" value="qc_result_27334_column_5" />
+          <attvalue for="4" value="309243" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:31:43.000-08:00" />
+          <attvalue for="11" value="309243" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309244" label="DataAssociation_309244" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27334_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:31:44.000-08:00" />
+          <attvalue for="3" value="5436" />
+          <attvalue for="15" value="qc_result_27334_column_6" />
+          <attvalue for="4" value="309244" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:31:44.000-08:00" />
+          <attvalue for="11" value="309244" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309245" label="DataAssociation_309245" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27339_column_7&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:31:45.000-08:00" />
+          <attvalue for="3" value="5437" />
+          <attvalue for="15" value="qc_result_27339_column_7" />
+          <attvalue for="4" value="309245" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:31:45.000-08:00" />
+          <attvalue for="11" value="309245" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309246" label="DataAssociation_309246" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27339_column_8&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:31:45.000-08:00" />
+          <attvalue for="3" value="5438" />
+          <attvalue for="15" value="qc_result_27339_column_8" />
+          <attvalue for="4" value="309246" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:31:45.000-08:00" />
+          <attvalue for="11" value="309246" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_309247" label="DataAssociation_309247" start="429599">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27339_column_9&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-03T15:31:46.000-08:00" />
+          <attvalue for="3" value="5439" />
+          <attvalue for="15" value="qc_result_27339_column_9" />
+          <attvalue for="4" value="309247" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-03T15:31:46.000-08:00" />
+          <attvalue for="11" value="309247" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310775" label="DataAssociation_310775" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317_rep4&quot;: &quot;Your QC result for 27317 is in row 2 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:36.000-08:00" />
+          <attvalue for="3" value="5440" />
+          <attvalue for="15" value="qc_row_and_column_27317_rep4" />
+          <attvalue for="4" value="310775" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:36.000-08:00" />
+          <attvalue for="11" value="310775" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310778" label="DataAssociation_310778" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317_rep5&quot;: &quot;Your QC result for 27317 is in row 2 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:37.000-08:00" />
+          <attvalue for="3" value="5441" />
+          <attvalue for="15" value="qc_row_and_column_27317_rep5" />
+          <attvalue for="4" value="310778" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:37.000-08:00" />
+          <attvalue for="11" value="310778" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310781" label="DataAssociation_310781" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27317_rep6&quot;: &quot;Your QC result for 27317 is in row 2 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:39.000-08:00" />
+          <attvalue for="3" value="5442" />
+          <attvalue for="15" value="qc_row_and_column_27317_rep6" />
+          <attvalue for="4" value="310781" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:39.000-08:00" />
+          <attvalue for="11" value="310781" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310784" label="DataAssociation_310784" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322_rep4&quot;: &quot;Your QC result for 27322 is in row 2 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:41.000-08:00" />
+          <attvalue for="3" value="5443" />
+          <attvalue for="15" value="qc_row_and_column_27322_rep4" />
+          <attvalue for="4" value="310784" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:41.000-08:00" />
+          <attvalue for="11" value="310784" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310787" label="DataAssociation_310787" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322_rep5&quot;: &quot;Your QC result for 27322 is in row 2 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:42.000-08:00" />
+          <attvalue for="3" value="5444" />
+          <attvalue for="15" value="qc_row_and_column_27322_rep5" />
+          <attvalue for="4" value="310787" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:42.000-08:00" />
+          <attvalue for="11" value="310787" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310790" label="DataAssociation_310790" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27322_rep6&quot;: &quot;Your QC result for 27322 is in row 2 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:44.000-08:00" />
+          <attvalue for="3" value="5445" />
+          <attvalue for="15" value="qc_row_and_column_27322_rep6" />
+          <attvalue for="4" value="310790" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:44.000-08:00" />
+          <attvalue for="11" value="310790" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310793" label="DataAssociation_310793" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27325_rep3&quot;: &quot;Your QC result for 27325 is in row 2 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:45.000-08:00" />
+          <attvalue for="3" value="5446" />
+          <attvalue for="15" value="qc_row_and_column_27325_rep3" />
+          <attvalue for="4" value="310793" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:45.000-08:00" />
+          <attvalue for="11" value="310793" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310796" label="DataAssociation_310796" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27325_rep4&quot;: &quot;Your QC result for 27325 is in row 2 and column 12&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:04:46.000-08:00" />
+          <attvalue for="3" value="5447" />
+          <attvalue for="15" value="qc_row_and_column_27325_rep4" />
+          <attvalue for="4" value="310796" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:04:46.000-08:00" />
+          <attvalue for="11" value="310796" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310797" label="DataAssociation_310797" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27335&quot;: 317451}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:19:23.000-08:00" />
+          <attvalue for="3" value="5448" />
+          <attvalue for="15" value="yeast_plate_27335" />
+          <attvalue for="4" value="310797" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:19:23.000-08:00" />
+          <attvalue for="11" value="310797" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310798" label="DataAssociation_310798" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27337&quot;: 317452}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:19:23.000-08:00" />
+          <attvalue for="3" value="5449" />
+          <attvalue for="15" value="yeast_plate_27337" />
+          <attvalue for="4" value="310798" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:19:23.000-08:00" />
+          <attvalue for="11" value="310798" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310799" label="DataAssociation_310799" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27340&quot;: 317453}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:19:24.000-08:00" />
+          <attvalue for="3" value="5450" />
+          <attvalue for="15" value="yeast_plate_27340" />
+          <attvalue for="4" value="310799" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:19:24.000-08:00" />
+          <attvalue for="11" value="310799" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310800" label="DataAssociation_310800" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27345&quot;: 317454}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:19:24.000-08:00" />
+          <attvalue for="3" value="5451" />
+          <attvalue for="15" value="yeast_plate_27345" />
+          <attvalue for="4" value="310800" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:19:24.000-08:00" />
+          <attvalue for="11" value="310800" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310808" label="DataAssociation_310808" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27317_90655&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/348/original/2019-01-04_90655_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=a78d14a17c446e5383086a7f2ef1773854a83661177f6d872143e20e54f42c35" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:43:18.000-08:00" />
+          <attvalue for="3" value="5452" />
+          <attvalue for="15" value="qc_image_27317_90655" />
+          <attvalue for="4" value="310808" />
+          <attvalue for="16" value="31348" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:43:18.000-08:00" />
+          <attvalue for="11" value="310808" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310809" label="DataAssociation_310809" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27322_90655&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/348/original/2019-01-04_90655_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=a78d14a17c446e5383086a7f2ef1773854a83661177f6d872143e20e54f42c35" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:43:20.000-08:00" />
+          <attvalue for="3" value="5454" />
+          <attvalue for="15" value="qc_image_27322_90655" />
+          <attvalue for="4" value="310809" />
+          <attvalue for="16" value="31348" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:43:20.000-08:00" />
+          <attvalue for="11" value="310809" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310810" label="DataAssociation_310810" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27325_90655&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/348/original/2019-01-04_90655_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=a78d14a17c446e5383086a7f2ef1773854a83661177f6d872143e20e54f42c35" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:43:22.000-08:00" />
+          <attvalue for="3" value="5456" />
+          <attvalue for="15" value="qc_image_27325_90655" />
+          <attvalue for="4" value="310810" />
+          <attvalue for="16" value="31348" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:43:22.000-08:00" />
+          <attvalue for="11" value="310810" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310822" label="DataAssociation_310822" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27317_column_5&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:37.000-08:00" />
+          <attvalue for="3" value="5458" />
+          <attvalue for="15" value="qc_result_27317_column_5" />
+          <attvalue for="4" value="310822" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:37.000-08:00" />
+          <attvalue for="11" value="310822" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310823" label="DataAssociation_310823" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27317_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:38.000-08:00" />
+          <attvalue for="3" value="5459" />
+          <attvalue for="15" value="qc_result_27317_column_6" />
+          <attvalue for="4" value="310823" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:38.000-08:00" />
+          <attvalue for="11" value="310823" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310824" label="DataAssociation_310824" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27317_column_7&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:38.000-08:00" />
+          <attvalue for="3" value="5460" />
+          <attvalue for="15" value="qc_result_27317_column_7" />
+          <attvalue for="4" value="310824" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:38.000-08:00" />
+          <attvalue for="11" value="310824" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310825" label="DataAssociation_310825" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27322_column_8&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:39.000-08:00" />
+          <attvalue for="3" value="5461" />
+          <attvalue for="15" value="qc_result_27322_column_8" />
+          <attvalue for="4" value="310825" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:39.000-08:00" />
+          <attvalue for="11" value="310825" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310826" label="DataAssociation_310826" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27322_column_9&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:40.000-08:00" />
+          <attvalue for="3" value="5462" />
+          <attvalue for="15" value="qc_result_27322_column_9" />
+          <attvalue for="4" value="310826" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:40.000-08:00" />
+          <attvalue for="11" value="310826" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310827" label="DataAssociation_310827" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27322_column_10&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:40.000-08:00" />
+          <attvalue for="3" value="5463" />
+          <attvalue for="15" value="qc_result_27322_column_10" />
+          <attvalue for="4" value="310827" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:40.000-08:00" />
+          <attvalue for="11" value="310827" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310828" label="DataAssociation_310828" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27325_column_11&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:41.000-08:00" />
+          <attvalue for="3" value="5464" />
+          <attvalue for="15" value="qc_result_27325_column_11" />
+          <attvalue for="4" value="310828" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:41.000-08:00" />
+          <attvalue for="11" value="310828" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_310829" label="DataAssociation_310829" start="429622">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27325_column_12&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-04T14:51:42.000-08:00" />
+          <attvalue for="3" value="5465" />
+          <attvalue for="15" value="qc_result_27325_column_12" />
+          <attvalue for="4" value="310829" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-04T14:51:42.000-08:00" />
+          <attvalue for="11" value="310829" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315418" label="DataAssociation_315418" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27332&quot;: &quot;Your QC result for 27332 is in row 1 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:44.000-08:00" />
+          <attvalue for="3" value="5469" />
+          <attvalue for="15" value="qc_row_and_column_27332" />
+          <attvalue for="4" value="315418" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:44.000-08:00" />
+          <attvalue for="11" value="315418" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315421" label="DataAssociation_315421" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27332_rep2&quot;: &quot;Your QC result for 27332 is in row 1 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:45.000-08:00" />
+          <attvalue for="3" value="5470" />
+          <attvalue for="15" value="qc_row_and_column_27332_rep2" />
+          <attvalue for="4" value="315421" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:45.000-08:00" />
+          <attvalue for="11" value="315421" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315424" label="DataAssociation_315424" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27332_rep3&quot;: &quot;Your QC result for 27332 is in row 1 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:47.000-08:00" />
+          <attvalue for="3" value="5471" />
+          <attvalue for="15" value="qc_row_and_column_27332_rep3" />
+          <attvalue for="4" value="315424" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:47.000-08:00" />
+          <attvalue for="11" value="315424" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315427" label="DataAssociation_315427" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27328&quot;: &quot;Your QC result for 27328 is in row 1 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:47.000-08:00" />
+          <attvalue for="3" value="5472" />
+          <attvalue for="15" value="qc_row_and_column_27328" />
+          <attvalue for="4" value="315427" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:47.000-08:00" />
+          <attvalue for="11" value="315427" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315430" label="DataAssociation_315430" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27328_rep2&quot;: &quot;Your QC result for 27328 is in row 1 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:48.000-08:00" />
+          <attvalue for="3" value="5473" />
+          <attvalue for="15" value="qc_row_and_column_27328_rep2" />
+          <attvalue for="4" value="315430" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:48.000-08:00" />
+          <attvalue for="11" value="315430" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315433" label="DataAssociation_315433" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27328_rep3&quot;: &quot;Your QC result for 27328 is in row 1 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:50.000-08:00" />
+          <attvalue for="3" value="5474" />
+          <attvalue for="15" value="qc_row_and_column_27328_rep3" />
+          <attvalue for="4" value="315433" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:50.000-08:00" />
+          <attvalue for="11" value="315433" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315436" label="DataAssociation_315436" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27320&quot;: &quot;Your QC result for 27320 is in row 1 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:50.000-08:00" />
+          <attvalue for="3" value="5475" />
+          <attvalue for="15" value="qc_row_and_column_27320" />
+          <attvalue for="4" value="315436" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:50.000-08:00" />
+          <attvalue for="11" value="315436" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315439" label="DataAssociation_315439" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27320_rep2&quot;: &quot;Your QC result for 27320 is in row 1 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:51.000-08:00" />
+          <attvalue for="3" value="5476" />
+          <attvalue for="15" value="qc_row_and_column_27320_rep2" />
+          <attvalue for="4" value="315439" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:51.000-08:00" />
+          <attvalue for="11" value="315439" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315442" label="DataAssociation_315442" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27320_rep3&quot;: &quot;Your QC result for 27320 is in row 1 and column 12&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:53.000-08:00" />
+          <attvalue for="3" value="5477" />
+          <attvalue for="15" value="qc_row_and_column_27320_rep3" />
+          <attvalue for="4" value="315442" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:53.000-08:00" />
+          <attvalue for="11" value="315442" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315448" label="DataAssociation_315448" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27330&quot;: &quot;Your QC result for 27330 is in row 2 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:54.000-08:00" />
+          <attvalue for="3" value="5478" />
+          <attvalue for="15" value="qc_row_and_column_27330" />
+          <attvalue for="4" value="315448" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:54.000-08:00" />
+          <attvalue for="11" value="315448" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315451" label="DataAssociation_315451" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27330_rep2&quot;: &quot;Your QC result for 27330 is in row 2 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:55.000-08:00" />
+          <attvalue for="3" value="5479" />
+          <attvalue for="15" value="qc_row_and_column_27330_rep2" />
+          <attvalue for="4" value="315451" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:55.000-08:00" />
+          <attvalue for="11" value="315451" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315454" label="DataAssociation_315454" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27330_rep3&quot;: &quot;Your QC result for 27330 is in row 2 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:56.000-08:00" />
+          <attvalue for="3" value="5480" />
+          <attvalue for="15" value="qc_row_and_column_27330_rep3" />
+          <attvalue for="4" value="315454" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:56.000-08:00" />
+          <attvalue for="11" value="315454" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315457" label="DataAssociation_315457" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345&quot;: &quot;Your QC result for 27345 is in row 2 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:57.000-08:00" />
+          <attvalue for="3" value="5481" />
+          <attvalue for="15" value="qc_row_and_column_27345" />
+          <attvalue for="4" value="315457" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:57.000-08:00" />
+          <attvalue for="11" value="315457" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315460" label="DataAssociation_315460" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345_rep2&quot;: &quot;Your QC result for 27345 is in row 2 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:58.000-08:00" />
+          <attvalue for="3" value="5482" />
+          <attvalue for="15" value="qc_row_and_column_27345_rep2" />
+          <attvalue for="4" value="315460" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:58.000-08:00" />
+          <attvalue for="11" value="315460" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315463" label="DataAssociation_315463" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345_rep3&quot;: &quot;Your QC result for 27345 is in row 2 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:58:59.000-08:00" />
+          <attvalue for="3" value="5483" />
+          <attvalue for="15" value="qc_row_and_column_27345_rep3" />
+          <attvalue for="4" value="315463" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:58:59.000-08:00" />
+          <attvalue for="11" value="315463" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315466" label="DataAssociation_315466" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340&quot;: &quot;Your QC result for 27340 is in row 2 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:00.000-08:00" />
+          <attvalue for="3" value="5484" />
+          <attvalue for="15" value="qc_row_and_column_27340" />
+          <attvalue for="4" value="315466" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:00.000-08:00" />
+          <attvalue for="11" value="315466" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315469" label="DataAssociation_315469" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340_rep2&quot;: &quot;Your QC result for 27340 is in row 2 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:01.000-08:00" />
+          <attvalue for="3" value="5485" />
+          <attvalue for="15" value="qc_row_and_column_27340_rep2" />
+          <attvalue for="4" value="315469" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:01.000-08:00" />
+          <attvalue for="11" value="315469" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315472" label="DataAssociation_315472" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340_rep3&quot;: &quot;Your QC result for 27340 is in row 2 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:02.000-08:00" />
+          <attvalue for="3" value="5486" />
+          <attvalue for="15" value="qc_row_and_column_27340_rep3" />
+          <attvalue for="4" value="315472" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:02.000-08:00" />
+          <attvalue for="11" value="315472" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315475" label="DataAssociation_315475" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337&quot;: &quot;Your QC result for 27337 is in row 2 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:03.000-08:00" />
+          <attvalue for="3" value="5487" />
+          <attvalue for="15" value="qc_row_and_column_27337" />
+          <attvalue for="4" value="315475" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:03.000-08:00" />
+          <attvalue for="11" value="315475" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315478" label="DataAssociation_315478" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337_rep2&quot;: &quot;Your QC result for 27337 is in row 2 and column 12&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:04.000-08:00" />
+          <attvalue for="3" value="5488" />
+          <attvalue for="15" value="qc_row_and_column_27337_rep2" />
+          <attvalue for="4" value="315478" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:04.000-08:00" />
+          <attvalue for="11" value="315478" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315481" label="DataAssociation_315481" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337_rep3&quot;: &quot;Your QC result for 27337 is in row 3 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:05.000-08:00" />
+          <attvalue for="3" value="5489" />
+          <attvalue for="15" value="qc_row_and_column_27337_rep3" />
+          <attvalue for="4" value="315481" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:05.000-08:00" />
+          <attvalue for="11" value="315481" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315484" label="DataAssociation_315484" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27318&quot;: &quot;Your QC result for 27318 is in row 3 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:06.000-08:00" />
+          <attvalue for="3" value="5490" />
+          <attvalue for="15" value="qc_row_and_column_27318" />
+          <attvalue for="4" value="315484" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:06.000-08:00" />
+          <attvalue for="11" value="315484" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315487" label="DataAssociation_315487" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27318_rep2&quot;: &quot;Your QC result for 27318 is in row 3 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:07.000-08:00" />
+          <attvalue for="3" value="5491" />
+          <attvalue for="15" value="qc_row_and_column_27318_rep2" />
+          <attvalue for="4" value="315487" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:07.000-08:00" />
+          <attvalue for="11" value="315487" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315490" label="DataAssociation_315490" start="429881">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27318_rep3&quot;: &quot;Your QC result for 27318 is in row 3 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T09:59:08.000-08:00" />
+          <attvalue for="3" value="5492" />
+          <attvalue for="15" value="qc_row_and_column_27318_rep3" />
+          <attvalue for="4" value="315490" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T09:59:08.000-08:00" />
+          <attvalue for="11" value="315490" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315528" label="DataAssociation_315528" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27332_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/445/original/2019-01-15_91211_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=121c6857df7fd44dd3808799ec5195020ec0724401cbe1dab871667dc49a8736" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:18:56.000-08:00" />
+          <attvalue for="3" value="5493" />
+          <attvalue for="15" value="qc_image_27332_91211" />
+          <attvalue for="4" value="315528" />
+          <attvalue for="16" value="31445" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:18:56.000-08:00" />
+          <attvalue for="11" value="315528" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315529" label="DataAssociation_315529" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27328_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/445/original/2019-01-15_91211_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=121c6857df7fd44dd3808799ec5195020ec0724401cbe1dab871667dc49a8736" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:18:58.000-08:00" />
+          <attvalue for="3" value="5495" />
+          <attvalue for="15" value="qc_image_27328_91211" />
+          <attvalue for="4" value="315529" />
+          <attvalue for="16" value="31445" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:18:58.000-08:00" />
+          <attvalue for="11" value="315529" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315530" label="DataAssociation_315530" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27320_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/445/original/2019-01-15_91211_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=121c6857df7fd44dd3808799ec5195020ec0724401cbe1dab871667dc49a8736" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:00.000-08:00" />
+          <attvalue for="3" value="5497" />
+          <attvalue for="15" value="qc_image_27320_91211" />
+          <attvalue for="4" value="315530" />
+          <attvalue for="16" value="31445" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:00.000-08:00" />
+          <attvalue for="11" value="315530" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315532" label="DataAssociation_315532" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27330_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/446/original/2019-01-15_91211_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=709779ec723ff9803309ea68e40c26e889b0577917b3a40632fb1c4712ee80d2" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:03.000-08:00" />
+          <attvalue for="3" value="5499" />
+          <attvalue for="15" value="qc_image_27330_91211" />
+          <attvalue for="4" value="315532" />
+          <attvalue for="16" value="31446" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:03.000-08:00" />
+          <attvalue for="11" value="315532" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315533" label="DataAssociation_315533" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27345_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/446/original/2019-01-15_91211_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=709779ec723ff9803309ea68e40c26e889b0577917b3a40632fb1c4712ee80d2" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:05.000-08:00" />
+          <attvalue for="3" value="5501" />
+          <attvalue for="15" value="qc_image_27345_91211" />
+          <attvalue for="4" value="315533" />
+          <attvalue for="16" value="31446" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:05.000-08:00" />
+          <attvalue for="11" value="315533" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315534" label="DataAssociation_315534" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27340_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/446/original/2019-01-15_91211_row_2.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=709779ec723ff9803309ea68e40c26e889b0577917b3a40632fb1c4712ee80d2" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:07.000-08:00" />
+          <attvalue for="3" value="5503" />
+          <attvalue for="15" value="qc_image_27340_91211" />
+          <attvalue for="4" value="315534" />
+          <attvalue for="16" value="31446" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:07.000-08:00" />
+          <attvalue for="11" value="315534" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315535" label="DataAssociation_315535" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27337_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/447/original/2019-01-15_91211_row_3.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=83f870dc884f734e965bbccb54e7353cc8021ff58544a07df23ada2f98628fb8" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:10.000-08:00" />
+          <attvalue for="3" value="5505" />
+          <attvalue for="15" value="qc_image_27337_91211" />
+          <attvalue for="4" value="315535" />
+          <attvalue for="16" value="31447" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:09.000-08:00" />
+          <attvalue for="11" value="315535" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315536" label="DataAssociation_315536" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27318_91211&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/447/original/2019-01-15_91211_row_3.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235240Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=83f870dc884f734e965bbccb54e7353cc8021ff58544a07df23ada2f98628fb8" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:19:11.000-08:00" />
+          <attvalue for="3" value="5507" />
+          <attvalue for="15" value="qc_image_27318_91211" />
+          <attvalue for="4" value="315536" />
+          <attvalue for="16" value="31447" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:19:11.000-08:00" />
+          <attvalue for="11" value="315536" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315540" label="DataAssociation_315540" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27332_column_4&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:51.000-08:00" />
+          <attvalue for="3" value="5509" />
+          <attvalue for="15" value="qc_result_27332_column_4" />
+          <attvalue for="4" value="315540" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:51.000-08:00" />
+          <attvalue for="11" value="315540" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315541" label="DataAssociation_315541" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27332_column_5&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:52.000-08:00" />
+          <attvalue for="3" value="5510" />
+          <attvalue for="15" value="qc_result_27332_column_5" />
+          <attvalue for="4" value="315541" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:52.000-08:00" />
+          <attvalue for="11" value="315541" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315542" label="DataAssociation_315542" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27332_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:53.000-08:00" />
+          <attvalue for="3" value="5511" />
+          <attvalue for="15" value="qc_result_27332_column_6" />
+          <attvalue for="4" value="315542" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:53.000-08:00" />
+          <attvalue for="11" value="315542" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315543" label="DataAssociation_315543" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27328_column_7&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:53.000-08:00" />
+          <attvalue for="3" value="5512" />
+          <attvalue for="15" value="qc_result_27328_column_7" />
+          <attvalue for="4" value="315543" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:53.000-08:00" />
+          <attvalue for="11" value="315543" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315544" label="DataAssociation_315544" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27328_column_8&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:54.000-08:00" />
+          <attvalue for="3" value="5513" />
+          <attvalue for="15" value="qc_result_27328_column_8" />
+          <attvalue for="4" value="315544" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:54.000-08:00" />
+          <attvalue for="11" value="315544" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315545" label="DataAssociation_315545" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27328_column_9&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:55.000-08:00" />
+          <attvalue for="3" value="5514" />
+          <attvalue for="15" value="qc_result_27328_column_9" />
+          <attvalue for="4" value="315545" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:55.000-08:00" />
+          <attvalue for="11" value="315545" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315546" label="DataAssociation_315546" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27320_column_10&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:56.000-08:00" />
+          <attvalue for="3" value="5515" />
+          <attvalue for="15" value="qc_result_27320_column_10" />
+          <attvalue for="4" value="315546" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:56.000-08:00" />
+          <attvalue for="11" value="315546" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315547" label="DataAssociation_315547" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27320_column_11&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:56.000-08:00" />
+          <attvalue for="3" value="5516" />
+          <attvalue for="15" value="qc_result_27320_column_11" />
+          <attvalue for="4" value="315547" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:56.000-08:00" />
+          <attvalue for="11" value="315547" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315548" label="DataAssociation_315548" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27320_column_12&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:57.000-08:00" />
+          <attvalue for="3" value="5517" />
+          <attvalue for="15" value="qc_result_27320_column_12" />
+          <attvalue for="4" value="315548" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:57.000-08:00" />
+          <attvalue for="11" value="315548" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315550" label="DataAssociation_315550" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27330_column_2&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:58.000-08:00" />
+          <attvalue for="3" value="5518" />
+          <attvalue for="15" value="qc_result_27330_column_2" />
+          <attvalue for="4" value="315550" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:58.000-08:00" />
+          <attvalue for="11" value="315550" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315551" label="DataAssociation_315551" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27330_column_3&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:25:59.000-08:00" />
+          <attvalue for="3" value="5519" />
+          <attvalue for="15" value="qc_result_27330_column_3" />
+          <attvalue for="4" value="315551" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:25:59.000-08:00" />
+          <attvalue for="11" value="315551" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315552" label="DataAssociation_315552" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27330_column_4&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:00.000-08:00" />
+          <attvalue for="3" value="5520" />
+          <attvalue for="15" value="qc_result_27330_column_4" />
+          <attvalue for="4" value="315552" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:00.000-08:00" />
+          <attvalue for="11" value="315552" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315553" label="DataAssociation_315553" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_5&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:00.000-08:00" />
+          <attvalue for="3" value="5521" />
+          <attvalue for="15" value="qc_result_27345_column_5" />
+          <attvalue for="4" value="315553" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:00.000-08:00" />
+          <attvalue for="11" value="315553" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315555" label="DataAssociation_315555" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_6&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:01.000-08:00" />
+          <attvalue for="3" value="5522" />
+          <attvalue for="15" value="qc_result_27345_column_6" />
+          <attvalue for="4" value="315555" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:01.000-08:00" />
+          <attvalue for="11" value="315555" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315557" label="DataAssociation_315557" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_7&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:02.000-08:00" />
+          <attvalue for="3" value="5523" />
+          <attvalue for="15" value="qc_result_27345_column_7" />
+          <attvalue for="4" value="315557" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:02.000-08:00" />
+          <attvalue for="11" value="315557" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315559" label="DataAssociation_315559" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27340_column_8&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:03.000-08:00" />
+          <attvalue for="3" value="5524" />
+          <attvalue for="15" value="qc_result_27340_column_8" />
+          <attvalue for="4" value="315559" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:03.000-08:00" />
+          <attvalue for="11" value="315559" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315561" label="DataAssociation_315561" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27340_column_9&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:46.000-07:00" />
+          <attvalue for="3" value="5525" />
+          <attvalue for="15" value="qc_result_27340_column_9" />
+          <attvalue for="4" value="315561" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:04.000-08:00" />
+          <attvalue for="11" value="315561" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315563" label="DataAssociation_315563" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27340_column_10&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:04.000-08:00" />
+          <attvalue for="3" value="5526" />
+          <attvalue for="15" value="qc_result_27340_column_10" />
+          <attvalue for="4" value="315563" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:04.000-08:00" />
+          <attvalue for="11" value="315563" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315565" label="DataAssociation_315565" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_11&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:05.000-08:00" />
+          <attvalue for="3" value="5527" />
+          <attvalue for="15" value="qc_result_27337_column_11" />
+          <attvalue for="4" value="315565" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:05.000-08:00" />
+          <attvalue for="11" value="315565" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315567" label="DataAssociation_315567" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_12&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:06.000-08:00" />
+          <attvalue for="3" value="5528" />
+          <attvalue for="15" value="qc_result_27337_column_12" />
+          <attvalue for="4" value="315567" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:06.000-08:00" />
+          <attvalue for="11" value="315567" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315569" label="DataAssociation_315569" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_1&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:07.000-08:00" />
+          <attvalue for="3" value="5529" />
+          <attvalue for="15" value="qc_result_27337_column_1" />
+          <attvalue for="4" value="315569" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:07.000-08:00" />
+          <attvalue for="11" value="315569" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315571" label="DataAssociation_315571" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27318_column_2&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:07.000-08:00" />
+          <attvalue for="3" value="5530" />
+          <attvalue for="15" value="qc_result_27318_column_2" />
+          <attvalue for="4" value="315571" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:07.000-08:00" />
+          <attvalue for="11" value="315571" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315572" label="DataAssociation_315572" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27318_column_3&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:08.000-08:00" />
+          <attvalue for="3" value="5531" />
+          <attvalue for="15" value="qc_result_27318_column_3" />
+          <attvalue for="4" value="315572" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:08.000-08:00" />
+          <attvalue for="11" value="315572" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_315573" label="DataAssociation_315573" start="429883">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27318_column_4&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-15T11:26:09.000-08:00" />
+          <attvalue for="3" value="5532" />
+          <attvalue for="15" value="qc_result_27318_column_4" />
+          <attvalue for="4" value="315573" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-15T11:26:09.000-08:00" />
+          <attvalue for="11" value="315573" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_318348" label="DataAssociation_318348" start="429912">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27319&quot;: 319893}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-16T16:21:48.000-08:00" />
+          <attvalue for="3" value="5535" />
+          <attvalue for="15" value="yeast_plate_27319" />
+          <attvalue for="4" value="318348" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-16T16:21:48.000-08:00" />
+          <attvalue for="11" value="318348" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_318351" label="DataAssociation_318351" start="429912">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27331&quot;: 319896}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-16T16:21:50.000-08:00" />
+          <attvalue for="3" value="5536" />
+          <attvalue for="15" value="yeast_plate_27331" />
+          <attvalue for="4" value="318351" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-16T16:21:50.000-08:00" />
+          <attvalue for="11" value="318351" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319611" label="DataAssociation_319611" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335&quot;: &quot;Your QC result for 27335 is in row 1 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:44.000-08:00" />
+          <attvalue for="3" value="5537" />
+          <attvalue for="15" value="qc_row_and_column_27335" />
+          <attvalue for="4" value="319611" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:44.000-08:00" />
+          <attvalue for="11" value="319611" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319614" label="DataAssociation_319614" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335_rep2&quot;: &quot;Your QC result for 27335 is in row 1 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:45.000-08:00" />
+          <attvalue for="3" value="5538" />
+          <attvalue for="15" value="qc_row_and_column_27335_rep2" />
+          <attvalue for="4" value="319614" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:45.000-08:00" />
+          <attvalue for="11" value="319614" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319617" label="DataAssociation_319617" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335_rep3&quot;: &quot;Your QC result for 27335 is in row 1 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:46.000-08:00" />
+          <attvalue for="3" value="5539" />
+          <attvalue for="15" value="qc_row_and_column_27335_rep3" />
+          <attvalue for="4" value="319617" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:46.000-08:00" />
+          <attvalue for="11" value="319617" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319620" label="DataAssociation_319620" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27349&quot;: &quot;Your QC result for 27349 is in row 1 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:47.000-08:00" />
+          <attvalue for="3" value="5540" />
+          <attvalue for="15" value="qc_row_and_column_27349" />
+          <attvalue for="4" value="319620" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:47.000-08:00" />
+          <attvalue for="11" value="319620" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319623" label="DataAssociation_319623" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27349_rep2&quot;: &quot;Your QC result for 27349 is in row 1 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:48.000-08:00" />
+          <attvalue for="3" value="5541" />
+          <attvalue for="15" value="qc_row_and_column_27349_rep2" />
+          <attvalue for="4" value="319623" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:48.000-08:00" />
+          <attvalue for="11" value="319623" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319626" label="DataAssociation_319626" start="429931">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27349_rep3&quot;: &quot;Your QC result for 27349 is in row 1 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T11:12:49.000-08:00" />
+          <attvalue for="3" value="5542" />
+          <attvalue for="15" value="qc_row_and_column_27349_rep3" />
+          <attvalue for="4" value="319626" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T11:12:49.000-08:00" />
+          <attvalue for="11" value="319626" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319794" label="DataAssociation_319794" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27335_91365&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/513/original/2019-01-17_91365_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=dc2f8393aebdf5dbd9a6840f34cc377ba3365957021da22ef8dac14d06f04981" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:16:03.000-08:00" />
+          <attvalue for="3" value="5551" />
+          <attvalue for="15" value="qc_image_27335_91365" />
+          <attvalue for="4" value="319794" />
+          <attvalue for="16" value="31513" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:16:03.000-08:00" />
+          <attvalue for="11" value="319794" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319795" label="DataAssociation_319795" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27349_91365&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/031/513/original/2019-01-17_91365_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=dc2f8393aebdf5dbd9a6840f34cc377ba3365957021da22ef8dac14d06f04981" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:16:05.000-08:00" />
+          <attvalue for="3" value="5553" />
+          <attvalue for="15" value="qc_image_27349_91365" />
+          <attvalue for="4" value="319795" />
+          <attvalue for="16" value="31513" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:16:05.000-08:00" />
+          <attvalue for="11" value="319795" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319813" label="DataAssociation_319813" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27335_column_1&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:39.000-07:00" />
+          <attvalue for="3" value="5561" />
+          <attvalue for="15" value="qc_result_27335_column_1" />
+          <attvalue for="4" value="319813" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:30.000-08:00" />
+          <attvalue for="11" value="319813" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319815" label="DataAssociation_319815" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27335_column_2&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:40.000-07:00" />
+          <attvalue for="3" value="5562" />
+          <attvalue for="15" value="qc_result_27335_column_2" />
+          <attvalue for="4" value="319815" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:31.000-08:00" />
+          <attvalue for="11" value="319815" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319817" label="DataAssociation_319817" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27335_column_3&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:45:32.000-08:00" />
+          <attvalue for="3" value="5563" />
+          <attvalue for="15" value="qc_result_27335_column_3" />
+          <attvalue for="4" value="319817" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:32.000-08:00" />
+          <attvalue for="11" value="319817" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319819" label="DataAssociation_319819" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27349_column_4&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:45:32.000-08:00" />
+          <attvalue for="3" value="5564" />
+          <attvalue for="15" value="qc_result_27349_column_4" />
+          <attvalue for="4" value="319819" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:32.000-08:00" />
+          <attvalue for="11" value="319819" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319820" label="DataAssociation_319820" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27349_column_5&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:45:33.000-08:00" />
+          <attvalue for="3" value="5565" />
+          <attvalue for="15" value="qc_result_27349_column_5" />
+          <attvalue for="4" value="319820" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:33.000-08:00" />
+          <attvalue for="11" value="319820" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_319821" label="DataAssociation_319821" start="429933">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27349_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-17T13:45:34.000-08:00" />
+          <attvalue for="3" value="5566" />
+          <attvalue for="15" value="qc_result_27349_column_6" />
+          <attvalue for="4" value="319821" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-17T13:45:34.000-08:00" />
+          <attvalue for="11" value="319821" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_320872" label="DataAssociation_320872" start="429958">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27350&quot;: 320421}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-18T14:55:47.000-08:00" />
+          <attvalue for="3" value="5575" />
+          <attvalue for="15" value="yeast_plate_27350" />
+          <attvalue for="4" value="320872" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-18T14:55:47.000-08:00" />
+          <attvalue for="11" value="320872" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_320873" label="DataAssociation_320873" start="429958">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27351&quot;: 320422}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-01-18T14:55:47.000-08:00" />
+          <attvalue for="3" value="5576" />
+          <attvalue for="15" value="yeast_plate_27351" />
+          <attvalue for="4" value="320873" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-18T14:55:47.000-08:00" />
+          <attvalue for="11" value="320873" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349881" label="DataAssociation_349881" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335_rep4&quot;: &quot;Your QC result for 27335 is in row 1 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:29.000-07:00" />
+          <attvalue for="3" value="5601" />
+          <attvalue for="15" value="qc_row_and_column_27335_rep4" />
+          <attvalue for="4" value="349881" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:29.000-07:00" />
+          <attvalue for="11" value="349881" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349884" label="DataAssociation_349884" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335_rep5&quot;: &quot;Your QC result for 27335 is in row 1 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:31.000-07:00" />
+          <attvalue for="3" value="5602" />
+          <attvalue for="15" value="qc_row_and_column_27335_rep5" />
+          <attvalue for="4" value="349884" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:31.000-07:00" />
+          <attvalue for="11" value="349884" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349887" label="DataAssociation_349887" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27335_rep6&quot;: &quot;Your QC result for 27335 is in row 1 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:33.000-07:00" />
+          <attvalue for="3" value="5603" />
+          <attvalue for="15" value="qc_row_and_column_27335_rep6" />
+          <attvalue for="4" value="349887" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:33.000-07:00" />
+          <attvalue for="11" value="349887" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349890" label="DataAssociation_349890" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337_rep4&quot;: &quot;Your QC result for 27337 is in row 1 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:34.000-07:00" />
+          <attvalue for="3" value="5604" />
+          <attvalue for="15" value="qc_row_and_column_27337_rep4" />
+          <attvalue for="4" value="349890" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:34.000-07:00" />
+          <attvalue for="11" value="349890" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349893" label="DataAssociation_349893" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337_rep5&quot;: &quot;Your QC result for 27337 is in row 1 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:36.000-07:00" />
+          <attvalue for="3" value="5605" />
+          <attvalue for="15" value="qc_row_and_column_27337_rep5" />
+          <attvalue for="4" value="349893" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:36.000-07:00" />
+          <attvalue for="11" value="349893" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349896" label="DataAssociation_349896" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27337_rep6&quot;: &quot;Your QC result for 27337 is in row 1 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:38.000-07:00" />
+          <attvalue for="3" value="5606" />
+          <attvalue for="15" value="qc_row_and_column_27337_rep6" />
+          <attvalue for="4" value="349896" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:38.000-07:00" />
+          <attvalue for="11" value="349896" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349899" label="DataAssociation_349899" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340_rep4&quot;: &quot;Your QC result for 27340 is in row 1 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:39.000-07:00" />
+          <attvalue for="3" value="5607" />
+          <attvalue for="15" value="qc_row_and_column_27340_rep4" />
+          <attvalue for="4" value="349899" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:39.000-07:00" />
+          <attvalue for="11" value="349899" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349902" label="DataAssociation_349902" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340_rep5&quot;: &quot;Your QC result for 27340 is in row 1 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:41.000-07:00" />
+          <attvalue for="3" value="5608" />
+          <attvalue for="15" value="qc_row_and_column_27340_rep5" />
+          <attvalue for="4" value="349902" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:41.000-07:00" />
+          <attvalue for="11" value="349902" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349905" label="DataAssociation_349905" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27340_rep6&quot;: &quot;Your QC result for 27340 is in row 1 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:43.000-07:00" />
+          <attvalue for="3" value="5609" />
+          <attvalue for="15" value="qc_row_and_column_27340_rep6" />
+          <attvalue for="4" value="349905" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:43.000-07:00" />
+          <attvalue for="11" value="349905" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349908" label="DataAssociation_349908" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345_rep4&quot;: &quot;Your QC result for 27345 is in row 1 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:45.000-07:00" />
+          <attvalue for="3" value="5610" />
+          <attvalue for="15" value="qc_row_and_column_27345_rep4" />
+          <attvalue for="4" value="349908" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:45.000-07:00" />
+          <attvalue for="11" value="349908" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349911" label="DataAssociation_349911" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345_rep5&quot;: &quot;Your QC result for 27345 is in row 1 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:46.000-07:00" />
+          <attvalue for="3" value="5611" />
+          <attvalue for="15" value="qc_row_and_column_27345_rep5" />
+          <attvalue for="4" value="349911" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:46.000-07:00" />
+          <attvalue for="11" value="349911" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349914" label="DataAssociation_349914" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27345_rep6&quot;: &quot;Your QC result for 27345 is in row 1 and column 12&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:48.000-07:00" />
+          <attvalue for="3" value="5612" />
+          <attvalue for="15" value="qc_row_and_column_27345_rep6" />
+          <attvalue for="4" value="349914" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:48.000-07:00" />
+          <attvalue for="11" value="349914" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349917" label="DataAssociation_349917" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27331&quot;: &quot;Your QC result for 27331 is in row 2 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:49.000-07:00" />
+          <attvalue for="3" value="5613" />
+          <attvalue for="15" value="qc_row_and_column_27331" />
+          <attvalue for="4" value="349917" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:49.000-07:00" />
+          <attvalue for="11" value="349917" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349920" label="DataAssociation_349920" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27350&quot;: &quot;Your QC result for 27350 is in row 2 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:50.000-07:00" />
+          <attvalue for="3" value="5614" />
+          <attvalue for="15" value="qc_row_and_column_27350" />
+          <attvalue for="4" value="349920" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:50.000-07:00" />
+          <attvalue for="11" value="349920" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349923" label="DataAssociation_349923" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27351&quot;: &quot;Your QC result for 27351 is in row 2 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:51.000-07:00" />
+          <attvalue for="3" value="5615" />
+          <attvalue for="15" value="qc_row_and_column_27351" />
+          <attvalue for="4" value="349923" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:51.000-07:00" />
+          <attvalue for="11" value="349923" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349926" label="DataAssociation_349926" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27351_rep2&quot;: &quot;Your QC result for 27351 is in row 2 and column 4&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:52.000-07:00" />
+          <attvalue for="3" value="5616" />
+          <attvalue for="15" value="qc_row_and_column_27351_rep2" />
+          <attvalue for="4" value="349926" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:52.000-07:00" />
+          <attvalue for="11" value="349926" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349929" label="DataAssociation_349929" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27351_rep3&quot;: &quot;Your QC result for 27351 is in row 2 and column 5&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:53.000-07:00" />
+          <attvalue for="3" value="5617" />
+          <attvalue for="15" value="qc_row_and_column_27351_rep3" />
+          <attvalue for="4" value="349929" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:53.000-07:00" />
+          <attvalue for="11" value="349929" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349932" label="DataAssociation_349932" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27329&quot;: &quot;Your QC result for 27329 is in row 2 and column 6&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:54.000-07:00" />
+          <attvalue for="3" value="5618" />
+          <attvalue for="15" value="qc_row_and_column_27329" />
+          <attvalue for="4" value="349932" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:54.000-07:00" />
+          <attvalue for="11" value="349932" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349935" label="DataAssociation_349935" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27329_rep2&quot;: &quot;Your QC result for 27329 is in row 2 and column 7&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:55.000-07:00" />
+          <attvalue for="3" value="5619" />
+          <attvalue for="15" value="qc_row_and_column_27329_rep2" />
+          <attvalue for="4" value="349935" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:55.000-07:00" />
+          <attvalue for="11" value="349935" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349938" label="DataAssociation_349938" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27329_rep3&quot;: &quot;Your QC result for 27329 is in row 2 and column 8&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:57.000-07:00" />
+          <attvalue for="3" value="5620" />
+          <attvalue for="15" value="qc_row_and_column_27329_rep3" />
+          <attvalue for="4" value="349938" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:57.000-07:00" />
+          <attvalue for="11" value="349938" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349941" label="DataAssociation_349941" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27333&quot;: &quot;Your QC result for 27333 is in row 2 and column 9&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:57.000-07:00" />
+          <attvalue for="3" value="5621" />
+          <attvalue for="15" value="qc_row_and_column_27333" />
+          <attvalue for="4" value="349941" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:57.000-07:00" />
+          <attvalue for="11" value="349941" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349944" label="DataAssociation_349944" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27333_rep2&quot;: &quot;Your QC result for 27333 is in row 2 and column 10&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:20:59.000-07:00" />
+          <attvalue for="3" value="5622" />
+          <attvalue for="15" value="qc_row_and_column_27333_rep2" />
+          <attvalue for="4" value="349944" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:20:59.000-07:00" />
+          <attvalue for="11" value="349944" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349947" label="DataAssociation_349947" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27333_rep3&quot;: &quot;Your QC result for 27333 is in row 2 and column 11&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:21:00.000-07:00" />
+          <attvalue for="3" value="5623" />
+          <attvalue for="15" value="qc_row_and_column_27333_rep3" />
+          <attvalue for="4" value="349947" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:21:00.000-07:00" />
+          <attvalue for="11" value="349947" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349956" label="DataAssociation_349956" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27335_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/384/original/2019-04-04_95791_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=65618d14a7405423577f05746d34c5e1040d65204f14e5881e1191fe1ee71c19" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:37.000-07:00" />
+          <attvalue for="3" value="5624" />
+          <attvalue for="15" value="qc_image_27335_95791" />
+          <attvalue for="4" value="349956" />
+          <attvalue for="16" value="32384" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:37.000-07:00" />
+          <attvalue for="11" value="349956" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349957" label="DataAssociation_349957" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27337_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/384/original/2019-04-04_95791_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=65618d14a7405423577f05746d34c5e1040d65204f14e5881e1191fe1ee71c19" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:39.000-07:00" />
+          <attvalue for="3" value="5626" />
+          <attvalue for="15" value="qc_image_27337_95791" />
+          <attvalue for="4" value="349957" />
+          <attvalue for="16" value="32384" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:39.000-07:00" />
+          <attvalue for="11" value="349957" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349958" label="DataAssociation_349958" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27340_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/384/original/2019-04-04_95791_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=65618d14a7405423577f05746d34c5e1040d65204f14e5881e1191fe1ee71c19" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:41.000-07:00" />
+          <attvalue for="3" value="5628" />
+          <attvalue for="15" value="qc_image_27340_95791" />
+          <attvalue for="4" value="349958" />
+          <attvalue for="16" value="32384" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:41.000-07:00" />
+          <attvalue for="11" value="349958" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349959" label="DataAssociation_349959" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27345_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/384/original/2019-04-04_95791_row_1.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=65618d14a7405423577f05746d34c5e1040d65204f14e5881e1191fe1ee71c19" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:43.000-07:00" />
+          <attvalue for="3" value="5630" />
+          <attvalue for="15" value="qc_image_27345_95791" />
+          <attvalue for="4" value="349959" />
+          <attvalue for="16" value="32384" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:43.000-07:00" />
+          <attvalue for="11" value="349959" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349960" label="DataAssociation_349960" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27331_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/385/original/2019-04-04_95791_row_2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=f96e44064e82e2047a0997f649727ee6596a6cbfc9b74ca49d23edc57e0bd98f" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:45.000-07:00" />
+          <attvalue for="3" value="5632" />
+          <attvalue for="15" value="qc_image_27331_95791" />
+          <attvalue for="4" value="349960" />
+          <attvalue for="16" value="32385" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:45.000-07:00" />
+          <attvalue for="11" value="349960" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349961" label="DataAssociation_349961" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27350_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/385/original/2019-04-04_95791_row_2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=f96e44064e82e2047a0997f649727ee6596a6cbfc9b74ca49d23edc57e0bd98f" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:46.000-07:00" />
+          <attvalue for="3" value="5634" />
+          <attvalue for="15" value="qc_image_27350_95791" />
+          <attvalue for="4" value="349961" />
+          <attvalue for="16" value="32385" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:46.000-07:00" />
+          <attvalue for="11" value="349961" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349962" label="DataAssociation_349962" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27351_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/385/original/2019-04-04_95791_row_2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=f96e44064e82e2047a0997f649727ee6596a6cbfc9b74ca49d23edc57e0bd98f" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:47.000-07:00" />
+          <attvalue for="3" value="5636" />
+          <attvalue for="15" value="qc_image_27351_95791" />
+          <attvalue for="4" value="349962" />
+          <attvalue for="16" value="32385" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:47.000-07:00" />
+          <attvalue for="11" value="349962" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349963" label="DataAssociation_349963" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27329_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/385/original/2019-04-04_95791_row_2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=f96e44064e82e2047a0997f649727ee6596a6cbfc9b74ca49d23edc57e0bd98f" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:49.000-07:00" />
+          <attvalue for="3" value="5638" />
+          <attvalue for="15" value="qc_image_27329_95791" />
+          <attvalue for="4" value="349963" />
+          <attvalue for="16" value="32385" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:49.000-07:00" />
+          <attvalue for="11" value="349963" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349964" label="DataAssociation_349964" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27333_95791&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/385/original/2019-04-04_95791_row_2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=f96e44064e82e2047a0997f649727ee6596a6cbfc9b74ca49d23edc57e0bd98f" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:49:51.000-07:00" />
+          <attvalue for="3" value="5640" />
+          <attvalue for="15" value="qc_image_27333_95791" />
+          <attvalue for="4" value="349964" />
+          <attvalue for="16" value="32385" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:49:51.000-07:00" />
+          <attvalue for="11" value="349964" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349974" label="DataAssociation_349974" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_4&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:42.000-07:00" />
+          <attvalue for="3" value="5642" />
+          <attvalue for="15" value="qc_result_27337_column_4" />
+          <attvalue for="4" value="349974" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:42.000-07:00" />
+          <attvalue for="11" value="349974" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349975" label="DataAssociation_349975" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_5&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:43.000-07:00" />
+          <attvalue for="3" value="5643" />
+          <attvalue for="15" value="qc_result_27337_column_5" />
+          <attvalue for="4" value="349975" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:43.000-07:00" />
+          <attvalue for="11" value="349975" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349977" label="DataAssociation_349977" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27337_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:44.000-07:00" />
+          <attvalue for="3" value="5644" />
+          <attvalue for="15" value="qc_result_27337_column_6" />
+          <attvalue for="4" value="349977" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:44.000-07:00" />
+          <attvalue for="11" value="349977" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349978" label="DataAssociation_349978" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27340_column_7&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:44.000-07:00" />
+          <attvalue for="3" value="5645" />
+          <attvalue for="15" value="qc_result_27340_column_7" />
+          <attvalue for="4" value="349978" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:44.000-07:00" />
+          <attvalue for="11" value="349978" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349981" label="DataAssociation_349981" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_10&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:47.000-07:00" />
+          <attvalue for="3" value="5646" />
+          <attvalue for="15" value="qc_result_27345_column_10" />
+          <attvalue for="4" value="349981" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:47.000-07:00" />
+          <attvalue for="11" value="349981" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349982" label="DataAssociation_349982" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_11&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:48.000-07:00" />
+          <attvalue for="3" value="5647" />
+          <attvalue for="15" value="qc_result_27345_column_11" />
+          <attvalue for="4" value="349982" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:48.000-07:00" />
+          <attvalue for="11" value="349982" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349984" label="DataAssociation_349984" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27345_column_12&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:49.000-07:00" />
+          <attvalue for="3" value="5648" />
+          <attvalue for="15" value="qc_result_27345_column_12" />
+          <attvalue for="4" value="349984" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:49.000-07:00" />
+          <attvalue for="11" value="349984" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349986" label="DataAssociation_349986" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27331_column_1&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:50.000-07:00" />
+          <attvalue for="3" value="5649" />
+          <attvalue for="15" value="qc_result_27331_column_1" />
+          <attvalue for="4" value="349986" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:50.000-07:00" />
+          <attvalue for="11" value="349986" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349988" label="DataAssociation_349988" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27350_column_2&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:50.000-07:00" />
+          <attvalue for="3" value="5650" />
+          <attvalue for="15" value="qc_result_27350_column_2" />
+          <attvalue for="4" value="349988" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:50.000-07:00" />
+          <attvalue for="11" value="349988" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349989" label="DataAssociation_349989" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27351_column_3&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:51.000-07:00" />
+          <attvalue for="3" value="5651" />
+          <attvalue for="15" value="qc_result_27351_column_3" />
+          <attvalue for="4" value="349989" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:51.000-07:00" />
+          <attvalue for="11" value="349989" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349990" label="DataAssociation_349990" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27351_column_4&quot;: &quot;Your QC result was incorrect. Oh no.&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:52.000-07:00" />
+          <attvalue for="3" value="5652" />
+          <attvalue for="15" value="qc_result_27351_column_4" />
+          <attvalue for="4" value="349990" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:52.000-07:00" />
+          <attvalue for="11" value="349990" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349992" label="DataAssociation_349992" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27351_column_5&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:53.000-07:00" />
+          <attvalue for="3" value="5653" />
+          <attvalue for="15" value="qc_result_27351_column_5" />
+          <attvalue for="4" value="349992" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:53.000-07:00" />
+          <attvalue for="11" value="349992" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349993" label="DataAssociation_349993" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27329_column_6&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:54.000-07:00" />
+          <attvalue for="3" value="5654" />
+          <attvalue for="15" value="qc_result_27329_column_6" />
+          <attvalue for="4" value="349993" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:54.000-07:00" />
+          <attvalue for="11" value="349993" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349994" label="DataAssociation_349994" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27329_column_7&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:54.000-07:00" />
+          <attvalue for="3" value="5655" />
+          <attvalue for="15" value="qc_result_27329_column_7" />
+          <attvalue for="4" value="349994" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:54.000-07:00" />
+          <attvalue for="11" value="349994" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349995" label="DataAssociation_349995" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27329_column_8&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:55.000-07:00" />
+          <attvalue for="3" value="5656" />
+          <attvalue for="15" value="qc_result_27329_column_8" />
+          <attvalue for="4" value="349995" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:55.000-07:00" />
+          <attvalue for="11" value="349995" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349996" label="DataAssociation_349996" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27333_column_9&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:56.000-07:00" />
+          <attvalue for="3" value="5657" />
+          <attvalue for="15" value="qc_result_27333_column_9" />
+          <attvalue for="4" value="349996" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:56.000-07:00" />
+          <attvalue for="11" value="349996" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349997" label="DataAssociation_349997" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27333_column_10&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:57.000-07:00" />
+          <attvalue for="3" value="5658" />
+          <attvalue for="15" value="qc_result_27333_column_10" />
+          <attvalue for="4" value="349997" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:57.000-07:00" />
+          <attvalue for="11" value="349997" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_349998" label="DataAssociation_349998" start="431782">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27333_column_11&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-04T15:58:57.000-07:00" />
+          <attvalue for="3" value="5659" />
+          <attvalue for="15" value="qc_result_27333_column_11" />
+          <attvalue for="4" value="349998" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-04T15:58:57.000-07:00" />
+          <attvalue for="11" value="349998" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350361" label="DataAssociation_350361" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27321&quot;: &quot;Your QC result for 27321 is in row 1 and column 1&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:35:16.000-07:00" />
+          <attvalue for="3" value="5660" />
+          <attvalue for="15" value="qc_row_and_column_27321" />
+          <attvalue for="4" value="350361" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:35:16.000-07:00" />
+          <attvalue for="11" value="350361" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350364" label="DataAssociation_350364" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27321_rep2&quot;: &quot;Your QC result for 27321 is in row 1 and column 2&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:35:17.000-07:00" />
+          <attvalue for="3" value="5661" />
+          <attvalue for="15" value="qc_row_and_column_27321_rep2" />
+          <attvalue for="4" value="350364" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:35:17.000-07:00" />
+          <attvalue for="11" value="350364" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350367" label="DataAssociation_350367" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_row_and_column_27321_rep3&quot;: &quot;Your QC result for 27321 is in row 1 and column 3&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:35:18.000-07:00" />
+          <attvalue for="3" value="5662" />
+          <attvalue for="15" value="qc_row_and_column_27321_rep3" />
+          <attvalue for="4" value="350367" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:35:18.000-07:00" />
+          <attvalue for="11" value="350367" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350375" label="DataAssociation_350375" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_image_27321_95831&quot;: &quot;QC Image&quot;}" />
+          <attvalue for="18" value="http://localhost:9000/development/uploads/uploads/000/032/390/original/2019-04-05_95831_row_1.JPG.JPG?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=aquarium_minio%2F20190622%2Fus-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20190622T235241Z&amp;X-Amz-Expires=10&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=404091707fc8748485524e64923dd448eb835042f9300c1b53d6f419380dd98d" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:41:32.000-07:00" />
+          <attvalue for="3" value="5663" />
+          <attvalue for="15" value="qc_image_27321_95831" />
+          <attvalue for="4" value="350375" />
+          <attvalue for="16" value="32390" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:41:32.000-07:00" />
+          <attvalue for="11" value="350375" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350377" label="DataAssociation_350377" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27321_column_1&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:42:06.000-07:00" />
+          <attvalue for="3" value="5665" />
+          <attvalue for="15" value="qc_result_27321_column_1" />
+          <attvalue for="4" value="350377" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:42:06.000-07:00" />
+          <attvalue for="11" value="350377" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350378" label="DataAssociation_350378" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27321_column_2&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:42:07.000-07:00" />
+          <attvalue for="3" value="5666" />
+          <attvalue for="15" value="qc_result_27321_column_2" />
+          <attvalue for="4" value="350378" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:42:07.000-07:00" />
+          <attvalue for="11" value="350378" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350379" label="DataAssociation_350379" start="431800">
+        <attvalues>
+          <attvalue for="13" value="{&quot;qc_result_27321_column_3&quot;: &quot;Your QC result was correct. Woohoo!&quot;}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T09:42:08.000-07:00" />
+          <attvalue for="3" value="5667" />
+          <attvalue for="15" value="qc_result_27321_column_3" />
+          <attvalue for="4" value="350379" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T09:42:08.000-07:00" />
+          <attvalue for="11" value="350379" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350514" label="DataAssociation_350514" start="431806">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27336&quot;: 338418}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="3" value="5668" />
+          <attvalue for="15" value="yeast_plate_27336" />
+          <attvalue for="4" value="350514" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="11" value="350514" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350515" label="DataAssociation_350515" start="431806">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27338&quot;: 338419}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="3" value="5669" />
+          <attvalue for="15" value="yeast_plate_27338" />
+          <attvalue for="4" value="350515" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="11" value="350515" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350516" label="DataAssociation_350516" start="431806">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27341&quot;: 338420}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="3" value="5670" />
+          <attvalue for="15" value="yeast_plate_27341" />
+          <attvalue for="4" value="350516" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="11" value="350516" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_350517" label="DataAssociation_350517" start="431806">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate_27346&quot;: 338421}" />
+          <attvalue for="14" value="30380" />
+          <attvalue for="2" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="3" value="5671" />
+          <attvalue for="15" value="yeast_plate_27346" />
+          <attvalue for="4" value="350517" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-05T15:37:50.000-07:00" />
+          <attvalue for="11" value="350517" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="Plan_30666" label="Plan_30666" start="429738">
+        <attvalues>
+          <attvalue for="0" value="None" />
+          <attvalue for="1" value="3NodeBistableSwitch" />
+          <attvalue for="2" value="2019-01-09T15:35:16.000-08:00" />
+          <attvalue for="3" value="515" />
+          <attvalue for="4" value="30666" />
+          <attvalue for="5" value="66" />
+          <attvalue for="6" value="41" />
+          <attvalue for="7" value="None" />
+          <attvalue for="8" value="{&quot;id&quot;: 0, &quot;parent_id&quot;: -1, &quot;name&quot;: &quot;no_name&quot;, &quot;width&quot;: 160, &quot;height&quot;: 60, &quot;input&quot;: null, &quot;output&quot;: null, &quot;documentation&quot;: &quot;No documentation ofr this module&quot;, &quot;children&quot;: null, &quot;wires&quot;: null, &quot;text_boxes&quot;: null}" />
+          <attvalue for="9" value="2019-01-09T10:19:42.000-08:00" />
+          <attvalue for="10" value="Level2 G2 Design 45 to 50 out of 57" />
+          <attvalue for="11" value="30666" />
+          <attvalue for="12" value="Plan" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_313681" label="DataAssociation_313681" start="429810">
+        <attvalues>
+          <attvalue for="13" value="{&quot;yeast_plate&quot;: 355997}" />
+          <attvalue for="14" value="30666" />
+          <attvalue for="2" value="2019-05-08T08:32:54.000-07:00" />
+          <attvalue for="3" value="5466" />
+          <attvalue for="15" value="yeast_plate" />
+          <attvalue for="4" value="313681" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-01-12T10:17:54.000-08:00" />
+          <attvalue for="11" value="313681" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_348294" label="DataAssociation_348294" start="431753">
+        <attvalues>
+          <attvalue for="13" value="{&quot;overnight_12352&quot;: 337345}" />
+          <attvalue for="14" value="30666" />
+          <attvalue for="2" value="2019-05-07T12:37:54.000-07:00" />
+          <attvalue for="3" value="5595" />
+          <attvalue for="15" value="overnight_12352" />
+          <attvalue for="4" value="348294" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-03T10:13:36.000-07:00" />
+          <attvalue for="11" value="348294" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_348295" label="DataAssociation_348295" start="431753">
+        <attvalues>
+          <attvalue for="13" value="{&quot;plasmid&quot;: 355833}" />
+          <attvalue for="14" value="30666" />
+          <attvalue for="2" value="2019-05-07T12:37:54.000-07:00" />
+          <attvalue for="3" value="5596" />
+          <attvalue for="15" value="plasmid" />
+          <attvalue for="4" value="348295" />
+          <attvalue for="16" value="None" />
+          <attvalue for="17" value="Plan" />
+          <attvalue for="9" value="2019-04-03T10:13:36.000-07:00" />
+          <attvalue for="11" value="348295" />
+          <attvalue for="12" value="DataAssociation" />
+        </attvalues>
+      </node>
+      <node end="433679" id="DataAssociation_348298" label="DataAssociation_348298" start="431753">
+        <attvalues>
+          <attvalue for="13" value="{&quot;overnight_5225&quot;: 337347}"
