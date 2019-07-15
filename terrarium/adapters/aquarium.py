@@ -82,6 +82,9 @@ class AquariumAdapter(AdapterABC):
         else:
             return g
 
+        browser = samples[0].session.browser
+        browser.get(samples, {"field_values": "sample"})
+
         parent_samples = []
         for sample in samples:
             for fv in sample.field_values:
@@ -90,9 +93,6 @@ class AquariumAdapter(AdapterABC):
                     m1 = model_serializer(fv.sample)
                     m2 = model_serializer(sample)
                     g.add_edge_from_models(m1, m2)
-
-        browser = sample.session.browser
-        browser.get(parent_samples, {"field_values": "sample"})
 
         return cls.build_sample_graph(parent_samples, g=g, visited=visited)
 
