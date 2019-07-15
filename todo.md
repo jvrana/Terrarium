@@ -5,3 +5,4 @@ use a modular function that computes the cost from the instance.  Return a simpl
 directed graph. Overall, this will make it easier to add and remove data from
 the cost computation (including errors etc.)
 3. change .graph to .G
+4. `tests/test_algorithms` are hanging

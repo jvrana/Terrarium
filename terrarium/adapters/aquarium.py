@@ -1,8 +1,16 @@
 from terrarium.graphs import SampleGraph
-from typing import Sequence
+
 from terrarium.utils.async_wrapper import make_async
 from terrarium.schemas import Schema
 from .adapterabc import AdapterABC
+from uuid import uuid4
+
+# typing
+from pydent.sessionabc import SessionABC
+from pydent.base import ModelBase
+from pydent.models import FieldValue, AllowableFieldType, Plan
+from networkx import DiGraph
+from typing import List
 
 
 class Serializer(object):
@@ -11,7 +19,7 @@ class Serializer(object):
     """
 
     @staticmethod
-    def serialize(model, *args, **kwargs):
+    def serialize(model: ModelBase, *args, **kwargs) -> dict:
         data = model.dump(*args, **kwargs)
         data[Schema.PRIMARY_KEY] = model._primary_key
         data[Schema.MODEL_CLASS] = model.__class__.__name__
@@ -19,14 +27,16 @@ class Serializer(object):
 
     # TODO: operation tpe and field type serialization is unnecessary
     @classmethod
-    def serialize_aft(cls, aft):
+    def serialize_aft(cls, aft: AllowableFieldType) -> dict:
+        if aft is None:
+            return str(uuid4())
         data = cls.serialize(
             aft, include={"field_type": {"operation_type": "field_types"}}
         )
         return data
 
     @classmethod
-    def serialize_iovalue(cls, fv):
+    def serialize_iovalue(cls, fv: FieldValue) -> dict:
         data = cls.serialize(fv)
         data["allowable_field_type"] = cls.serialize_aft(fv.allowable_field_type)
         data["plan_id"] = fv.operation.plans[0].id
@@ -35,10 +45,10 @@ class Serializer(object):
 
 class AquariumAdapter(AdapterABC):
     """
-    The only class that should make ANY requests to aquarium
+    An adapter to the Aquarium fabrication server.
     """
 
-    def __init__(self, session):
+    def __init__(self, session: SessionABC):
         assert session.using_requests is True
         assert session.using_cache is True
         assert session.browser
@@ -49,7 +59,9 @@ class AquariumAdapter(AdapterABC):
         return self.session.browser
 
     @classmethod
-    def build_sample_graph(cls, samples, g=None, visited=None):
+    def build_sample_graph(
+        cls, samples: List[ModelBase], g=None, visited=None
+    ) -> DiGraph:
         """
         Requires requests.
 
@@ -96,9 +108,7 @@ class AquariumAdapter(AdapterABC):
 
         return cls.build_sample_graph(parent_samples, g=g, visited=visited)
 
-    def collect_items(
-        self, afts: Sequence[dict], sample_ids: Sequence[int]
-    ) -> Sequence[dict]:
+    def collect_items(self, afts: List[dict], sample_ids: List[int]) -> List[dict]:
         """
 
         :param sample_ids: list of serialized allowable field types containing keys ['field_type']['part']
@@ -150,7 +160,7 @@ class AquariumAdapter(AdapterABC):
             Serializer.serialize(part, include="collections") for part in parts_list
         ]
 
-    def collect_io_values_from_plans(self, plans):
+    def collect_io_values_from_plans(self, plans: List[Plan]) -> tuple:
         with self.session.with_cache(timeout=60) as sess:
             sess.browser.update_cache(plans)
             sess.browser.get("Plan", {"operations": {"field_values"}})
@@ -176,10 +186,10 @@ class AquariumAdapter(AdapterABC):
                     edges.append((src_io, dest_io))
         return nodes, edges
 
-    def collect_data_from_plans(self, plans):
+    def collect_data_from_plans(self, plans: List[Plan]) -> tuple:
         return self.collect_io_values_from_plans(plans)
 
-    def collect_deployed_afts(self):
+    def collect_deployed_afts(self) -> List[dict]:
         with self.session.with_cache(timeout=60) as sess:
             sess.OperationType.where({"deployed": True})
 

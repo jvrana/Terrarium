@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class AdapterABC(ABC):
-    """Adapter to a data server."""
+    """Adapter to a data server (e.g. a fabrication database)."""
 
     @abstractmethod
     def build_sample_graph(self):
