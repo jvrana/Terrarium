@@ -1,3 +1,9 @@
+"""
+Fixtures for algorithm tests.
+
+Produces a graphs in './data' as .gexf files if None exists. Otherwise loads the gexf files for other tests.
+"""
+
 from os.path import dirname, join, abspath, isfile, isdir
 from os import makedirs
 import pytest
@@ -47,9 +53,6 @@ def graph(base_session, example_sample):
     if not isfile(filepath):
         with base_session.with_cache(timeout=TIMEOUT) as sess:
             with timeit("Building new test graph"):
-                s = example_sample
-                requester = AquariumAdapter(sess)
-
                 adapter = AquariumAdapter(sess)
 
                 with timeit("Initializing blueprint"):
@@ -59,7 +62,7 @@ def graph(base_session, example_sample):
                     blueprint.collect_deployed()
 
                 with timeit("Collecting plans"):
-                    plans = adapter.session.Plan.last(100)
+                    plans = adapter.session.Plan.last(500)
                     blueprint.collect(plans)
 
                 with timeit("Building blueprint graph"):
