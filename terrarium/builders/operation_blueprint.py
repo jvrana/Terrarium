@@ -31,6 +31,13 @@ class BlueprintBuilderABC(BuilderABC):
         self.collected_data = self.adapter.collect_io_values_from_plans(*args, **kwargs)
 
     def collect_deployed(self, *args, **kwargs):
+        """
+        Collect deployed allowable field types.
+
+        :param args:
+        :param kwargs:
+        :return:
+        """
         self.deployed_nodes = self.adapter.collect_deployed_afts(*args, **kwargs)
 
     @abstractmethod

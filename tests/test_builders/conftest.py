@@ -38,7 +38,7 @@ def build_basic_graph(base_session, blueprint_graph, sample_graph):
     builder = OperationGraphBuilder(
         AquariumAdapter(sess), blueprint_graph, sample_graph
     )
-    graph = builder.build_basic_graph()
+    graph = builder.build_anon_graph()
     return graph, builder
 
 

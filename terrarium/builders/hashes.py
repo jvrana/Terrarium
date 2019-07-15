@@ -9,8 +9,8 @@ def make_hash(*args, sep="-") -> str:
 
 
 def external_aft_hash(aft: dict) -> str:
-    if not aft["field_type_id"]:
-        return str(uuid4())
+    if isinstance(aft, str):
+        return aft
     return make_hash(
         aft[C.MODEL_CLASS],
         aft["object_type_id"],

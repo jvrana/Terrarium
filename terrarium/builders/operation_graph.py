@@ -119,11 +119,15 @@ class OperationGraphBuilder(BuilderABC):
         return graph
 
     def build(self):
-        graph = self.build_basic_graph()
+        graph = self.build_anon_graph()
         self.assign_inventory(graph)
 
     @needs_sample_graph
-    def build_basic_graph(self) -> OperationGraph:
+    def build_anon_graph(self) -> OperationGraph:
+        """
+        Builds an anonymous operation graph with no inventory assigned.
+        :return:
+        """
         sample_graphs = self.sample_subgraph_dict()
 
         graph = OperationGraph()

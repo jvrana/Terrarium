@@ -1,6 +1,3 @@
-# TODO: this grouper class is not used. Remove it.
-
-
 class Grouper(object):
     class NONETYPE(object):
         pass
