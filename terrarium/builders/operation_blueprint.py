@@ -2,13 +2,11 @@ from terrarium.utils import GroupCounter
 from .hashes import edge_hash, internal_aft_hash, external_aft_hash
 from terrarium.graphs import AFTGraph
 from terrarium.builders.utils import match_afts
-from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
 from abc import abstractmethod
 from terrarium import constants as C
 import networkx as nx
 from itertools import chain
-
 from terrarium.adapters import AdapterABC
 
 
