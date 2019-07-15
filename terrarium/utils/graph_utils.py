@@ -1,22 +1,29 @@
 import networkx as nx
-from more_itertools import windowed, unique_justseen
+from more_itertools import windowed, unique_justseen, pairwise
+from typing import List, Union, Tuple
 
 
-def get_roots(G, nbunch=None):
+def get_roots(G: nx.Digraph, nbunch=None) -> List[Union[str, int]]:
+    """Return the roots of the graph."""
     return [n for (n, d) in G.in_degree() if d == 0 and (n in nbunch or nbunch is None)]
 
 
-def get_leaves(G, nbunch=None):
+def get_leaves(G: nx.DiGraph, nbunch=None) -> List[Union[str, int]]:
+    """Returns the leaves of the graph"""
     return [
         n for (n, d) in G.out_degree() if d == 0 and (n in nbunch or nbunch is None)
     ]
 
 
-def get_edges_from_path(path):
-    return zip(path[:-1], path[1:])
+def get_edges_from_path(path: List[Union[str, int]]):
+    """Return pairwise edges of a path"""
+    return pairwise(path)
 
 
-def get_path_weights(graph, path, weight):
+def get_path_weights(
+    graph: nx.DiGraph, path: List[Union[str, int]], weight: str
+) -> List[float]:
+    """Return list of edge weights in the path"""
     edge_weights = []
     for e1, e2 in get_edges_from_path(path):
         edge = graph.edges[e1, e2]
@@ -24,17 +31,29 @@ def get_path_weights(graph, path, weight):
     return edge_weights
 
 
-def get_path_length(graph, path, weight):
-    length = 0
-    for e1, e2 in get_edges_from_path(path):
-        edge = graph.edges[e1, e2]
-        length += edge[weight]
-    return length
+def get_path_length(
+    graph: nx.DiGraph, path: List[Union[str, int]], weight: str
+) -> float:
+    """Return path length keyed by 'weight' key."""
+    return sum(get_path_weights(graph, path))
 
 
 def iter_top_paths(
-    graph, bellman_ford_path_length_dict, start_nodes, end_nodes, cutoff
+    graph: nx.DiGraph,
+    bellman_ford_path_length_dict: dict,
+    start_nodes: List[Union[str, int]],
+    end_nodes: List[Union[str, int]],
+    cutoff: float,
 ):
+    """
+    Return the top paths between the start and end nodes
+    :param graph:
+    :param bellman_ford_path_length_dict:
+    :param start_nodes:
+    :param end_nodes:
+    :param cutoff:
+    :return:
+    """
     for start in start_nodes:
         for end in end_nodes:
             shortest_length = bellman_ford_path_length_dict[start].get(end, None)
@@ -45,7 +64,9 @@ def iter_top_paths(
                         yield path_length, path
 
 
-def top_paths(G, include_nodes, weight_key):
+def top_paths(
+    G: nx.Digraph, include_nodes: List[Union[str, int]], weight_key: str
+) -> Tuple(float, List[Union[int, str]]):
     """
 
 
