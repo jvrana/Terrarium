@@ -1,9 +1,9 @@
 from terrarium.builders import OperationBlueprintBuilder, OperationGraphBuilder
 from terrarium import constants
-from terrarium._version import (
+from terrarium.__version__ import (
     __version__,
     __title__,
-    __author__,
+    __authors__,
     __homepage__,
     __repo__,
 )
