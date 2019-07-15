@@ -3,7 +3,7 @@ from more_itertools import windowed, unique_justseen, pairwise
 from typing import List, Union, Tuple
 
 
-def get_roots(G: nx.Digraph, nbunch=None) -> List[Union[str, int]]:
+def get_roots(G: nx.DiGraph, nbunch=None) -> List[Union[str, int]]:
     """Return the roots of the graph."""
     return [n for (n, d) in G.in_degree() if d == 0 and (n in nbunch or nbunch is None)]
 
@@ -65,8 +65,8 @@ def iter_top_paths(
 
 
 def top_paths(
-    G: nx.Digraph, include_nodes: List[Union[str, int]], weight_key: str
-) -> Tuple(float, List[Union[int, str]]):
+    G: nx.DiGraph, include_nodes: List[Union[str, int]], weight_key: str
+) -> Tuple[float, List[Union[int, str]]]:
     """
 
 
@@ -74,7 +74,7 @@ def top_paths(
         :param include_nodes: list of nodes to include in the path
         :param weight_key: weight key
         :return:
-        """
+    """
 
     path = []
     cost = 0
