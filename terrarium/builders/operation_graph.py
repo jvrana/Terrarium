@@ -8,13 +8,14 @@ from terrarium.adapters import AdapterABC
 from .builder_abc import BuilderABC
 from terrarium import constants as C
 from functools import wraps
+from typing import Callable
 
 
 class OperationGraphException(Exception):
     pass
 
 
-def needs_sample_graph(f):
+def needs_sample_graph(f: Callable) -> Callable:
     @wraps(f)
     def wrapped(self, *args, **kwargs):
         if self.sample_graph is None:

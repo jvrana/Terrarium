@@ -1,5 +1,6 @@
 import inspect
 from functools import wraps
+from typing import List, Tuple, Union, Callable
 
 
 def is_any_type_of(*types):
@@ -21,7 +22,12 @@ def is_in(instances):
 
 
 def validation_errors(
-    data, schema, strict=False, keys=None, fail_fast=True, value_comparator=None
+    data: Union[dict, list],
+    schema: Union[dict, list, type, Callable],
+    strict=False,
+    keys=None,
+    fail_fast=True,
+    value_comparator=None,
 ):
     errors = []
     if keys is None:
@@ -110,7 +116,7 @@ def validation_errors(
     return errors
 
 
-def validate_with_schema(data, schema, strict=False, value_comparator=None):
+def validate_with_schema(data: dict, schema, strict=False, value_comparator=None):
     errors = validation_errors(
         data, schema, strict=strict, fail_fast=True, value_comparator=value_comparator
     )
@@ -119,7 +125,7 @@ def validate_with_schema(data, schema, strict=False, value_comparator=None):
 
 def validate_with_schema_errors(
     data, schema, strict=False, verbose=False, value_comparator=None
-):
+) -> Tuple[bool, List[str]]:
     if verbose:
         errors = validation_errors(
             data,

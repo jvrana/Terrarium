@@ -9,6 +9,8 @@ from terrarium import constants as C
 import networkx as nx
 from itertools import chain
 
+from terrarium.adapters import AdapterABC
+
 
 class BlueprintException(Exception):
     pass
@@ -19,7 +21,7 @@ class BlueprintBuilderABC(BuilderABC):
     A blueprint builder that constructs a graph of all possible deployed operations
     """
 
-    def __init__(self, adapter):
+    def __init__(self, adapter: AdapterABC):
         assert hasattr(adapter, "collect_deployed_afts")
         assert hasattr(adapter, "collect_data_from_plans")
         super().__init__(adapter)

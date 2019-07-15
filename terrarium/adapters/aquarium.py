@@ -9,7 +9,6 @@ from uuid import uuid4
 from pydent.sessionabc import SessionABC
 from pydent.base import ModelBase
 from pydent.models import FieldValue, AllowableFieldType, Plan
-from networkx import DiGraph
 from typing import List
 
 
@@ -61,7 +60,7 @@ class AquariumAdapter(AdapterABC):
     @classmethod
     def build_sample_graph(
         cls, samples: List[ModelBase], g=None, visited=None
-    ) -> DiGraph:
+    ) -> SampleGraph:
         """
         Requires requests.
 

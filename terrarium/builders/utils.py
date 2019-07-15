@@ -14,7 +14,7 @@ def match_afts(afts1: Sequence[dict], afts2: Sequence[dict], hash_function: call
     return edges
 
 
-def aft_matches_item(aft_data, item_data):
+def aft_matches_item(aft_data: dict, item_data: dict):
     return validate_with_schema_errors(
         aft_data,
         {
