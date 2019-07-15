@@ -584,3 +584,4 @@ MigrationBackup/
 .vscode/settings.json
 
 tests/fixtures/**/*.yaml
+*.gexf
