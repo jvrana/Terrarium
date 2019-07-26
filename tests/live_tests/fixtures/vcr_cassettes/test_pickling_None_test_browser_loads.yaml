@@ -1,0 +1,62 @@
+interactions:
+- request:
+    body: '{"model": "Sample", "method": "where", "options": {"offset": -1, "limit":
+      30, "reverse": true}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '95'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=fYQuFYKHolwzAGrrUWI9WRxB5OgJrdmiblzIMa%2F9k2ciHyAu74cNJ3oKn%2BrkWUi8aOW9z7XELruKrOx7o8TWVA%3D%3D;
+        _aquarium_YourLab_production_session=aTVldThxQ1lCUElVeVQ3M1hnN3g0bG5xcUhjQ3NzTk9CR3FrS2kxTzNDZUhUekFKaGRHQktMTWRvZDI4aGgrWEFodFdnbEEyQ0Z1SEl3OTNqNi9VOUQ3bmdyTTFNWmhvUjkxdHJCMVNINVZLRXA0VVFSdFlDNW9QdHBuczFBeUpNcDNXV0ppZEhoaUVTbFZITEQ2a2RJdWRyUWs4czNaVFozM1FNZE1BSnJLS21GWThvVlNZeEFFaGJqSGRBZERQUUJWL0hORzEwMnpaSXV3c0tKUUxBYmFycEFsSG9HTndnbmM1OTNmT01zRGFRRG1RY2JId0Yzai9SajZ5cGZIbm1acG1WeGJLWlEzSllNY1pnVlMydXcwYlBlN2xwUk9NZm94R2I0SHBzbHFFcm5wK1lBd2hYL285TGhiSkFjeGF0SytJd1FaTVpMbjRWbUdsRlY3WTRTTUtNbS9Ua2Rza1R5MmtIcnRTMHNJRUFWNjFIZG1OZklKbWFTbVZ3QmZidkEvd2szMERETndVK0Z1QmN4aE9JbVorZVhmTDJjU1hFNGpMOFRXVnpiOD0tLTR5RjJXdlZSU25WQldvMm9xTzJLVlE9PQ%3D%3D--64e02dd38a30d7fca34f33877e6f29163789178e;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":29953,"name":"MyDemoPrimer","sample_type_id":1,"project":"Demo","created_at":"2019-06-22T09:03:11.000-07:00","updated_at":"2019-06-22T09:03:11.000-07:00","user_id":292,"description":null,"data":null},{"id":29952,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-281f64bc8-6a42-480f-9b2e-029142870261","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:53:04.000-07:00","updated_at":"2019-06-22T08:53:09.000-07:00","user_id":66,"description":"0314257a-9d7e-47b5-b4e2-b2a4885d0b07","data":null},{"id":29950,"name":"mynewsample388922f0-7dac-4a84-b780-aa83bbe7a8e5","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:53:04.000-07:00","updated_at":"2019-06-22T08:53:04.000-07:00","user_id":66,"description":null,"data":null},{"id":29951,"name":"mynewsample831a8925-a60f-4368-9d0e-5cc019d85b51","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:53:04.000-07:00","updated_at":"2019-06-22T08:53:04.000-07:00","user_id":66,"description":null,"data":null},{"id":29949,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-265b3fbcc-4029-4643-812c-c3472d50e5e0","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:51:27.000-07:00","updated_at":"2019-06-22T08:51:33.000-07:00","user_id":292,"description":"6db1a1a4-2cf5-4b72-a426-a187f38865ed","data":null},{"id":29947,"name":"mynewsampleda59aa5d-2ed1-43cd-a9c5-cae6f3af4c57","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:51:26.000-07:00","updated_at":"2019-06-22T08:51:26.000-07:00","user_id":292,"description":null,"data":null},{"id":29948,"name":"mynewsample28edba40-3201-4d75-8254-8e4d4b1a91d8","sample_type_id":5,"project":"trident","created_at":"2019-06-22T08:51:26.000-07:00","updated_at":"2019-06-22T08:51:26.000-07:00","user_id":292,"description":null,"data":null},{"id":29946,"name":"MyNewPrimer","sample_type_id":1,"project":"MyNewProject","created_at":"2019-06-21T21:22:56.000-07:00","updated_at":"2019-06-21T21:22:56.000-07:00","user_id":66,"description":null,"data":null},{"id":29945,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-28ae4131d-2c47-46fb-9462-69019d45c2c5","sample_type_id":5,"project":"trident","created_at":"2019-06-19T16:34:40.000-07:00","updated_at":"2019-06-19T16:34:46.000-07:00","user_id":66,"description":"32d4af81-e8a2-4eea-b322-636c87e749bf","data":null},{"id":29943,"name":"mynewsample888d55d7-e4cb-4cc1-b02e-8407d08b10cb","sample_type_id":5,"project":"trident","created_at":"2019-06-19T16:34:39.000-07:00","updated_at":"2019-06-19T16:34:39.000-07:00","user_id":66,"description":null,"data":null},{"id":29944,"name":"mynewsample8cb6cb63-b372-4016-ab41-d1a1c6af4d4e","sample_type_id":5,"project":"trident","created_at":"2019-06-19T16:34:39.000-07:00","updated_at":"2019-06-19T16:34:39.000-07:00","user_id":66,"description":null,"data":null},{"id":29940,"name":"mynewsamplea253ab65-ce59-4925-9fd4-ff6ee633898e","sample_type_id":5,"project":"trident","created_at":"2019-06-19T15:32:41.000-07:00","updated_at":"2019-06-19T15:32:47.000-07:00","user_id":66,"description":"248ebed0-c923-46e3-8b5c-45f3dea07417","data":null},{"id":29941,"name":"mynewsampleb9e5e4f7-60f3-4dcc-b41b-10b67f2237f3","sample_type_id":5,"project":"trident","created_at":"2019-06-19T15:32:41.000-07:00","updated_at":"2019-06-19T15:32:41.000-07:00","user_id":66,"description":null,"data":null},{"id":29942,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-2a2475973-3015-4d1b-9604-13a8854adb0f","sample_type_id":5,"project":"trident","created_at":"2019-06-19T15:32:41.000-07:00","updated_at":"2019-06-19T15:32:41.000-07:00","user_id":66,"description":null,"data":null},{"id":29937,"name":"mynewsample55212a9a-843c-4e36-8639-b3d97168d115","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:52:29.000-07:00","updated_at":"2019-06-19T13:52:35.000-07:00","user_id":66,"description":"4adff6b3-6901-4b7d-8d1f-86e5b8292286","data":null},{"id":29938,"name":"mynewsampled3bbe1fb-0b23-4dd3-b1b4-cea644018aa7","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:52:29.000-07:00","updated_at":"2019-06-19T13:52:29.000-07:00","user_id":66,"description":null,"data":null},{"id":29939,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-298644c4d-291c-4c58-b03c-3a699514ff3a","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:52:29.000-07:00","updated_at":"2019-06-19T13:52:29.000-07:00","user_id":66,"description":null,"data":null},{"id":29934,"name":"mynewsample122d8fb6-ca4e-4b97-bad5-bcad20e42264","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:35:07.000-07:00","updated_at":"2019-06-19T13:35:13.000-07:00","user_id":66,"description":"fcfa94ba-c27d-466f-bce6-ae147b8a5c23","data":null},{"id":29935,"name":"mynewsample4ba24f93-de89-4c98-a5c6-93e6f559eee4","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:35:07.000-07:00","updated_at":"2019-06-19T13:35:07.000-07:00","user_id":66,"description":null,"data":null},{"id":29936,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-2c55a4d8b-6719-45d2-b975-13851cdfa2fa","sample_type_id":5,"project":"trident","created_at":"2019-06-19T13:35:07.000-07:00","updated_at":"2019-06-19T13:35:07.000-07:00","user_id":66,"description":null,"data":null},{"id":29931,"name":"mynewsampleecf579b3-9dd4-4011-bffa-4b155ad9810f","sample_type_id":5,"project":"trident","created_at":"2019-06-13T14:44:16.000-07:00","updated_at":"2019-06-13T14:44:22.000-07:00","user_id":66,"description":"de327d20-8468-4abe-bcd1-0e88f276e938","data":null},{"id":29932,"name":"mynewsamplefda595ad-878a-4fdc-bba3-5041a9b7fb59","sample_type_id":5,"project":"trident","created_at":"2019-06-13T14:44:16.000-07:00","updated_at":"2019-06-13T14:44:16.000-07:00","user_id":66,"description":null,"data":null},{"id":29933,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-2ccab95e0-bc8d-4c5d-b3e2-444c0747c723","sample_type_id":5,"project":"trident","created_at":"2019-06-13T14:44:16.000-07:00","updated_at":"2019-06-13T14:44:16.000-07:00","user_id":66,"description":null,"data":null},{"id":29929,"name":"mynewsamplef97f8017-9071-4497-8156-5c942ad35280","sample_type_id":5,"project":"trident","created_at":"2019-06-13T13:23:44.000-07:00","updated_at":"2019-06-13T13:23:51.000-07:00","user_id":66,"description":"90232549-a3c2-41bb-9ace-f2af9322a533","data":null},{"id":29930,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-2498c9ad7-eeaf-4fe7-9f8a-d8f42170b3e4","sample_type_id":5,"project":"trident","created_at":"2019-06-13T13:23:44.000-07:00","updated_at":"2019-06-13T13:23:44.000-07:00","user_id":66,"description":null,"data":null},{"id":29928,"name":"mynewsampledd3e75d9-283e-476e-aa63-93265afce838","sample_type_id":5,"project":"trident","created_at":"2019-06-13T13:23:43.000-07:00","updated_at":"2019-06-13T13:23:43.000-07:00","user_id":66,"description":null,"data":null},{"id":29925,"name":"mynewsamplebb04b69a-bbdc-444f-a252-af035a3b29ed","sample_type_id":5,"project":"trident","created_at":"2019-06-12T11:58:05.000-07:00","updated_at":"2019-06-12T11:58:10.000-07:00","user_id":66,"description":"acf9ce31-769d-4218-8a65-94f38d804ee8","data":null},{"id":29926,"name":"mynewsample7268cb62-3380-4595-8244-835ffbf9a266","sample_type_id":5,"project":"trident","created_at":"2019-06-12T11:58:05.000-07:00","updated_at":"2019-06-12T11:58:05.000-07:00","user_id":66,"description":null,"data":null},{"id":29927,"name":"pMOD6-ADH1:ASBV1-W8-iCsy4si|pMOD8-pGRR-W8:yeVenus|W303a|pMOD8-pGALZ4-SSA-gRNA-2cea23e39-ccc5-4c11-a715-6f31fe1a0565","sample_type_id":5,"project":"trident","created_at":"2019-06-12T11:58:05.000-07:00","updated_at":"2019-06-12T11:58:05.000-07:00","user_id":66,"description":null,"data":null},{"id":29923,"name":"mynewsamplebcf472ba-cd6e-4e11-85c0-597d905499ae","sample_type_id":5,"project":"trident","created_at":"2019-06-12T11:56:45.000-07:00","updated_at":"2019-06-12T11:56:50.000-07:00","user_id":66,"description":"7b59cd80-fd0f-48ee-983d-937a7f06e571","data":null}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:14:30 GMT
+      ETag:
+      - W/"74a5926419254ba3023d0cb64e117c26"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=bumoZzNeqOVAtA%2FsavCjJVHwF8vDBUfoXajdD67bdckxcqZcXl4Hngm%2B%2Bu3fy9bAJVRO7H9ssPG5WPlFouIw%2Bg%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=U1N4UlRxSERYSUh3S3ZocEVrNjBiWkcyNFNBWXBsNGxVTnM1Szc2Q3lEaFVFMTNBRVlBYkJra1RRU2ROL21lZXF1M3hpbHFjMFZ3d3hTcnpZZHJVVkJtQmN3TVRuUXk2RlpJSFJvRk1hUGhrU3ZBdTZST0NqOGx2b0Fuck11ZjMxTUlzeGtTbTV1ckxIYVo4QUUvUDN1c3lPUkZqSnBNM3VBQ1hWVmExaCs3d1UrdVpRQU10UkI1cXNDTjdaWlo4N3A4aGFwNXQ4SzdZY1I0WUhOZkgyVzUzOG5mUDJTVjIzQ1h4cGRENFhJTjBrUUZ1ZHdrMDNpTzhENGhnTmlSYy8xbXZpQk5YRjFFeTc0ZVZ4UnhpVUozdVI0TmExRW1BaGNBQm9TN1NsVVBqUVV2enZLRm9qTlMvVmxuS1c0dWRpZDlEYlo2Zm85Wjl3TVJZSDNNOXdERmo2RHZmNmZsNHVBNnBIUUFoUm9od1B2LzUzai8xOFYwVnZGQm50MklXOHBkR3JtQnNFMjhCY0xLY3NNYXFRMGI2eGdlOCsxYlZMSG5IcVhJYk9Zaz0tLUdsbDRFTWcyY1lib3JwZXVqQTlTeVE9PQ%3D%3D--dc8678ffd7ae1c52b306d592a23d11c707833aaa;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 52c503b8-75a0-405f-a3d1-aaae8b7e32e3
+      X-Runtime:
+      - '0.019993'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

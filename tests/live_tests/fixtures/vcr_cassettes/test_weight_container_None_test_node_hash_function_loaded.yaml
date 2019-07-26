@@ -1,0 +1,121 @@
+interactions:
+- request:
+    body: '{"model": "AllowableFieldType", "method": "where", "options": {"offset":
+      -1, "limit": 10, "reverse": true}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '107'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":2865,"field_type_id":8774,"sample_type_id":70,"object_type_id":839,"created_at":"2019-05-10T12:20:30.000-07:00","updated_at":"2019-05-10T12:20:46.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":839,"name":"Yeast
+        Genome Prep","description":"A purified sample of yeast genomic DNA in water
+        or TE","min":0,"max":1,"handler":"sample_container","safety":"No safety information","cleanup":"No
+        cleanup information","data":"No data","vendor":"No vendor information","created_at":"2019-05-10T12:19:44.000-07:00","updated_at":"2019-05-10T12:19:44.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}},{"id":2864,"field_type_id":8773,"sample_type_id":5,"object_type_id":428,"created_at":"2019-05-10T12:20:30.000-07:00","updated_at":"2019-05-10T12:20:30.000-07:00","sample_type":{"id":5,"name":"Yeast
+        Strain","description":"A strain of yeast distinguished from others by genomic
+        or plasmid modifications","created_at":"2013-10-16T14:37:29.000-07:00","updated_at":"2015-12-08T17:40:57.000-08:00"},"object_type":{"id":428,"name":"Yeast
+        50ml culture","description":"Culture for making comp cells","min":0,"max":1,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-07-30T15:07:45.000-07:00","updated_at":"2014-08-12T19:17:15.000-07:00","unit":"Yeast
+        Strain","cost":0.01,"release_method":"dispose","release_description":"","sample_type_id":5,"image":"","prefix":"","rows":null,"columns":null}},{"id":2863,"field_type_id":8770,"sample_type_id":70,"object_type_id":838,"created_at":"2019-05-10T11:29:55.000-07:00","updated_at":"2019-05-10T12:06:45.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":838,"name":"Fragment
+        Library","description":"A special case of Fragment that contains many unique
+        sequences","min":0,"max":1,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2019-05-10T12:06:08.000-07:00","updated_at":"2019-05-10T12:06:08.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}},{"id":2862,"field_type_id":8769,"sample_type_id":70,"object_type_id":838,"created_at":"2019-05-10T11:29:55.000-07:00","updated_at":"2019-05-10T12:06:45.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":838,"name":"Fragment
+        Library","description":"A special case of Fragment that contains many unique
+        sequences","min":0,"max":1,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2019-05-10T12:06:08.000-07:00","updated_at":"2019-05-10T12:06:08.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}},{"id":2860,"field_type_id":1063,"sample_type_id":70,"object_type_id":755,"created_at":"2019-05-08T22:42:41.000-07:00","updated_at":"2019-05-08T22:42:41.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":755,"name":"96
+        qPCR collection","description":"contains up to 96 samples in qPCR stripwells
+        or qPCR plate","min":0,"max":1000,"handler":"collection","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-02-09T08:42:28.000-08:00","updated_at":"2018-05-22T15:33:46.000-07:00","unit":"plate","cost":0.01,"release_method":"return","release_description":"","sample_type_id":null,"image":"","prefix":"Bench","rows":8,"columns":12}},{"id":2861,"field_type_id":1063,"sample_type_id":70,"object_type_id":760,"created_at":"2019-05-08T22:42:41.000-07:00","updated_at":"2019-05-08T22:42:41.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":760,"name":"Illuminated
+        Fragment Library","description":"A special case of dsDNA fragment that contains
+        many unique sequences and adapters for Illumina sequencing","min":0,"max":1,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-03-14T09:22:33.000-07:00","updated_at":"2018-03-14T09:22:33.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}},{"id":2859,"field_type_id":7670,"sample_type_id":null,"object_type_id":820,"created_at":"2019-05-06T08:21:35.000-07:00","updated_at":"2019-05-06T08:21:35.000-07:00","object_type":{"id":820,"name":"12%
+        SDS Gel in Tank","description":"For SDS-PAGE analysis","min":0,"max":100,"handler":"collection","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-10-09T21:16:39.000-07:00","updated_at":"2018-11-17T13:47:15.000-08:00","unit":"box","cost":0.01,"release_method":"dispose","release_description":"","sample_type_id":null,"image":"","prefix":"","rows":1,"columns":3}},{"id":2858,"field_type_id":6904,"sample_type_id":null,"object_type_id":820,"created_at":"2019-05-06T08:21:14.000-07:00","updated_at":"2019-05-06T08:21:14.000-07:00","object_type":{"id":820,"name":"12%
+        SDS Gel in Tank","description":"For SDS-PAGE analysis","min":0,"max":100,"handler":"collection","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-10-09T21:16:39.000-07:00","updated_at":"2018-11-17T13:47:15.000-08:00","unit":"box","cost":0.01,"release_method":"dispose","release_description":"","sample_type_id":null,"image":"","prefix":"","rows":1,"columns":3}},{"id":2857,"field_type_id":109,"sample_type_id":70,"object_type_id":760,"created_at":"2019-05-02T08:36:13.000-07:00","updated_at":"2019-05-02T08:36:13.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":760,"name":"Illuminated
+        Fragment Library","description":"A special case of dsDNA fragment that contains
+        many unique sequences and adapters for Illumina sequencing","min":0,"max":1,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-03-14T09:22:33.000-07:00","updated_at":"2018-03-14T09:22:33.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}},{"id":2856,"field_type_id":109,"sample_type_id":70,"object_type_id":779,"created_at":"2019-05-02T08:36:13.000-07:00","updated_at":"2019-05-02T08:36:13.000-07:00","sample_type":{"id":70,"name":"DNA
+        Library","description":"A sample that contains a pool of DNA molecules with
+        many unique sequences","created_at":"2018-01-02T14:28:12.000-08:00","updated_at":"2018-01-02T14:28:12.000-08:00"},"object_type":{"id":779,"name":"Amplified
+        Fragment Library","description":"A special case of dsDNA fragment that contains
+        many unique sequences (before addition of adapters for Illumina sequencing)","min":0,"max":1,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2018-04-16T09:18:54.000-07:00","updated_at":"2018-04-16T09:18:54.000-07:00","unit":"DNA
+        Library","cost":0.01,"release_method":"return","release_description":"","sample_type_id":70,"image":"","prefix":"M20","rows":null,"columns":null}}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:21:33 GMT
+      ETag:
+      - W/"e42ab1cf999c949e8ab99a99e8a1cb26"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=WxBnQsYJCJ9buihWv0NVy1WxMXg4yFGr1svI%2Bf31giHw%2BYSROuWggdE1Z2zIyJWEhC6nhwC%2F%2BoJDdj5wpoKQfQ%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=SHJ0aWo2eTlSY2pYZ0dyRW1qS1VVRVg2T1drTmRiSkUwbjR2Lyt1Tld6dXI1SEV6R0dpckZsMGpzUTdRYmE1RFc2czJEQ1Zyb1VZSFVsdnduV1dvQ1lHRGNiWVhCRjNxS0FyaUpSbFcrdnoxcVZlYlBTN2JTUDArcDBwSUEwb2hNYWc5c0drYWlkbDhuMnhTOUFiOVBUeEZVTFdpZ3NwSCtJYnd1YThtWGw4empyUkc2MTVBRlhYWStrSkpUN3puQWp4YTRwanVYeEFNWmpqcmUraE52TFAzRlcrMGhxVVpjeGlFZWI4SXZKS3ZhMUxYZWNFb3JIVjdKakVPQzdDeXpudzhFRDE1OXovaFBxcEdMVzlXRC9tZFhyVmFnV2FKeU9BQjNDS24vVzE2V3J5T2ZCaVYreEp3bjgwV1FuRFhxdWhicmhFbkV2eExsOHZFN0o2bDBxQW92WkNqcXhzNEJBVEFxK0NWSTdXcDZrMnVUbEp6Sm1JWVR0L1IwL3I2bEhTNFpEdVljdXVobCtsdzBTSGMxbVUzbzd4L1JwRnFBZExqV2IyNXhyND0tLWt3U3VabncvYmRQNHN0REdjdkxxSlE9PQ%3D%3D--a08b96d2b391d5fd82b9fe19760599f27a23ba80;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - d4d4e017-a4a6-4593-971b-43a8560b8817
+      X-Runtime:
+      - '0.018806'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

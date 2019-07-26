@@ -1,0 +1,261 @@
+interactions:
+- request:
+    body: '{"model": "OperationType", "method": "where", "arguments": {"category":
+      "Control Blocks", "deployed": true}, "options": {"offset": -1, "limit": -1,
+      "reverse": false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '166'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":544,"name":"Canceled","category":"Control Blocks","deployed":true,"on_the_fly":null,"created_at":"2018-09-02T13:55:26.000-07:00","updated_at":"2018-09-02T13:55:38.000-07:00"},{"id":545,"name":"Pass","category":"Control
+        Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-09-02T14:27:52.000-07:00","updated_at":"2018-09-02T14:32:13.000-07:00"},{"id":496,"name":"Send
+        Email","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-25T21:47:07.000-07:00","updated_at":"2018-07-25T21:48:17.000-07:00"},{"id":495,"name":"Wait
+        For All","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-25T21:44:06.000-07:00","updated_at":"2018-07-25T21:45:21.000-07:00"},{"id":494,"name":"Wait
+        for User Input","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-25T21:42:07.000-07:00","updated_at":"2018-07-25T21:43:24.000-07:00"},{"id":546,"name":"[ADV
+        USERS ONLY] Associate to Item","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-09-02T14:28:10.000-07:00","updated_at":"2018-09-14T14:36:47.000-07:00"},{"id":531,"name":"[ADV
+        USERS ONLY] Case Block","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-08-17T15:12:33.000-07:00","updated_at":"2018-09-14T14:36:21.000-07:00"},{"id":500,"name":"[ADV
+        USERS ONLY] Listen to Channel","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-30T13:56:58.000-07:00","updated_at":"2018-09-14T14:36:36.000-07:00"},{"id":493,"name":"[ADV
+        USERS ONLY] Respond to Key-Value","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-25T21:36:12.000-07:00","updated_at":"2018-09-14T14:36:55.000-07:00"},{"id":530,"name":"[ADV
+        USERS ONLY] Response Block","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-08-17T15:12:25.000-07:00","updated_at":"2018-09-14T14:36:31.000-07:00"},{"id":499,"name":"[ADV
+        USERS ONLY] Send to Channel","category":"Control Blocks","deployed":true,"on_the_fly":false,"created_at":"2018-07-30T13:56:52.000-07:00","updated_at":"2018-09-14T14:36:42.000-07:00"}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:19:41 GMT
+      ETag:
+      - W/"fcb0617fb37080c00cb13167bffcd346"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=%2FQb0GOHVzdqS3n2uvoFxFYy8dugOE%2B5GZbOGMJMPJqFW7xfLHTllxBhRMpTJCrFaXSPgFzZkRW%2FwDnC5yHg0%2FQ%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=Uk04NWpONkpOV1plZ1ZHaXgxYlQraklFdUpyQVhDajVSRmJSeU5ldHZGT0pFeEd5WUVxQUtwc2RPMWErcWZGRVM0c2RCckFzdWU0TWdJZERzRTZ2OEo4OTU1MEZEVXo0UkhHSVRMU09uOEY0bEEwaVI3SDduWnI4UGw2ZkNaYXM5ZkxoRXJzNkViUkFnK3NtL25rdy9lLzZ5N0ovZEFPYXZJaTkwNUw0dFRMdWJEUURSVkhoa1NsK3RLcjRtN2xVYXVQbURuTktMK05Ca2NFSDdOTzFjdjBZbE4xVEZoVmZ4VjZ3OCtRbWxtOFIvOFpTODU0Tmw0Y1RrZWlrVEhlMDZYUk5kd3JKdysxNVdmazJURDY4NzJQUjhhM1NxdGlwVkxNeHM4TXNsSlM1NmFaekZmTHpZaE8zV1M5MmlNM3pNV2dEQnVlMjU4OWhQWlNsODF3SzdKVkVXNnNkQXBnTFBvNlpjWk5EOTlkNVNnVDlBVkRjM1UvTTR1K0hZU2hOTUN2SkpJa1VUdE9WenRoZTk3VFlMOUxudFFydGR2cjRYWFN2L1dlcCtaND0tLVZvdkxHVnFGUTNMQjZ2YTVPcGExc0E9PQ%3D%3D--964f44f4e667b82f6bd73732b32e2c72658827ec;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 664c7075-655b-4ede-a5f5-ec1c238a512f
+      X-Runtime:
+      - '0.005980'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "Sample", "method": "where", "options": {"offset": -1, "limit":
+      1, "reverse": true}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":29953,"name":"MyDemoPrimer","sample_type_id":1,"project":"Demo","created_at":"2019-06-22T09:03:11.000-07:00","updated_at":"2019-06-22T09:03:11.000-07:00","user_id":292,"description":null,"data":null}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:19:41 GMT
+      ETag:
+      - W/"c4cc5732e9f5bb4eff5c4d0fcc796586"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=41I90Y4TsSOc%2FFSfUSeGXMlX%2FLQ27SouUC9d0lOIyHpIu94Ccv8ZPRZzG6UmrEYTGMhqSw6agQfFkqtbCP%2FaJg%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=bVNyYUdMdkFvWSt3NnBXZmxldzEwMXVYUllMWEdsZmVlYi9BSlhrQ082VWlCM3NZQk5UUXVHZW1lSWNQSUVnZkNRNXQ4K042S3JsS2lhbjJqNys0ZUhOd3NlSlRsUS9uY0xjY1lDSnBqVCsyT3V0VHFJNEtIK1pKMTZkallJTGd1UCtPZXBmRWtwZk5seDhoU0tGV2pIbUJNajN5QVRyU3F4djdVaytzQnM5Uk9DVHJYanJNekwza0NjZmlPTDJrT3lyQVhMaTQ2bXJ0RTdITDI5Q2piSGFMOWhUVytiZlp1L0hzSnJoSkFCaHF6TWt0K0VJVXcrT3pJUUM1a0s0SEkwZXZ5SUE3aFF6VVh0aGRIeFNoUktEMWpGZUxGdGdQVm5ZRE9odWRGT1ptNHV6dkhWbGtVejlWMG1XN0lmT2R1OXo2YVNFWkZNYTZDVzYrL1lFNGJxMEpVemxSeWNVV0dtMFgzdlpCS29INmJXc3llL3dmZFl0MzQvOTIrT1JpV0JBNUhwdlFNNk1sMURibjk4dkE2Y3Z6cVBCb2tQM0Z5WmVabzR5eEtVVT0tLXlJdkV3U1ZtaUY1clRmOURJUUZwUlE9PQ%3D%3D--a2f8cdc6babc3c25a60dbee70196a53c3d73ac7b;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 88f576d8-18b5-4ea8-8320-1a55345fa92d
+      X-Runtime:
+      - '0.011587'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "ObjectType", "method": "where", "arguments": {"name": "Yeast
+      Glycerol Stock"}, "options": {"offset": -1, "limit": -1, "reverse": false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '147'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":214,"name":"Yeast Glycerol Stock","description":"A 1.8mL culture
+        of half saturated yeast overnight and half 50% glycerol stored in the -80C
+        freezer","min":0,"max":1,"handler":"sample_container","safety":"No safety
+        information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2013-10-16T15:07:47.000-07:00","updated_at":"2014-08-12T18:35:37.000-07:00","unit":"Yeast
+        Strain","cost":5.0,"release_method":"return","release_description":"","sample_type_id":5,"image":"","prefix":"M80","rows":null,"columns":null}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:19:41 GMT
+      ETag:
+      - W/"087efeddfdc6ba5e01aadd2d8775772f"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=wOYaXjmtF7IymtJZ7Q8NkVlmRez4pXeTwaREwS%2FSVBxrD%2FmNxUG%2FrLgVnWOahM3eiPnTE8DS3LpUGbJIdKVGQA%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=cDVyZkc4aGdhVlNmbUVhY1p5c0JwaEtmb0YxZmRGT2VhUzVBNkhSMitnYUgrRWdNU1ljWVQvUldxK3QrdFd6NVlJVnZOemhSVVVnc3FwbVZWUzBnT3Uvc1lZaFNkL0RGbFgzaWtFejJjNUZlV3ZZeVZXNC9HaEFqWEl2eW8rMVFMVnc2aGxGK0dVb2lCcy9Jbjd3a05NWmh3SjFoQUFua0FwR3ZOaDZkQ1RIMzBtZ0pPbzVLK0w0QXFhMTUvcTA5dlVYOUdSUHptcDlhTWd2V25mVy9pRy9jQkZ4bEpoOGs2eUFUREdXQ1hJZ3BoTjkwMkpRWU5nT052NDZxQUhUVFJiQWNWVXVhQVcxalpFc3VFeksyQ2p4Mldqc0N1bTl2UDVGdUhKdmQzeWs1S01QY3BrWHNuZEV3eEVhbit5d245L0NzVnRLNVgzcm5FaHpsSXFjcDFRbVlIWllDcHRQQjJ4WHVvbGFxb01PRFNSWVBieGxaYm5ZTEZleEZMeDNxdXBNN25nT3pvUG15OUhob094bTZ6bWd2cDNYNSs1YlVSNi9ncFR1V2JnYz0tLXZ4K2lPOWg2UmZpZnZyN1pRa1d4UEE9PQ%3D%3D--7867e36c37e80d7b97cf7a12ffca4e552e89ff07;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 31198d92-78d8-4e08-b614-57066b784c49
+      X-Runtime:
+      - '0.005820'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"model": "ObjectType", "method": "where", "arguments": {"name": "Fragment
+      Stock"}, "options": {"offset": -1, "limit": -1, "reverse": false}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '141'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '[{"id":295,"name":"Fragment Stock","description":"Fragment stock in
+        1.5 mL tube, usually stored in M20 fridge.","min":0,"max":1000,"handler":"sample_container","safety":"No
+        safety information","cleanup":"No cleanup information","data":"No data","vendor":"No
+        vendor information","created_at":"2014-01-12T16:12:01.000-08:00","updated_at":"2014-01-12T16:12:01.000-08:00","unit":"Fragment","cost":50.0,"release_method":"return","release_description":"","sample_type_id":4,"image":"","prefix":"M20","rows":null,"columns":null}]'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:19:41 GMT
+      ETag:
+      - W/"37abb02571a455d30e298fb7fc3db5d6"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=u4RIEkOEkYdkdkdNToz%2FXomTQFRJoXTX79pv9EKlLEwQbavBv2g5me75CHc5Bz8RWAzWq3HW3%2F56Z5l9GdI%2BEA%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=WFNTdVRhYlQ3UE56WU1hQWViM3NOaUFBaGxwaEpwOE1aTEdZejh2S2RsZWkyeGd4S0VNNytDZHdzQjFkNnNFeXlFWG1PdUJ6azRtMVQwTTRlaWlYdnNheGxzcG4yRmFPb1B0MHlOd1F3NDRJN0kxSHM2dndFNWJlRlRuYXF4QWVEd1RvLytIRDA5Ukt5czVzR2VFMFR0cnhKWVpzKy9SODBObkF2cmE1cjM3MDlWOG9KSzl3cDlhTkVZU09naWpTaVdGeUVYNG45UmtNVTJwbE9TRlpwbnEyc3hPbDc4MlU3NnJpUFZsWkV3Y2F1N3RWbnRPUFdaSTVoUDNUcEdrTHZNcVJsQmdjK1A4SGkwMGYwUGVUYkE2cS94VzVKTHNpS3Rrdk1oMzZjZ2R3NnVibVRpWHRvWXQ0bVNUQ09SV3dTai9GcXN4TTFEb1RhYmJXdWlWbXQrd3M0QzBJM2pJVVRNMm92NjhHYThtUFFBQnZ6T3I2QVlhdDZNdXo2UnNGSDcxdlMvUUxsQ1ByeHRVWkdpdDRuTDVhdjBjOXpMa295NWRxNitlNFBaYz0tLXA5bjAvRFRsZk1jZld1Ynd1VG82c1E9PQ%3D%3D--5465342790d75a725410a126367c8f44c850bb25;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 83c99c71-dce4-48b3-a737-808fbcdc239d
+      X-Runtime:
+      - '0.004612'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

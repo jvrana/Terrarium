@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: '{"model": "OperationType", "id": 84}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '36'
+      Content-Type:
+      - application/json
+      Cookie:
+      - XSRF-TOKEN=0vgjV48ZRKUmtb99EXV%2BQ99Z6heEdEcImGEefZ3F%2BWd5EcCEc%2FXsu6w68Edm%2Fr4MDsZ86LwD7CEN3Oj0xrLrOw%3D%3D;
+        _aquarium_YourLab_production_session=dit4THBnQmhhQmFhYTJLYUZUai9xSWh5NThxTzhnSXVwVEJRUjVtWEdraTVqUk1KY2ZUZW12Y0dqNFBhMWdWcHk1Y3JRZjNRTVZIenZScW5XOE5oSEhEbjFDcU52ampkMWtiQnVqVlQrMDZhcFNxMnNBRDZjMWtjcm1rZTFQMlRrMjV6RDd4WDNhY0dmVmp4U3AwTzZCdDlaYXJvMzJtRXc1cDM5VC8rK3RmcmhMYStoMTIvdDNxUEgvVm9mbFY1dmNhKzhHK2VhR3Y0MXZXY05UWmcwVW9Ibm16V29ST1d3aDJUUkdXUzg2alFidENvQko2bmxRdCtHMkd1Slc4VnB3NjRxVXI5ckxsdTNnL3dmVzFZby9ydTh0a1VIT1R3bDYrMDZDSlE3SCthVnkyRm1sM3hjV21KVTVCQXRIR1hVT0k4YU9DUFo1aWhkRkI3YVVCWTR0SjBIeURSUFhlSEE4OWRwYnBGeVJLQUZVQ0lOZ25PbUJ3Z1ZsZEtrU3BoZmx5L0RpdndTdWtGaEpMN0xpQlIxbW5BQjhpenNDVSs4WTVZcXA1UEowVT0tLWJqRVhoaWozQ0ZFVFpHSFVLVFdvVWc9PQ%3D%3D--f00c79c8c96d38d12b0dc5f87d0d2158c72bae22;
+        remember_token=SLLRrvtYchvNLhWHJR3FVg; remember_token_YourLab_production=SLLRrvtYchvNLhWHJR3FVg
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://0.0.0.0/json
+  response:
+    body:
+      string: '{"id":84,"name":"Send to Sequencing","category":"Cloning","deployed":true,"on_the_fly":false,"created_at":"2017-08-09T19:41:37.000-07:00","updated_at":"2017-08-09T19:51:09.000-07:00"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 26 Jul 2019 15:18:46 GMT
+      ETag:
+      - W/"5e219626fd5b4b90c64d0a15627fed7c"
+      Server:
+      - nginx/1.16.0
+      Set-Cookie:
+      - XSRF-TOKEN=o4FvLy3jrAqHkDochviAjVOzTqCVzLmmYIgh3GK7mEIIaIz80Q8EFA0fdSbxc0DCgizYX627Eo%2F1NddVOcyKHg%3D%3D;
+        path=/
+      - _aquarium_YourLab_production_session=M1ZjZHJ0bmY3V1pzVVl6OEVqdnZKcjNLcEVJd1JrOGp3YTh1R3I2Y2tzS1V6V01uZnp2MUlXdmRzTE5sZGovOTBIZW8wS29Vb01PUTM5blFJUzNITktCd0M1dDlhblludFZMK1R5TjZTdllNbmxWYXlBZzZkOE1HVmpiaHFUbjFLRlJsOVY0VkdEL0Z0b3hUajlwOThtU2lTM053ZVRzT2dJNFFnNVV6ckMydFpyTHQwZkZxSmhCTlEyZ2UyQ1V2UjBJNGxFSDZVUkoveVJNUTUweU1EQ1VRS0VqN2F1ZXdnY0c1SWZkQUdiWER2OU9welNrZzBadzc0M1RhMmZnWVRDRHc0K0NJMjJIQUNFWE5jbmJXdlhSSkE3czRrWXN0elR6U0R5bkJkcCtFTEFSRGJ6cm8wV25vSmJUb2xDNWxiTlhXOVl1aTQ4Qm94S1RnOUVQUThlSm05ZUFKSjZZQ0pDam96aG5GTStGS3ZrNVcrNFRHaGk1Tm5CWGtGM3ptOE1VYUViVjZaRFhrZGlFbG1BaEJLTENnclE4a3Z3dHpNRDBMUmZVaDlYRT0tLTRMMUM2OUszZUJxSXFRanNTQlVneVE9PQ%3D%3D--d28fd43c25a85f5c4bac905183748a157e904a12;
+        path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 3eef5cbc-d0ec-4c0b-b142-f5209e923c70
+      X-Runtime:
+      - '0.003547'
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
