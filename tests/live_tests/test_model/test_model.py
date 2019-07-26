@@ -1,5 +1,5 @@
 import pytest
-from autoplanner import AutoPlannerModel
+from terrarium import AutoPlannerModel
 from copy import deepcopy
 from pydent.browser import Browser
 

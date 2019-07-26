@@ -4,7 +4,7 @@ import pytest
 import vcr
 
 from pydent import AqSession
-from autoplanner import AutoPlannerModel
+from terrarium import AutoPlannerModel
 
 ###########
 # CONFIG
@@ -112,12 +112,12 @@ def new_model(session):
 
 
 @pytest.fixture(scope="function")
-def autoplanner(session, datadir):
+def autoplan(session, datadir):
     """The default autoplanner object used in tests. Preferrably loads a pickled
     object. If the pickled object does not exist, a new autoplanner object is created
     and pickled. This object is then unpickled and used."""
 
-    filepath = os.path.join(datadir, "autoplanner.pkl")
+    filepath = os.path.join(datadir, "terrarium.pkl")
 
     if not os.path.isfile(filepath):
         print("TESTS: No file found with path '{}'".format(filepath))

@@ -1,4 +1,4 @@
-from autoplanner.utils import hash_utils
+from terrarium.utils import hash_utils
 import dill
 
 

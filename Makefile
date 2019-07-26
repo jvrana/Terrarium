@@ -4,8 +4,7 @@ make:
 	poetry run pre-commit install
 
 format:
-	poetry run black autoplanner
-	poetry run black tests
+	poetry run black terrarium tests
 
 test:
 	poetry run pytest

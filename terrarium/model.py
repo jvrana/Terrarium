@@ -13,10 +13,10 @@ from pydent.utils.logger import Loggable
 from pydent.models import User
 from tqdm import tqdm
 
-from autoplanner.__version__ import __version__
-from autoplanner.exceptions import AutoPlannerException, AutoPlannerLoadingError
-from autoplanner.utils.hash_utils import HashCounter
-from autoplanner.browser_graph import BrowserGraph
+from terrarium.__version__ import __version__
+from terrarium.exceptions import AutoPlannerException, AutoPlannerLoadingError
+from terrarium.utils.hash_utils import HashCounter
+from terrarium.browser_graph import BrowserGraph
 
 from functools import wraps
 

@@ -1,4 +1,4 @@
-from autoplanner.browser_graph import BrowserGraph
+from terrarium.browser_graph import BrowserGraph
 from pydent.browser import Browser
 
 

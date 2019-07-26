@@ -1,6 +1,6 @@
 import pytest
 
-from autoplanner.model import EdgeWeightContainer, AutoPlannerModel
+from terrarium.model import EdgeWeightContainer, AutoPlannerModel
 from pydent.browser import Browser
 import dill
 

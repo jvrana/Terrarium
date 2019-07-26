@@ -1,6 +1,6 @@
 import pytest
 
-from autoplanner.model import ModelFactory
+from terrarium.model import ModelFactory
 
 
 @pytest.fixture(scope="function")
@@ -63,19 +63,19 @@ def test_build(session, factory, num):
     model.build()
 
 
-def test_basic_search(autoplanner, session):
-    autoplanner.set_verbose(True)
+def test_basic_search(autoplan, session):
+    autoplan.set_verbose(True)
 
     ignore_ots = session.OperationType.where(
         {"category": "Control Blocks", "deployed": True}
     )
     ignore = [ot.id for ot in ignore_ots]
 
-    autoplanner.add_model_filter(
+    autoplan.add_model_filter(
         "AllowableFieldType", lambda m: m.field_type.parent_id in ignore
     )
 
-    autoplanner.search_graph(
+    autoplan.search_graph(
         session.Sample.one(),
         session.ObjectType.find_by_name("Yeast Glycerol Stock"),
         session.ObjectType.find_by_name("Fragment Stock"),

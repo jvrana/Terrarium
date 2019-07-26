@@ -22,19 +22,19 @@ New models can be built as in the following:
 
 ```python
 from pydent import AqSession
-from autoplanner import AutoPlannerModel
+from terrarium import AutoPlannerModel
 production = AqSession("login", "pass", "url"
 
 # pull last 300 experimental to build model
 model = AutoPlannerModel(production, depth=300)
 model.build()
-models.save('autoplanner.pkl')
+models.save('terrarium.pkl')
 ```
 
 Saved models can be open later:
 
 ```python
-model = AutoPlannerModel.load('autoplanner.pkl')
+model = AutoPlannerModel.load('terrarium.pkl')
 ```
 
 What protocols the model uses can be adjusted using filters:
