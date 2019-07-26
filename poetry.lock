@@ -305,8 +305,8 @@ category = "main"
 description = "Aquarium's Python API for planning, executing, and analyzing scientific experiments."
 name = "pydent"
 optional = false
-python-versions = ">=3.7,<4.0"
-version = "0.1.5a0"
+python-versions = ">=3.6,<4.0"
+version = "0.1.5a1"
 
 [package.dependencies]
 inflection = ">=0.3.1,<0.4.0"
@@ -514,7 +514,7 @@ python-versions = ">=2.7"
 version = "0.5.2"
 
 [metadata]
-content-hash = "67ebe22faa514962645cb7edd5129d259547f04287e21ecaab5be79f35fcad4d"
+content-hash = "34ee508f544b118fe7a2cafb98a58f4666c16797a8ebb670dd1ceddf627085a7"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -549,7 +549,7 @@ pandas = ["071e42b89b57baa17031af8c6b6bbd2e9a5c68c595bc6bf9adabd7a9ed125d3b", "1
 pluggy = ["0825a152ac059776623854c1543d65a4ad408eb3d33ee114dff91e57ec6ae6fc", "b9817417e95936bf75d85d3f8767f7df6cdde751fc40aed3bb3074cbcb77757c"]
 pre-commit = ["92e406d556190503630fd801958379861c94884693a032ba66629d0351fdccd4", "cccc39051bc2457b0c0f7152a411f8e05e3ba2fe1a5613e4ee0833c1c1985ce3"]
 py = ["64f65755aee5b381cea27766a3a147c3f15b9b6b9ac88676de66ba2ae36793fa", "dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53"]
-pydent = ["820432df40bf3c2b0b89f245cbac99bcee4bd4e8097471e438143ec7c69d725d", "a545cac9f33457d03deb26ca00a642fb3cf89f8e1789623b5301fe7beb31a796"]
+pydent = ["a63a60833a8627088dce34d12df13555d112a6b1aa5ceea7b67cfe5c8a7bbb2e", "aa6236cefc26c2c21b2215aacab16b77757b1d78ee0805a7b748ed0ace8a035e"]
 pyparsing = ["43c5486cefefa536c9aab528881c992328f020eefe4f6d06332449c365218580", "d6c5ffe9d0305b9b977f7a642d36b9370954d1da7ada4c62393382cbadad4265"]
 pytest = ["6aa9bc2f6f6504d7949e9df2a756739ca06e58ffda19b5e53c725f7b03fb4aae", "b77ae6f2d1a760760902a7676887b665c086f71e3461c64ed2a312afcedc00d6"]
 pytest-cov = ["2b097cde81a302e1047331b48cadacf23577e431b61e9c6f49a1170bbe3d3da6", "e00ea4fdde970725482f1f35630d12f074e121a23801aabf2ae154ec6bdd343a"]
