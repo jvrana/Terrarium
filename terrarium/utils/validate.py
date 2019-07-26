@@ -3,6 +3,20 @@ from functools import wraps
 from typing import List, Tuple, Union, Callable
 
 
+class ValidationError(Exception):
+    @classmethod
+    def raise_from_msgs(cls, errors):
+        msgs = ["There was the following validation errors:"]
+        for i, e in enumerate(errors):
+            msgs.append("({}) - {}".format(i, e))
+        raise cls("\n".join(msgs))
+
+
+class OptionalType(object):
+    def __init__(self, schema):
+        self.schema = schema
+
+
 def is_any_type_of(*types):
     @wraps(is_any_type_of)
     def f(x, types=types):
@@ -11,6 +25,17 @@ def is_any_type_of(*types):
         return any(isinstance(x, t) for t in types if t is not None)
 
     return f
+
+
+def is_optional(instance):
+    return OptionalType(instance)
+
+
+def _contains(key, sequence, schema):
+    if isinstance(schema[key], OptionalType):
+        return True
+    else:
+        return key in sequence
 
 
 def is_in(instances):
@@ -42,15 +67,27 @@ def validation_errors(
                 msg += "[{}]".format(key)
         return msg
 
+    if isinstance(schema, OptionalType):
+        schema = schema.schema
+
     if isinstance(schema, dict) and isinstance(data, dict):
         # schema is a dict of types or other dicts
         for k in schema:
             if k not in data:
-                errors.append("{} is not in data".format(key_msg(keys + [k])))
+                if not isinstance(schema[k], OptionalType):
+                    errors.append(
+                        "@{key} {key} is not in data".format(key=key_msg(keys + [k]))
+                    )
+                else:
+                    continue
             else:
+                if isinstance(schema[k], OptionalType):
+                    schema_val = schema[k].schema
+                else:
+                    schema_val = schema[k]
                 new_errors = validation_errors(
                     data[k],
-                    schema[k],
+                    schema_val,
                     strict=strict,
                     keys=keys + [k],
                     value_comparator=value_comparator,
@@ -72,7 +109,7 @@ def validation_errors(
                 for s in schema
             ):
                 errors.append(
-                    "{}={} did not match any schemas in {}".format(
+                    "@{} data did not match any schemas {} not in {}".format(
                         key_msg(keys + [i]), c, schema
                     )
                 )
@@ -82,12 +119,12 @@ def validation_errors(
         # schema is the type of conf
         if not isinstance(data, schema):
             errors.append(
-                "{}={} is not an instance of {}".format(key_msg(keys), data, schema)
+                "@{} {} is not an instance of {}".format(key_msg(keys), data, schema)
             )
     elif callable(schema):
         if not schema(data):
             errors.append(
-                "{}={} did not pass callable schema value {} from {} {}".format(
+                "@{} {} did not pass callable schema value {} from {} {}".format(
                     key_msg(keys),
                     data,
                     schema(data),
@@ -98,25 +135,29 @@ def validation_errors(
     else:
         if strict and type(schema) is not type(data):
             errors.append(
-                "{}={} did not match expected type when strict=True. {} != {}".format(
-                    key_msg(keys), data, type(data), type(schema)
+                "@{} data did not match expected type when strict=True. {} != {}".format(
+                    key_msg(keys), type(data), type(schema)
                 )
             )
         elif value_comparator:
             if not value_comparator(data, schema):
                 errors.append(
-                    "{}={} did not match schema {} using {}".format(
-                        key_msg(keys), data, schema, value_comparator
+                    "@{} value comparator ({}) data did not match schema {} != {} using {}".format(
+                        key_msg(keys), value_comparator, data, schema
                     )
                 )
         elif data != schema:
             errors.append(
-                "{}={} did not equal schema {}".format(key_msg(keys), data, schema)
+                "@{} Schema and value are not equal {} != {}".format(
+                    key_msg(keys), data, schema
+                )
             )
     return errors
 
 
-def validate_with_schema(data: dict, schema, strict=False, value_comparator=None):
+def validate_with_schema(
+    data: dict, schema, strict=False, value_comparator=None
+) -> bool:
     errors = validation_errors(
         data, schema, strict=strict, fail_fast=True, value_comparator=value_comparator
     )

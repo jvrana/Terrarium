@@ -4,9 +4,15 @@ import json
 import arrow
 from copy import deepcopy
 import os
+from terrarium.utils.validate import (
+    is_any_type_of,
+    is_optional,
+    validate_with_schema_errors,
+    ValidationError,
+)
 
 
-class TerrarriumJSONParseError(Exception):
+class TerrariumJSONParseError(Exception):
     """Exception for input file parsing errors."""
 
 
@@ -22,29 +28,38 @@ class InputSchemaConstants(object):
 
 C = InputSchemaConstants
 
+query_schema = {
+    "model_class": is_optional(str),
+    "method": is_optional(str),
+    "queries": is_optional([dict]),
+    "query": is_optional(dict),
+    "args": is_optional(list),
+}
+
+schema = {
+    "TRAIN": query_schema,
+    "MODEL_PATH": is_optional(str),
+    "GOALS": [
+        {
+            "PLAN_ID": is_any_type_of(int, str),
+            "SAMPLE": query_schema,
+            "OBJECT_TYPE": query_schema,
+            "EDGES": [list],
+        }
+    ],
+    "GLOBAL_CONSTRAINTS": {"EXCLUDE": is_optional([dict])},
+}
+
 
 class JSONInterpreter(object):
     def __init__(self, session):
         self.session = session
         self.plans = {}
 
-    @staticmethod
-    def _missing_key(key):
-        return "Key '{}' is missing from input JSON".format(key)
-
     def validate(self, input_json):
-
-        errors = []
-
-        def missing_key(key):
-            return "Key '{}' is missing from input JSON".format(key)
-
-        def has_key(key):
-            if key not in input_json:
-                errors.append(missing_key(key))
-
-        for key in [C.GOALS, C.TRAIN, C.GLOBAL_CONSTRAINTS]:
-            has_key(key)
+        valid, errors = validate_with_schema_errors(input_json, schema, strict=True)
+        if not valid:
+            raise ValidationError.raise_from_msgs(errors)
 
     def load_model(self, model_json):
         if "filename" in model_json:
@@ -91,6 +106,7 @@ class JSONInterpreter(object):
         return f(*args, **kwargs)
 
     def parse(self, input_json):
+        self.validate(input_json)
         utc = arrow.utcnow()
         timestamp = utc.timestamp
 
