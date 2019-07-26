@@ -1,8 +1,15 @@
 [tool.poetry]
-name = "terrarium"
-version = "0.1.1"
-description = "Computer-aided process planner for scientific processes."
-authors = ["jvrana <justin.vrana@gmail.com>"]
+name = "terrarium-capp"
+version = "0.1.2"
+description = "Adaptive Computer Aided Process Planner"
+authors = ["Justin Vrana <justin.vrana@gmail.com>"]
+homepage = "https://www.github.com/jvrana/Terrarium"
+repository = "https://www.github.com/jvrana/Terrarium"
+documentation = "https://www.github.com/jvrana/Terrarium"
+readme = 'README.md'
+packages = [
+    { include = "terrarium", from = "." },
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -23,6 +30,7 @@ pytest-benchmark = "^3.2"
 pygal = "^2.4"
 pygaljs = "^1.0"
 keats = "^0.2.24"
+tox-conda = "^0.2.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

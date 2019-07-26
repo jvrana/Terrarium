@@ -12,10 +12,10 @@ to emulate how that particular researcher would plan experiments.
 
 ## Usage
 
-Installation:
+Installing a specific version
 
 ```python
-pip install -U .
+pip install terrarium-capp==0.1.2
 ```
 
 New models can be built as in the following:
@@ -23,7 +23,7 @@ New models can be built as in the following:
 ```python
 from pydent import AqSession
 from terrarium import AutoPlannerModel
-production = AqSession("login", "pass", "url"
+production = AqSession("login", "pass", "url")
 
 # pull last 300 experimental to build model
 model = AutoPlannerModel(production, depth=300)

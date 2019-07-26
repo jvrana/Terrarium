@@ -1,4 +1,9 @@
 {
+  "0.1.2": {
+    "description": "updated dependencies",
+    "date": "2019-07-26T09:00:44.344134",
+    "changes": []
+  },
   "0.1.1": {
     "description": "init, tests working",
     "date": "2019-07-26T08:36:50.044583",
