@@ -64,7 +64,7 @@ class EdgeWeightContainer(Loggable):
         :type plans: list
         """
         self.browser = browser
-
+        self.init_logger("EdgeWeightContainer({})".format(self.browser.session))
         # filter only those plans that have operations
         self._plans = []
         if plan_ids is not None:
