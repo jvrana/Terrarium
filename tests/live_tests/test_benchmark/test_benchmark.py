@@ -1,5 +1,5 @@
 import pytest
-from autoplanner import AutoPlannerModel
+from terrarium import AutoPlannerModel
 from pydent import Browser
 
 

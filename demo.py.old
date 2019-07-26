@@ -1,4 +1,4 @@
-# from autoplanner import AutoPlanner
+# from terrarium import AutoPlanner
 # from pydent.browser import Browser
 # from mysession import production
 # import dill
@@ -8,14 +8,14 @@
 # ap.dump('autoplanner.pkl')
 
 
-from autoplanner import AutoPlanner
-from autoplanner.algorithm import NetworkOptimization
+from terrarium import AutoPlanner
+from terrarium.algorithm import NetworkOptimization
 from pydent.browser import Browser
 from mysession import production
 import networkx as nx
 %matplotlib inline
 
-ap = AutoPlanner.load('autoplanner.pkl')
+ap = AutoPlanner.load('terrarium.pkl')
 
 ignore_ots = production.OperationType.where({"category": ["Control Blocks", "Library Cloning"], "deployed": True})
 ignore_ots.append(production.OperationType.find_by_name("Yeast Mating"))

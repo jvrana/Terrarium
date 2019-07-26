@@ -1,10 +1,10 @@
 import networkx as nx
 from pydent.browser import Browser
 
-from autoplanner.network import NetworkOptimizer
+from terrarium.network import NetworkOptimizer
 
 
-def test_algorithm(autoplanner, session):
+def test_algorithm(autoplan, session):
     browser = Browser(session)
 
     sample_composition = nx.DiGraph()
@@ -32,15 +32,13 @@ def test_algorithm(autoplanner, session):
         sample_composition.add_node(s2.id, sample=s2)
         sample_composition.add_edge(s1.id, s2.id)
 
-    algorithm = NetworkOptimizer(
-        browser, sample_composition, autoplanner.template_graph
-    )
+    algorithm = NetworkOptimizer(browser, sample_composition, autoplan.template_graph)
     algorithm.print_sample_composition()
 
     algorithm.run(session.ObjectType.find_by_name("Plasmid Stock"))
 
 
-def test_get_sisters_for_run_gel(autoplanner, session):
+def test_get_sisters_for_run_gel(autoplan, session):
 
     browser = Browser(session)
 
@@ -70,7 +68,7 @@ def test_get_sisters_for_run_gel(autoplanner, session):
     # sample_composition.add_node(s.id, sample=s)
     # nx.draw(sample_composition)
 
-    alg = NetworkOptimizer(browser, sample_composition, autoplanner.template_graph)
+    alg = NetworkOptimizer(browser, sample_composition, autoplan.template_graph)
 
     cost, paths, graph = alg.run(
         session.ObjectType.find_by_name("Plasmid Glycerol Stock")

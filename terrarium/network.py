@@ -9,10 +9,10 @@ import networkx as nx
 from pydent.utils.logger import Loggable
 from tqdm import tqdm
 
-from autoplanner import AutoPlannerModel
-from autoplanner.browser_graph import BrowserGraph
-from autoplanner.utils import graph_utils
-from autoplanner.utils.color_utils import cprint, cstring
+from terrarium import AutoPlannerModel
+from terrarium.browser_graph import BrowserGraph
+from terrarium.utils import graph_utils
+from terrarium.utils.color_utils import cprint, cstring
 from pydent.models import Sample
 
 
