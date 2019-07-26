@@ -382,7 +382,7 @@ class NetworkOptimizer(Loggable):
         browser.recursive_retrieve(samples, {"field_values": "sample"})
         new_samples = []
         for s1 in samples:
-            fvdict = s1._fv_dict()
+            fvdict = s1._field_value_dictionary()
             for ft in s1.sample_type.field_types:
                 if ft.ftype == "sample":
                     fv = fvdict[ft.name]
@@ -445,8 +445,7 @@ class NetworkOptimizer(Loggable):
             sample_parts = browser.last(
                 lim,
                 model_class="Item",
-                object_type_id=part_type.id,
-                sample_id=sample_id,
+                query=dict(object_type_id=part_type.id, sample_id=sample_id),
             )
             all_parts += sample_parts
         browser.retrieve(all_parts, "collections")
@@ -492,8 +491,8 @@ class NetworkOptimizer(Loggable):
         graphs = []
 
         samples = []
-        for n in sample_composition.nodes:
-            samples.append(sample_composition.node[n]["sample"])
+        for item in sample_composition.nodes:
+            samples.append(sample_composition.node[item]["sample"])
         sample_graph_dict = self.decompose_template_graph_into_samples(
             template_graph, samples
         )
@@ -596,7 +595,7 @@ class NetworkOptimizer(Loggable):
         # Assign Items/Parts/Collections
         ##############################
 
-        new_nodes = []
+        new_items = []
         new_edges = []
         for node, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
             aft = ndata["model"]
@@ -614,17 +613,17 @@ class NetworkOptimizer(Loggable):
                     )
                     for part in parts[-1:]:
                         if part.sample_id == sample_id:
-                            new_nodes.append(part)
+                            new_items.append(part)
                             new_edges.append((part, sample, node))
                 else:
                     items = items_by_object_type_id[aft.object_type_id]
                     for item in items:
                         if item.sample_id == sample_id:
-                            new_nodes.append(item)
+                            new_items.append(item)
                             new_edges.append((item, sample, node))
 
-        for n in new_nodes:
-            graph.add_node(n)
+        for item in new_items:
+            graph.add_model(item)
 
         for item, sample, node in new_edges:
             graph.add_edge(graph.node_id(item), node, weight=0)
