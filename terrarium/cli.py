@@ -1,5 +1,5 @@
 from pydent import AqSession, login
-from terrarium.jsoninterpreter import JSONInterpreter
+from terrarium.parser import JSONInterpreter
 import fire
 import json
 

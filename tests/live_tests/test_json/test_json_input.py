@@ -2,7 +2,7 @@ from os.path import dirname, abspath
 import json
 import pytest
 from terrarium import AutoPlannerModel, NetworkFactory
-from terrarium.jsoninterpreter import JSONInterpreter
+from terrarium.parser import JSONInterpreter
 from copy import deepcopy
 import arrow
 from pydent.planner import Planner
@@ -58,8 +58,9 @@ here = dirname(abspath(__file__))
 @pytest.mark.parametrize("file", ["example1.json"])
 def test_parse_json(file, session):
 
-    interpreter = JSONInterpreter(session)
-    with open(file, "r") as f:
-        input_json = json.load(f)
-    interpreter.parse(input_json)
-    interpreter.submit()
+    with session.with_cache(timeout=60) as sess:
+        interpreter = JSONInterpreter(sess)
+        with open(file, "r") as f:
+            input_json = json.load(f)
+        interpreter.parse(input_json)
+        interpreter.submit()

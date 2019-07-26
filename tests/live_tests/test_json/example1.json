@@ -28,15 +28,14 @@
                 ["pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1", "CEN.PK2 - MAT alpha | his-pGRR-W5-W8-RGR-W36"]
             ]
         }
-
     ],
     "GLOBAL_CONSTRAINTS": {
         "EXCLUDE": [
             {
                 "model_class": "OperationType",
                 "query": [
-                    {"category": ["Control Blocks", "Library Cloning"], "deployed": true},
-                    {"name": "Yeast Mating", "deployed": true},
+                    {"category": ["Control Blocks", "Library Cloning"]},
+                    {"name": "Yeast Mating"},
                     {"name": "Yeast Auxotrophic Plate Mating"}
                 ]
             },
