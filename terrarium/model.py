@@ -349,6 +349,11 @@ class AutoPlannerModel(Loggable):
     Builds a model from historical plan data.
     """
 
+    EXCLUDE_FILTER = "exclude"
+    FILTER_MODEL_CLASS = "model_class"
+    FILTER_FUNCTION = "function"
+    VALID_FILTERS = [EXCLUDE_FILTER]
+
     def __init__(self, browser, plans=None, name=None):
         self.browser = browser
         self.init_logger("AutoPlanner@{url}".format(url=self.browser.session.url))
@@ -359,7 +364,7 @@ class AutoPlannerModel(Loggable):
             self.browser, self._hash_afts, self._external_aft_hash, plans=plans
         )
         self._template_graph = None
-        self.model_filters = []
+        self.model_filters = {}
         if name is None:
             name = "unnamed_{}".format(id(self))
         self.name = name
@@ -518,15 +523,26 @@ class AutoPlannerModel(Loggable):
         if self._template_graph is None:
             self.construct_template_graph()
         graph = self._template_graph
-        for model_class, filter_func in self.model_filters:
-            graph = graph.filter_out_models(model_class=model_class, key=filter_func)
+        if self.EXCLUDE_FILTER in self.model_filters:
+            for f in self.model_filters[self.EXCLUDE_FILTER]:
+                graph = graph.filter_out_models(
+                    model_class=f[self.FILTER_MODEL_CLASS], key=f[self.FILTER_FUNCTION]
+                )
         return graph
 
-    def add_model_filter(self, model_class, func):
-        self.model_filters.append((model_class, func))
+    def add_model_filter(self, model_class, filter_type, func):
+        if filter_type not in self.VALID_FILTERS:
+            raise ValueError(
+                "Filter type '{}' not recognized. Select from {}".format(
+                    filter_type, self.VALID_FILTERS
+                )
+            )
+        self.model_filters.setdefault(filter_type, []).append(
+            {self.FILTER_FUNCTION: func, self.FILTER_MODEL_CLASS: model_class}
+        )
 
     def reset_model_filters(self):
-        self.model_filter = []
+        self.model_filters = []
 
     def update_weights(self, graph, weight_container):
         for aft1, aft2 in self._get_aft_pairs():
