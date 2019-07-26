@@ -1,4 +1,9 @@
 {
+  "0.1.0": {
+    "description": "bump",
+    "date": "2019-07-26T08:42:45.443050",
+    "changes": []
+  },
   "0.0.2": {
     "description": "added keats packaging tool",
     "date": "2019-07-15T10:30:41.639050",
