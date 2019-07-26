@@ -6,10 +6,45 @@ from copy import deepcopy
 import os
 
 
+class TerrarriumJSONParseError(Exception):
+    """Exception for input file parsing errors."""
+
+
+class InputSchemaConstants(object):
+
+    EDGES = "EDGES"
+    OBJECT_TYPE = "OBJECT_TYPE"
+    SAMPLE = "SAMPLE"
+    GOALS = "GOALS"
+    TRAIN = "TRAIN"
+    GLOBAL_CONSTRAINTS = "GLOBAL_CONSTRAINTS"
+
+
+C = InputSchemaConstants
+
+
 class JSONInterpreter(object):
     def __init__(self, session):
         self.session = session
         self.plans = {}
+
+    @staticmethod
+    def _missing_key(key):
+        return "Key '{}' is missing from input JSON".format(key)
+
+    def validate(self, input_json):
+
+        errors = []
+
+        def missing_key(key):
+            return "Key '{}' is missing from input JSON".format(key)
+
+        def has_key(key):
+            if key not in input_json:
+                errors.append(missing_key(key))
+
+        for key in [C.GOALS, C.TRAIN, C.GLOBAL_CONSTRAINTS]:
+            has_key(key)
 
     def load_model(self, model_json):
         if "filename" in model_json:
