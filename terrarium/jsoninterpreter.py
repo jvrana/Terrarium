@@ -18,6 +18,8 @@ class JSONInterpreter(object):
 
         if "model_class" not in model_json:
             model_json["model_class"] = "Plan"
+
+        print("Building model...")
         model = AutoPlannerModel(
             self.session.browser, plans=self.make_query(model_json)
         )
@@ -82,7 +84,6 @@ class JSONInterpreter(object):
                             exclude["model_class"]
                         )
                     )
-            model.build()
 
             factory = NetworkFactory(model)
 
