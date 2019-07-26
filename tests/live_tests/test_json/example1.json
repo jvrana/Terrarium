@@ -1,7 +1,7 @@
 {
     "TRAIN": {
         "method": "last",
-        "args": [30],
+        "args": [500],
         "filename": "terrarium.pkl"
     },
     "GOALS": [

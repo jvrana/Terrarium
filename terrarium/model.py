@@ -276,14 +276,18 @@ class EdgeWeightContainer(Loggable):
         }
 
     def __setstate__(self, state):
+
         self._edge_counter = state["_edge_counter"]
         self._node_counter = state["_node_counter"]
         self.edges = state["edges"]
+        self._plans = []
         self._plan_ids = state["plan_ids"]
         self.is_cached = state["is_cached"]
         self._weights = state["_weights"]
         self.updated_at = state["updated_at"]
         self.created_at = state["created_at"]
+        # self.browser = state['browser']
+        self.init_logger("EdgeWeightContainer")
 
 
 class ModelFactory(object):
@@ -707,6 +711,7 @@ class AutoPlannerModel(Loggable):
                 model.created_at = data.get("created_at", None)
                 return model
             except Exception as e:
+                raise e
                 msg = "An error occurred while loading an {} model:\n{}".format(
                     cls.__name__, str(e)
                 )

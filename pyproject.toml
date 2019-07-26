@@ -22,6 +22,8 @@ black = {version = "^18.3-alpha.0",allows-prereleases = true}
 pydent = "0.1.5a1"
 fire = "=0.1.3"
 
+[tool.poetry.scripts]
+terrarium = 'terrarium.cli:main'
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
