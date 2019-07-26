@@ -14,6 +14,13 @@ from terrarium.browser_graph import BrowserGraph
 from terrarium.utils import graph_utils
 from terrarium.utils.color_utils import cprint, cstring
 from pydent.models import Sample
+from pydent.planner import Planner
+
+
+class NetworkSolution(object):
+    def __init__(self, paths: list, graph):
+        self.graph = graph
+        self.paths = paths
 
 
 class NetworkFactory(object):
@@ -29,6 +36,7 @@ class NetworkFactory(object):
 
         self.model = model
         self.algorithms = {}
+        self.solution = None
 
     def add(self, algorithm):
         self.algorithms[algorithm.gid] = algorithm
@@ -70,8 +78,8 @@ class NetworkFactory(object):
         scgraph = nx.DiGraph()
 
         for n1, n2 in sample_edges:
-            s1 = self.browser.find_by_name(n1)
-            s2 = self.browser.find_by_name(n2)
+            s1 = self.model.browser.find_by_name(n1)
+            s2 = self.model.browser.find_by_name(n2)
             scgraph.add_node(s1.id, sample=s1)
             scgraph.add_node(s2.id, sample=s2)
             scgraph.add_edge(s1.id, s2.id)
@@ -97,6 +105,10 @@ class NetworkOptimizer(Loggable):
     """
     Class that finds optimal Steiner Tree (
     """
+
+    SOLUTION_PATHS = "paths"
+    SOLUTION_GRAPH = "graph"
+    SOLUTION_COST = "cost"
 
     counter = counter()
 
@@ -177,13 +189,18 @@ class NetworkOptimizer(Loggable):
         ############################
         cost, paths, visited_samples = self.run_stage3(graph, start_nodes, end_nodes)
 
-        return cost, paths, graph
+        self.solution = {
+            self.SOLUTION_COST: cost,
+            self.SOLUTION_PATHS: paths,
+            self.SOLUTION_GRAPH: graph,
+        }
+        return self.solution
 
     ############################
     # PLAN
     ############################
 
-    def plan(self, paths, graph, canvas):
+    def plan(self, canvas=None, solution=None) -> Planner:
         """
         Converts a path through a :class:`BrowserGraph` into an
         Aquarium Plan
@@ -193,17 +210,21 @@ class NetworkOptimizer(Loggable):
         :param canvas: Planner instance
         :return:
         """
-
-        graph = graph.copy()
+        if canvas is None:
+            canvas = Planner(self.browser.session)
+        if solution is None:
+            solution = self.solution
+        graph = solution[self.SOLUTION_GRAPH].copy()
+        paths = solution[self.SOLUTION_PATHS]
         for path_num, path in enumerate(paths):
             print("Path: {}".format(path_num))
-            self.assign_field_values(path, graph, canvas)
-            self.assign_items(path, graph, canvas)
+            self._plan_assign_field_values(path, graph, canvas)
+            self._plan_assign_items(path, graph, canvas)
             print()
         return canvas
 
     @classmethod
-    def assign_field_values(cls, path, graph, canvas):
+    def _plan_assign_field_values(cls, path, graph, canvas):
         """
         Assign :class:`FieldValue` to a path
 
@@ -223,7 +244,7 @@ class NetworkOptimizer(Loggable):
                 # create and set output operation
                 if "operation" not in ndata:
                     print("Creating field value")
-                    op = canvas.create_operation_by_id(aft.field_type.parent_id)
+                    op = canvas.create_operation_by_type_id(aft.field_type.parent_id)
                     fv = op.output(aft.field_type.name)
                     canvas.set_field_value(fv, sample=sample)
                     ndata["field_value"] = fv
@@ -260,7 +281,7 @@ class NetworkOptimizer(Loggable):
             prev_node = (n, ndata)
 
     @classmethod
-    def assign_items(cls, path, graph, canvas):
+    def _plan_assign_items(cls, path, graph, canvas):
         """
         Assign :class:`Item` in a path
 

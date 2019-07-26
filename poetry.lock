@@ -126,7 +126,7 @@ python-versions = "*"
 version = "3.0.12"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A library for automatically generating command line interfaces."
 name = "fire"
 optional = false
@@ -580,7 +580,7 @@ python-versions = ">=2.7"
 version = "0.5.2"
 
 [metadata]
-content-hash = "e794b24c92855c61c47437447f2e6e58f780b97c16479b4c435038ab9059af49"
+content-hash = "5e086ec1e8dc21a203e70ca144da24714cb684870af171938b1272c8d8ff7c7e"
 python-versions = "^3.6"
 
 [metadata.hashes]
