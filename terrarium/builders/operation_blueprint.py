@@ -101,7 +101,7 @@ class BlueprintBuilderABC(BuilderABC):
         self.graph = graph
         return graph
 
-    def build(self):
+    def build(self) -> AFTGraph:
         if not self.collected_data:
             raise BlueprintException(
                 "Please run {} to build.".format(self.collect.__name__)

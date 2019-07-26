@@ -7,6 +7,9 @@ from terrarium.algorithms.utils import (
 )
 from terrarium.utils.graph_utils import top_paths
 import pytest
+from terrarium.graphs import OperationGraph
+from terrarium.builders import OperationGraphBuilder
+from terrarium.utils.test_utils import timeit
 
 
 class TestGraphUtils(object):
@@ -30,8 +33,11 @@ class TestGraphUtils(object):
     def test_extract_root_operations(self, graph):
         nodes = list(iter_root_operations(graph))
 
-    def test_extract_items(self, graph):
+    def test_extract_items(self, graph: OperationGraph, builder: OperationGraphBuilder):
+        with timeit("Assigning inventory"):
+            builder.assign_inventory(graph)
         nodes = list(iter_root_items(graph))
+        print("Found {} items".format(len(nodes)))
         assert nodes
 
     def test_extract_end_nodes(self, session, graph):
