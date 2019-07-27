@@ -125,6 +125,7 @@ def autoplan(session, datadir):
         model = new_model(session)
         model.set_verbose(True)
         model.build()
+        print("TESTS: dumping {}".format(filepath))
         model.dump(filepath)
 
     print("TESTS: Loading '{}'".format(filepath))

@@ -10,7 +10,7 @@
             "SAMPLE": {
                 "model_class": "Sample",
                 "query": {
-                    "name": "CEN.PK2 - MAT alpha | his-pGRR-W5-W8-RGR-W36"
+                    "name": "CEN.PK2 - MAT alpha | pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
                 }
             },
             "OBJECT_TYPE": {
@@ -24,8 +24,7 @@
                 ["T1MC_NatMX-Cassette_MCT2 (JV)", "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"],
                 ["BBUT_URA3.A.0_homology1_UTP1 (from genome)", "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"],
                 ["DH5alpha", "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"],
-                ["TP-IRES-EGFP-TS", "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"],
-                ["pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1", "CEN.PK2 - MAT alpha | his-pGRR-W5-W8-RGR-W36"]
+                ["TP-IRES-EGFP-TS", "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"]
             ]
         }
     ],

@@ -11,7 +11,9 @@ def test_parse_json(file, session):
 
     with session.with_cache(timeout=60) as sess:
         interpreter = JSONInterpreter(sess)
-        with open(join(here, file), "r") as f:
-            input_json = json.load(f)
+    with open(join(here, file), "r") as f:
+        input_json = json.load(f)
+        input_json["MODEL_PATH"] = join(here, input_json["MODEL_PATH"])
         interpreter.parse(input_json)
-        interpreter.submit()
+        plans = interpreter.submit()
+        print(plans)

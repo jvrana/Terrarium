@@ -1,5 +1,6 @@
 import networkx as nx
 from pydent.base import ModelBase as TridentBase
+from typing import List
 
 
 class BrowserGraph(object):
@@ -277,14 +278,17 @@ class BrowserGraph(object):
             [n for n, _ in self.iter_model_data(model_class=model_class, **attrs)]
         )
 
-    def filter_out_models(self, model_class=None, key=None):
-        node_set = set(self.nodes)
+    def select_nodes(self, model_class=None, key=None):
+        selected = set()
         if key:
-            for_removal = set()
             for n, ndata in self.iter_model_data(model_class=model_class):
                 if key(ndata["model"]):
-                    for_removal.add(n)
-        return self.subgraph(node_set.difference(for_removal))
+                    selected.add(n)
+        return selected
+
+    def difference(self, node_list: List[str]):
+        node_set = set(self.nodes)
+        return self.subgraph(node_set.difference(node_list))
 
     def cache_models(self):
         models = {}
