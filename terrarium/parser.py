@@ -5,6 +5,7 @@ import arrow
 from copy import deepcopy
 import os
 from terrarium.utils.validator import InstanceOf, Each, Required, Length, validate
+from terrarium.__version__ import __version__
 import networkx as nx
 
 
@@ -66,20 +67,20 @@ class JSONInterpreter(object):
 
     def load_model(self, model_json, filename=None):
         print(os.getcwd())
-        if filename:
+        if filename and os.path.isfile(filename):
             return AutoPlannerModel.load(filename)
+        else:
+            if "model_class" not in model_json:
+                model_json["model_class"] = "Plan"
 
-        if "model_class" not in model_json:
-            model_json["model_class"] = "Plan"
-
-        print("Building model...")
-        model = AutoPlannerModel(
-            self.session.browser, plans=self.make_query(model_json)
-        )
-        model.build()
-        if filename:
-            model.dump(filename)
-        return model
+            print("Building model...")
+            model = AutoPlannerModel(
+                self.session.browser, plans=self.make_query(model_json)
+            )
+            model.build()
+            if filename:
+                model.dump(filename)
+            return model
 
     def make_query(self, query_json):
         interface = getattr(self.session, query_json["model_class"])
@@ -171,9 +172,9 @@ class JSONInterpreter(object):
                         "edges": goal.get("EDGES", []),
                         "sample": goal_sample,
                         "plan_id": goal.get(
-                            "PLAN_ID",
-                            "Design{num}".format(num=goal_num) + "_" + str(timestamp),
-                        ),
+                            "PLAN_ID", "Design{num}".format(num=goal_num)
+                        )
+                        + "__{}_(Terrarium v{})".format(str(timestamp), __version__),
                     }
                 )
 

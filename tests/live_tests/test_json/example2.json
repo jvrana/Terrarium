@@ -1,0 +1,44 @@
+{
+    "TRAIN": {
+        "method": "last",
+        "args": [500],
+        "query": {
+            "user_id": 66
+        }
+    },
+    "MODEL_PATH": "terrarium.pkl",
+    "GOALS": [
+        {
+            "PLAN_ID": "3NodeCircuitDesign",
+            "SAMPLE": {
+                "model_class": "Sample",
+                "query": {
+                    "name": "CEN.PK2 - MAT A ::: pMOD4G-dcas9-mxi1 | pMOD-LTR1-NatMx-pGRR-W5-RGR-W19 | pMOD6-pGRR-F6W5-RGR-W17 | pMOD8-pGRR-W19W17-RGR-W5"
+                }
+            },
+            "OBJECT_TYPE": {
+                "model_class": "ObjectType",
+                "query": {
+                    "name": "Yeast Glycerol Stock"
+                }
+            },
+            "EDGES": []
+        }
+    ],
+    "GLOBAL_CONSTRAINTS": {
+        "EXCLUDE": [
+            {
+                "model_class": "OperationType",
+                "query": [
+                    {"category": ["Control Blocks", "Library Cloning"]},
+                    {"name": "Yeast Mating"},
+                    {"name": "Yeast Auxotrophic Plate Mating"}
+                ]
+            },
+            {
+                "model_class": "Item",
+                "query": []
+            }
+        ]
+    }
+}

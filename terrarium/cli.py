@@ -12,7 +12,7 @@ class TerrariumCLI(object):
     def __init__(self):
         self._session = None
 
-    def login(self, username, url):
+    def login(self, username, url, password=None):
         """
         Login to Aquarium and return CLI.
 
@@ -20,11 +20,14 @@ class TerrariumCLI(object):
         :param url: Aquarium url
         :return: self
         """
-        self._session = login(username, url)
+        if password:
+            self._session = login(username, url, password)
+        else:
+            self._session = login(username, url)
 
         return self
 
-    def parse(self, filepath, dry_run=False):
+    def design(self, filepath, dry_run=False):
         """
         Parse an input JSON.
 
