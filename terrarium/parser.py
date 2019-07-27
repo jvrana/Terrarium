@@ -86,8 +86,8 @@ class JSONInterpreter(object):
         if not result[0]:
             raise ValidationError(result[1])
 
-    def load_model(self, model_json):
-        if "filename" in model_json:
+    def load_model(self, model_json, filename=None):
+        if filename:
             if os.path.isfile(model_json["filename"]):
                 return AutoPlannerModel.load(model_json["filename"])
 
@@ -99,8 +99,8 @@ class JSONInterpreter(object):
             self.session.browser, plans=self.make_query(model_json)
         )
         model.build()
-        if "filename" in model_json:
-            model.dump(model_json["filename"])
+        if filename:
+            model.dump(filename)
         return model
 
     def make_query(self, query_json):
@@ -136,7 +136,9 @@ class JSONInterpreter(object):
         timestamp = utc.timestamp
 
         with self.session.with_cache(timeout=60) as sess:
-            model = self.load_model(input_json["TRAIN"])
+            model = self.load_model(
+                input_json["TRAIN"], input_json.get("MODEL_PATH", None)
+            )
             for exclude in input_json["GLOBAL_CONSTRAINTS"]["EXCLUDE"]:
                 if exclude["model_class"] == "OperationType":
                     ignore_ots = self.make_query(exclude)

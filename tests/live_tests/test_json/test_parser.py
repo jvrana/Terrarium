@@ -1,4 +1,4 @@
-from os.path import join, dirname, join, abspath
+from os.path import dirname, abspath
 import pytest
 import json
 from terrarium.parser import JSONInterpreter
