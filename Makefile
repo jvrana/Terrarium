@@ -3,8 +3,10 @@ make:
 	poetry install
 	poetry run pre-commit install
 
+
 format:
 	poetry run black terrarium tests
+
 
 test:
 	poetry run pytest
@@ -14,6 +16,7 @@ clean:
 	rm -rf tests/.pytest_cache
 	rm -rf tests/live_tests/fixtures
 	rm -rf .pytest_cache
+	rm -rf pip-wheel-*
 
 
 benchmark:

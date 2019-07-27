@@ -1,7 +1,6 @@
 import json
 import sys
 import warnings
-from functools import reduce
 from os import stat
 from uuid import uuid4
 
@@ -17,8 +16,9 @@ from terrarium.__version__ import __version__
 from terrarium.exceptions import AutoPlannerException, AutoPlannerLoadingError
 from terrarium.utils.hash_utils import HashCounter
 from terrarium.browser_graph import BrowserGraph
-
+from pydent.models import OperationType, AllowableFieldType, Sample, ObjectType
 from functools import wraps
+from typing import List, Tuple
 
 
 class SetRecusion(object):
@@ -290,64 +290,6 @@ class EdgeWeightContainer(Loggable):
         self.init_logger("EdgeWeightContainer")
 
 
-class ModelFactory(object):
-    """
-    Build Terrarium models from a shared model cache.
-    """
-
-    def __init__(self, session):
-        self.browser = Browser(session)
-
-    def new(self, plans=None):
-        """
-
-        :param plans: list of plans
-        :type plans: list
-        :return:
-        :rtype: AutPlannerModel
-        """
-        return AutoPlannerModel(self.browser, plans)
-
-    def emulate(self, login=None, user_id=None, user=None, limit=-1):
-        """Emulate a particular user (or users if supplied a list)"""
-        if not user:
-            query = {
-                k: v
-                for k, v in {"login": login, "id": user_id}.items()
-                if v is not None
-            }
-            if not query:
-                raise ValueError(
-                    "You must provide either a login, user_id, or user instance"
-                )
-            user = self.browser.one(query=query, model_class="User")
-        if not issubclass(type(user), User):
-            raise ValueError(
-                "Expected a {} class but found a {}".format(type(User), type(user))
-            )
-        plans = self.browser.last(
-            limit, query=dict(user_id=user.id), model_class="Plan"
-        )
-        return self.new(plans)
-
-    def union(self, models):
-        new_model = AutoPlannerModel(self.browser)
-        for m in models:
-            new_model += m
-        return new_model
-
-    @staticmethod
-    def load_model(path):
-        """
-        Loads a new model from a filepath
-        :param path:
-        :type path:
-        :return:
-        :rtype:
-        """
-        return AutoPlannerModel.load(path)
-
-
 class AutoPlannerModel(Loggable):
     """
     Builds a model from historical plan data.
@@ -478,7 +420,9 @@ class AutoPlannerModel(Loggable):
         return input_afts, output_afts
 
     @classmethod
-    def _match_internal_afts(cls, input_afts, output_afts):
+    def _match_internal_afts(
+        cls, input_afts: List[AllowableFieldType], output_afts: List[AllowableFieldType]
+    ) -> Tuple[AllowableFieldType, AllowableFieldType]:
         internal_groups = {}
         for aft in output_afts:
             internal_groups.setdefault(cls._internal_aft_hash(aft), []).append(aft)
@@ -493,7 +437,9 @@ class AutoPlannerModel(Loggable):
         return edges
 
     @classmethod
-    def _match_external_afts(cls, input_afts, output_afts):
+    def _match_external_afts(
+        cls, input_afts: List[AllowableFieldType], output_afts: List[AllowableFieldType]
+    ) -> Tuple[AllowableFieldType, AllowableFieldType]:
         external_groups = {}
         for aft in input_afts:
             external_groups.setdefault(cls._external_aft_hash(aft), []).append(aft)
@@ -507,7 +453,9 @@ class AutoPlannerModel(Loggable):
         return edges
 
     @classmethod
-    def _match_afts(cls, input_afts, output_afts):
+    def _match_afts(
+        cls, input_afts: List[AllowableFieldType], output_afts: List[AllowableFieldType]
+    ) -> Tuple[AllowableFieldType, AllowableFieldType]:
         return cls._match_internal_afts(
             input_afts, output_afts
         ) + cls._match_external_afts(input_afts, output_afts)
@@ -522,19 +470,28 @@ class AutoPlannerModel(Loggable):
         input_afts, output_afts = self._cache_afts()
         return self._match_afts(input_afts, output_afts)
 
+    def _excluded_nodes(self):
+        graph = self._template_graph
+        excluded_nodes = set()
+        if self.EXCLUDE_FILTER in self.model_filters:
+            for f in self.model_filters[self.EXCLUDE_FILTER]:
+                excluded_nodes.update(
+                    graph.select_nodes(
+                        model_class=f[self.FILTER_MODEL_CLASS],
+                        key=f[self.FILTER_FUNCTION],
+                    )
+                )
+        return excluded_nodes
+
     @property
     def template_graph(self):
         if self._template_graph is None:
             self.construct_template_graph()
         graph = self._template_graph
-        if self.EXCLUDE_FILTER in self.model_filters:
-            for f in self.model_filters[self.EXCLUDE_FILTER]:
-                graph = graph.filter_out_models(
-                    model_class=f[self.FILTER_MODEL_CLASS], key=f[self.FILTER_FUNCTION]
-                )
-        return graph
+        excluded = self._excluded_nodes()
+        return graph.difference(excluded)
 
-    def add_model_filter(self, model_class, filter_type, func):
+    def add_model_filter(self, model_class: str, filter_type: str, func: callable):
         if filter_type not in self.VALID_FILTERS:
             raise ValueError(
                 "Filter type '{}' not recognized. Select from {}".format(
@@ -545,10 +502,23 @@ class AutoPlannerModel(Loggable):
             {self.FILTER_FUNCTION: func, self.FILTER_MODEL_CLASS: model_class}
         )
 
+    def exclude_operation_types(self, operation_types: List[OperationType]):
+        def is_blacklisted(aft):
+            return aft.field_type.parent_id in [ot.id for ot in operation_types]
+
+        self.add_model_filter("AllowableFieldType", self.EXCLUDE_FILTER, is_blacklisted)
+        return self
+
+    def exclude_categories(self, categories: List[str]):
+        ots = self.browser.session.Operation.where({"category": categories})
+        return self.exclude_operation_type(ots)
+
     def reset_model_filters(self):
         self.model_filters = []
 
-    def update_weights(self, graph, weight_container):
+    def update_weights(
+        self, graph: BrowserGraph, weight_container: EdgeWeightContainer
+    ):
         for aft1, aft2 in self._get_aft_pairs():
 
             edge_type = None
@@ -582,7 +552,9 @@ class AutoPlannerModel(Loggable):
         self._was_updated()
         return self
 
-    def _collect_afts(self, graph):
+    def _collect_afts(
+        self, graph: BrowserGraph
+    ) -> Tuple[List[AllowableFieldType], List[AllowableFieldType]]:
         """
         Collect :class:`pydent.models.AllowableFieldType` models from graph
 
@@ -597,7 +569,7 @@ class AutoPlannerModel(Loggable):
         output_afts = [aft for aft in afts if aft.field_type.role == "output"]
         return input_afts, output_afts
 
-    def print_path(self, path, graph):
+    def print_path(self, path: List[str], graph: BrowserGraph):
         ots = []
         for n, ndata in graph.iter_model_data("AllowableFieldType", nbunch=path):
             aft = ndata["model"]
@@ -612,7 +584,12 @@ class AutoPlannerModel(Loggable):
         print("NUM NODES: {}".format(len(path)))
         print("OP TYPES:\n{}".format(ots))
 
-    def search_graph(self, goal_sample, goal_object_type, start_object_type):
+    def search_graph(
+        self,
+        goal_sample: Sample,
+        goal_object_type: ObjectType,
+        start_object_type: ObjectType,
+    ):
         graph = self.template_graph.copy()
 
         # filter afts
@@ -660,7 +637,7 @@ class AutoPlannerModel(Loggable):
             self.print_path(path, graph)
 
     @SetRecusion.set_recursion_limit(10000)
-    def dump(self, path):
+    def dump(self, path: str):
         with open(path, "wb") as f:
             dill.dump(
                 {
@@ -677,12 +654,12 @@ class AutoPlannerModel(Loggable):
         statinfo = stat(path)
         self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
 
-    def save(self, path):
+    def save(self, path: str):
         return self.dump(path)
 
     @classmethod
     @SetRecusion.set_recursion_limit(10000)
-    def load(cls, path):
+    def load(cls, path: str):
         with open(path, "rb") as f:
             try:
                 data = dill.load(f)
@@ -750,3 +727,61 @@ class AutoPlannerModel(Loggable):
         if self._template_graph:
             new.update_weights(self._template_graph, new.weight_container)
         return new
+
+
+class ModelFactory(object):
+    """
+    Build Terrarium models from a shared model cache.
+    """
+
+    def __init__(self, session):
+        self.browser = Browser(session)
+
+    def new(self, plans=None):
+        """
+
+        :param plans: list of plans
+        :type plans: list
+        :return:
+        :rtype: AutPlannerModel
+        """
+        return AutoPlannerModel(self.browser, plans)
+
+    def emulate(self, login=None, user_id=None, user=None, limit=-1):
+        """Emulate a particular user (or users if supplied a list)"""
+        if not user:
+            query = {
+                k: v
+                for k, v in {"login": login, "id": user_id}.items()
+                if v is not None
+            }
+            if not query:
+                raise ValueError(
+                    "You must provide either a login, user_id, or user instance"
+                )
+            user = self.browser.one(query=query, model_class="User")
+        if not issubclass(type(user), User):
+            raise ValueError(
+                "Expected a {} class but found a {}".format(type(User), type(user))
+            )
+        plans = self.browser.last(
+            limit, query=dict(user_id=user.id), model_class="Plan"
+        )
+        return self.new(plans)
+
+    def union(self, models: List[AutoPlannerModel]) -> AutoPlannerModel:
+        new_model = AutoPlannerModel(self.browser)
+        for m in models:
+            new_model += m
+        return new_model
+
+    @staticmethod
+    def load_model(path: str) -> AutoPlannerModel:
+        """
+        Loads a new model from a filepath
+        :param path:
+        :type path:
+        :return:
+        :rtype:
+        """
+        return AutoPlannerModel.load(path)

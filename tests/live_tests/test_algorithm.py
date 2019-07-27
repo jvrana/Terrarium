@@ -1,7 +1,19 @@
 import networkx as nx
 from pydent.browser import Browser
-
+from terrarium.model import AutoPlannerModel
 from terrarium.network import NetworkOptimizer
+
+
+def test_autoplan(autoplan, session):
+    ots = session.OperationType.where({"category": "Control Blocks"})
+    assert ots
+    print(autoplan.template_graph.graph.number_of_nodes())
+    autoplan.add_model_filter(
+        "AllowableFieldType",
+        "exclude",
+        lambda x: x.field_type.parent_id in [ot.id for ot in ots],
+    )
+    print(autoplan.template_graph.graph.number_of_nodes())
 
 
 def test_algorithm(autoplan, session):

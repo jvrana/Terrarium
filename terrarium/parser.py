@@ -4,34 +4,12 @@ import json
 import arrow
 from copy import deepcopy
 import os
-from terrarium.utils.validator import (
-    Any,
-    AnyInstanceOf,
-    AnySubclassOf,
-    SubclassOf,
-    InstanceOf,
-    Each,
-    Required,
-    Length,
-    validate,
-)
+from terrarium.utils.validator import InstanceOf, Each, Required, Length, validate
+import networkx as nx
 
 
 class TerrariumJSONParseError(Exception):
     """Exception for input file parsing errors."""
-
-
-class InputSchemaConstants(object):
-
-    EDGES = "EDGES"
-    OBJECT_TYPE = "OBJECT_TYPE"
-    SAMPLE = "SAMPLE"
-    GOALS = "GOALS"
-    TRAIN = "TRAIN"
-    GLOBAL_CONSTRAINTS = "GLOBAL_CONSTRAINTS"
-
-
-C = InputSchemaConstants
 
 
 class ValidationError(Exception):
@@ -87,9 +65,9 @@ class JSONInterpreter(object):
             raise ValidationError(result[1])
 
     def load_model(self, model_json, filename=None):
+        print(os.getcwd())
         if filename:
-            if os.path.isfile(model_json["filename"]):
-                return AutoPlannerModel.load(model_json["filename"])
+            return AutoPlannerModel.load(filename)
 
         if "model_class" not in model_json:
             model_json["model_class"] = "Plan"
@@ -142,12 +120,8 @@ class JSONInterpreter(object):
             for exclude in input_json["GLOBAL_CONSTRAINTS"]["EXCLUDE"]:
                 if exclude["model_class"] == "OperationType":
                     ignore_ots = self.make_query(exclude)
-                    ignore = [ot.id for ot in ignore_ots]
-                    model.add_model_filter(
-                        "AllowableFieldType",
-                        AutoPlannerModel.EXCLUDE_FILTER,
-                        lambda m: m.field_type.parent_id in ignore,
-                    )
+                    assert ignore_ots
+                    model.exclude_operation_types(ignore_ots)
                 elif exclude["model_class"] == "Item":
                     ignore_items = self.make_query(exclude)
                     ignore = [item.id for item in ignore_items]
@@ -203,19 +177,30 @@ class JSONInterpreter(object):
                     }
                 )
 
-            plans = {}
+            self.plans = {}
 
             for goal_num, goal in enumerate(goals):
-                plans.setdefault(goal["plan_id"], Planner(sess))
-                plan = plans[goal["plan_id"]]
+                self.plans.setdefault(goal["plan_id"], Planner(sess))
+                plan = self.plans[goal["plan_id"]]
                 plan.name = goal["plan_id"]
-                scgraph = factory.sample_composition_from_edges(goal.get("EDGES", []))
+
+                scgraph = nx.DiGraph()
+
+                for n1, n2 in goal["edges"]:
+                    s1 = model.browser.find_by_name(n1)
+                    s2 = model.browser.find_by_name(n2)
+                    scgraph.add_node(s1.id, sample=s1)
+                    scgraph.add_node(s2.id, sample=s2)
+                    scgraph.add_edge(s1.id, s2.id)
                 scgraph.add_node(goal["sample"].id, sample=goal["sample"])
+
                 network = factory.new_from_composition(scgraph)
+                network.update_sample_composition()
                 network.run(goal["object_type"])
                 network.plan(canvas=plan)
 
     def submit(self):
         for plan_id, plan in self.plans.items():
+            plan.prettify()
             plan.save()
         return {k: v.plan.id for k, v in self.plans.items()}

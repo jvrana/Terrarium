@@ -663,11 +663,12 @@ class NetworkOptimizer(Loggable):
             if node["node_class"] == "AllowableFieldType":
                 aft = node["model"]
                 print(
-                    "<AFT id={:<10} sample={:<10} {:^10} {:<10} '{:<10}'>".format(
+                    "<AFT id={:<10} sample={:<10} {:^10} {:<10} '{:<10}:{}'>".format(
                         aft.id,
                         node["sample"].name,
                         aft.field_type.role,
                         aft.field_type.name,
+                        aft.field_type.operation_type.category,
                         aft.field_type.operation_type.name,
                     )
                 )

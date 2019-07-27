@@ -5,6 +5,10 @@ import json
 
 
 class TerrariumCLI(object):
+    """
+    Usage: terrarium [username] [url] parse [filename]
+    """
+
     def __init__(self):
         self._session = None
 
@@ -20,17 +24,20 @@ class TerrariumCLI(object):
 
         return self
 
-    def parse(self, filepath):
+    def parse(self, filepath, dry_run=False):
         """
         Parse an input JSON.
 
         :param filepath: path to input JSON
+        :param dry_run: if True, will not submit to Aquarium server.
         :return: self
+
         """
         interpreter = JSONInterpreter(self._session.with_cache(timeout=60))
         with open(filepath, "r") as f:
             interpreter.parse(json.load(f))
-        return interpreter.submit()
+        if not dry_run:
+            return interpreter.submit()
 
 
 def main():
