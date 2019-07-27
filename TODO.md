@@ -4,3 +4,4 @@
 4. remove high weight edges from graph entirely (no reason to search these edges)
 1. instruction on input JSON
 1. instructions on CLI
+1. better input validation messages

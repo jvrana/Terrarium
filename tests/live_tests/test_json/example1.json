@@ -1,9 +1,9 @@
 {
     "TRAIN": {
         "method": "last",
-        "args": [500],
-        "filename": "terrarium.pkl"
+        "args": [500]
     },
+    "MODEL_PATH": "terrarium.pkl",
     "GOALS": [
         {
             "PLAN_ID": "MyPlan",
