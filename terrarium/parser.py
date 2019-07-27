@@ -4,7 +4,17 @@ import json
 import arrow
 from copy import deepcopy
 import os
-from validator import InstanceOf, SubclassOf, Required, Each, Length, validate
+from terrarium.utils.validator import (
+    Any,
+    AnyInstanceOf,
+    AnySubclassOf,
+    SubclassOf,
+    InstanceOf,
+    Each,
+    Required,
+    Length,
+    validate,
+)
 
 
 class TerrariumJSONParseError(Exception):
@@ -23,43 +33,56 @@ class InputSchemaConstants(object):
 
 C = InputSchemaConstants
 
-query_schema = {
-    "model_class": [InstanceOf(str)],
-    "method": [InstanceOf(str)],
-    "queries": [InstanceOf(str)],
-    "query": [SubclassOf(dict)],
-    "args": [SubclassOf(list)],
-}
-
-schema = {
-    "TRAIN": [Required, query_schema],
-    "MODEL_PATH": [InstanceOf(str)],
-    "GOALS": [
-        Required,
-        Each(
-            {
-                "PLAN_ID": [InstanceOf(str)],
-                "SAMPLE": [Required, query_schema],
-                "OBJECT_TYPE": [query_schema],
-                "EDGES": [Each([Length(2, maximum=2)])],
-            }
-        ),
-    ],
-    "GLOBAL_CONSTRAINTS": [{"EXCLUDE": [InstanceOf(dict)]}],
-}
-
 
 class ValidationError(Exception):
     pass
 
 
+# TODO: implement dry run
 class JSONInterpreter(object):
+
+    PLAN_ID = "PLAN_ID"
+    EDGES = "EDGES"
+    OBJECT_TYPE = "OBJECT_TYPE"
+    SAMPLE = "SAMPLE"
+    GOALS = "GOALS"
+    TRAIN = "TRAIN"
+    MODEL_PATH = "MODEL_PATH"
+    GLOBAL_CONSTRAINTS = "GLOBAL_CONSTRAINTS"
+    EXCLUDE = "EXCLUDE"
+
+    query_schema = {
+        "model_class": [InstanceOf(str)],
+        "method": [InstanceOf(str)],
+        "queries": [InstanceOf(str)],
+        "query": [InstanceOf(dict)],
+        "args": [InstanceOf(list)],
+    }
+
+    schema = {
+        TRAIN: [Required, query_schema],
+        MODEL_PATH: [InstanceOf(str)],
+        GOALS: [
+            Required,
+            Each(
+                {
+                    PLAN_ID: [InstanceOf(str)],
+                    SAMPLE: [Required, query_schema],
+                    OBJECT_TYPE: [query_schema],
+                    EDGES: [Each([Length(2, maximum=2)])],
+                }
+            ),
+        ],
+        GLOBAL_CONSTRAINTS: [{EXCLUDE: [Each([InstanceOf(dict)])]}],
+    }
+
     def __init__(self, session):
         self.session = session
         self.plans = {}
 
-    def validate(self, input_json):
-        result = validate(schema, input_json)
+    @classmethod
+    def validate(cls, input_json):
+        result = validate(cls.schema, input_json)
         if not result[0]:
             raise ValidationError(result[1])
 

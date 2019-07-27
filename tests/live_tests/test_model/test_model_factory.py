@@ -72,7 +72,7 @@ def test_basic_search(autoplan, session):
     ignore = [ot.id for ot in ignore_ots]
 
     autoplan.add_model_filter(
-        "AllowableFieldType", lambda m: m.field_type.parent_id in ignore
+        "AllowableFieldType", "exclude", lambda m: m.field_type.parent_id in ignore
     )
 
     autoplan.search_graph(

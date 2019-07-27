@@ -68,14 +68,12 @@ def test_get_sisters_for_run_gel(autoplan, session):
     # sample_composition.add_node(s.id, sample=s)
     # nx.draw(sample_composition)
 
-    alg = NetworkOptimizer(browser, sample_composition, autoplan.template_graph)
+    network = NetworkOptimizer(browser, sample_composition, autoplan.template_graph)
 
-    cost, paths, graph = alg.run(
-        session.ObjectType.find_by_name("Plasmid Glycerol Stock")
-    )
+    solution = network.run(session.ObjectType.find_by_name("Plasmid Glycerol Stock"))
 
     run_gels = []
-    for n, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
+    for n, ndata in solution["graph"].iter_model_data(model_class="AllowableFieldType"):
         aft = ndata["model"]
         if aft.field_type.operation_type.name == "Run Gel":
             if aft.field_type.role == "input":
