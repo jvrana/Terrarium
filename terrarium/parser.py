@@ -4,12 +4,7 @@ import json
 import arrow
 from copy import deepcopy
 import os
-from terrarium.utils.validate import (
-    is_any_type_of,
-    is_optional,
-    validate_with_schema_errors,
-    ValidationError,
-)
+from validator import InstanceOf, SubclassOf, Required, Each, Length, validate
 
 
 class TerrariumJSONParseError(Exception):
@@ -29,26 +24,33 @@ class InputSchemaConstants(object):
 C = InputSchemaConstants
 
 query_schema = {
-    "model_class": is_optional(str),
-    "method": is_optional(str),
-    "queries": is_optional([dict]),
-    "query": is_optional(dict),
-    "args": is_optional(list),
+    "model_class": [InstanceOf(str)],
+    "method": [InstanceOf(str)],
+    "queries": [InstanceOf(str)],
+    "query": [SubclassOf(dict)],
+    "args": [SubclassOf(list)],
 }
 
 schema = {
-    "TRAIN": query_schema,
-    "MODEL_PATH": is_optional(str),
+    "TRAIN": [Required, query_schema],
+    "MODEL_PATH": [InstanceOf(str)],
     "GOALS": [
-        {
-            "PLAN_ID": is_any_type_of(int, str),
-            "SAMPLE": query_schema,
-            "OBJECT_TYPE": query_schema,
-            "EDGES": [list],
-        }
+        Required,
+        Each(
+            {
+                "PLAN_ID": [InstanceOf(str)],
+                "SAMPLE": [Required, query_schema],
+                "OBJECT_TYPE": [query_schema],
+                "EDGES": [Each([Length(2, maximum=2)])],
+            }
+        ),
     ],
-    "GLOBAL_CONSTRAINTS": {"EXCLUDE": is_optional([dict])},
+    "GLOBAL_CONSTRAINTS": [{"EXCLUDE": [InstanceOf(dict)]}],
 }
+
+
+class ValidationError(Exception):
+    pass
 
 
 class JSONInterpreter(object):
@@ -57,9 +59,9 @@ class JSONInterpreter(object):
         self.plans = {}
 
     def validate(self, input_json):
-        valid, errors = validate_with_schema_errors(input_json, schema, strict=True)
-        if not valid:
-            raise ValidationError.raise_from_msgs(errors)
+        result = validate(schema, input_json)
+        if not result[0]:
+            raise ValidationError(result[1])
 
     def load_model(self, model_json):
         if "filename" in model_json:
