@@ -6,7 +6,7 @@ from terrarium.parser import JSONInterpreter
 here = dirname(abspath(__file__))
 
 
-@pytest.mark.parametrize("file", ["example1.json"])
+@pytest.mark.parametrize("file", ["example1.json", "example2.json", "example3.json"])
 def test_parse_json(file, session):
 
     with session.with_cache(timeout=60) as sess:
@@ -16,4 +16,5 @@ def test_parse_json(file, session):
         input_json["MODEL_PATH"] = join(here, input_json["MODEL_PATH"])
         interpreter.parse(input_json)
         plans = interpreter.submit()
-        print(plans)
+        for k, v in plans.items():
+            print("http://0.0.0.0/plans?plan_id={}".format(v))

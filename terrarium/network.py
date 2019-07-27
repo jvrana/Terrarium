@@ -243,7 +243,7 @@ class NetworkOptimizer(Loggable):
             if aft.field_type.role == "output":
                 # create and set output operation
                 if "operation" not in ndata:
-                    print("Creating field value")
+                    # print("Creating field value")
                     op = canvas.create_operation_by_type_id(aft.field_type.parent_id)
                     fv = op.output(aft.field_type.name)
                     canvas.set_field_value(fv, sample=sample)
@@ -258,24 +258,24 @@ class NetworkOptimizer(Loggable):
                     input_name = input_aft.field_type.name
 
                     if input_aft.field_type.array:
-                        print(
-                            "Setting input array {} to sample='{}'".format(
-                                input_name, input_sample
-                            )
-                        )
+                        # print(
+                        #     "Setting input array {} to sample='{}'".format(
+                        #         input_name, input_sample
+                        #     )
+                        # )
                         input_fv = canvas.set_input_field_value_array(
                             op, input_name, sample=input_sample
                         )
                     else:
-                        print(
-                            "Setting input {} to sample='{}'".format(
-                                input_name, input_sample
-                            )
-                        )
+                        # print(
+                        #     "Setting input {} to sample='{}'".format(
+                        #         input_name, input_sample
+                        #     )
+                        # )
                         input_fv = canvas.set_field_value(
                             op.input(input_name), sample=input_sample
                         )
-                    print("Setting input field_value for '{}'".format(prev_node[0]))
+                    # print("Setting input field_value for '{}'".format(prev_node[0]))
                     prev_node[1]["field_value"] = input_fv
                     prev_node[1]["operation"] = op
             prev_node = (n, ndata)
@@ -949,86 +949,130 @@ class NetworkOptimizer(Loggable):
                 print("No paths found")
             return math.inf, [], visited_samples
         seed_paths = sorted(seed_paths, key=lambda x: x[0])
-        cost, path = seed_paths[0]
-        final_paths = [path]
-        if cost > THRESHOLD:
-            cprint("Path beyond threshold, returning early", "red")
-            print(graph_utils.get_path_length(bgraph, path))
-            return cost, final_paths, visited_samples
 
-        if verbose:
-            cprint("Single path found with cost {}".format(cost), None, "blue")
-            cprint(graph_utils.get_path_weights(bgraph, path), None, "blue")
+        best = []
 
-        ############################################
-        # 3. mark edges as 'visited'
-        ############################################
-        bgraph_copy = bgraph.copy()
-        edges = list(zip(path[:-1], path[1:]))
-        for e1, e2 in edges:
-            edge = bgraph_copy.get_edge(e1, e2)
-            edge["weight"] = 0
+        for cost, path in seed_paths[:NUM_PATHS]:
+            visited_samples_copy = set(visited_samples)
+            final_paths = [path]
+            if cost > THRESHOLD:
+                cprint("Path beyond threshold, returning early", "red")
+                print(graph_utils.get_path_length(bgraph, path))
+                return cost, final_paths, visited_samples_copy
 
-        ############################################
-        # 4.1 input-to-output graph
-        ############################################
-        input_to_output = OrderedDict()
-        for n1, n2 in zip(path[:-1], path[1:]):
-            node2 = bgraph_copy.get_node(n2)
-            node1 = bgraph_copy.get_node(n1)
-            if "sample" in node1:
-                visited_samples.add(node1["sample"].id)
-            if "sample" in node2:
-                visited_samples.add(node2["sample"].id)
-            if node2["node_class"] == "AllowableFieldType":
-                aft2 = node2["model"]
-                if aft2.field_type.role == "output":
-                    input_to_output[n1] = n2
+            if verbose:
+                cprint("Single path found with cost {}".format(cost), None, "blue")
+                cprint(graph_utils.get_path_weights(bgraph, path), None, "blue")
 
-        ############################################
-        # 4.2  search for all unassigned inputs
-        ############################################
-        print("PATH:")
-        for p in path:
-            print(p)
-            self.print_aft(bgraph, p)
+            ############################################
+            # 3. mark edges as 'visited'
+            ############################################
+            bgraph_copy = bgraph.copy()
+            edges = list(zip(path[:-1], path[1:]))
+            for e1, e2 in edges:
+                edge = bgraph_copy.get_edge(e1, e2)
+                edge["weight"] = 0
 
-        # iterate through each input to find unfullfilled inputs
-        inputs = list(input_to_output.keys())[:]
-        print(input_to_output.keys())
-        if depth > 0:
-            inputs = inputs[:-1]
-        #     print()
-        #     print("INPUTS: {}".format(inputs))
-
-        #     all_sister
-        empty_assignments = defaultdict(list)
-
-        for i, n in enumerate(inputs):
-            print()
-            print("Finding sisters for:")
-            self.print_aft(bgraph, n)
-            output_n = input_to_output[n]
-            ndata = bgraph_copy.get_node(n)
-            sisters = self.get_sister_inputs(
-                n, ndata, output_n, bgraph_copy, ignore=visited_end_nodes
+            ############################################
+            # 4.1 input-to-output graph
+            ############################################
+            input_to_output = self._input_to_output_graph(
+                bgraph_copy, path, visited_samples_copy
             )
-            if not sisters:
-                print("no sisters found")
-            for ftid, nodes in sisters.items():
-                print("**Sister FieldType {}**".format(ftid))
-                for s, values in nodes:
-                    self.print_aft(bgraph, s)
-                    empty_assignments["{}_{}".format(output_n, ftid)].append(
-                        (s, output_n, values)
-                    )
-                print()
+
+            ############################################
+            # 4.2  search for all unassigned inputs
+            ############################################
+            print("PATH:")
+            for p in path:
+                print(p)
+                self.print_aft(bgraph, p)
+
+            # iterate through each input to find unfullfilled inputs
+
+            empty_assignments = self._gather_empty_assignments(
+                bgraph, bgraph_copy, depth, input_to_output, visited_end_nodes
+            )
+
+            ############################################
+            # 4.3 recursively find cost & shortest paths
+            #     for unassigned inputs for every possible
+            #     assignment
+            ############################################
+            cost, final_paths, visited_samples_copy = self._best_assignment(
+                bgraph_copy,
+                cost,
+                depth,
+                empty_assignments,
+                final_paths,
+                start_nodes,
+                visited_end_nodes,
+                visited_samples_copy,
+            )
+
+            ############################################
+            # 5 Make a sample penalty for missing input samples
+            ############################################
+
+            output_samples = set()
+            for path in final_paths:
+                for node in path:
+                    ndata = bgraph_copy.get_node(node)
+                    if "sample" in ndata:
+                        output_samples.add(ndata["sample"])
+
+            expected_samples = set()
+            for sample in output_samples:
+                for pred in self.sample_composition.predecessors(sample.id):
+                    expected_samples.add(pred)
+
+            sample_penalty = max(
+                [(len(expected_samples) - len(visited_samples_copy)) * 10000, 0]
+            )
+
+            best.append(
+                {
+                    "cost": cost,
+                    "final_paths": final_paths,
+                    "visited_samples": visited_samples_copy,
+                    "expected_samples": expected_samples,
+                    "sample_penalty": sample_penalty,
+                    "final_paths": final_paths,
+                }
+            )
+
+        best = sorted(best, key=lambda x: x["cost"] + x["sample_penalty"])
 
         ############################################
-        # 4.3 recursively find cost & shortest paths
-        #     for unassigned inputs for every possible
-        #     assignment
+        # return cost and paths
         ############################################
+        selected = best[0]
+
+        cprint(
+            "SAMPLES {}/{}".format(
+                len(selected["visited_samples"]), len(selected["expected_samples"])
+            )
+        )
+        cprint("COST AT DEPTH {}: {}".format(depth, selected["cost"]), None, "red")
+        cprint("SAMPLE PENALTY: {}".format(selected["sample_penalty"]))
+        cprint("VISITED SAMPLES: {}".format(selected["visited_samples"]), None, "red")
+        return (
+            selected["cost"] + selected["sample_penalty"],
+            selected["final_paths"],
+            selected["visited_samples"],
+        )
+
+    def _best_assignment(
+        self,
+        bgraph_copy,
+        cost,
+        depth,
+        empty_assignments,
+        final_paths,
+        start_nodes,
+        visited_end_nodes,
+        visited_samples,
+    ):
         all_assignments = list(product(*empty_assignments.values()))
         print(all_assignments)
         for k, v in empty_assignments.items():
@@ -1083,32 +1127,48 @@ class NetworkOptimizer(Loggable):
             cost += best_assignment_costs[0][0]
             final_paths += best_assignment_costs[0][1]
             visited_samples = visited_samples.union(best_assignment_costs[0][2])
+        return cost, final_paths, visited_samples
 
-        ############################################
-        # 5 Make a sample penalty for missing input samples
-        ############################################
+    def _gather_empty_assignments(
+        self, bgraph, bgraph_copy, depth, input_to_output, visited_end_nodes
+    ):
+        empty_assignments = defaultdict(list)
+        inputs = list(input_to_output.keys())[:]
+        print(input_to_output.keys())
+        if depth > 0:
+            inputs = inputs[:-1]
+        for i, n in enumerate(inputs):
+            print()
+            print("Finding sisters for:")
+            self.print_aft(bgraph, n)
+            output_n = input_to_output[n]
+            ndata = bgraph_copy.get_node(n)
+            sisters = self.get_sister_inputs(
+                n, ndata, output_n, bgraph_copy, ignore=visited_end_nodes
+            )
+            if not sisters:
+                print("no sisters found")
+            for ftid, nodes in sisters.items():
+                print("**Sister FieldType {}**".format(ftid))
+                for s, values in nodes:
+                    self.print_aft(bgraph, s)
+                    empty_assignments["{}_{}".format(output_n, ftid)].append(
+                        (s, output_n, values)
+                    )
+                print()
+        return empty_assignments
 
-        output_samples = set()
-        for path in final_paths:
-            for node in path:
-                ndata = bgraph_copy.get_node(node)
-                if "sample" in ndata:
-                    output_samples.add(ndata["sample"])
-
-        expected_samples = set()
-        for sample in output_samples:
-            for pred in self.sample_composition.predecessors(sample.id):
-                expected_samples.add(pred)
-
-        ############################################
-        # return cost and paths
-        ############################################
-
-        sample_penalty = max(
-            [(len(expected_samples) - len(visited_samples)) * 10000, 0]
-        )
-        cprint("SAMPLES {}/{}".format(len(visited_samples), len(expected_samples)))
-        cprint("COST AT DEPTH {}: {}".format(depth, cost), None, "red")
-        cprint("SAMPLE PENALTY: {}".format(sample_penalty))
-        cprint("VISITED SAMPLES: {}".format(visited_samples), None, "red")
-        return cost + sample_penalty, final_paths, visited_samples
+    def _input_to_output_graph(self, bgraph_copy, path, visited_samples):
+        input_to_output = OrderedDict()
+        for n1, n2 in zip(path[:-1], path[1:]):
+            node2 = bgraph_copy.get_node(n2)
+            node1 = bgraph_copy.get_node(n1)
+            if "sample" in node1:
+                visited_samples.add(node1["sample"].id)
+            if "sample" in node2:
+                visited_samples.add(node2["sample"].id)
+            if node2["node_class"] == "AllowableFieldType":
+                aft2 = node2["model"]
+                if aft2.field_type.role == "output":
+                    input_to_output[n1] = n2
+        return input_to_output
