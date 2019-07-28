@@ -181,9 +181,13 @@ class JSONInterpreter(object):
             self.plans = {}
 
             for goal_num, goal in enumerate(goals):
-                self.plans.setdefault(goal["plan_id"], Planner(sess))
-                plan = self.plans[goal["plan_id"]]
-                plan.name = goal["plan_id"]
+                if goal["plan_id"] not in self.plans:
+                    canvas = Planner(sess)
+                    canvas.name = goal["plan_id"]
+                    canvas.plan.operations = []
+                    self.plans[goal["plan_id"]] = canvas
+                else:
+                    canvas = self.plans[goal["plan_id"]]
 
                 scgraph = nx.DiGraph()
 
@@ -198,10 +202,11 @@ class JSONInterpreter(object):
                 network = factory.new_from_composition(scgraph)
                 network.update_sample_composition()
                 network.run(goal["object_type"])
-                network.plan(canvas=plan)
+                network.plan(canvas=canvas)
 
     def submit(self):
         for plan_id, plan in self.plans.items():
-            plan.prettify()
+            if plan.plan.operations:
+                plan.prettify()
             plan.save()
         return {k: v.plan.id for k, v in self.plans.items()}

@@ -63,19 +63,19 @@ def test_build(session, factory, num):
     model.build()
 
 
-def test_basic_search(autoplan, session):
-    autoplan.set_verbose(True)
+def test_basic_search(autoplan_model, session):
+    autoplan_model.set_verbose(True)
 
     ignore_ots = session.OperationType.where(
         {"category": "Control Blocks", "deployed": True}
     )
     ignore = [ot.id for ot in ignore_ots]
 
-    autoplan.add_model_filter(
+    autoplan_model.add_model_filter(
         "AllowableFieldType", "exclude", lambda m: m.field_type.parent_id in ignore
     )
 
-    autoplan.search_graph(
+    autoplan_model.search_graph(
         session.Sample.one(),
         session.ObjectType.find_by_name("Yeast Glycerol Stock"),
         session.ObjectType.find_by_name("Fragment Stock"),
