@@ -13,7 +13,7 @@
             "SAMPLE": {
                 "model_class": "Sample",
                 "query": {
-                    "name": "CEN.PK2 - MAT A ::: pMOD4G-dcas9-mxi1 | pMOD-LTR2-Bleo-pGRR-W5W17-RGR-W8 | pMOD-LTR3-Hyg-pGRR-W8-RGR-W17 | pMOD8-pGRR-W10W8-RGR-W5"
+                    "name": "CEN.PK2 - MAT alpha ::: pMODKan-HO-pACT1-ZEV4 | pMOD8-pGALZ4-URGR-W5 | pMOD6-pGRR-W17-yeGFP"
                 }
             },
             "OBJECT_TYPE": {
@@ -30,9 +30,7 @@
             {
                 "model_class": "OperationType",
                 "query": [
-                    {"category": ["Control Blocks", "Library Cloning"]},
-                    {"name": "Yeast Mating"},
-                    {"name": "Yeast Auxotrophic Plate Mating"}
+                    {"category": ["Control Blocks", "Library Cloning"]}
                 ]
             },
             {
