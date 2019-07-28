@@ -1,4 +1,11 @@
 {
+  "0.1.5": {
+    "description": "minor bug fixes",
+    "date": "2019-07-27T20:20:01.310316",
+    "changes": [
+      "cli now displays the plan url after designing"
+    ]
+  },
   "0.1.4": {
     "description": "Forward planning algorithm fixed",
     "date": "2019-07-27T17:40:02.037153",
