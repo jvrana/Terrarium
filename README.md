@@ -15,7 +15,7 @@ to emulate how that particular researcher would plan experiments.
 Installing a specific version
 
 ```python
-pip install terrarium-capp==0.1.2
+pip install terrarium-capp==0.1.5
 ```
 
 New models can be built as in the following:
