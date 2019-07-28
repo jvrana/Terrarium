@@ -6,7 +6,7 @@ from itertools import count as counter
 from itertools import product
 
 import networkx as nx
-from pydent.utils.logger import Loggable
+from pydent.utils import Loggable
 from tqdm import tqdm
 
 from terrarium import AutoPlannerModel
@@ -23,6 +23,7 @@ class NetworkSolution(object):
         self.graph = graph
         self.paths = paths
         self.item = item
+        self.log = Loggable(self)
 
     def as_dict(self):
         return {"cost": self.cost, "graph": self.graph, "paths": self.paths}
@@ -45,7 +46,7 @@ none_sample.id = None
 none_sample.name = None
 
 
-class NetworkOptimizer(Loggable):
+class NetworkOptimizer(object):
     """
     Class that finds optimal Steiner Tree (
     """
@@ -56,11 +57,11 @@ class NetworkOptimizer(Loggable):
         self.browser = browser
         self.sample_composition = sample_composition_graph
         self.template_graph = template_graph.copy()
-        self.init_logger("Algorithm")
+        self.log = Loggable(self)
         self.gid = next(self.counter)
 
     def _cinfo(self, msg, foreground="white", background="black"):
-        self._info(cstring(msg, foreground, background))
+        self.log.info(cstring(msg, foreground, background))
 
     ############################
     # RUN
@@ -503,7 +504,7 @@ class NetworkOptimizer(Loggable):
 
         graph.cache_models()
 
-        self._info("Adding {} sample-to-sample edges".format(len(sample_edges)))
+        self.log.info("Adding {} sample-to-sample edges".format(len(sample_edges)))
 
         for n1, n2 in tqdm(sample_edges):
             assert n1 in graph
@@ -545,7 +546,7 @@ class NetworkOptimizer(Loggable):
             query={"sample_id": sample_ids, "object_type_id": object_type_ids},
         )
         items = [item for item in items if item.location != "deleted"]
-        self._info("{} total items found".format(len(items)))
+        self.log.info("{} total items found".format(len(items)))
         items_by_object_type_id = defaultdict(list)
         for item in items:
             items_by_object_type_id[item.object_type_id].append(item)
@@ -597,7 +598,7 @@ class NetworkOptimizer(Loggable):
         for item, sample, node in new_edges:
             graph.add_edge(graph.node_id(item), node, weight=0)
 
-        self._info(
+        self.log.info(
             "{} items added to various allowable_field_types".format(len(new_edges))
         )
         return graph

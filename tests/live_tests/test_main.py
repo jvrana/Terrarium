@@ -3,7 +3,7 @@ import os
 
 
 def test_basic_search(autoplan_model, session):
-    autoplan_model.set_verbose(True)
+    autoplan_model.log.set_verbose(True)
 
     ignore_ots = session.OperationType.where(
         {"category": "Control Blocks", "deployed": True}
@@ -46,7 +46,7 @@ def test_successor(autoplan_model):
 
 # def test_search_new(new_autoplanner, session):
 #     autoplanner = new_autoplanner
-#     autoplan.set_verbose(True)
+#     autoplan.log.set_verbose(True)
 #     autoplan.search_graph(session.Sample.one(),
 #                                  session.ObjectType.find_by_name("Yeast Glycerol Stock"),
 #                                  session.ObjectType.find_by_name("Fragment Stock")

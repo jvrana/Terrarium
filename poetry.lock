@@ -330,7 +330,7 @@ description = "Aquarium's Python API for planning, executing, and analyzing scie
 name = "pydent"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "0.1.5a1"
+version = "0.1.5a2"
 
 [package.dependencies]
 inflection = ">=0.3.1,<0.4.0"
@@ -591,7 +591,7 @@ python-versions = ">=2.7"
 version = "0.5.2"
 
 [metadata]
-content-hash = "cb1624dd0aec01e85688facf19f18bc6e7b8693fe3a7de15181f7ad8d6efd6d6"
+content-hash = "950d2c2b6e1ae7377fdf367cf0a819aafe43becf20001e6dbaa2d8c59048a689"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -628,7 +628,7 @@ pluggy = ["0825a152ac059776623854c1543d65a4ad408eb3d33ee114dff91e57ec6ae6fc", "b
 pre-commit = ["92e406d556190503630fd801958379861c94884693a032ba66629d0351fdccd4", "cccc39051bc2457b0c0f7152a411f8e05e3ba2fe1a5613e4ee0833c1c1985ce3"]
 py = ["64f65755aee5b381cea27766a3a147c3f15b9b6b9ac88676de66ba2ae36793fa", "dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53"]
 py-cpuinfo = ["2cf6426f776625b21d1db8397d3297ef7acfa59018f02a8779123f3190f18500"]
-pydent = ["a63a60833a8627088dce34d12df13555d112a6b1aa5ceea7b67cfe5c8a7bbb2e", "aa6236cefc26c2c21b2215aacab16b77757b1d78ee0805a7b748ed0ace8a035e"]
+pydent = ["d0fd5b6fb00f09b6dc956056234b6c6b3f234979c893ca73f0620de234c56623", "ed5bad1f36b857ba553c63f382c20fbbbe245464dd2c63d76651348b5328b109"]
 pygal = ["27abab93cbc31e21f3c6bdecc05bda6cd3570cbdbd8297b7caa6904051b50d72", "9204f05380b02a8a32f9bf99d310b51aa2a932cba5b369f7a4dc3705f0a4ce83"]
 pygaljs = ["bd778749bc387a71520dde99f36a75ea776b3dcde5f3b59b4bd079c5723b1eb8", "be757bc75f52b46669472f6cc7eac95935092495bef153b8810a46c0c59f88a1"]
 pyparsing = ["43c5486cefefa536c9aab528881c992328f020eefe4f6d06332449c365218580", "d6c5ffe9d0305b9b977f7a642d36b9370954d1da7ada4c62393382cbadad4265"]

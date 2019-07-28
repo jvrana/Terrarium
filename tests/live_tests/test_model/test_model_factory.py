@@ -64,7 +64,7 @@ def test_build(session, factory, num):
 
 
 def test_basic_search(autoplan_model, session):
-    autoplan_model.set_verbose(True)
+    autoplan_model.log.set_verbose(True)
 
     ignore_ots = session.OperationType.where(
         {"category": "Control Blocks", "deployed": True}
