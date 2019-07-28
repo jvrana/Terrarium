@@ -209,4 +209,4 @@ class JSONInterpreter(object):
             if plan.plan.operations:
                 plan.prettify()
             plan.save()
-        return {k: v.plan.id for k, v in self.plans.items()}
+        return {k: v for k, v in self.plans.items()}
