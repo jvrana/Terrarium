@@ -40,7 +40,13 @@ class TerrariumCLI(object):
         with open(filepath, "r") as f:
             interpreter.parse(json.load(f))
         if not dry_run:
-            return interpreter.submit()
+            plan_dict = interpreter.submit()
+            for plan_name, plan in plan_dict.items():
+                print(
+                    "{name} id={id} url={url}".format(
+                        name=plan_name, id=plan.plan.id, url=plan.url
+                    )
+                )
 
 
 def main():
