@@ -941,7 +941,7 @@ class NetworkOptimizer(Loggable):
         ############################################
         # 2. find overall shortest path(s)
         ############################################
-        NUM_PATHS = 3
+        NUM_PATHS = 1
         THRESHOLD = 10 ** 8
 
         if not seed_paths:

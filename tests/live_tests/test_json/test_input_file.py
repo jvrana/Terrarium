@@ -6,7 +6,16 @@ from terrarium.parser import JSONInterpreter
 here = dirname(abspath(__file__))
 
 
-@pytest.mark.parametrize("file", ["example1.json", "example2.json", "example3.json"])
+@pytest.mark.parametrize(
+    "file",
+    [
+        "example1.json",
+        "example2.json",
+        "example3.json",
+        "example4.json",
+        "example5.json",
+    ],
+)
 def test_parse_json(file, session):
 
     with session.with_cache(timeout=60) as sess:
