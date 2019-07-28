@@ -8,7 +8,7 @@ import arrow
 import dill
 import networkx as nx
 from pydent.browser import Browser
-from pydent.utils.logger import Loggable
+from pydent.utils import Loggable
 from pydent.models import User
 from tqdm import tqdm
 
@@ -49,7 +49,7 @@ class SetRecusion(object):
         return wrapper
 
 
-class EdgeWeightContainer(Loggable):
+class EdgeWeightContainer(object):
     def __init__(self, browser, edge_hash, node_hash, plans, plan_ids=None):
         """
         EdgeCalculator initializer
@@ -64,7 +64,9 @@ class EdgeWeightContainer(Loggable):
         :type plans: list
         """
         self.browser = browser
-        self.init_logger("EdgeWeightContainer({})".format(self.browser.session))
+        self.log = Loggable(
+            self, "EdgeWeightContainer({})".format(self.browser.session)
+        )
         # filter only those plans that have operations
         self._plans = []
         if plan_ids is not None:
@@ -118,16 +120,16 @@ class EdgeWeightContainer(Loggable):
             unique_plans = set(plan_ids).difference(existing_plan_ids)
             num_ignored = len(plans) - len(unique_plans)
             plans = list(unique_plans)
-            self._info("Ignoring {} existing plans".format(num_ignored))
-        self._info("Updating edge counter with {} new plans".format(len(plans)))
+            self.log.info("Ignoring {} existing plans".format(num_ignored))
+        self.log.info("Updating edge counter with {} new plans".format(len(plans)))
 
         self.cache_plans()
 
         wires = self.collect_wires()
-        self._info("  {} wires loaded".format(len(wires)))
+        self.log.info("  {} wires loaded".format(len(wires)))
 
         operations = self.collect_operations()
-        self._info("  {} operations loaded".format(len(operations)))
+        self.log.info("  {} operations loaded".format(len(operations)))
 
         edges = self.to_edges(wires, operations)
         self.update_tally(edges)
@@ -138,23 +140,23 @@ class EdgeWeightContainer(Loggable):
 
     def compute(self):
         """Compute the weights. If previously computed, this function will avoid re-caching plans and wires."""
-        self._info("Computing weights for {} plans".format(len(self.plans)))
+        self.log.info("Computing weights for {} plans".format(len(self.plans)))
         self._was_updated()
         if not self.is_cached:
             self.cache_plans()
         else:
-            self._info("   Plans already cached. Skipping...")
+            self.log.info("   Plans already cached. Skipping...")
         wires = self.collect_wires()
-        self._info("  {} wires loaded".format(len(wires)))
+        self.log.info("  {} wires loaded".format(len(wires)))
         operations = self.collect_operations()
-        self._info("  {} operations loaded".format(len(operations)))
+        self.log.info("  {} operations loaded".format(len(operations)))
         self.is_cached = True
         self.edges = self.to_edges(wires, operations)
         self.update_tally(self.edges)
         self.save_weights(self.edges)
 
     def cache_plans(self):
-        self._info("   Caching plans...")
+        self.log.info("   Caching plans...")
         self.browser.get("Plan", {"operations": {"field_values"}})
 
         self.browser.get("Wire", {"source", "destination"})
@@ -191,7 +193,7 @@ class EdgeWeightContainer(Loggable):
         return edges
 
     def update_tally(self, edges):
-        self._info("Hashing and counting edges...")
+        self.log.info("Hashing and counting edges...")
         for n1, n2 in tqdm(edges, desc="counting edges"):
             if n1 and n2:
                 self._edge_counter[(n1, n2)] += 1
@@ -287,10 +289,10 @@ class EdgeWeightContainer(Loggable):
         self.updated_at = state["updated_at"]
         self.created_at = state["created_at"]
         # self.browser = state['browser']
-        self.init_logger("EdgeWeightContainer")
+        self.log = Loggable(self)
 
 
-class AutoPlannerModel(Loggable):
+class AutoPlannerModel(object):
     """
     Builds a model from historical plan data.
     """
@@ -302,7 +304,9 @@ class AutoPlannerModel(Loggable):
 
     def __init__(self, browser, plans=None, name=None):
         self.browser = browser
-        self.init_logger("AutoPlanner@{url}".format(url=self.browser.session.url))
+        self.log = Loggable(
+            self, "AutoPlanner@{url}".format(url=self.browser.session.url)
+        )
         if plans:
             self.plans = plans
             self.browser.update_cache(plans)
@@ -343,9 +347,6 @@ class AutoPlannerModel(Loggable):
         self.weight_container.plans = plans
         self._template_graph = None
 
-    def set_verbose(self, verbose):
-        super().set_verbose(verbose)
-
     @staticmethod
     def _external_aft_hash(aft):
         """A has function representing two 'external' :class:`pydent.models.AllowableFieldType`
@@ -382,7 +383,7 @@ class AutoPlannerModel(Loggable):
         """Cache :class:`AllowableFieldType`"""
         ots = self.browser.where({"deployed": True}, "OperationType")
 
-        self._info(
+        self.log.info(
             "Caching all AllowableFieldTypes from {} deployed operation types".format(
                 len(ots)
             )
@@ -542,11 +543,11 @@ class AutoPlannerModel(Loggable):
         # computer weights
         self.weight_container.compute()
 
-        self._info("Building Graph:")
+        self.log.info("Building Graph:")
         G = BrowserGraph(self.browser)
         self.update_weights(G, self.weight_container)
-        self._info("  {} edges".format(len(list(G.edges()))))
-        self._info("  {} nodes".format(len(G)))
+        self.log.info("  {} edges".format(len(list(G.edges()))))
+        self.log.info("  {} nodes".format(len(G)))
 
         self._template_graph = G
         self._was_updated()
@@ -652,7 +653,7 @@ class AutoPlannerModel(Loggable):
                 f,
             )
         statinfo = stat(path)
-        self._info("{} bytes written to '{}'".format(statinfo.st_size, path))
+        self.log.info("{} bytes written to '{}'".format(statinfo.st_size, path))
 
     def save(self, path: str):
         return self.dump(path)
@@ -673,7 +674,7 @@ class AutoPlannerModel(Loggable):
                 model = cls(browser.session)
 
                 statinfo = stat(path)
-                model._info(
+                model.log.info(
                     "{} bytes loaded from '{}' to new AutoPlanner (id={})".format(
                         statinfo.st_size, path, id(model)
                     )

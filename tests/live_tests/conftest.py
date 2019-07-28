@@ -106,7 +106,7 @@ def new_model(session):
         sess.browser.get("Operation", "plans")
         plans = sess.browser.get("Plan")
     apm = AutoPlannerModel(session.browser, plans)
-    apm.set_verbose(True)
+    apm.log.set_verbose(True)
     apm.build()
     return apm
 
@@ -123,12 +123,12 @@ def autoplan_model(session, datadir) -> AutoPlannerModel:
         print("TESTS: No file found with path '{}'".format(filepath))
         print("TESTS: Creating new pickled autoplanner...")
         model = new_model(session)
-        model.set_verbose(True)
+        model.log.set_verbose(True)
         model.build()
         print("TESTS: dumping {}".format(filepath))
         model.dump(filepath)
 
     print("TESTS: Loading '{}'".format(filepath))
     model = AutoPlannerModel.load(filepath)
-    model.set_verbose(False)
+    model.log.set_verbose(False)
     return model

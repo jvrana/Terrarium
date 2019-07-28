@@ -1,6 +1,5 @@
 import networkx as nx
 from pydent.browser import Browser
-from terrarium.model import AutoPlannerModel
 from terrarium.network import NetworkOptimizer
 
 
