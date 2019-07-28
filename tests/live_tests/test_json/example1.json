@@ -1,7 +1,10 @@
 {
     "TRAIN": {
         "method": "last",
-        "args": [500]
+        "args": [500],
+        "query": {
+            "user_id": 66
+        }
     },
     "MODEL_PATH": "terrarium.pkl",
     "GOALS": [

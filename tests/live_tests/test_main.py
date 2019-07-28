@@ -2,35 +2,35 @@ import networkx as nx
 import os
 
 
-def test_basic_search(autoplan, session):
-    autoplan.set_verbose(True)
+def test_basic_search(autoplan_model, session):
+    autoplan_model.set_verbose(True)
 
     ignore_ots = session.OperationType.where(
         {"category": "Control Blocks", "deployed": True}
     )
     ignore = [ot.id for ot in ignore_ots]
 
-    autoplan.add_model_filter(
+    autoplan_model.add_model_filter(
         "AllowableFieldType", "exclude", lambda m: m.field_type.parent_id in ignore
     )
 
-    autoplan.search_graph(
+    autoplan_model.search_graph(
         session.Sample.one(),
         session.ObjectType.find_by_name("Yeast Glycerol Stock"),
         session.ObjectType.find_by_name("Fragment Stock"),
     )
 
 
-def test_graphml(autoplan, datadir):
+def test_graphml(autoplan_model, datadir):
     nx.write_graphml(
-        autoplan.template_graph.graph, os.path.join(datadir, "autoplan.graphml")
+        autoplan_model.template_graph.graph, os.path.join(datadir, "autoplan.graphml")
     )
 
 
-def test_successor(autoplan):
-    graph = autoplan.template_graph
+def test_successor(autoplan_model):
+    graph = autoplan_model.template_graph
 
-    aft = autoplan.browser.find(273, "AllowableFieldType")
+    aft = autoplan_model.browser.find(273, "AllowableFieldType")
     print(aft)
     print(aft.field_type.name)
     print(aft.field_type.role)

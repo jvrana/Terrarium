@@ -112,7 +112,7 @@ def new_model(session):
 
 
 @pytest.fixture(scope="function")
-def autoplan(session, datadir):
+def autoplan_model(session, datadir) -> AutoPlannerModel:
     """The default autoplanner object used in tests. Preferrably loads a pickled
     object. If the pickled object does not exist, a new autoplanner object is created
     and pickled. This object is then unpickled and used."""

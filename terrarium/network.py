@@ -18,81 +18,25 @@ from pydent.planner import Planner
 
 
 class NetworkSolution(object):
-    def __init__(self, paths: list, graph):
+    def __init__(self, cost: float, paths: list, graph: BrowserGraph, item=None):
+        self.cost = cost
         self.graph = graph
         self.paths = paths
+        self.item = item
 
+    def as_dict(self):
+        return {"cost": self.cost, "graph": self.graph, "paths": self.paths}
 
-class NetworkFactory(object):
-    """Creates a new Terrarium network from a goal and model
-    """
+    def __getitem__(self, item):
+        return self.as_dict()[item]
 
-    def __init__(self, model):
-        """[summary]
-        
-        :param model: an autoplanner model
-        :type model: AutoplannerModel
-        """
+    def __str__(self):
+        return "<{cls} cost={cost} item={item}>".format(
+            cls=self.__class__.__name__, cost=self.cost, item=self.item
+        )
 
-        self.model = model
-        self.algorithms = {}
-        self.solution = None
-
-    def add(self, algorithm):
-        self.algorithms[algorithm.gid] = algorithm
-
-    def new_from_sample(self, sample):
-        scgraph = nx.DiGraph()
-        scgraph.add_node(sample.id, sample=sample)
-        return self.new_from_composition(scgraph)
-
-    def new_from_composition(self, sample_composition_graph):
-        browser = self.model.browser
-        template_graph = self.model.template_graph
-        algorithm = NetworkOptimizer(browser, sample_composition_graph, template_graph)
-        self.add(algorithm)
-        return algorithm
-
-    def new_from_edges(self, sample_edges):
-        composition = self.sample_composition_from_edges(sample_edges)
-        return self.new_from_composition(composition)
-
-    def sample_composition_from_edges(self, sample_edges):
-        """
-        E.g.
-
-        .. code::
-
-            edges = [
-            ('DTBA_backboneA_splitAMP', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('T1MC_NatMX-Cassette_MCT2 (JV)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('MCDT_URA3.A.1_homology2_DTBA', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1')
-        ]
-        :param sample_edges:
-        :type sample_edges:
-        :return:
-        :rtype:
-        """
-        scgraph = nx.DiGraph()
-
-        for n1, n2 in sample_edges:
-            s1 = self.model.browser.find_by_name(n1)
-            s2 = self.model.browser.find_by_name(n2)
-            scgraph.add_node(s1.id, sample=s1)
-            scgraph.add_node(s2.id, sample=s2)
-            scgraph.add_edge(s1.id, s2.id)
-        return scgraph
-
-    @classmethod
-    def load_model(cls, path):
-        model = AutoPlannerModel.load(path)
-        return cls(model)
-
-    # TODO: chaining; incrementally build solution from series of sample_composition graphs
-    def chain(self):
-        pass
+    def __repr__(self):
+        return str(self)
 
 
 none_sample = Sample()
@@ -105,10 +49,6 @@ class NetworkOptimizer(Loggable):
     """
     Class that finds optimal Steiner Tree (
     """
-
-    SOLUTION_PATHS = "paths"
-    SOLUTION_GRAPH = "graph"
-    SOLUTION_COST = "cost"
 
     counter = counter()
 
@@ -155,6 +95,17 @@ class NetworkOptimizer(Loggable):
     def run(self, goal_object_type, goal_sample=None, ignore=None):
         if goal_sample is None:
             goal_sample = self.root_samples()[0]
+
+        existing_item = self.browser.session.Item.one(
+            query={"sample_id": goal_sample.id, "object_type_id": goal_object_type.id}
+        )
+        if existing_item:
+            print("Existing item found: {}".format(existing_item))
+            self.solution = NetworkSolution(
+                cost=0, paths=[], graph=None, item=existing_item
+            )
+            return self.solution
+
         if goal_sample.sample_type_id != goal_object_type.sample_type_id:
             raise Exception(
                 "ObjectType {} does not match Sample {}".format(
@@ -189,11 +140,7 @@ class NetworkOptimizer(Loggable):
         ############################
         cost, paths, visited_samples = self.run_stage3(graph, start_nodes, end_nodes)
 
-        self.solution = {
-            self.SOLUTION_COST: cost,
-            self.SOLUTION_PATHS: paths,
-            self.SOLUTION_GRAPH: graph,
-        }
+        self.solution = NetworkSolution(cost=cost, paths=paths, graph=graph)
         return self.solution
 
     ############################
@@ -212,15 +159,16 @@ class NetworkOptimizer(Loggable):
         """
         if canvas is None:
             canvas = Planner(self.browser.session)
+            canvas.plan.operations = []
         if solution is None:
             solution = self.solution
-        graph = solution[self.SOLUTION_GRAPH].copy()
-        paths = solution[self.SOLUTION_PATHS]
-        for path_num, path in enumerate(paths):
-            print("Path: {}".format(path_num))
-            self._plan_assign_field_values(path, graph, canvas)
-            self._plan_assign_items(path, graph, canvas)
-            print()
+        if solution.paths:
+            graph = solution.graph.copy()
+            for path_num, path in enumerate(solution.paths):
+                print("Path: {}".format(path_num))
+                self._plan_assign_field_values(path, graph, canvas)
+                self._plan_assign_items(path, graph, canvas)
+                print()
         return canvas
 
     @classmethod
@@ -1054,7 +1002,7 @@ class NetworkOptimizer(Loggable):
             )
         )
         cprint("COST AT DEPTH {}: {}".format(depth, selected["cost"]), None, "red")
-        cprint("SAMPLE PENALTY: {}".format(selected["sample_penalty"]))
+        cprint("SAMPLE PENALTY: {}".format(selected["sample_penalty"]), None, "red")
         cprint("VISITED SAMPLES: {}".format(selected["visited_samples"]), None, "red")
         return (
             selected["cost"] + selected["sample_penalty"],
@@ -1172,3 +1120,77 @@ class NetworkOptimizer(Loggable):
                 if aft2.field_type.role == "output":
                     input_to_output[n1] = n2
         return input_to_output
+
+
+class NetworkFactory(object):
+    """Creates a new Terrarium network from a goal and model
+    """
+
+    def __init__(self, model):
+        """[summary]
+
+        :param model: an autoplanner model
+        :type model: AutoplannerModel
+        """
+
+        self.model = model
+        self.algorithms = {}
+        self.solution = None
+
+    def add(self, algorithm: NetworkOptimizer):
+        self.algorithms[algorithm.gid] = algorithm
+
+    def new_from_sample(self, sample: Sample) -> NetworkOptimizer:
+        scgraph = nx.DiGraph()
+        scgraph.add_node(sample.id, sample=sample)
+        return self.new_from_composition(scgraph)
+
+    def new_from_composition(
+        self, sample_composition_graph: nx.DiGraph
+    ) -> NetworkOptimizer:
+        browser = self.model.browser
+        template_graph = self.model.template_graph
+        algorithm = NetworkOptimizer(browser, sample_composition_graph, template_graph)
+        self.add(algorithm)
+        return algorithm
+
+    def new_from_edges(self, sample_edges):
+        composition = self.sample_composition_from_edges(sample_edges)
+        return self.new_from_composition(composition)
+
+    def sample_composition_from_edges(self, sample_edges):
+        """
+        E.g.
+
+        .. code::
+
+            edges = [
+            ('DTBA_backboneA_splitAMP', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+            ('T1MC_NatMX-Cassette_MCT2 (JV)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+            ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+            ('MCDT_URA3.A.1_homology2_DTBA', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
+            ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1')
+        ]
+        :param sample_edges:
+        :type sample_edges:
+        :return:
+        :rtype:
+        """
+        scgraph = nx.DiGraph()
+
+        for n1, n2 in sample_edges:
+            s1 = self.model.browser.find_by_name(n1)
+            s2 = self.model.browser.find_by_name(n2)
+            scgraph.add_node(s1.id, sample=s1)
+            scgraph.add_node(s2.id, sample=s2)
+            scgraph.add_edge(s1.id, s2.id)
+        return scgraph
+
+    @classmethod
+    def load_model(cls, path):
+        model = AutoPlannerModel.load(path)
+        return cls(model)
+
+    # TODO: chaining; incrementally build solution from series of sample_composition graphs
+    def chain(self):
+        pass
