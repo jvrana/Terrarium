@@ -34,6 +34,7 @@ class TestGraphUtils(object):
         nodes = list(iter_root_operations(graph))
 
     def test_extract_items(self, graph: OperationGraph, builder: OperationGraphBuilder):
+        builder.adapter.session.set_verbose(True)
         with timeit("Assigning inventory"):
             builder.assign_inventory(graph)
         nodes = list(iter_root_items(graph))
