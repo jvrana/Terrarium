@@ -2,6 +2,7 @@ import os
 import networkx as nx
 from terrarium.graphs import ModelGraph
 from terrarium import constants as C
+from copy import deepcopy
 
 
 class TestBuilds(object):
@@ -17,8 +18,9 @@ class TestBuilds(object):
         assert basic_graph
         assert len(list(basic_graph.edges))
 
-    def test_assign_items(self, graph_with_assigned_inventory):
-        graph = graph_with_assigned_inventory
+    def test_assign_items(self, basic_graph, graph_builder):
+        graph = deepcopy(basic_graph)
+        graph_builder.assign_inventory(graph, part_limit=50)
         model_classes = [ndata[C.MODEL_CLASS] for n, ndata in graph.model_data()]
         assert "Item" in model_classes
 

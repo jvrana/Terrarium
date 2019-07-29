@@ -127,6 +127,12 @@ class AquariumAdapter(AdapterABC):
             if i.location != "deleted" and i.object_type_id in object_type_ids
         ]
 
+        items = self.session.Item.where({"sample_id": sample_ids})
+        items = [
+            i
+            for i in items
+            if i.location != "deleted" and i.object_type_id in object_type_ids
+        ]
         return [Serializer.serialize(i) for i in items]
 
     def collect_parts(self, sample_ids, lim):
