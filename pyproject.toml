@@ -10,6 +10,13 @@ readme = 'README.md'
 packages = [
     { include = "terrarium", from = "." },
 ]
+classifies = [
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Life",
+    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7"
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
