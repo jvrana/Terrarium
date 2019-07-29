@@ -586,3 +586,4 @@ MigrationBackup/
 tests/fixtures/**/*.yaml
 tests/timeline.gexf
 tests/events.json
+tests/test_algorithms/data/operation_graph.gexf
