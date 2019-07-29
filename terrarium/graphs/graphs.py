@@ -108,6 +108,9 @@ class GraphBase(object):
         graph_copy.add_edges_from(edges)
         return cls.nx_deepcopy(graph_copy)
 
+    def info(self):
+        return nx.info(self.graph)
+
     def json(self):
         self._init_graph()
         return nx.adjacency_data(self.graph)
