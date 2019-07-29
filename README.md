@@ -1,5 +1,7 @@
 # Terrarium
 
+[![PyPI version](https://badge.fury.io/py/terrarium-capp.svg)](https://badge.fury.io/py/terrarium-capp)
+
 This piece of software automatically plans scientific experiments in Aquarium using historical
 planning data and current laboratory inventory. Data can be pulled from specific researchers
 to emulate how that particular researcher would plan experiments.
