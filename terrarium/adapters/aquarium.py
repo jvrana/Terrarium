@@ -6,6 +6,7 @@ from .adapterabc import AdapterABC
 from uuid import uuid4
 from terrarium.utils import Loggable
 
+from pydent.__version__ import __version__ as __pydent_version__
 
 # typing
 from pydent.sessionabc import SessionABC
@@ -55,6 +56,15 @@ class AquariumAdapter(AdapterABC):
         assert session.browser
         self.session = session
         self.log = Loggable(self)
+
+    def api_version(self):
+        return __pydent_version__
+
+    def api_url(self):
+        return self.session.url
+
+    def api_name(self):
+        return str(self.session.__class__.__name__)
 
     @property
     def browser(self):
