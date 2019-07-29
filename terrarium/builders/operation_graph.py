@@ -30,7 +30,9 @@ def needs_sample_graph(f: Callable) -> Callable:
 class OperationGraphBuilder(BuilderABC):
     """Builds an operation graph from a (i) sever adapter, (ii) blueprint graph, and (iii) sample_graph"""
 
-    def __init__(self, adapter: AdapterABC, blueprint_graph, sample_graph=None):
+    def __init__(
+        self, adapter: AdapterABC, blueprint_graph: AFTGraph, sample_graph=None
+    ):
         super().__init__(adapter)
         self.blueprint_graph = blueprint_graph
         self.sample_graph = sample_graph
