@@ -120,10 +120,12 @@ class AquariumAdapter(AdapterABC):
         non_part_afts = [aft for aft in afts if not aft["field_type"]["part"]]
         object_type_ids = list(set([aft["object_type_id"] for aft in non_part_afts]))
 
-        items = self.session.Item.where(
-            {"sample_id": sample_ids, "object_type_id": object_type_ids}
-        )
-        items = [i for i in items if i.location != "deleted"]
+        items = self.session.Item.where({"sample_id": sample_ids})
+        items = [
+            i
+            for i in items
+            if i.location != "deleted" and i.object_type_id in object_type_ids
+        ]
         return [Serializer.serialize(i) for i in items]
 
     def collect_parts(self, sample_ids, lim):
