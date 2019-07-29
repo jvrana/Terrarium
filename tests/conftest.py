@@ -1,7 +1,27 @@
 from pydent import AqSession
-from os.path import abspath, dirname, join
+from os.path import abspath, dirname, join, isdir
+from os import mkdir
 import vcr
 import pytest
+
+
+here = dirname(abspath(__file__))
+
+
+@pytest.fixture
+def make_data_dir():
+    """Makes a new data directory in the fixtures."""
+    fixtures = join(here, "fixtures")
+    if not isdir(fixtures):
+        mkdir(fixtures)
+
+    def make_directory(name):
+        path = join(here, "fixtures", name)
+        if not isdir(path):
+            mkdir(path)
+        return path
+
+    return make_directory
 
 
 def pytest_configure(config):
