@@ -8,7 +8,7 @@ from uuid import uuid4
 # typing
 from pydent.sessionabc import SessionABC
 from pydent.base import ModelBase
-from pydent.models import FieldValue, AllowableFieldType, Plan
+from pydent.models import FieldValue, AllowableFieldType, Plan, Sample
 from typing import List
 
 
@@ -59,10 +59,10 @@ class AquariumAdapter(AdapterABC):
 
     @classmethod
     def build_sample_graph(
-        cls, samples: List[ModelBase], g=None, visited=None
+        cls, samples: List[Sample], g=None, visited=None
     ) -> SampleGraph:
         """
-        Requires requests.
+        Builds a connected sample graph from a list of Samples using FieldValue relationships.
 
         :param samples:
         :type samples:
@@ -109,6 +109,7 @@ class AquariumAdapter(AdapterABC):
 
     def collect_items(self, afts: List[dict], sample_ids: List[int]) -> List[dict]:
         """
+        Collects existing items from a list of allowable_field_type dictionaries and list of sample_ids.
 
         :param sample_ids: list of serialized allowable field types containing keys ['field_type']['part']
         :type sample_ids: list
@@ -119,11 +120,13 @@ class AquariumAdapter(AdapterABC):
         """
         non_part_afts = [aft for aft in afts if not aft["field_type"]["part"]]
         object_type_ids = list(set([aft["object_type_id"] for aft in non_part_afts]))
+        items = self.session.Item.where({"sample_id": sample_ids})
+        items = [
+            i
+            for i in items
+            if i.location != "deleted" and i.object_type_id in object_type_ids
+        ]
 
-        items = self.session.Item.where(
-            {"sample_id": sample_ids, "object_type_id": object_type_ids}
-        )
-        items = [i for i in items if i.location != "deleted"]
         return [Serializer.serialize(i) for i in items]
 
     def collect_parts(self, sample_ids, lim):
