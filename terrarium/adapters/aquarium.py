@@ -4,7 +4,7 @@ from terrarium.utils.async_wrapper import make_async
 from terrarium.schemas import Schema
 from .adapterabc import AdapterABC
 from uuid import uuid4
-from terrarium.utils import Loggable
+from loggable import Loggable
 
 from pydent.__version__ import __version__ as __pydent_version__
 

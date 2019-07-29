@@ -3,7 +3,6 @@ from itertools import chain
 from more_itertools import map_reduce
 from typing import Callable, List, Any
 from .test_utils import timeit
-from .logger import Loggable
 
 
 def dict_intersection(a: dict, b: dict, func: Callable) -> dict:

@@ -2,7 +2,7 @@ from terrarium.builders import OperationBlueprintBuilder, OperationGraphBuilder
 from terrarium.graphs import AFTGraph, SampleGraph
 from terrarium.adapters import AdapterABC
 from terrarium import constants
-from terrarium.utils import Loggable
+from loggable import Loggable
 from terrarium.__version__ import (
     __version__,
     __title__,
