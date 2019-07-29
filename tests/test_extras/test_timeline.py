@@ -3,9 +3,10 @@ from more_itertools import flatten
 
 from terrarium.adapters.aquarium import Serializer
 from terrarium.graphs import ModelGraph
+from os.path import join
 
 
-def save_events(session, g):
+def save_events(session, g, datadir):
     def timestamp(s):
         return int(s / 60.0 / 60.0)
 
@@ -61,7 +62,7 @@ def save_events(session, g):
 
     import json
 
-    with open("events.json", "w") as f:
+    with open(join(datadir, "events.json"), "w") as f:
         json.dump(event_data, f)
 
 
@@ -134,7 +135,7 @@ def create_graph(session):
     return g
 
 
-def test_timeline(base_session):
+def test_timeline(base_session, datadir):
     session = base_session.with_cache(timeout=60)
 
     session.Plan.find([30667, 30668, 30666, 32551, 30380])
@@ -156,6 +157,6 @@ def test_timeline(base_session):
     )
 
     g = create_graph(session)
-    save_events(session, g)
+    save_events(session, g, datadir)
 
-    g.write_gexf("timeline.gexf")
+    g.write_gexf(join(datadir, "timeline.gexf"))

@@ -3,7 +3,7 @@ from terrarium import OperationBlueprintBuilder, OperationGraphBuilder
 
 
 def test_builder_api(base_session, example_sample):
-    """Test the complete API here"""
+    """Test the complete builder API here"""
 
     with base_session.with_cache(timeout=60) as sess:
         adapter = AquariumAdapter(sess)
