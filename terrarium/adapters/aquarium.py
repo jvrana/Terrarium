@@ -4,6 +4,8 @@ from terrarium.utils.async_wrapper import make_async
 from terrarium.schemas import Schema
 from .adapterabc import AdapterABC
 from uuid import uuid4
+from terrarium.utils import Loggable
+
 
 # typing
 from pydent.sessionabc import SessionABC
@@ -52,14 +54,14 @@ class AquariumAdapter(AdapterABC):
         assert session.using_cache is True
         assert session.browser
         self.session = session
+        self.log = Loggable(self)
 
     @property
     def browser(self):
         return self.session.browser
 
-    @classmethod
     def build_sample_graph(
-        cls, samples: List[Sample], g=None, visited=None
+        self, samples: List[Sample], g=None, visited=None
     ) -> SampleGraph:
         """
         Builds a connected sample graph from a list of Samples using FieldValue relationships.
@@ -74,6 +76,7 @@ class AquariumAdapter(AdapterABC):
         :rtype:
         """
         if visited is None:
+            self.log.info("Building sample graph")
             visited = set()
         if g is None:
             g = SampleGraph()
@@ -91,9 +94,10 @@ class AquariumAdapter(AdapterABC):
                 visited.add(node_id)
                 g.add_data(sample_data)
         else:
+            self.log.info("Sample graph completed: {info}".format(info=g.info()))
             return g
 
-        browser = samples[0].session.browser
+        browser = self.browser
         browser.get(samples, {"field_values": "sample"})
 
         parent_samples = []
@@ -105,7 +109,7 @@ class AquariumAdapter(AdapterABC):
                     m2 = model_serializer(sample)
                     g.add_edge_from_models(m1, m2)
 
-        return cls.build_sample_graph(parent_samples, g=g, visited=visited)
+        return self.build_sample_graph(parent_samples, g=g, visited=visited)
 
     def collect_items(self, afts: List[dict], sample_ids: List[int]) -> List[dict]:
         """
