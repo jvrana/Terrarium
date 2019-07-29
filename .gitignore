@@ -585,3 +585,4 @@ MigrationBackup/
 
 tests/fixtures/**/*.yaml
 tests/timeline.gexf
+tests/events.json
