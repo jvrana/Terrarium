@@ -26,4 +26,4 @@ def test_parse_json(file, session):
         interpreter.parse(input_json)
         plans = interpreter.submit()
         for k, v in plans.items():
-            print("http://0.0.0.0/plans?plan_id={}".format(v))
+            print("http://0.0.0.0/plans?plan_id={}".format(v.plan.id))
