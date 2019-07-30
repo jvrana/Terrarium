@@ -63,24 +63,28 @@ class OperationGraphBuilder(BuilderABC):
         ]
         return sorted(list(set(sample_ids)))
 
-    def sample_subgraph(self, sample: dict) -> AFTGraph:
+    def sample_type_subgraph(self, sample_type_id: int) -> AFTGraph:
+        """Returns the afts that refer to the sample_type"""
         nbunch = []
         for n, ndata in self.blueprint_graph.node_data():
-            if ndata["sample_type_id"] == sample["sample_type_id"]:
+            if ndata["sample_type_id"] == sample_type_id:
                 nbunch.append(n)
         subgraph = self.blueprint_graph.subgraph(nbunch)
-        subgraph.add_prefix("Sample{}_".format(sample[C.PRIMARY_KEY]))
-        for _, ndata in subgraph.node_data():
-            ndata["sample"] = sample
         return subgraph
 
     @needs_sample_graph
     def sample_subgraph_dict(self):
+        """
+        Creates a dictionary of sample_id to sample_type_subgraph
+        :return:
+        """
         sample_graphs = {}
         for nid, sample_data in self.sample_graph.model_data("Sample"):
-            sample_graphs[sample_data[C.PRIMARY_KEY]] = self.sample_subgraph(
-                sample_data
-            )
+            sample_id = sample_data[C.PRIMARY_KEY]
+            sample_type_id = sample_data["sample_type_id"]
+            sample_graph = self.sample_type_subgraph(sample_type_id)
+            sample_graph.add_prefix("Sample{}_".format(sample_id))
+            sample_graphs[sample_id] = sample_graph
         return sample_graphs
 
     @staticmethod

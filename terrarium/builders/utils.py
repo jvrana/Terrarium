@@ -3,11 +3,13 @@ from terrarium.utils import dict_intersection, group_by
 from itertools import product, chain
 from more_itertools import flatten
 from terrarium.schemas.validate import validate_with_schema_errors, is_in
+from typing import Iterable, Tuple
 
 
 def match_afts(
     afts1: Sequence[dict], afts2: Sequence[dict], hash_function: callable
-) -> iter:
+) -> Iterable[Tuple[dict, dict]]:
+    """Matches two lists of allowable_field_types."""
     group1 = group_by(afts1, hash_function)
     group2 = group_by(afts2, hash_function)
 

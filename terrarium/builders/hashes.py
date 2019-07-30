@@ -1,5 +1,4 @@
 from terrarium import constants as C
-from uuid import uuid4
 from typing import Tuple
 
 

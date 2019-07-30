@@ -1,7 +1,7 @@
 from .grouper import Grouper, GroupCounter
 from itertools import chain
 from more_itertools import map_reduce
-from typing import Callable, List, Any
+from typing import Callable, List, Any, Dict, Iterable, Any
 from .test_utils import timeit
 from .logger import logger
 
@@ -10,7 +10,10 @@ def dict_intersection(a: dict, b: dict, func: Callable) -> dict:
     """
     Returns a new dictionary with `func` applied
     to values of `func(a[key], b[key])` where `key` is a
-    key shared between dictionaries `a` and `b`
+    key shared between dictionaries `a` and `b`.
+
+    ..code-block::
+
 
     :param a:
     :param b:
@@ -24,7 +27,7 @@ def dict_intersection(a: dict, b: dict, func: Callable) -> dict:
     return c
 
 
-def group_by(a: List[Any], key: Callable) -> dict:
+def group_by(a: List[Any], key: Callable) -> Dict[str, Iterable[Any]]:
     """Groups a list by a key function"""
     return dict(map_reduce(a, keyfunc=key))
 
