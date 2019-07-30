@@ -26,8 +26,7 @@ colorama = "^0.4.1"
 termcolor = "^1.1"
 arrow = "^0.14.2"
 pydent = "=0.1.5a2"
-loggable = "^0.1.0"
-loggable-jdv = "^0.1.0"
+loggable-jdv = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 black = { version = "^19.3b0", python = "^3.6" }

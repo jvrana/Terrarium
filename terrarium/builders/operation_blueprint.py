@@ -28,6 +28,7 @@ class BlueprintBuilderABC(BuilderABC):
         self.graph = None
 
     def collect(self, *args, **kwargs):
+        self.log.info("Collecting IO values")
         self.collected_data = self.adapter.collect_io_values_from_plans(*args, **kwargs)
 
     def collect_deployed(self, *args, **kwargs):
@@ -38,6 +39,7 @@ class BlueprintBuilderABC(BuilderABC):
         :param kwargs:
         :return:
         """
+        self.log.info("Collecting deployed IO values")
         self.deployed_nodes = self.adapter.collect_deployed_afts(*args, **kwargs)
 
     @abstractmethod
@@ -72,6 +74,7 @@ class BlueprintBuilderABC(BuilderABC):
         pass
 
     def build_template_graph(self) -> AFTGraph:
+        self.log.info("Building template graph")
         all_nodes = self.deployed_nodes
         input_afts = [aft for aft in all_nodes if aft["field_type"]["role"] == "input"]
         output_afts = [
@@ -83,7 +86,9 @@ class BlueprintBuilderABC(BuilderABC):
 
         graph = AFTGraph()
 
-        for aft1, aft2 in external_edges:
+        for aft1, aft2 in self.log.tqdm(
+            external_edges, "INFO", desc="adding external edges"
+        ):
             cost = self.edge_cost(aft1, aft2)
             graph.add_data(aft1)
             graph.add_data(aft2)
@@ -91,7 +96,9 @@ class BlueprintBuilderABC(BuilderABC):
                 aft1, aft2, **{C.WEIGHT: cost, C.EDGE_TYPE: C.EXTERNAL_EDGE}
             )
 
-        for aft1, aft2 in internal_edges:
+        for aft1, aft2 in self.log.tqdm(
+            internal_edges, "INFO", desc="adding internal edges"
+        ):
             cost = self.edge_cost(aft1, aft2)
             graph.add_data(aft1)
             graph.add_data(aft2)
@@ -102,6 +109,8 @@ class BlueprintBuilderABC(BuilderABC):
         return graph
 
     def build(self) -> AFTGraph:
+        self.log.info("Building {}".format(self))
+
         if not self.collected_data:
             raise BlueprintException(
                 "Please run {} to build.".format(self.collect.__name__)

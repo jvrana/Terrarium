@@ -2,7 +2,7 @@ from terrarium.builders import OperationBlueprintBuilder, OperationGraphBuilder
 from terrarium.graphs import AFTGraph, SampleGraph
 from terrarium.adapters import AdapterABC
 from terrarium import constants
-from loggable import Loggable
+from terrarium.utils import logger
 from terrarium.__version__ import (
     __version__,
     __title__,
@@ -20,7 +20,7 @@ class Terrarium(object):
     def __init__(
         self, adapter: AdapterABC, bp_graph: AFTGraph, sample_graph: SampleGraph
     ):
-        self.log = Loggable(self)
+        self.log = logger(self)
         self.adapter = adapter
         self.blueprint = bp_graph
         self.sample_graph = sample_graph
@@ -39,7 +39,7 @@ class TerrariumBlueprint(object):
     __version__ = {"Terrarium": __version__}
 
     def __init__(self, adapter: AdapterABC):
-        self.log = Loggable(self)
+        self.log = logger(self)
         self.adapter = adapter
 
         # builders
@@ -48,8 +48,8 @@ class TerrariumBlueprint(object):
         # graphs
         self.blueprint_graph = None
 
-    def train(self, plans):
-        self.log.info("Training...")
+    def train(self, plans: list):
+        self.log.info("Training using {} plans".format(len(plans)))
         self.blueprint_builder.collect_deployed()
         self.blueprint_builder.collect(plans)
         self.blueprint_graph = self.blueprint_builder.build()

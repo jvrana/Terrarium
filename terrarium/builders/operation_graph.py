@@ -38,10 +38,12 @@ class OperationGraphBuilder(BuilderABC):
         self.sample_graph = sample_graph
 
     def build_sample_graph(self, *args, **kwargs):
+        self.log.info("Building sample graph")
         self.adapter.build_sample_graph(*args, **kwargs)
 
-    @classmethod
-    def connect_sample_graphs(cls, g1: SampleGraph, g2: SampleGraph) -> Sequence[tuple]:
+    def connect_sample_graphs(
+        self, g1: SampleGraph, g2: SampleGraph
+    ) -> Sequence[tuple]:
         def collect_role(graph, role):
             return [
                 ndata
@@ -126,12 +128,14 @@ class OperationGraphBuilder(BuilderABC):
         graph = self.build_anon_graph()
         self.assign_inventory(graph)
 
+    # TODO: this does not deal with allowable_field_types with no sample_ids (as in those that use collections)
     @needs_sample_graph
     def build_anon_graph(self) -> OperationGraph:
         """
         Builds an anonymous operation graph with no inventory assigned.
         :return:
         """
+        self.log.info("Building initial graph")
         sample_graphs = self.sample_subgraph_dict()
 
         graph = OperationGraph()
@@ -145,7 +149,13 @@ class OperationGraphBuilder(BuilderABC):
 
             g1 = sample_graphs[s1[C.PRIMARY_KEY]]
             g2 = sample_graphs[s2[C.PRIMARY_KEY]]
+            self.log.debug(
+                "Connecting nodes from sample_id={} to sample_id={}".format(
+                    s1[C.PRIMARY_KEY], s2[C.PRIMARY_KEY]
+                )
+            )
             edges = self.connect_sample_graphs(g1, g2)
+            num_edges = 0
             for e in edges:
                 n1 = g1.node_id(e[0])
                 n2 = g2.node_id(e[1])
@@ -158,14 +168,24 @@ class OperationGraphBuilder(BuilderABC):
                     n2,
                     **{C.WEIGHT: edge[C.WEIGHT], C.EDGE_TYPE: C.SAMPLE_TO_SAMPLE}
                 )
+                num_edges += 1
+            self.log.debug("Connected {} edges".format(num_edges))
         return graph
 
     @needs_sample_graph
     def assign_inventory(self, graph: OperationGraph, part_limit=50):
+        self.log.info(
+            "Assigning inventory to {} (part_limit={})".format(graph, part_limit)
+        )
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         sample_ids = self.collect_sample_ids(self.sample_graph)
-        item_data = self.adapter.collect_items(afts, sample_ids)
-        part_data = self.adapter.collect_parts(sample_ids, lim=part_limit)
+        with self.log.timeit("DEBUG", "Finding items") as log:
+            item_data = self.adapter.collect_items(afts, sample_ids)
+            log.info("Found {} items".format(len(item_data)))
+
+        with self.log.timeit("DEBUG", "Finding parts") as log:
+            part_data = self.adapter.collect_parts(sample_ids, lim=part_limit)
+            log.info("Found {} parts".format(len(part_data)))
 
         item_dict = multi_group_by_key(item_data, keys=["object_type_id", "sample_id"])
         part_dict = multi_group_by(

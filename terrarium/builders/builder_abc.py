@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from terrarium.adapters import AdapterABC
+from terrarium.utils import logger
 
 
 class BuilderABC(ABC):
@@ -10,7 +11,13 @@ class BuilderABC(ABC):
 
     def __init__(self, adapter: AdapterABC):
         self.adapter = adapter
+        self._log = None
 
     @abstractmethod
     def build(self):
         pass
+
+    @property
+    def log(self):
+        self._log = self._log or logger(self)
+        return self._log

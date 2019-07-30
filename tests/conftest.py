@@ -3,7 +3,9 @@ from os.path import abspath, dirname, join, isdir
 from os import mkdir
 import vcr
 import pytest
+from terrarium.utils import logger
 
+logger.set_level("INFO")
 
 here = dirname(abspath(__file__))
 

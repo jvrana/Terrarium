@@ -5,6 +5,23 @@ from terrarium.schemas.schemas import Schema, CustomSchemas
 # TODO: make a new model_graph that takes in a base_graph
 # TODO: schemas should be handled by the serialization/deserialization library
 
+# from collections.abc import Iterable
+# class View(Iterable):
+#
+#     def __init__(self, data):
+#         self.data = data
+#
+#     @staticmethod
+#     def map(data, key):
+#         for d in data:
+#             yield d[key]
+#
+#     def __getitem__(self, key):
+#         return self.__class__(self.map(self.data, key))
+#
+#     def __iter__(self):
+#         return self.data
+
 
 class ModelGraph(SchemaGraph):
 

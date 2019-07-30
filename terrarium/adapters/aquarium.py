@@ -4,7 +4,7 @@ from terrarium.utils.async_wrapper import make_async
 from terrarium.schemas import Schema
 from .adapterabc import AdapterABC
 from uuid import uuid4
-from loggable import Loggable
+from terrarium.utils import logger
 
 from pydent.__version__ import __version__ as __pydent_version__
 
@@ -55,7 +55,7 @@ class AquariumAdapter(AdapterABC):
         assert session.using_cache is True
         assert session.browser
         self.session = session
-        self.log = Loggable(self)
+        self.log = logger(self)
 
     def api_version(self):
         return __pydent_version__

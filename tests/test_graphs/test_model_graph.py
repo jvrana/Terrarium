@@ -39,6 +39,11 @@ class TestMethods(object):
         for x in g.edges.data():
             print(x)
 
+    def test_models(self):
+        g = build_random_graph(5, 3)
+        samples = list(g.models("Sample"))
+        assert len(samples) == 5
+
 
 class TestCopyMethodsModelGraphs(object):
 
