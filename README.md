@@ -56,3 +56,10 @@ Publication version
 * Integration with CAD tools as plugins (DASi, j5, Benchling, RavenCAD?)
 * fancier UI
 * explicit examples of "DNA Design Modules", "Strain Construction Module", and "Experimental Request Module"
+
+### v4.0 (stretch)
+* Example of simple automated researcher script that:
+  * Automatically chooses a set of DNA designs from a list of parts
+  * Constructs strains
+  * Requests a measurement (execution could be simulated with noise, etc.)
+  * Learns from that measurement to refine next design (Bayesian search?)
