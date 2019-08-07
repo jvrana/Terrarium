@@ -55,3 +55,4 @@ Publication version
 * Integration of Densmore lab's *Crucible* for bootstrapping a new laboratory.
 * Integration with CAD tools as plugins (DASi, j5, Benchling, RavenCAD?)
 * fancier UI
+* explicit examples of "DNA Design Modules", "Strain Construction Module", and "Experimental Request Module"
