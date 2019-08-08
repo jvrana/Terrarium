@@ -7,6 +7,7 @@ import os
 from terrarium.utils.validator import InstanceOf, Each, Required, Length, validate
 from terrarium.__version__ import __version__
 import networkx as nx
+from terrarium.utils.async_wrapper import make_async
 
 
 class TerrariumJSONParseError(Exception):
@@ -180,29 +181,33 @@ class JSONInterpreter(object):
 
             self.plans = {}
 
-            for goal_num, goal in enumerate(goals):
-                if goal["plan_id"] not in self.plans:
-                    canvas = Planner(sess)
-                    canvas.name = goal["plan_id"]
-                    canvas.plan.operations = []
-                    self.plans[goal["plan_id"]] = canvas
-                else:
-                    canvas = self.plans[goal["plan_id"]]
+            @make_async(4)
+            def submit_goals(goals):
+                for goal_num, goal in enumerate(goals):
+                    if goal["plan_id"] not in self.plans:
+                        canvas = Planner(sess)
+                        canvas.name = goal["plan_id"]
+                        canvas.plan.operations = []
+                        self.plans[goal["plan_id"]] = canvas
+                    else:
+                        canvas = self.plans[goal["plan_id"]]
 
-                scgraph = nx.DiGraph()
+                    scgraph = nx.DiGraph()
 
-                for n1, n2 in goal["edges"]:
-                    s1 = model.browser.find_by_name(n1)
-                    s2 = model.browser.find_by_name(n2)
-                    scgraph.add_node(s1.id, sample=s1)
-                    scgraph.add_node(s2.id, sample=s2)
-                    scgraph.add_edge(s1.id, s2.id)
-                scgraph.add_node(goal["sample"].id, sample=goal["sample"])
+                    for n1, n2 in goal["edges"]:
+                        s1 = model.browser.find_by_name(n1)
+                        s2 = model.browser.find_by_name(n2)
+                        scgraph.add_node(s1.id, sample=s1)
+                        scgraph.add_node(s2.id, sample=s2)
+                        scgraph.add_edge(s1.id, s2.id)
+                    scgraph.add_node(goal["sample"].id, sample=goal["sample"])
 
-                network = factory.new_from_composition(scgraph)
-                network.update_sample_composition()
-                network.run(goal["object_type"])
-                network.plan(canvas=canvas)
+                    network = factory.new_from_composition(scgraph)
+                    network.update_sample_composition()
+                    network.run(goal["object_type"])
+                    network.plan(canvas=canvas)
+
+            submit_goals(goals)
 
     def submit(self):
         for plan_id, plan in self.plans.items():
