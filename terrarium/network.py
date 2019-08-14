@@ -109,8 +109,12 @@ class NetworkOptimizer(object):
 
         if goal_sample.sample_type_id != goal_object_type.sample_type_id:
             raise Exception(
-                "ObjectType {} does not match Sample {}".format(
-                    goal_object_type.name, goal_sample.name
+                "ObjectType {ot} does not match Sample {s}. '{s}' is a {st} but ObjectType '{ot}' refers to "
+                "a '{otst}'".format(
+                    ot=goal_object_type.name,
+                    s=goal_sample.name,
+                    st=goal_sample.sample_type.name,
+                    otst=goal_object_type.sample_type.name,
                 )
             )
 
