@@ -1,4 +1,11 @@
 {
+  "0.1.6": {
+    "description": "bug fixes",
+    "date": "2019-08-14T14:01:16.604174",
+    "changes": [
+      "more clear error messages"
+    ]
+  },
   "0.1.5": {
     "description": "minor bug fixes",
     "date": "2019-07-27T20:20:01.310316",

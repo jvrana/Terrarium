@@ -1,4 +1,18 @@
 # terrarium-capp change log
+## 0.1.5
+**2019-07-27T20:20:01.310316**
+minor bug fixes
+
+ - cli now displays the plan url after designing
+
+
+## 0.1.4
+**2019-07-27T17:40:02.037153**
+Forward planning algorithm fixed
+
+
+
+
 ## 0.1.3
 **2019-07-26T12:59:14.865755**
 new CLI
