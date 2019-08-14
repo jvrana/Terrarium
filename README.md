@@ -1,5 +1,7 @@
 # Terrarium
 
+Terrarium is a [dynamic computer-aided process planner (CAPP)](https://en.wikipedia.org/wiki/Computer-aided_process_planning) for biology designed for agile manufacturing of biological products, such as E Coli & Yeast strains, or Mammalian cell lines.
+
 This piece of software automatically plans scientific experiments in Aquarium using historical
 planning data and current laboratory inventory. Data can be pulled from specific researchers
 to emulate how that particular researcher would plan experiments.
