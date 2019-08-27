@@ -27,6 +27,18 @@ class TerrariumCLI(object):
 
         return self
 
+    def parse_json(self, json, dry_run=False):
+
+        interpreter = JSONInterpreter(self._session.with_cache(timeout=60))
+        if not dry_run:
+            plan_dict = interpreter.submit()
+            for plan_name, plan in plan_dict.items():
+                print(
+                    "{name} id={id} url={url}".format(
+                        name=plan_name, id=plan.plan.id, url=plan.url
+                    )
+                )
+
     def design(self, filepath, dry_run=False):
         """
         Parse an input JSON.

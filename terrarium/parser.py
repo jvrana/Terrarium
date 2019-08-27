@@ -8,14 +8,7 @@ from terrarium.utils.validator import InstanceOf, Each, Required, Length, valida
 from terrarium.__version__ import __version__
 import networkx as nx
 from terrarium.utils.async_wrapper import make_async
-
-
-class TerrariumJSONParseError(Exception):
-    """Exception for input file parsing errors."""
-
-
-class ValidationError(Exception):
-    pass
+from terrarium.exceptions import TerrariumJSONParseError, ValidationError
 
 
 # TODO: implement dry run
