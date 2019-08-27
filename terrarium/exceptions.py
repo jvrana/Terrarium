@@ -1,7 +1,11 @@
 import sys
 
 
-class AutoPlannerException(Exception):
+class TerrariumError(Exception):
+    """Generatic base terrarium exception"""
+
+
+class AutoPlannerException(TerrariumError):
     """A generic autoplanner exception"""
 
     def __init__(self, message):
@@ -11,3 +15,11 @@ class AutoPlannerException(Exception):
 
 class AutoPlannerLoadingError(AutoPlannerException):
     """A generic error for loading errors"""
+
+
+class TerrariumJSONParseError(TerrariumError):
+    """Exception for input file parsing errors."""
+
+
+class ValidationError(TerrariumError):
+    pass
