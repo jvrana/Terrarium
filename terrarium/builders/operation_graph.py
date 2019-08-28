@@ -183,6 +183,7 @@ class OperationGraphBuilder(BuilderABC):
         )
         afts = [ndata for _, ndata in graph.model_data("AllowableFieldType")]
         sample_ids = self.collect_sample_ids(self.sample_graph)
+
         with self.log.timeit("DEBUG", "Finding items") as log:
             item_data = self.adapter.collect_items(afts, sample_ids)
             log.info("Found {} items".format(len(item_data)))
