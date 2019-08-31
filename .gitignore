@@ -583,5 +583,7 @@ MigrationBackup/
 /tests/secrets/config.json.secret
 .vscode/settings.json
 
-tests/fixtures/**/*.yaml
-**/*.gexf
+tests/fixtures/*
+#tests/live_tests/**/*.pkl
+**/*.gexfl
+
