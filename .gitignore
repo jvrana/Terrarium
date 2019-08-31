@@ -584,6 +584,6 @@ MigrationBackup/
 .vscode/settings.json
 
 tests/fixtures/*
-#tests/live_tests/**/*.pkl
+tests/live_tests/**/*.pkl
 **/*.gexfl
 
