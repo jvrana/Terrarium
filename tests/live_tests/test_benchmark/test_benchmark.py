@@ -1,6 +1,7 @@
 import pytest
-from terrarium import AutoPlannerModel
 from pydent import Browser
+
+from terrarium import AutoPlannerModel
 
 
 @pytest.mark.record_mode("no")
@@ -21,7 +22,7 @@ def test_num_requests(session):
 
 
 @pytest.mark.benchmark
-class TestModelBuildBenchmark(object):
+class TestModelBuildBenchmark:
     @pytest.mark.record_mode("no")
     def test_build_benchmark(self, benchmark, session):
         session.using_cache = True

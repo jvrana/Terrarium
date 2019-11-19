@@ -40,7 +40,7 @@ def iter_top_paths(
 
 
 def top_paths(nodes, graph, weight="weight"):
-    """Find min path through a list of nodes"""
+    """Find min path through a list of nodes."""
 
     all_paths = []
     total_cost = 0

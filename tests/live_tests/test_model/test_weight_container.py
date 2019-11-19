@@ -1,8 +1,9 @@
-import pytest
-
-from terrarium.model import EdgeWeightContainer, AutoPlannerModel
-from pydent.browser import Browser
 import dill
+import pytest
+from pydent.browser import Browser
+
+from terrarium.model import AutoPlannerModel
+from terrarium.model import EdgeWeightContainer
 
 
 @pytest.fixture(scope="module")

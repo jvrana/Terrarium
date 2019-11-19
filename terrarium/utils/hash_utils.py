@@ -1,10 +1,10 @@
 from collections import Counter
 
 
-class HashCounter(object):
-    """
-    HashCounter counts objects according to a custom hashing function. A superficial composition
-    of a Counter instance
+class HashCounter:
+    """HashCounter counts objects according to a custom hashing function.
+
+    A superficial composition of a Counter instance
     """
 
     def __init__(self, func, data=None):
@@ -55,10 +55,8 @@ class HashCounter(object):
         return new
 
 
-class HashView(object):
-    """
-    HashView maintains a named dictionary of HashCounters
-    """
+class HashView:
+    """HashView maintains a named dictionary of HashCounters."""
 
     def __init__(self, data):
         self.data = data
