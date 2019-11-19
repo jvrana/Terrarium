@@ -1,27 +1,32 @@
 import json
 import sys
 import warnings
+from functools import wraps
 from os import stat
+from typing import List
+from typing import Tuple
 from uuid import uuid4
 
 import arrow
 import dill
 import networkx as nx
+from loggable import Loggable
 from pydent.browser import Browser
-from pydent.utils import Loggable
+from pydent.models import AllowableFieldType
+from pydent.models import ObjectType
+from pydent.models import OperationType
+from pydent.models import Sample
 from pydent.models import User
 from tqdm import tqdm
 
 from terrarium.__version__ import __version__
-from terrarium.exceptions import AutoPlannerException, AutoPlannerLoadingError
-from terrarium.utils.hash_utils import HashCounter
 from terrarium.browser_graph import BrowserGraph
-from pydent.models import OperationType, AllowableFieldType, Sample, ObjectType
-from functools import wraps
-from typing import List, Tuple
+from terrarium.exceptions import AutoPlannerException
+from terrarium.exceptions import AutoPlannerLoadingError
+from terrarium.utils.hash_utils import HashCounter
 
 
-class SetRecusion(object):
+class SetRecusion:
 
     DEFAULT = 2000
 
@@ -49,10 +54,9 @@ class SetRecusion(object):
         return wrapper
 
 
-class EdgeWeightContainer(object):
+class EdgeWeightContainer:
     def __init__(self, browser, edge_hash, node_hash, plans, plan_ids=None):
-        """
-        EdgeCalculator initializer
+        """EdgeCalculator initializer.
 
         :param browser: the Browser object
         :type browser: Browser
@@ -108,7 +112,7 @@ class EdgeWeightContainer(object):
         self._node_counter.clear()
 
     def recompute(self):
-        """Reset the counters and recompute weights"""
+        """Reset the counters and recompute weights."""
         self._edge_counter.clear()
         self._node_counter.clear()
         return self.compute()
@@ -139,7 +143,11 @@ class EdgeWeightContainer(object):
         self.save_weights(self.edges)
 
     def compute(self):
-        """Compute the weights. If previously computed, this function will avoid re-caching plans and wires."""
+        """Compute the weights.
+
+        If previously computed, this function will avoid re-caching
+        plans and wires.
+        """
         self.log.info("Computing weights for {} plans".format(len(self.plans)))
         self._was_updated()
         if not self.is_cached:
@@ -173,7 +181,7 @@ class EdgeWeightContainer(object):
 
     @staticmethod
     def to_edges(wires, operations):
-        """Wires and operations to a list of edges"""
+        """Wires and operations to a list of edges."""
         edges = []
         for wire in wires:  # external wires
             if wire.source and wire.destination:
@@ -292,10 +300,8 @@ class EdgeWeightContainer(object):
         self.log = Loggable(self)
 
 
-class AutoPlannerModel(object):
-    """
-    Builds a model from historical plan data.
-    """
+class AutoPlannerModel:
+    """Builds a model from historical plan data."""
 
     EXCLUDE_FILTER = "exclude"
     FILTER_MODEL_CLASS = "model_class"
@@ -337,7 +343,7 @@ class AutoPlannerModel(object):
 
     # TODO: method for printing statistics and plots for the model
     def plots(self):
-        raise NotImplemented()
+        raise NotImplementedError()
 
     @property
     def version(self):
@@ -349,8 +355,10 @@ class AutoPlannerModel(object):
 
     @staticmethod
     def _external_aft_hash(aft):
-        """A has function representing two 'external' :class:`pydent.models.AllowableFieldType`
-        models (i.e. a wire)"""
+        """A has function representing two 'external'.
+
+        :class:`pydent.models.AllowableFieldType` models (i.e. a wire)
+        """
         if not aft.field_type:
             return str(uuid4())
         if aft.field_type.part:
@@ -363,8 +371,10 @@ class AutoPlannerModel(object):
 
     @staticmethod
     def _internal_aft_hash(aft):
-        """A has function representing two 'internal' :class:`pydent.models.AllowableFieldType`
-        models (i.e. an operation)"""
+        """A has function representing two 'internal'.
+
+        :class:`pydent.models.AllowableFieldType` models (i.e. an operation)
+        """
 
         return "{operation_type}".format(
             operation_type=aft.field_type.parent_id,
@@ -374,7 +384,8 @@ class AutoPlannerModel(object):
 
     @classmethod
     def _hash_afts(cls, pair):
-        """Make a unique hash for a :class:`pydent.models.AllowableFieldType` pair"""
+        """Make a unique hash for a :class:`pydent.models.AllowableFieldType`
+        pair."""
         source_hash = cls._external_aft_hash(pair[0])
         dest_hash = cls._external_aft_hash(pair[1])
         return "{}->{}".format(source_hash, dest_hash)
@@ -462,8 +473,7 @@ class AutoPlannerModel(object):
         ) + cls._match_external_afts(input_afts, output_afts)
 
     def _get_aft_pairs(self):
-        """
-        Construct edges from all deployed allowable_field_types
+        """Construct edges from all deployed allowable_field_types.
 
         :return: list of tuples representing connections between AllowableFieldType
         :rtype: list
@@ -537,9 +547,7 @@ class AutoPlannerModel(object):
             )
 
     def build(self):
-        """
-        Construct a graph of all possible Operation connections.
-        """
+        """Construct a graph of all possible Operation connections."""
         # computer weights
         self.weight_container.compute()
 
@@ -556,8 +564,7 @@ class AutoPlannerModel(object):
     def _collect_afts(
         self, graph: BrowserGraph
     ) -> Tuple[List[AllowableFieldType], List[AllowableFieldType]]:
-        """
-        Collect :class:`pydent.models.AllowableFieldType` models from graph
+        """Collect :class:`pydent.models.AllowableFieldType` models from graph.
 
         :param graph: a browser graph
         :type graph: BrowserGraph
@@ -666,9 +673,8 @@ class AutoPlannerModel(object):
                 data = dill.load(f)
                 if data["version"] != __version__:
                     warnings.warn(
-                        "Version number of saved model ('{}') does not match current model version ('{}')".format(
-                            data["version"], __version__
-                        )
+                        "Version number of saved model ('{}') does not match current "
+                        "model version ('{}')".format(data["version"], __version__)
                     )
                 browser = data["browser"]
                 model = cls(browser.session)
@@ -695,8 +701,8 @@ class AutoPlannerModel(object):
                 )
                 if "version" in data and data["version"] != __version__:
                     msg = (
-                        "Version notice: This may have occurred since saved model version {} "
-                        "does not match current version {}".format(
+                        "Version notice: This may have occurred since saved model "
+                        "version {} does not match current version {}".format(
                             data["version"], __version__
                         )
                     )
@@ -730,10 +736,8 @@ class AutoPlannerModel(object):
         return new
 
 
-class ModelFactory(object):
-    """
-    Build Terrarium models from a shared model cache.
-    """
+class ModelFactory:
+    """Build Terrarium models from a shared model cache."""
 
     def __init__(self, session):
         self.browser = Browser(session)
@@ -778,8 +782,8 @@ class ModelFactory(object):
 
     @staticmethod
     def load_model(path: str) -> AutoPlannerModel:
-        """
-        Loads a new model from a filepath
+        """Loads a new model from a filepath.
+
         :param path:
         :type path:
         :return:

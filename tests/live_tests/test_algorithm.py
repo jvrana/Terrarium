@@ -1,5 +1,6 @@
 import networkx as nx
 from pydent.browser import Browser
+
 from terrarium.network import NetworkOptimizer
 
 

@@ -15,7 +15,7 @@ def users(session):
     plans2 = session.Plan.last(10, query="user_id != {}".format(plan.user_id))
 
     plans = plans1 + plans2
-    user_ids = set([p.user_id for p in plans])
+    user_ids = {p.user_id for p in plans}
     users = session.User.find(list(user_ids))
     return users
 
@@ -27,15 +27,15 @@ def test_empty_model(factory):
 
 @pytest.mark.parametrize("num", [1, 11])
 def test_model_factory_new(session, factory, num):
-    """Expect factory to pull in exactly the specified number of plans"""
+    """Expect factory to pull in exactly the specified number of plans."""
     plans = session.Plan.last(num)
     model = factory.new(plans)
     assert len(model.weight_container.plans) == num
 
 
 def test_model_factory_emulate_single_user(factory, config, session):
-    """Expect emulate to pull in specified number of plans, all belonging
-    to the single user"""
+    """Expect emulate to pull in specified number of plans, all belonging to
+    the single user."""
     login = config["login"]
     user = session.User.one(query=dict(login=login))
     assert len(session.Plan.last(10, query=dict(user_id=user.id))) == 10
@@ -46,7 +46,7 @@ def test_model_factory_emulate_single_user(factory, config, session):
 
 
 def test_model_attributes(session, factory):
-    """Models should have a 'version', 'name', 'updated'"""
+    """Models should have a 'version', 'name', 'updated'."""
 
     model = factory.new(session.Plan.last(1))
     assert hasattr(model, "version")
@@ -57,7 +57,7 @@ def test_model_attributes(session, factory):
 
 @pytest.mark.parametrize("num", [1, 10])
 def test_build(session, factory, num):
-    """Build a small, new model"""
+    """Build a small, new model."""
     model = factory.new(session.Plan.last(num))
     model.print_info()
     model.build()
@@ -135,7 +135,3 @@ def test_model_compose_complex(factory, users):
     m3 = models[3]
 
     m4 = m1 + m2 * 3 + m3
-
-
-def test_model_sub():
-    assert False, "Test not built yet..."

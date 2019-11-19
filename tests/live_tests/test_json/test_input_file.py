@@ -1,20 +1,17 @@
-from os.path import dirname, abspath, join
 import json
+from os.path import abspath
+from os.path import dirname
+from os.path import join
+
 import pytest
+
 from terrarium.parser import JSONInterpreter
 
 here = dirname(abspath(__file__))
 
 
 @pytest.mark.parametrize(
-    "file",
-    [
-        "example1.json",
-        "example2.json",
-        "example3.json",
-        "example4.json",
-        "example5.json",
-    ],
+    "file", ["example2.json", "example3.json", "example4.json", "example5.json"]
 )
 def test_parse_json(file, session):
 

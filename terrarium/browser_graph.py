@@ -1,9 +1,10 @@
-import networkx as nx
-from pydent.base import ModelBase as TridentBase
 from typing import List
 
+import networkx as nx
+from pydent.base import ModelBase as TridentBase
 
-class BrowserGraph(object):
+
+class BrowserGraph:
     """Graph class for representing Aquarium model-to-model relationships."""
 
     class DEFAULTS:
@@ -19,8 +20,7 @@ class BrowserGraph(object):
         self.suffix = ""
 
     def node_id(self, model):
-        """
-        Convert a pydent model into a unique graph id
+        """Convert a pydent model into a unique graph id.
 
         :param model: Trident model
         :type model: ModelBase
@@ -58,8 +58,7 @@ class BrowserGraph(object):
         )
 
     def add_model(self, model, node_id=None):
-        """
-        Add a model node to the graph with optional node_id
+        """Add a model node to the graph with optional node_id.
 
         :param model: Trident model
         :type model: ModelBase
@@ -83,8 +82,7 @@ class BrowserGraph(object):
         )
 
     def add_edge_from_models(self, m1, m2, edge_type=None, **kwargs):
-        """
-        Adds an edge from two models.
+        """Adds an edge from two models.
 
         :param m1:
         :type m1:
@@ -101,14 +99,13 @@ class BrowserGraph(object):
             model1=m1,
             model2=m2,
             edge_type=edge_type,
-            **kwargs
+            **kwargs,
         )
 
     def add_edge(self, n1, n2, model1=None, model2=None, edge_type=None, **kwargs):
-        """
-        Adds edge between two nodes given the node ids. Raises error if node does not exist
-        and models are not provided. If node_id does not exist and model is provided, a new
-        node is added.
+        """Adds edge between two nodes given the node ids. Raises error if node
+        does not exist and models are not provided. If node_id does not exist
+        and model is provided, a new node is added.
 
         :param n1: first node id
         :type n1: int
@@ -158,16 +155,16 @@ class BrowserGraph(object):
             raise TypeError("Type '{}' {} not recognized as a node".format(type(n), n))
 
     def get_node(self, node_id):
-        """
-        Get a node from a node_id. If provided with Trident model, model is converted into
-        a node_id.
+        """Get a node from a node_id. If provided with Trident model, model is
+        converted into a node_id.
+
         :param node_id:
         :type node_id:
         :return:
         :rtype:
         """
 
-        node = self.graph.node[node_id]
+        node = self.graph.nodes[node_id]
         if "model_id" in node and "model" not in node:
             model = self.browser.find(node["model_id"], model_class=node["node_class"])
             node["model"] = model
@@ -263,13 +260,19 @@ class BrowserGraph(object):
 
     def filter(self, key=None):
         if key is None:
-            key = lambda x: True
+
+            def key(x):
+                return True
+
         nodes = [n for n in self.nodes if key(n)]
         return self.subgraph(nodes)
 
     def remove(self, key=None):
         if key is None:
-            key = lambda x: False
+
+            def key(x):
+                return False
+
         nodes = [n for n in self.nodes if key(n)]
         return self.subgraph(set(self.graph.nodes).difference(set(nodes)))
 
@@ -293,7 +296,7 @@ class BrowserGraph(object):
     def cache_models(self):
         models = {}
         for n in self:
-            ndata = self.graph.node[n]
+            ndata = self.graph.nodes[n]
             if "model_id" in ndata:
                 models.setdefault(ndata["node_class"], []).append(ndata["model_id"])
 
@@ -302,7 +305,7 @@ class BrowserGraph(object):
             found_models = self.browser.find(model_ids, model_class=model_class)
             models_by_id.update({m.id: m for m in found_models})
         for n in self:
-            ndata = self.graph.node[n]
+            ndata = self.graph.nodes[n]
             if "model_id" in ndata:
                 ndata["model"] = models_by_id[ndata["model_id"]]
 

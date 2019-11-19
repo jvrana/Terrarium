@@ -1,10 +1,13 @@
-from pydent import AqSession, login
-from terrarium.parser import JSONInterpreter
-import fire
 import json
 
+import fire
+from pydent import AqSession
+from pydent import login
 
-class TerrariumCLI(object):
+from terrarium.parser import JSONInterpreter
+
+
+class TerrariumCLI:
     """
     Usage: terrarium [username] [url] parse [filename]
     """
@@ -13,8 +16,7 @@ class TerrariumCLI(object):
         self._session = None
 
     def login(self, username, url, password=None):
-        """
-        Login to Aquarium and return CLI.
+        """Login to Aquarium and return CLI.
 
         :param username: Aquarium username
         :param url: Aquarium url
@@ -40,13 +42,11 @@ class TerrariumCLI(object):
                 )
 
     def design(self, filepath, dry_run=False):
-        """
-        Parse an input JSON.
+        """Parse an input JSON.
 
         :param filepath: path to input JSON
         :param dry_run: if True, will not submit to Aquarium server.
         :return: self
-
         """
         interpreter = JSONInterpreter(self._session.with_cache(timeout=60))
         with open(filepath, "r") as f:

@@ -1,6 +1,9 @@
-from terrarium import AutoPlannerModel, NetworkFactory
-from pydent.planner import Planner
 from os.path import join
+
+from pydent.planner import Planner
+
+from terrarium import AutoPlannerModel
+from terrarium import NetworkFactory
 
 
 def test_build(session, tmp_path):

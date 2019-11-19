@@ -1,4 +1,6 @@
-from validator import *
+from validator import InstanceOf
+from validator import SubclassOf
+from validator import Validator
 
 
 class Any(Validator):

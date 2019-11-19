@@ -1,23 +1,24 @@
 import math
-from collections import OrderedDict
 from collections import defaultdict
+from collections import OrderedDict
 from functools import reduce
 from itertools import count as counter
 from itertools import product
 
 import networkx as nx
-from pydent.utils import Loggable
+from loggable import Loggable
+from pydent.models import Sample
+from pydent.planner import Planner
 from tqdm import tqdm
 
 from terrarium import AutoPlannerModel
 from terrarium.browser_graph import BrowserGraph
 from terrarium.utils import graph_utils
-from terrarium.utils.color_utils import cprint, cstring
-from pydent.models import Sample
-from pydent.planner import Planner
+from terrarium.utils.color_utils import cprint
+from terrarium.utils.color_utils import cstring
 
 
-class NetworkSolution(object):
+class NetworkSolution:
     def __init__(self, cost: float, paths: list, graph: BrowserGraph, item=None):
         self.cost = cost
         self.graph = graph
@@ -46,10 +47,8 @@ none_sample.id = None
 none_sample.name = None
 
 
-class NetworkOptimizer(object):
-    """
-    Class that finds optimal Steiner Tree (
-    """
+class NetworkOptimizer:
+    """Class that finds optimal Steiner Tree ("""
 
     counter = counter()
 
@@ -109,7 +108,8 @@ class NetworkOptimizer(object):
 
         if goal_sample.sample_type_id != goal_object_type.sample_type_id:
             raise Exception(
-                "ObjectType {ot} does not match Sample {s}. '{s}' is a {st} but ObjectType '{ot}' refers to "
+                "ObjectType {ot} does not match Sample {s}. '{s}' is a {st} but "
+                "ObjectType '{ot}' refers to "
                 "a '{otst}'".format(
                     ot=goal_object_type.name,
                     s=goal_sample.name,
@@ -153,13 +153,11 @@ class NetworkOptimizer(object):
     ############################
 
     def plan(self, canvas=None, solution=None) -> Planner:
-        """
-        Converts a path through a :class:`BrowserGraph` into an
-        Aquarium Plan
+        """Converts a path through a :class:`BrowserGraph` into an Aquarium
+        Plan.
 
-        :param paths: list of node_ids
-        :param graph: BrowserGraph instance
         :param canvas: Planner instance
+        :param solution:
         :return:
         """
         if canvas is None:
@@ -178,8 +176,7 @@ class NetworkOptimizer(object):
 
     @classmethod
     def _plan_assign_field_values(cls, path, graph, canvas):
-        """
-        Assign :class:`FieldValue` to a path
+        """Assign :class:`FieldValue` to a path.
 
         :param path: list of node_ids
         :param graph: BrowserGraph instance
@@ -235,8 +232,7 @@ class NetworkOptimizer(object):
 
     @classmethod
     def _plan_assign_items(cls, path, graph, canvas):
-        """
-        Assign :class:`Item` in a path
+        """Assign :class:`Item` in a path.
 
         :param path: list of node_ids
         :param graph: BrowserGraph instance
@@ -283,8 +279,7 @@ class NetworkOptimizer(object):
     ############################
 
     def clean_graph(self, graph):
-        """
-        Remove internal wires with different routing id but same sample
+        """Remove internal wires with different routing id but same sample.
 
         :param graph:
         :type graph:
@@ -333,13 +328,13 @@ class NetworkOptimizer(object):
 
     def print_sample_composition(self):
         for s1, s2 in self.sample_composition.edges:
-            s1 = self.sample_composition.node[s1]
-            s2 = self.sample_composition.node[s2]
+            s1 = self.sample_composition.nodes[s1]
+            s2 = self.sample_composition.nodes[s2]
             print(s1["sample"].name + " => " + s2["sample"].name)
 
     def root_samples(self):
         nodes = graph_utils.find_leaves(self.sample_composition)
-        return [self.sample_composition.node[n]["sample"] for n in nodes]
+        return [self.sample_composition.nodes[n]["sample"] for n in nodes]
 
     @classmethod
     def expand_sample_composition(cls, browser, samples=None, graph=None):
@@ -350,7 +345,7 @@ class NetworkOptimizer(object):
             graph_copy.add_nodes_from(graph.nodes(data=True))
             graph_copy.add_edges_from(graph.edges(data=True))
             graph = graph_copy
-            samples = [graph.node[n]["sample"] for n in graph]
+            samples = [graph.nodes[n]["sample"] for n in graph]
         if not samples:
             return graph
         browser.recursive_retrieve(samples, {"field_values": "sample"})
@@ -376,9 +371,9 @@ class NetworkOptimizer(object):
     def decompose_template_graph_into_samples(
         template_graph, samples, include_none=True
     ):
-        """
-        From a template graph and list of samples, extract sample specific
+        """From a template graph and list of samples, extract sample specific
         nodes from the template graph (using sample type id)
+
         :param template_graph:
         :type template_graph:
         :param samples:
@@ -386,7 +381,7 @@ class NetworkOptimizer(object):
         :return:
         :rtype:
         """
-        sample_type_ids = set(s.sample_type_id for s in samples)
+        sample_type_ids = {s.sample_type_id for s in samples}
         sample_type_graphs = defaultdict(list)
 
         if include_none:
@@ -443,18 +438,18 @@ class NetworkOptimizer(object):
     def create_sample_composition_graphs(
         self, template_graph, browser, sample_composition
     ):
-        """
-        Break a template_graph into subgraphs comprising of individual samples obtained
-        from the sample composition graph.
+        """Break a template_graph into subgraphs comprising of individual
+        samples obtained from the sample composition graph.
 
-        The `sample_composition` graph is a directed graph that defines how samples may be built
-        from other samples. Meanwhile, the `template_graph` defines all possible connections between
-        :class:`AllowableFieldType` and the associated weights of each edge determined from the
-        :class:`AutoPlannerModel`. Using the `sample_composition` graph, we grab individual subgraphs
-        from the template graph for each node in the sample compositions graph (using SampleType).
-        The edges of the `sample_composition` graph determines which edges of these new subgraphs
-        can be connected to each other, forming the final graph used in the Steiner tree optimization
-        algorithm.
+        The `sample_composition` graph is a directed graph that defines how samples may
+        be built from other samples. Meanwhile, the `template_graph` defines all
+        possible connections between :class:`AllowableFieldType` and the associated
+        weights of each edge determined from the :class:`AutoPlannerModel`. Using the
+        `sample_composition` graph, we grab individual subgraphs from the template graph
+        for each node in the sample compositions graph (using SampleType). The edges
+        of the `sample_composition` graph determines which edges of these new subgraphs
+         can be connected to each other, forming the final graph used in the Steiner
+         tree optimization algorithm.
 
         :param template_graph:
         :param browser:
@@ -466,14 +461,14 @@ class NetworkOptimizer(object):
 
         samples = []
         for item in sample_composition.nodes:
-            samples.append(sample_composition.node[item]["sample"])
+            samples.append(sample_composition.nodes[item]["sample"])
         sample_graph_dict = self.decompose_template_graph_into_samples(
             template_graph, samples
         )
 
         for s1, s2 in sample_composition.edges:
-            s1 = sample_composition.node[s1]["sample"]
-            s2 = sample_composition.node[s2]["sample"]
+            s1 = sample_composition.nodes[s1]["sample"]
+            s2 = sample_composition.nodes[s2]["sample"]
 
             sample_graph1 = sample_graph_dict[s1.id]
             sample_graph2 = sample_graph_dict[s2.id]
@@ -526,11 +521,11 @@ class NetworkOptimizer(object):
         afts = list(graph.iter_models(model_class="AllowableFieldType"))
         browser.retrieve(afts, "field_type")
         sample_ids = list(
-            set(
+            {
                 ndata["sample"].id
                 for _, ndata in graph.iter_model_data()
                 if ndata["sample"] is not None
-            )
+            }
         )
 
         ##############################
@@ -538,7 +533,7 @@ class NetworkOptimizer(object):
         ##############################
 
         non_part_afts = [aft for aft in afts if not aft.field_type.part]
-        object_type_ids = list(set([aft.object_type_id for aft in non_part_afts]))
+        object_type_ids = list({aft.object_type_id for aft in non_part_afts})
 
         self._cinfo(
             "finding all relevant items for {} samples and {} object_types".format(
@@ -641,8 +636,8 @@ class NetworkOptimizer(object):
             pass
 
     def extract_leaf_operations(self, graph):
-        """
-        Extracts operations that have no inputs (such as "Order Primer")
+        """Extracts operations that have no inputs (such as "Order Primer")
+
         :param graph:
         :type graph:
         :return:
@@ -689,7 +684,7 @@ class NetworkOptimizer(object):
 
     @staticmethod
     def get_sister_inputs(node, node_data, output_node, graph, ignore=None):
-        """Returns a field_type_id to nodes"""
+        """Returns a field_type_id to nodes."""
         sister_inputs = defaultdict(list)
         if (
             node_data["node_class"] == "AllowableFieldType"
@@ -775,7 +770,6 @@ class NetworkOptimizer(object):
                 try:
                     cost, path = graph_utils.top_paths(through_nodes, bgraph)
                 except nx.exception.NetworkXNoPath:
-                    #                 print("ERROR: No path from {} to {}".format(start, end))
                     continue
                 paths.append((cost, path))
         return paths
@@ -847,23 +841,21 @@ class NetworkOptimizer(object):
         return all_assignments
 
     # TODO: fix issue with seed path
-    """
-    TODO: During the seed stage, this algorithm can get 'stuck' in a non-optimal solution,
-    making it difficult to plan 'short' experimental plans. As an example, planning 
-    PCRs can get stuck on 'Anneal Oligos' since this is the shortest seed path. But this
-    results in a sample penalty since the Template from the sample composition is unfullfilled.
-    There is no procedure currently in place to solve this issue.
-    
-    Solution 1: Instead of using the top seed path, evaluate the top 'N' seed paths, picking the best
-    one
-    
-    Solution 2: Evaluate the top 'N' most 'different' seed paths
-    
-    Solution 3: Rank seed paths not only on path length/cost, but also on their visited samples.
-    The most visited samples, the better the path. However, longer paths have more visited samples,
-    hence usually a higher path length/cost. It would be difficult to weight these two
-    aspects of the seed path.
-    """
+    # TODO: During the seed stage, this algorithm can get 'stuck' in a non-optimal solution,
+    #     making it difficult to plan 'short' experimental plans. As an example, planning
+    #     PCRs can get stuck on 'Anneal Oligos' since this is the shortest seed path.
+    #     But this results in a sample penalty since the Template from the sample
+    #     composition is unfullfilled.
+    #     There is no procedure currently in place to solve this issue.
+    #     Solution 1: Instead of using the top seed path, evaluate the top 'N' seed
+    #     paths, picking the best one
+    #     Solution 2: Evaluate the top 'N' most 'different' seed paths
+    #     Solution 3: Rank seed paths not only on path length/cost, but also on their
+    #     visited samples.
+    #     The most visited samples, the better the path. However, longer paths have more
+    #     visited samples,
+    #     hence usually a higher path length/cost. It would be difficult to weight
+    #     these two aspects of the seed path.
 
     def optimize_steiner_tree(
         self,
@@ -1127,9 +1119,8 @@ class NetworkOptimizer(object):
         return input_to_output
 
 
-class NetworkFactory(object):
-    """Creates a new Terrarium network from a goal and model
-    """
+class NetworkFactory:
+    """Creates a new Terrarium network from a goal and model."""
 
     def __init__(self, model):
         """[summary]
@@ -1164,17 +1155,16 @@ class NetworkFactory(object):
         return self.new_from_composition(composition)
 
     def sample_composition_from_edges(self, sample_edges):
-        """
-        E.g.
+        """E.g.
 
         .. code::
 
             edges = [
-            ('DTBA_backboneA_splitAMP', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('T1MC_NatMX-Cassette_MCT2 (JV)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('MCDT_URA3.A.1_homology2_DTBA', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1'),
-            ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1')
+            ('DTBA_backboneA_splitAMP', 'plasmid'),
+            ('T1MC_NatMX-Cassette_MCT2 (JV)', 'plasmid'),
+            ('BBUT_URA3.A.0_homology1_UTP1 (from genome)', 'plasmid'),
+            ('MCDT_URA3.A.1_homology2_DTBA', 'plasmid'),
+            ('BBUT_URA3.A.1_homology1_UTP1 (from_genome) (new fwd primer))', 'plasmid')
         ]
         :param sample_edges:
         :type sample_edges:

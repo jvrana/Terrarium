@@ -1,9 +1,10 @@
-from terrarium.utils import hash_utils
 import dill
+
+from terrarium.utils import hash_utils
 
 
 def test_dump_hash_counter():
-    """Expect to be able to dump and load counter"""
+    """Expect to be able to dump and load counter."""
     hc = hash_utils.HashCounter(lambda x: str(x ** 2), [1, 2, 3, 4])
 
     hc[5] += 1
@@ -16,7 +17,7 @@ def test_dump_hash_counter():
 
 
 def test_hash_counter():
-    """Test hashing for hash counter"""
+    """Test hashing for hash counter."""
     data = list(range(7))
     hc1 = hash_utils.HashCounter(lambda x: str(x % 3), data)
 
@@ -33,7 +34,7 @@ def test_hash_counter():
 
 
 def test_hash_counter_add():
-    """Counters should add"""
+    """Counters should add."""
     hc1 = hash_utils.HashCounter(lambda x: str(x % 2), [1, 2, 3, 4])
     hc2 = hash_utils.HashCounter(lambda x: str(x % 2), [1, 2, 3, 4])
     hc3 = hc1 + hc2
@@ -41,7 +42,7 @@ def test_hash_counter_add():
 
 
 def test_hash_counter_sub():
-    """Counters should subtract"""
+    """Counters should subtract."""
     hc1 = hash_utils.HashCounter(lambda x: str(x % 2), [1, 2, 3, 4, 5])
     hc2 = hash_utils.HashCounter(lambda x: str(x % 2), [1, 2, 3, 4])
     hc3 = hc1 - hc2
@@ -50,7 +51,7 @@ def test_hash_counter_sub():
 
 
 def test_hash_counter_mul():
-    """Counters should multipler"""
+    """Counters should multipler."""
     hc1 = hash_utils.HashCounter(lambda x: str(x % 2), [1, 2, 3, 4, 5])
 
     hc2 = hc1 * 2

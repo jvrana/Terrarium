@@ -3,17 +3,18 @@
 # Color and printing utilities
 #
 ###################################################
-
 import random
 
 import webcolors
-from colorama import Fore, Style, Back
+from colorama import Back
+from colorama import Fore
+from colorama import Style
 
 colors_rgb = {}
 for c in vars(Fore):
     try:
         colors_rgb[c] = webcolors.name_to_rgb(c)
-    except:
+    except Exception:
         pass
 colors_rgb
 
@@ -22,11 +23,11 @@ def rgb_to_hex(r, g, b):
     def clamp(x):
         return max(0, min(x, 255))
 
-    return "#{0:02x}{1:02x}{2:02x}".format(clamp(r), clamp(g), clamp(b))
+    return "#{:02x}{:02x}{:02x}".format(clamp(r), clamp(g), clamp(b))
 
 
 def hex_to_color_name(h):
-    """Get closest named color for terminal printing"""
+    """Get closest named color for terminal printing."""
     distance = 3 * 255 ** 2 + 1
     color = None
     for name, rgb in colors_rgb.items():
@@ -41,7 +42,7 @@ def hex_to_color_name(h):
 
 
 def _colored(text, hex_color, fore_or_back):
-    """Return colored text"""
+    """Return colored text."""
     if hex_color is None:
         return text
     try:
@@ -55,12 +56,12 @@ def _colored(text, hex_color, fore_or_back):
 
 
 def colored(text, hex_color):
-    """Return colored text"""
+    """Return colored text."""
     return _colored(text, hex_color, Fore)
 
 
 def colored_background(text, hex_color):
-    """Return colored text"""
+    """Return colored text."""
     return _colored(text, hex_color, Back)
 
 

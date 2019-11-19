@@ -1,7 +1,9 @@
-import pytest
-from terrarium import AutoPlannerModel
 from copy import deepcopy
+
+import pytest
 from pydent.browser import Browser
+
+from terrarium import AutoPlannerModel
 
 
 @pytest.fixture(scope="module")

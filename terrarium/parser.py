@@ -1,18 +1,26 @@
-from terrarium import AutoPlannerModel, NetworkFactory
-from pydent.planner import Planner
 import json
-import arrow
-from copy import deepcopy
 import os
-from terrarium.utils.validator import InstanceOf, Each, Required, Length, validate
-from terrarium.__version__ import __version__
+from copy import deepcopy
+
+import arrow
 import networkx as nx
+from pydent.planner import Planner
+
+from terrarium import AutoPlannerModel
+from terrarium import NetworkFactory
+from terrarium.__version__ import __version__
+from terrarium.exceptions import TerrariumJSONParseError
+from terrarium.exceptions import ValidationError
 from terrarium.utils.async_wrapper import make_async
-from terrarium.exceptions import TerrariumJSONParseError, ValidationError
+from terrarium.utils.validator import Each
+from terrarium.utils.validator import InstanceOf
+from terrarium.utils.validator import Length
+from terrarium.utils.validator import Required
+from terrarium.utils.validator import validate
 
 
 # TODO: implement dry run
-class JSONInterpreter(object):
+class JSONInterpreter:
 
     PLAN_ID = "PLAN_ID"
     EDGES = "EDGES"

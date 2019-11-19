@@ -1,5 +1,6 @@
-import networkx as nx
 import os
+
+import networkx as nx
 
 
 def test_basic_search(autoplan_model, session):
@@ -21,10 +22,10 @@ def test_basic_search(autoplan_model, session):
     )
 
 
-def test_graphml(autoplan_model, datadir):
-    nx.write_graphml(
-        autoplan_model.template_graph.graph, os.path.join(datadir, "autoplan.graphml")
-    )
+# def test_graphml(autoplan_model, datadir):
+#     nx.write_graphml(
+#         autoplan_model.template_graph.graph, os.path.join(datadir, "autoplan.graphml")
+#     )
 
 
 def test_successor(autoplan_model):
