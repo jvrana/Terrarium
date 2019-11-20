@@ -83,6 +83,9 @@ def pytest_pyfunc_call(pyfuncitem):
 # Fixtures
 ###########
 
+here = os.path.dirname(os.path.abspath(__file__))
+dirpath = os.path.join(here, "fixtures", "data")
+
 
 @pytest.fixture(scope="session")
 def session(config):
@@ -92,12 +95,15 @@ def session(config):
 
 @pytest.fixture(scope="session")
 def datadir():
-    here = os.path.dirname(os.path.abspath(__file__))
-    dirpath = os.path.join(here, "fixtures", "data")
     if not os.path.isdir(dirpath):
         os.makedirs(dirpath)
     assert os.path.isdir(dirpath), "Data folder does not exist: {}".format(dirpath)
     return dirpath
+
+
+@pytest.fixture(scope="session")
+def filepath(datadir):
+    return os.path.join(datadir, "terrarium.pkl")
 
 
 def new_model(session):
@@ -115,15 +121,13 @@ def new_model(session):
 
 
 @pytest.fixture(scope="function")
-def autoplan_model(session, datadir) -> AutoPlannerModel:
+def autoplan_model(session, datadir, filepath) -> AutoPlannerModel:
     """The default autoplanner object used in tests.
 
     Preferrably loads a pickled object. If the pickled object does not
     exist, a new autoplanner object is created and pickled. This object
     is then unpickled and used.
     """
-
-    filepath = os.path.join(datadir, "terrarium.pkl")
 
     if not os.path.isfile(filepath):
         print("TESTS: No file found with path '{}'".format(filepath))
