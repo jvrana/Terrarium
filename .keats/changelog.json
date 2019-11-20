@@ -1,9 +1,11 @@
 {
   "0.1.6": {
     "description": "bug fixes",
-    "date": "2019-08-14T14:01:16.604174",
+    "date": "2019-11-20T08:29:01.962587",
     "changes": [
-      "more clear error messages"
+      "more clear error messages",
+      "update Terrarium to work with Aquarium 2.7",
+      "update trident to 0.1.5a9"
     ]
   },
   "0.1.5": {
