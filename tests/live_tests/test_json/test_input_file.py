@@ -13,13 +13,13 @@ here = dirname(abspath(__file__))
 @pytest.mark.parametrize(
     "file", ["example2.json", "example3.json", "example4.json", "example5.json"]
 )
-def test_parse_json(file, session):
+def test_parse_json(file, session, filepath):
 
     with session.with_cache(timeout=60) as sess:
         interpreter = JSONInterpreter(sess)
     with open(join(here, file), "r") as f:
         input_json = json.load(f)
-        input_json["MODEL_PATH"] = join(here, input_json["MODEL_PATH"])
+        input_json["MODEL_PATH"] = filepath
         interpreter.parse(input_json)
         plans = interpreter.submit()
         for k, v in plans.items():
