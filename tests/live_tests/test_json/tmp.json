@@ -1,0 +1,37 @@
+{
+  "PLAN_ID": "MyPlan",
+  "SAMPLE": {
+    "model_class": "Sample",
+    "query": {
+      "name": "CEN.PK2 - MAT alpha | pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    }
+  },
+  "OBJECT_TYPE": {
+    "model_class": "ObjectType",
+    "query": {
+      "name": "Yeast Glycerol Stock"
+    }
+  },
+  "EDGES": [
+    [
+      "DTBA_backboneA_splitAMP",
+      "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    ],
+    [
+      "T1MC_NatMX-Cassette_MCT2 (JV)",
+      "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    ],
+    [
+      "BBUT_URA3.A.0_homology1_UTP1 (from genome)",
+      "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    ],
+    [
+      "DH5alpha",
+      "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    ],
+    [
+      "TP-IRES-EGFP-TS",
+      "pyMOD-URA-URA3.A.1-pGPD-yeVenus-tCYC1"
+    ]
+  ]
+}

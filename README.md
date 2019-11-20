@@ -1,5 +1,7 @@
 # Terrarium
 
+[![PyPI version](https://badge.fury.io/py/terrarium-capp.svg)](https://badge.fury.io/py/terrarium-capp)
+
 Terrarium is a [dynamic computer-aided process planner (CAPP)](https://en.wikipedia.org/wiki/Computer-aided_process_planning) for biology designed for agile manufacturing of biological products, such as E Coli & Yeast strains, or Mammalian cell lines.
 
 This piece of software automatically plans scientific experiments in Aquarium using historical
@@ -14,29 +16,29 @@ to emulate how that particular researcher would plan experiments.
 
 ## Usage
 
-Installation:
+Installing a specific version
 
 ```python
-pip install -U .
+pip install terrarium-capp==0.1.5
 ```
 
 New models can be built as in the following:
 
 ```python
 from pydent import AqSession
-from autoplanner import AutoPlannerModel
-production = AqSession("login", "pass", "url"
+from terrarium import AutoPlannerModel
+production = AqSession("login", "pass", "url")
 
 # pull last 300 experimental to build model
 model = AutoPlannerModel(production, depth=300)
 model.build()
-models.save('autoplanner.pkl')
+models.save('terrarium.pkl')
 ```
 
 Saved models can be open later:
 
 ```python
-model = AutoPlannerModel.load('autoplanner.pkl')
+model = AutoPlannerModel.load('terrarium.pkl')
 ```
 
 What protocols the model uses can be adjusted using filters:

@@ -1,10 +1,22 @@
 import networkx as nx
 from pydent.browser import Browser
 
-from autoplanner.network import NetworkOptimizer
+from terrarium.network import NetworkOptimizer
 
 
-def test_algorithm(autoplanner, session):
+def test_autoplan(autoplan_model, session):
+    ots = session.OperationType.where({"category": "Control Blocks"})
+    assert ots
+    print(autoplan_model.template_graph.graph.number_of_nodes())
+    autoplan_model.add_model_filter(
+        "AllowableFieldType",
+        "exclude",
+        lambda x: x.field_type.parent_id in [ot.id for ot in ots],
+    )
+    print(autoplan_model.template_graph.graph.number_of_nodes())
+
+
+def test_algorithm(autoplan_model, session):
     browser = Browser(session)
 
     sample_composition = nx.DiGraph()
@@ -33,14 +45,14 @@ def test_algorithm(autoplanner, session):
         sample_composition.add_edge(s1.id, s2.id)
 
     algorithm = NetworkOptimizer(
-        browser, sample_composition, autoplanner.template_graph
+        browser, sample_composition, autoplan_model.template_graph
     )
     algorithm.print_sample_composition()
 
     algorithm.run(session.ObjectType.find_by_name("Plasmid Stock"))
 
 
-def test_get_sisters_for_run_gel(autoplanner, session):
+def test_get_sisters_for_run_gel(autoplan_model, session):
 
     browser = Browser(session)
 
@@ -70,14 +82,14 @@ def test_get_sisters_for_run_gel(autoplanner, session):
     # sample_composition.add_node(s.id, sample=s)
     # nx.draw(sample_composition)
 
-    alg = NetworkOptimizer(browser, sample_composition, autoplanner.template_graph)
-
-    cost, paths, graph = alg.run(
-        session.ObjectType.find_by_name("Plasmid Glycerol Stock")
+    network = NetworkOptimizer(
+        browser, sample_composition, autoplan_model.template_graph
     )
 
+    solution = network.run(session.ObjectType.find_by_name("Plasmid Glycerol Stock"))
+
     run_gels = []
-    for n, ndata in graph.iter_model_data(model_class="AllowableFieldType"):
+    for n, ndata in solution["graph"].iter_model_data(model_class="AllowableFieldType"):
         aft = ndata["model"]
         if aft.field_type.operation_type.name == "Run Gel":
             if aft.field_type.role == "input":

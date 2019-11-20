@@ -2,9 +2,9 @@ import os
 
 import pytest
 import vcr
-
 from pydent import AqSession
-from autoplanner import AutoPlannerModel
+
+from terrarium import AutoPlannerModel
 
 ###########
 # CONFIG
@@ -25,14 +25,16 @@ RECORD_MODE = "all"
 
 
 def hash_response(r):
-    """Hash function for request matcher. Defines what vcr will consider
-    to be the same request."""
+    """Hash function for request matcher.
+
+    Defines what vcr will consider to be the same request.
+    """
     return "{}:{}:{}".format(r.method, r.uri, r.body)
 
 
 def hash_test_function(func):
-    """Hashes a pytest test function to a unique file name based on
-    its class, module, and name"""
+    """Hashes a pytest test function to a unique file name based on its class,
+    module, and name."""
     if func.cls:
         cls = func.cls.__name__
     else:
@@ -43,7 +45,10 @@ def hash_test_function(func):
 
 
 def matcher(r1, r2):
-    """Request matcher. Defines what vcr considers the same request"""
+    """Request matcher.
+
+    Defines what vcr considers the same request
+    """
     return hash_response(r1) == hash_response(r2)
 
 
@@ -62,8 +67,8 @@ fixtures_path = os.path.join(here, "fixtures/vcr_cassettes")
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem):
-    """Sorts through each test, uses a vcr cassette to run the test, storing the
-    request results into a single file location"""
+    """Sorts through each test, uses a vcr cassette to run the test, storing
+    the request results into a single file location."""
     cassette_name = hash_test_function(pyfuncitem)
     recordmode = pyfuncitem.keywords._markers.get("record", None)
     if recordmode and recordmode.args[0] != "no":
@@ -81,9 +86,7 @@ def pytest_pyfunc_call(pyfuncitem):
 
 @pytest.fixture(scope="session")
 def session(config):
-    """
-    Returns a live aquarium connection.
-    """
+    """Returns a live aquarium connection."""
     return AqSession(**config)
 
 
@@ -98,7 +101,7 @@ def datadir():
 
 
 def new_model(session):
-    """Force creation of a new model"""
+    """Force creation of a new model."""
 
     with session.with_cache(timeout=60) as sess:
         operation_type = sess.OperationType.find_by_name("Assemble Plasmid")
@@ -106,28 +109,32 @@ def new_model(session):
         sess.browser.get("Operation", "plans")
         plans = sess.browser.get("Plan")
     apm = AutoPlannerModel(session.browser, plans)
-    apm.set_verbose(True)
+    apm.log.set_verbose(True)
     apm.build()
     return apm
 
 
 @pytest.fixture(scope="function")
-def autoplanner(session, datadir):
-    """The default autoplanner object used in tests. Preferrably loads a pickled
-    object. If the pickled object does not exist, a new autoplanner object is created
-    and pickled. This object is then unpickled and used."""
+def autoplan_model(session, datadir) -> AutoPlannerModel:
+    """The default autoplanner object used in tests.
 
-    filepath = os.path.join(datadir, "autoplanner.pkl")
+    Preferrably loads a pickled object. If the pickled object does not
+    exist, a new autoplanner object is created and pickled. This object
+    is then unpickled and used.
+    """
+
+    filepath = os.path.join(datadir, "terrarium.pkl")
 
     if not os.path.isfile(filepath):
         print("TESTS: No file found with path '{}'".format(filepath))
         print("TESTS: Creating new pickled autoplanner...")
         model = new_model(session)
-        model.set_verbose(True)
+        model.log.set_verbose(True)
         model.build()
+        print("TESTS: dumping {}".format(filepath))
         model.dump(filepath)
 
     print("TESTS: Loading '{}'".format(filepath))
     model = AutoPlannerModel.load(filepath)
-    model.set_verbose(False)
+    model.log.set_verbose(False)
     return model

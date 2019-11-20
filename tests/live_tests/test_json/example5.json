@@ -1,0 +1,42 @@
+{
+    "TRAIN": {
+        "method": "last",
+        "args": [500],
+        "query": {
+            "user_id": 66
+        }
+    },
+    "MODEL_PATH": "terrarium.pkl",
+    "GOALS": [
+        {
+            "PLAN_ID": "3NodeCircuitDesign",
+            "SAMPLE": {
+                "model_class": "Sample",
+                "query": {
+                    "name": "CEN.PK2 - MAT alpha ::: pMODKan-HO-pACT1-ZEV4 | pMOD8-pGALZ4-URGR-W5 | pMOD6-pGRR-W17-yeGFP"
+                }
+            },
+            "OBJECT_TYPE": {
+                "model_class": "ObjectType",
+                "query": {
+                    "name": "Yeast Glycerol Stock"
+                }
+            },
+            "EDGES": []
+        }
+    ],
+    "GLOBAL_CONSTRAINTS": {
+        "EXCLUDE": [
+            {
+                "model_class": "OperationType",
+                "query": [
+                    {"category": ["Control Blocks", "Library Cloning"]}
+                ]
+            },
+            {
+                "model_class": "Item",
+                "query": []
+            }
+        ]
+    }
+}
