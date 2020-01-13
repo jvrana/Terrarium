@@ -29,6 +29,7 @@ fire = "=0.1.3"
 uvloop = "^0.12.2"
 arrow = "^0.15.4"
 pydent = "=0.1.5a8"
+
 [tool.poetry.scripts]
 terrarium = 'terrarium.cli:main'
 

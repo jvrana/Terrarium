@@ -1,5 +1,6 @@
 from os.path import join
 
+import networkx as nx
 from pydent.planner import Planner
 
 from terrarium import AutoPlannerModel
@@ -55,4 +56,9 @@ def test_build_and_plan(session):
         desired_object_type = sess.ObjectType.find_by_name("Yeast Glycerol Stock")
 
         network.run(desired_object_type, ignore=ignore_items)
+        print("template graph")
+        print(nx.info(model.template_graph.graph))
+
+        print("graph")
+        print(nx.info(network.solution.graph.graph))
         plan = network.plan()

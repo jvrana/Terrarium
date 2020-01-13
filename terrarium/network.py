@@ -58,6 +58,7 @@ class NetworkOptimizer:
         self.template_graph = template_graph.copy()
         self.log = Loggable(self)
         self.gid = next(self.counter)
+        self.solution = None
 
     def _cinfo(self, msg, foreground="white", background="black"):
         self.log.info(cstring(msg, foreground, background))

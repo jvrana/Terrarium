@@ -183,10 +183,10 @@ class JSONInterpreter:
             self.plans = {}
 
             @make_async(4)
-            def submit_goals(goals):
+            def submit_goals(goals, session):
                 for goal_num, goal in enumerate(goals):
                     if goal["plan_id"] not in self.plans:
-                        canvas = Planner(sess)
+                        canvas = Planner(session)
                         canvas.name = goal["plan_id"]
                         canvas.plan.operations = []
                         self.plans[goal["plan_id"]] = canvas
@@ -196,8 +196,8 @@ class JSONInterpreter:
                     scgraph = nx.DiGraph()
 
                     for n1, n2 in goal["edges"]:
-                        s1 = model.browser.find_by_name(n1)
-                        s2 = model.browser.find_by_name(n2)
+                        s1 = session.browser.find_by_name(n1)
+                        s2 = session.browser.find_by_name(n2)
                         scgraph.add_node(s1.id, sample=s1)
                         scgraph.add_node(s2.id, sample=s2)
                         scgraph.add_edge(s1.id, s2.id)
@@ -208,7 +208,7 @@ class JSONInterpreter:
                     network.run(goal["object_type"])
                     network.plan(canvas=canvas)
 
-            submit_goals(goals)
+            submit_goals(goals, sess)
 
     def submit(self):
         for plan_id, plan in self.plans.items():
